@@ -24,13 +24,13 @@ const observer = new IntersectionObserver((entries) => entries.forEach((entry) =
 panels.forEach((panel) => observer.observe(panel));
 
 const section = document.querySelector('.section');
-window.addEventListener('wheel', (event) => {
+const syncCarouselToPage = () => {
   const bounds = section.getBoundingClientRect();
-  const active = bounds.top <= window.innerHeight * 0.5 && bounds.bottom >= window.innerHeight * 0.5;
-  const atStart = carousel.scrollLeft <= 1 && event.deltaY < 0;
-  const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 2 && event.deltaY > 0;
-  if (!active || atStart || atEnd) return;
-  event.preventDefault();
-  carousel.scrollLeft += event.deltaY * 0.9;
-}, { passive: false });
+  const travel = section.offsetHeight - window.innerHeight;
+  const progress = Math.max(0, Math.min(1, -bounds.top / travel));
+  carousel.scrollLeft = progress * (carousel.scrollWidth - carousel.clientWidth);
+};
+window.addEventListener('scroll', syncCarouselToPage, { passive: true });
+window.addEventListener('resize', syncCarouselToPage);
+syncCarouselToPage();
   
