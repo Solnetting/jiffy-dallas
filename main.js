@@ -6,7 +6,7 @@ const items = [
 ];
 
 document.querySelector('#app').innerHTML = `
-  <style>.hero-video{height:min(72vh,760px);overflow:hidden;background:#0B1F44}.hero-video video{display:block;width:100%;height:100%;object-fit:cover}</style>
+  <style>.hero-video{height:min(72vh,760px);overflow:hidden;background:#0B1F44}.hero-video video{display:block;width:100%;height:100%;object-fit:cover}.section{position:relative}</style>
   <section class="hero-video" aria-label="Jiffy Dallas delivery">
     <video src="./hero-seedance.mp4" autoplay muted loop playsinline></video>
   </section>
