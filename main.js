@@ -21,6 +21,11 @@ document.querySelector('#app').innerHTML = `
       <div class="hero-hover-status"><span class="status-dot"></span> Dallas micro factory · Open 7 days, 5 AM – 10 PM <i></i> <span aria-hidden="true">♧</span> Delivered in hours, not days</div>
     </div>
   </section>
+  <section class="delivery-section">
+    <div class="delivery-card"><div><span class="open-pill">OPEN</span><h2>Delivery windows today</h2><p>Available windows depend on your address and order time.</p></div><button>Check delivery time →</button><div class="windows"><b>FROM<br><strong>5 AM</strong></b><span>5–7 AM</span><span>7–9 AM</span><span>9–11 AM</span><span class="current">11 AM–1 PM</span><span>1–3 PM</span><span>3–5 PM</span><span>5–7 PM</span><span>7–9 PM</span><b>TO<br><strong>10 PM</strong></b></div></div>
+  </section>
+  <section class="products-section"><div class="products-intro"><p>WHAT’S IN THE VAN</p><h2>Both boxes.<br>One van.</h2><span>Printed here. Stocked locally. Delivered together.</span></div><article><img src="./printed-dallas.png" alt="DTF transfers"><div><h3>DTF Transfers</h3><p>Vibrant prints. Ready to press, printed in Dallas.</p></div></article><article><img src="./stocked-locally.png" alt="Blank shirts"><div><h3>Blank shirts</h3><p>Premium blanks. Always in stock, local inventory.</p></div></article></section>
+  <div class="proof-strip"><span>▣ &nbsp; Printed in Dallas</span><span>◈ &nbsp; Stocked locally</span><span>▦ &nbsp; Delivered 7 days a week</span><span>◷ &nbsp; 5 AM–10 PM</span></div>
   <main class="section">
     <header class="section-header"><p>JIFFY DFW SPECIALIST</p><h1>WHY IT’S HOURS, NOT DAYS.</h1></header>
     <div class="carousel" aria-label="Why Jiffy delivers in hours">
@@ -30,11 +35,10 @@ document.querySelector('#app').innerHTML = `
       </article>`).join('')}
     </div>
   </main>
-  <section class="delivery-section">
-    <div class="delivery-card"><div><span class="open-pill">OPEN</span><h2>Delivery windows today</h2><p>Available windows depend on your address and order time.</p></div><button>Check delivery time →</button><div class="windows"><b>FROM<br><strong>5 AM</strong></b><span>5–7 AM</span><span>7–9 AM</span><span>9–11 AM</span><span class="current">11 AM–1 PM</span><span>1–3 PM</span><span>3–5 PM</span><span>5–7 PM</span><span>7–9 PM</span><b>TO<br><strong>10 PM</strong></b></div></div>
-  </section>
-  <section class="products-section"><div class="products-intro"><p>WHAT’S IN THE VAN</p><h2>Both boxes.<br>One van.</h2><span>Printed here. Stocked locally. Delivered together.</span></div><article><img src="./printed-dallas.png" alt="DTF transfers"><div><h3>DTF Transfers</h3><p>Vibrant prints. Ready to press, printed in Dallas.</p></div></article><article><img src="./stocked-locally.png" alt="Blank shirts"><div><h3>Blank shirts</h3><p>Premium blanks. Always in stock, local inventory.</p></div></article></section>
-  <div class="proof-strip"><span>▣ &nbsp; Printed in Dallas</span><span>◈ &nbsp; Stocked locally</span><span>▦ &nbsp; Delivered 7 days a week</span><span>◷ &nbsp; 5 AM–10 PM</span></div>`;
+  <section class="final-search" aria-label="Check Jiffy delivery availability">
+    <p>READY WHEN YOU ARE</p><h2>Check your delivery time.</h2><span>Enter your address to see what’s available in Dallas–Fort Worth.</span>
+    <div class="final-search-row"><input aria-label="Delivery address" placeholder="Enter your delivery address" /><button>Check delivery time →</button></div>
+  </section>`;
 
 const panels = [...document.querySelectorAll('.panel')];
 const carousel = document.querySelector('.carousel');
