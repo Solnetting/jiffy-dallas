@@ -14,7 +14,7 @@ document.querySelector('#app').innerHTML = `
         <div class="copy"><h2>${item[0]}</h2><p>${item[1]}</p></div>
       </article>`).join('')}
     </div>
-  </main>`;
+  </main><div style="height:100vh;background:#FAF8F4" aria-hidden="true"></div>`;
 
 const panels = [...document.querySelectorAll('.panel')];
 const carousel = document.querySelector('.carousel');
