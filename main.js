@@ -43,12 +43,12 @@ const section = document.querySelector('.section');
 window.addEventListener('wheel', (event) => {
   const bounds = section.getBoundingClientRect();
   const inSection = bounds.top <= 50 && bounds.bottom >= 50;
-  if (!inSection || Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
+  if (!inSection || event.deltaY <= 0 || Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
   const atStart = carousel.scrollLeft <= 1;
   const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 1;
   const movingDown = event.deltaY > 0;
   if ((movingDown && atEnd) || (!movingDown && atStart)) return;
   event.preventDefault();
-  carousel.scrollLeft += event.deltaY;
+  carousel.scrollLeft = Math.min(carousel.scrollWidth - carousel.clientWidth, carousel.scrollLeft + event.deltaY);
 }, { passive: false, capture: true });
   
