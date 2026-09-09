@@ -26,10 +26,11 @@ panels.forEach((panel) => observer.observe(panel));
 const section = document.querySelector('.section');
 window.addEventListener('wheel', (event) => {
   const bounds = section.getBoundingClientRect();
-  const active = bounds.top <= 0 && bounds.bottom >= window.innerHeight;
+  const active = bounds.top <= window.innerHeight * 0.5 && bounds.bottom >= window.innerHeight * 0.5;
   const atStart = carousel.scrollLeft <= 1 && event.deltaY < 0;
   const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 2 && event.deltaY > 0;
   if (!active || atStart || atEnd) return;
   event.preventDefault();
   carousel.scrollLeft += event.deltaY * 0.9;
 }, { passive: false });
+  
