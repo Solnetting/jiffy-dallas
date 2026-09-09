@@ -18,10 +18,18 @@ document.querySelector('#app').innerHTML = `
 
 const panels = [...document.querySelectorAll('.panel')];
 const carousel = document.querySelector('.carousel');
-const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
-  entry.target.classList.toggle('is-active', entry.isIntersecting);
-}), { root: document.querySelector('.carousel'), threshold: 0.65 });
-panels.forEach((panel) => observer.observe(panel));
+const setActivePanel = (panel) => panels.forEach((item) => item.classList.toggle('is-active', item === panel));
+const updateActivePanel = () => {
+  const edge = carousel.getBoundingClientRect().left + 24;
+  const active = panels.reduce((closest, panel) => {
+    const distance = Math.abs(panel.getBoundingClientRect().left - edge);
+    return distance < closest.distance ? { panel, distance } : closest;
+  }, { panel: panels[0], distance: Infinity }).panel;
+  setActivePanel(active);
+};
+carousel.addEventListener('scroll', updateActivePanel, { passive: true });
+panels.forEach((panel) => panel.addEventListener('mouseenter', () => setActivePanel(panel)));
+updateActivePanel();
 
 const section = document.querySelector('.section');
 window.addEventListener('wheel', (event) => {
