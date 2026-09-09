@@ -9,6 +9,17 @@ document.querySelector('#app').innerHTML = `
   <style>.hero-video{height:min(72vh,760px);overflow:hidden;background:#0B1F44}.hero-video video{display:block;width:100%;height:100%;object-fit:cover}.section{position:relative}.delivery-section,.products-section{padding:64px 5vw;background:#FAF8F4}.delivery-card{padding:20px;border:1px solid #E3DED6;border-radius:12px;background:#fff;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}.delivery-card h2{font-family:Poppins;margin:8px 0 4px;font-size:24px}.delivery-card p{font-family:Inter;color:#667085;margin:0}.open-pill{background:#31C982;color:#fff;border-radius:999px;padding:4px 12px;font:700 11px Inter}.delivery-card button{background:#FFC800;border:0;border-radius:12px;padding:14px 22px;font:600 14px Inter;color:#0B1F44}.windows{grid-column:1/-1;display:grid;grid-template-columns:70px repeat(8,1fr) 70px;border:1px solid #E3DED6;border-radius:8px;overflow:hidden;text-align:center;font:500 14px Inter;color:#8B95A8}.windows>*{padding:15px 8px;border-right:1px solid #E3DED6}.windows .current{color:#0B1F44;background:#fff}.windows b{border:0;color:#667085;font-size:11px}.windows strong{color:#0B1F44;font:700 16px Poppins}.products-section{display:grid;grid-template-columns:1fr 1.3fr 1.3fr;gap:24px;align-items:center}.products-intro p{color:#E2231A;font:700 12px Inter;letter-spacing:.08em}.products-intro h2{font:600 48px/1 Poppins;margin:10px 0}.products-intro span,.products-section article p{font:16px/1.4 Inter;color:#667085}.products-section article{display:flex;align-items:center;gap:18px;padding:22px;border:1px solid #E3DED6;border-radius:12px;background:#fff}.products-section img{width:150px;height:150px;object-fit:cover}.products-section h3{font:600 22px Poppins;margin:0 0 8px}.proof-strip{display:flex;justify-content:space-around;gap:24px;padding:28px 5vw;background:#FFC800;color:#12141C;font:600 17px Inter}@media(max-width:800px){.delivery-card,.products-section{display:flex;flex-direction:column;align-items:stretch}.windows{font-size:11px;overflow:auto}.products-section article{min-height:180px}.proof-strip{flex-direction:column;gap:12px}}
   </style><section class="hero-video" aria-label="Jiffy Dallas delivery">
     <video src="./hero-seedance.mp4" autoplay muted loop playsinline></video>
+    <div class="hero-hover" aria-hidden="true">
+      <div class="hero-hover-content">
+        <h1>Dallas–Fort Worth,<br><span>get it today</span></h1>
+        <p class="hero-hover-subtitle">Transfers and blank shirts. Delivered in hours. Everyday.</p>
+        <form class="hero-hover-checker" onsubmit="return false">
+          <h2>Check your delivery time</h2>
+          <div class="hero-hover-search"><span aria-hidden="true">⌖</span><input aria-label="Delivery address" placeholder="Enter your delivery address" /><button type="submit">Check delivery time</button></div>
+        </form>
+      </div>
+      <div class="hero-hover-status"><span class="status-dot"></span> Dallas micro factory · Open 7 days, 5 AM – 10 PM <i></i> <span aria-hidden="true">♧</span> Delivered in hours, not days</div>
+    </div>
   </section>
   <main class="section">
     <header class="section-header"><p>JIFFY DFW SPECIALIST</p><h1>WHY IT’S HOURS, NOT DAYS.</h1></header>
