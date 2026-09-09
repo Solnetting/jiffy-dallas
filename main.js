@@ -42,7 +42,7 @@ updateActivePanel();
 const section = document.querySelector('.section');
 window.addEventListener('wheel', (event) => {
   const bounds = section.getBoundingClientRect();
-  const inSection = bounds.top <= 1 && bounds.bottom >= window.innerHeight - 1;
+  const inSection = bounds.top <= 50 && bounds.bottom >= 50;
   if (!inSection || Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
   const atStart = carousel.scrollLeft <= 1;
   const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 1;
