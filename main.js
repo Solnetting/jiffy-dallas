@@ -34,5 +34,5 @@ window.addEventListener('wheel', (event) => {
   if ((movingDown && atEnd) || (!movingDown && atStart)) return;
   event.preventDefault();
   carousel.scrollLeft += event.deltaY;
-}, { passive: false });
+}, { passive: false, capture: true });
   
