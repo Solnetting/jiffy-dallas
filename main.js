@@ -32,3 +32,4 @@ window.addEventListener('wheel', (event) => {
   event.preventDefault();
   carousel.scrollLeft += event.deltaY * 0.9;
 }, { passive: false });
+  
