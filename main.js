@@ -20,6 +20,10 @@ const panels = [...document.querySelectorAll('.panel')];
 const carousel = document.querySelector('.carousel');
 const setActivePanel = (panel) => panels.forEach((item) => item.classList.toggle('is-active', item === panel));
 const updateActivePanel = () => {
+  if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 2) {
+    setActivePanel(panels[panels.length - 1]);
+    return;
+  }
   const edge = carousel.getBoundingClientRect().left + 24;
   const active = panels.reduce((closest, panel) => {
     const distance = Math.abs(panel.getBoundingClientRect().left - edge);
