@@ -6,6 +6,10 @@ const items = [
 ];
 
 document.querySelector('#app').innerHTML = `
+  <style>.hero-video{height:min(72vh,760px);overflow:hidden;background:#0B1F44}.hero-video video{display:block;width:100%;height:100%;object-fit:cover}</style>
+  <section class="hero-video" aria-label="Jiffy Dallas delivery">
+    <video src="./hero-seedance.mp4" autoplay muted loop playsinline></video>
+  </section>
   <main class="section">
     <header class="section-header"><p>JIFFY DFW SPECIALIST</p><h1>WHY IT’S HOURS, NOT DAYS.</h1></header>
     <div class="carousel" aria-label="Why Jiffy delivers in hours">
