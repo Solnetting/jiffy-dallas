@@ -1,8 +1,8 @@
 const items = [
-  ['Printed and driven from Dallas', 'Your order leaves the Dallas micro-factory in a Jiffy van and comes straight to your door.', '/images/printed-dallas.png'],
-  ['Open 7 days, 5 AM to 10 PM', 'Every day is a same-day delivery day.', '/images/stocked-locally.png'],
-  ['Stocked locally', 'The blanks you need are stocked locally in Dallas.', '/images/both-boxes.png'],
-  ['The same Jiffy transfer quality', 'Local speed changes the delivery time—not the quality of the transfer.', '/images/transfer-quality.png']
+  ['Printed and driven from Dallas', 'Your order leaves the Dallas micro-factory in a Jiffy van and comes straight to your door.', './printed-dallas.png'],
+  ['Open 7 days, 5 AM to 10 PM', 'Every day is a same-day delivery day.', './stocked-locally.png'],
+  ['Stocked locally', 'The blanks you need are stocked locally in Dallas.', './both-boxes.png'],
+  ['The same Jiffy transfer quality', 'Local speed changes the delivery time—not the quality of the transfer.', './transfer-quality.png']
 ];
 
 document.querySelector('#app').innerHTML = `
