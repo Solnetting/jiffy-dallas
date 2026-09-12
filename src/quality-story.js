@@ -125,6 +125,44 @@ carouselStory.classList.add('quality-story--carousel');
 carouselStory.setAttribute('aria-label', 'Carousel Jiffy Local DTF quality story');
 compareStory.after(carouselStory);
 
+const blanksSection = document.createElement('section');
+blanksSection.className = 'blanks-story';
+blanksSection.setAttribute('aria-label', 'Choose blank apparel');
+blanksSection.innerHTML = `
+  <div class="blanks-sticky">
+    <div class="blanks-shell">
+      <header class="blanks-header" aria-hidden="true">
+        <div class="local-mark">Jiffy Local <span></span><small>Dallas–Fort Worth</small></div>
+        <div class="story-words">Ideas <b>Local</b> Wear <i>Further</i><em></em></div>
+      </header>
+      <article class="blanks-hero-art" aria-label="Blank apparel for a local tomorrow">
+        <img src="${asset('blanks-editorial-hero.png')}" alt="Person wearing a blank shirt" />
+        <div class="blanks-art-copy blanks-art-copy--top">Same<br />good<br />ideas<br />a brighter<br />DFW <span></span></div>
+        <div class="blanks-art-copy blanks-art-copy--bottom">Blanks<br />for a more<br />local tomorrow <span></span></div>
+      </article>
+      <main class="blanks-content">
+        <div class="blanks-content-copy">
+          <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
+          <p>Compare materials, weight, fit, and color before you choose.</p>
+        </div>
+        <div class="blanks-products">
+          ${[
+            ['blanks-product-1.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (White)', '$2.59'],
+            ['blanks-product-2.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (Black)', '$2.59'],
+            ['blanks-product-3.png', 'GILDAN · G185', 'Heavy Blend® Hoodie (Grey)', '$9.76'],
+            ['blanks-product-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck (Black)', '$11.35'],
+          ].map(([image, brand, name, price]) => `
+            <a href="https://www.jiffy.com/" class="blanks-product">
+              <img src="${asset(image)}" alt="${name}" />
+              <small>${brand}</small><strong>${name}</strong><b>from ${price}</b>
+            </a>`).join('')}
+        </div>
+        <a class="blanks-cta" href="https://www.jiffy.com/">Browse blank apparel →</a>
+      </main>
+    </div>
+  </div>`;
+carouselStory.after(blanksSection);
+
 const shell = document.querySelector('.story-shell');
 const rack = document.querySelector('.quality-rack');
 const proofCards = [...document.querySelectorAll('.proof-card')];
@@ -315,7 +353,28 @@ function renderCarouselStory() {
   carouselCount.innerHTML = `<b>${String(shown).padStart(2, '0')}</b> / 05`;
 }
 
-function renderAllStories() { renderStory(); renderCompareStory(); renderCarouselStory(); }
+const blanksShell = blanksSection.querySelector('.blanks-shell');
+let blanksCompleted = false;
+function renderBlanksStory() {
+  const maxScroll = Math.max(1, blanksSection.offsetHeight - window.innerHeight);
+  const rawProgress = clamp(-blanksSection.getBoundingClientRect().top / maxScroll);
+  if (rawProgress >= .995) blanksCompleted = true;
+  const progress = blanksCompleted ? 1 : rawProgress;
+  const reduce = ease(ramp(progress, .05, .32));
+  const reveal = ease(ramp(progress, .25, .43));
+  const gutter = window.innerWidth * .045 * reduce;
+  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
+  const panelTop = window.innerHeight * .15 * reduce;
+  blanksShell.style.setProperty('--reduce', reduce.toFixed(3));
+  blanksShell.style.setProperty('--reveal', reveal.toFixed(3));
+  blanksShell.style.setProperty('--gutter', `${gutter}px`);
+  blanksShell.style.setProperty('--hero-width', `${heroWidth}px`);
+  blanksShell.style.setProperty('--hero-top', `${panelTop}px`);
+  blanksShell.style.setProperty('--hero-bottom', `${Math.max(46, 72 * reduce)}px`);
+  blanksShell.style.setProperty('--header-color', navigationColor(progress));
+}
+
+function renderAllStories() { renderStory(); renderCompareStory(); renderCarouselStory(); renderBlanksStory(); }
 window.addEventListener('scroll', renderAllStories, { passive: true });
 window.addEventListener('resize', renderAllStories);
 renderAllStories();
