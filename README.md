@@ -21,3 +21,12 @@ The page uses the downloaded Figma assets and local font files in
 The repository is a static front-end preview. Address validation, live delivery
 windows, cart operations, and upload processing are intentionally not faked;
 the integration points are the address forms, product links, and upload panel.
+
+## Current section variants
+
+- Section 1 has three selectable quality-story variants in the hero’s Sign in
+  control; V2 is the default.
+- Section 2 contains the blanks story followed by Apparel V2, its Figma-based
+  full-scene background and translucent product rail.
+- Section 3 · V1 follows Apparel V2 and combines transfer and blank-apparel
+  product cards under “Transfers + blanks. One delivery. Best price.”
