@@ -85,12 +85,12 @@ const ease = (value) => value * value * (3 - 2 * value);
 function renderStory() {
   const maxScroll = Math.max(1, story.offsetHeight - window.innerHeight);
   const progress = clamp(-story.getBoundingClientRect().top / maxScroll);
-  const reduce = ease(ramp(progress, .06, .2));
-  const carousel = ramp(progress, .22, .72) * 4;
-  const stack = ease(ramp(progress, .72, .81));
-  const commerce = ease(ramp(progress, .82, .94));
-  const apparel = ease(ramp(progress, .91, 1));
-  const photoIndex = Math.min(5, 1 + Math.floor(clamp(carousel / 4) * 4.95));
+  const reduce = ease(ramp(progress, .04, .22));
+  const arrival = ramp(progress, .1, .66) * 4;
+  const packed = ease(ramp(progress, .66, .76));
+  const commerce = ease(ramp(progress, .78, .9));
+  const apparel = ease(ramp(progress, .87, .98));
+  const photoIndex = Math.min(5, 1 + Math.floor(clamp(arrival / 4) * 4.95));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
   const rackLeft = gutter + heroWidth + 24;
@@ -98,7 +98,7 @@ function renderStory() {
   const rackHeight = window.innerHeight - window.innerHeight * .21 - 76;
 
   shell.style.setProperty('--reduce', reduce.toFixed(3));
-  shell.style.setProperty('--stack', stack.toFixed(3));
+  shell.style.setProperty('--stack', packed.toFixed(3));
   shell.style.setProperty('--commerce', commerce.toFixed(3));
   shell.style.setProperty('--apparel', apparel.toFixed(3));
   shell.style.setProperty('--gutter', `${gutter}px`);
@@ -109,17 +109,21 @@ function renderStory() {
   shell.style.setProperty('--rack-left', `${rackLeft}px`);
   shell.style.setProperty('--rack-width', `${rackWidth}px`);
   shell.style.setProperty('--rack-height', `${rackHeight}px`);
-  shell.style.setProperty('--title-opacity', ease(ramp(progress, .15, .28)).toFixed(3));
-  shell.style.setProperty('--header-opacity', ease(ramp(progress, .16, .29)).toFixed(3));
+  shell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
+  shell.style.setProperty('--header-opacity', ease(ramp(progress, .21, .33)).toFixed(3));
   proofCards.forEach((card, index) => {
-    const fullX = (index - carousel) * rackWidth;
-    const stripWidth = Math.min(148, rackWidth / 4.7);
-    const finalX = index * (stripWidth + 10) - commerce * (stripWidth * 1.45);
-    const x = fullX * (1 - stack) + finalX * stack;
-    const width = rackWidth * (1 - stack) + stripWidth * stack;
+    const entered = ease(ramp(arrival, index, index + 1));
+    const packThisCard = Math.max(ease(ramp(arrival, index + 1, index + 2)), packed);
+    const slotGap = 10;
+    const slotWidth = Math.max(72, (rackWidth - slotGap * 3) / 4);
+    const initialX = (1 - entered) * (rackWidth + 28);
+    const packedX = index * (slotWidth + slotGap);
+    const x = initialX * (1 - packThisCard) + packedX * packThisCard;
+    const width = rackWidth * (1 - packThisCard) + slotWidth * packThisCard;
     card.style.width = `${width}px`;
     card.style.transform = `translate3d(${x}px,0,0)`;
-    card.style.opacity = progress < .2 ? '0' : '1';
+    card.style.opacity = `${entered * (1 - commerce)}`;
+    card.style.zIndex = `${index + 1}`;
   });
   count.innerHTML = `<b>${String(photoIndex).padStart(2, '0')}</b> / 05`;
 }
