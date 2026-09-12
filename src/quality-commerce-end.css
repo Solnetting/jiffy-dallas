@@ -13,6 +13,8 @@
 .quality-story:not(.quality-story--compare) .story-title{font-size:clamp(2.8rem,3.7vw,4rem)}
 .story-header,.quality-story--carousel .story-header{opacity:1;color:var(--story-header-color,#fff)}
 .quality-story--compare .story-header{display:flex!important}
+.story-header{left:4.5vw;right:4.5vw}
+.quality-story--compare .compare-hero-title p{display:none}
 .story-header .local-mark,.quality-story--carousel .local-mark{font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;gap:.65rem}
 .story-header .local-mark small,.quality-story--carousel .local-mark small{color:currentColor;opacity:.72;font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em}
 .story-header .story-words,.quality-story--carousel .story-words{font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em}
