@@ -162,6 +162,7 @@ blanksSection.innerHTML = `
           <p>Compare materials, weight, fit, and color before you choose.</p>
         </div>
       </main>
+      <div class="blanks-carousel-group">
       <div class="blanks-products" aria-label="Popular blank apparel">
         ${[
           ['blanks-product-1.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (White)', '$2.59'],
@@ -176,6 +177,7 @@ blanksSection.innerHTML = `
           </a>`).join('')}
       </div>
       <a class="blanks-cta" href="https://www.jiffy.com/">Browse blank apparel</a>
+      </div>
     </div>
   </div>`;
 carouselStory.after(blanksSection);

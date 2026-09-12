@@ -168,3 +168,38 @@
     pointer-events:auto;
   }
 }
+
+/* Keep the tertiary action physically attached to the product carousel. */
+@media(min-width:901px){
+  .blanks-story .blanks-carousel-group{
+    position:absolute;
+    z-index:8;
+    left:calc(var(--gutter) + var(--hero-width) + clamp(2rem,5.5vw,6.8rem));
+    right:var(--gutter);
+    bottom:var(--hero-bottom);
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:.85rem;
+    opacity:var(--carousel,0);
+    transform:translateY(calc((1 - var(--carousel,0)) * 2rem));
+    transition:opacity .18s ease,transform .18s ease;
+  }
+  .blanks-story .blanks-carousel-group .blanks-products{
+    position:static;
+    left:auto;
+    right:auto;
+    bottom:auto;
+    width:auto;
+    opacity:1;
+    transform:none;
+  }
+  .blanks-story .blanks-carousel-group .blanks-cta{
+    position:static;
+    align-self:flex-end;
+    width:auto;
+    margin:0;
+    opacity:1;
+    transform:none;
+  }
+}
