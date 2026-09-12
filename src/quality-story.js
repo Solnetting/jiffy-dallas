@@ -112,6 +112,28 @@ const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 const ramp = (value, start, end) => clamp((value - start) / (end - start));
 const ease = (value) => value * value * (3 - 2 * value);
 
+function layoutPackedCards(cards, progress, rackWidth, commerce) {
+  const gap = 16;
+  const slotWidth = Math.max(72, (rackWidth - gap * 3) / 4);
+  let previous = null;
+  cards.forEach((card, index) => {
+    const enterStart = .12 + index * .15;
+    const enterEnd = .2 + index * .15;
+    const packStart = index === cards.length - 1 ? .72 : .12 + (index + 1) * .15;
+    const packEnd = index === cards.length - 1 ? .8 : .2 + (index + 1) * .15;
+    const entered = ease(ramp(progress, enterStart, enterEnd));
+    const packed = ease(ramp(progress, packStart, packEnd));
+    const x = previous ? previous.x + previous.width + gap : 0;
+    const availableWidth = Math.max(slotWidth, rackWidth - x);
+    const width = availableWidth * (1 - packed) + slotWidth * packed;
+    card.style.width = `${width}px`;
+    card.style.transform = `translate3d(${x}px,0,0)`;
+    card.style.opacity = `${entered * (1 - commerce)}`;
+    card.style.zIndex = `${index + 1}`;
+    previous = { x, width };
+  });
+}
+
 function renderStory() {
   const maxScroll = Math.max(1, story.offsetHeight - window.innerHeight);
   const progress = clamp(-story.getBoundingClientRect().top / maxScroll);
@@ -138,25 +160,7 @@ function renderStory() {
   shell.style.setProperty('--rack-height', `${rackHeight}px`);
   shell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
   shell.style.setProperty('--header-opacity', ease(ramp(progress, .21, .33)).toFixed(3));
-  proofCards.forEach((card, index) => {
-    const enterStart = .12 + index * .15;
-    const enterEnd = .2 + index * .15;
-    const packStart = enterEnd;
-    const packEnd = .27 + index * .15;
-    const entered = ease(ramp(progress, enterStart, enterEnd));
-    const packed = ease(ramp(progress, packStart, packEnd));
-    const slotGap = 16;
-    const slotWidth = Math.max(72, (rackWidth - slotGap * 3) / 4);
-    const packedX = index * (slotWidth + slotGap);
-    const entryX = packedX + 24;
-    const entryWidth = Math.max(slotWidth, rackWidth - entryX);
-    const x = (entryX + (packedX - entryX) * entered) * (1 - packed) + packedX * packed;
-    const width = entryWidth * (1 - packed) + slotWidth * packed;
-    card.style.width = `${width}px`;
-    card.style.transform = `translate3d(${x}px,0,0)`;
-    card.style.opacity = `${entered * (1 - commerce)}`;
-    card.style.zIndex = `${index + 1}`;
-  });
+  layoutPackedCards(proofCards, progress, rackWidth, commerce);
   const displayed = Math.min(5, 1 + proofCards.filter((_, index) => progress >= .12 + index * .15).length);
   count.innerHTML = `<b>${String(displayed).padStart(2, '0')}</b> / 05`;
 }
@@ -177,7 +181,8 @@ function renderCompareStory() {
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .74);
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const rackHeight = window.innerHeight - window.innerHeight * .21 - 76;
+  const compareTop = window.innerHeight * .065 * reduce;
+  const rackHeight = window.innerHeight - compareTop - 76;
 
   compareShell.style.setProperty('--reduce', reduce.toFixed(3));
   compareShell.style.setProperty('--stack', '1');
@@ -186,28 +191,15 @@ function renderCompareStory() {
   compareShell.style.setProperty('--gutter', `${gutter}px`);
   compareShell.style.setProperty('--hero-left', `${gutter}px`);
   compareShell.style.setProperty('--hero-width', `${heroWidth}px`);
-  compareShell.style.setProperty('--hero-top', `${window.innerHeight * .21 * reduce}px`);
+  compareShell.style.setProperty('--hero-top', `${compareTop}px`);
   compareShell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
   compareShell.style.setProperty('--rack-left', `${rackLeft}px`);
   compareShell.style.setProperty('--rack-width', `${rackWidth}px`);
   compareShell.style.setProperty('--rack-height', `${rackHeight}px`);
+  compareShell.style.setProperty('--compare-top', `${compareTop}px`);
   compareShell.style.setProperty('--title-opacity', ease(ramp(progress, .18, .3)).toFixed(3));
   compareShell.style.setProperty('--header-opacity', '0');
-  compareProofCards.forEach((card, index) => {
-    const enterStart = .12 + index * .15;
-    const enterEnd = .2 + index * .15;
-    const packed = ease(ramp(progress, enterEnd, .27 + index * .15));
-    const entered = ease(ramp(progress, enterStart, enterEnd));
-    const gap = 16;
-    const slotWidth = Math.max(72, (rackWidth - gap * 3) / 4);
-    const finalX = index * (slotWidth + gap);
-    const entryX = finalX + 24;
-    const entryWidth = Math.max(slotWidth, rackWidth - entryX);
-    card.style.width = `${entryWidth * (1 - packed) + slotWidth * packed}px`;
-    card.style.transform = `translate3d(${(entryX + (finalX - entryX) * entered) * (1 - packed) + finalX * packed}px,0,0)`;
-    card.style.opacity = `${entered * (1 - commerce)}`;
-    card.style.zIndex = `${index + 1}`;
-  });
+  layoutPackedCards(compareProofCards, progress, rackWidth, commerce);
   const shown = Math.min(5, 1 + compareProofCards.filter((_, index) => progress >= .12 + index * .15).length);
   compareCount.innerHTML = `<b>${String(shown).padStart(2, '0')}</b> / 05`;
 }
@@ -222,13 +214,12 @@ function renderCarouselStory() {
   const maxScroll = Math.max(1, carouselStory.offsetHeight - window.innerHeight);
   const progress = clamp(-carouselStory.getBoundingClientRect().top / maxScroll);
   const reduce = ease(ramp(progress, .04, .22));
-  const slide = ramp(progress, .2, .72) * 4;
+  const slide = Math.min(3, Math.floor(ramp(progress, .2, .72) * 4));
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
-  const overlap = 64;
-  const rackLeft = gutter + heroWidth - overlap;
+  const rackLeft = gutter + heroWidth + 16;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const rackHeight = window.innerHeight - window.innerHeight * .21 - 76;
 
