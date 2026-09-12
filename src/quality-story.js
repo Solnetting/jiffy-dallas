@@ -161,20 +161,21 @@ blanksSection.innerHTML = `
           <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
           <p>Compare materials, weight, fit, and color before you choose.</p>
         </div>
-        <div class="blanks-products">
-          ${[
-            ['blanks-product-1.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (White)', '$2.59'],
-            ['blanks-product-2.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (Black)', '$2.59'],
-            ['blanks-product-3.png', 'GILDAN · G185', 'Heavy Blend® Hoodie (Grey)', '$9.76'],
-            ['blanks-product-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck (Black)', '$11.35'],
-          ].map(([image, brand, name, price]) => `
-            <a href="https://www.jiffy.com/" class="blanks-product">
-              <img src="${asset(image)}" alt="${name}" />
-              <small>${brand}</small><strong>${name}</strong><b>from ${price}</b>
-            </a>`).join('')}
-        </div>
-        <a class="blanks-cta" href="https://www.jiffy.com/">Browse blank apparel →</a>
       </main>
+      <div class="blanks-products" aria-label="Popular blank apparel">
+        ${[
+          ['blanks-product-1.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (White)', '$2.59'],
+          ['blanks-product-2.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (Black)', '$2.59'],
+          ['blanks-product-3.png', 'GILDAN · G185', 'Heavy Blend® Hoodie (Grey)', '$9.76'],
+          ['blanks-product-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck (Black)', '$11.35'],
+        ].map(([image, brand, name, price]) => `
+          <a href="https://www.jiffy.com/" class="blanks-product">
+            <img src="${asset(image)}" alt="${name}" />
+            <small>${brand}</small><strong>${name}</strong><b>from ${price}</b>
+            <span class="blanks-product__rating">★★★★<i>★</i> <em>(2,500)</em></span>
+          </a>`).join('')}
+      </div>
+      <a class="blanks-cta" href="https://www.jiffy.com/">Browse blank apparel</a>
     </div>
   </div>`;
 carouselStory.after(blanksSection);

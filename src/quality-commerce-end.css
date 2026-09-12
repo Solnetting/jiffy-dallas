@@ -83,3 +83,64 @@
   .transfer-choice__grid:after{box-shadow:none}
   .transfer-choice:hover .transfer-choice__action{border-color:#14213d;background:rgba(20,33,61,.045)}
 }
+
+/* S2 V1: a bottom-aligned, scrollable catalogue that carries the same soft
+   glass card language as the approved apparel carousel. */
+@media(min-width:901px){
+  .blanks-story .blanks-products{
+    position:absolute;
+    z-index:7;
+    left:var(--gutter);
+    right:var(--gutter);
+    bottom:var(--hero-bottom);
+    display:flex;
+    gap:clamp(1rem,1.6vw,1.75rem);
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scrollbar-width:none;
+  }
+  .blanks-story .blanks-products::-webkit-scrollbar{display:none}
+  .blanks-story .blanks-product{
+    flex:0 0 clamp(15rem,20.2vw,25rem);
+    display:flex;
+    min-width:0;
+    flex-direction:column;
+    align-items:center;
+    padding:clamp(.7rem,1vw,1rem);
+    border:1px solid rgba(255,255,255,.72);
+    border-radius:1rem;
+    background:rgba(255,255,255,.72);
+    -webkit-backdrop-filter:blur(12px) saturate(120%);
+    backdrop-filter:blur(12px) saturate(120%);
+    box-shadow:0 .65rem 1.8rem rgba(20,33,61,.1);
+    color:#14213d;
+    text-align:center;
+    transition:background .2s ease,transform .2s ease;
+  }
+  .blanks-story .blanks-product:hover{background:rgba(255,255,255,.9);transform:translateY(-.2rem)}
+  .blanks-story .blanks-product>img{width:100%;aspect-ratio:1.18/1;object-fit:cover;border-radius:.75rem;background:#eeeae3}
+  .blanks-story .blanks-product small{margin-top:.6rem;color:#6a7487;font:700 clamp(.58rem,.7vw,.72rem)/1 Inter,Arial,sans-serif}
+  .blanks-story .blanks-product strong{margin-top:.35rem;min-height:2.2em;font:700 clamp(.72rem,.88vw,.95rem)/1.12 Inter,Arial,sans-serif;white-space:normal;overflow:visible}
+  .blanks-story .blanks-product b{margin-top:.3rem;font:700 clamp(.92rem,1.08vw,1.15rem)/1 Inter,Arial,sans-serif}
+  .blanks-product__rating{display:block;margin-top:.45rem;color:#e5ac00;font:1rem/1 Inter,Arial,sans-serif;letter-spacing:-.08em}
+  .blanks-product__rating i{color:#9ba4b3;font-style:normal}
+  .blanks-product__rating em{margin-left:.45rem;color:#5b6577;font:400 .72rem/1 Inter,Arial,sans-serif;letter-spacing:0}
+  .blanks-story .blanks-cta{
+    position:absolute;
+    z-index:8;
+    left:calc(var(--gutter) + var(--hero-width) + clamp(2rem,5.5vw,6.8rem));
+    bottom:calc(var(--hero-bottom) + clamp(16rem,27vh,23rem));
+    width:auto;
+    height:auto;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    color:#14213d;
+    font:500 .9rem/1 Inter,Arial,sans-serif;
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:.28rem;
+  }
+  .blanks-story .blanks-cta:hover{color:#ef2b22}
+}
