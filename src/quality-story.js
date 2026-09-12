@@ -43,6 +43,7 @@ document.querySelector('#app').innerHTML = `
         </div>
       </form>
       <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
+      <div class="jiffy-hero__delivery-outcome" hidden aria-live="polite"></div>
     </div>
   </section>
   <section class="quality-story" aria-label="Jiffy Local DTF quality story">
@@ -258,11 +259,15 @@ const deliveryChange = addressSearch?.querySelector('.jiffy-hero__delivery-chang
 const deliveryClear = addressSearch?.querySelector('.jiffy-hero__delivery-clear');
 const heroTitle = document.querySelector('#jiffy-hero-title');
 const heroLede = document.querySelector('.jiffy-hero__lede');
+const heroEyebrow = document.querySelector('.jiffy-hero__eyebrow');
+const heroHours = document.querySelector('.jiffy-hero__hours');
+const deliveryOutcome = document.querySelector('.jiffy-hero__delivery-outcome');
 const addressSearchAnchor = document.createElement('div');
 addressSearch?.before(addressSearchAnchor);
 let deliveryCountdown;
 
 const deliveryStateKey = 'jiffy-local-delivery-window';
+const escapeHtml = (value) => value.replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
 const setDeliveryCountdown = (deadline) => {
   window.clearInterval(deliveryCountdown);
   const render = () => {
@@ -275,23 +280,54 @@ const setDeliveryCountdown = (deadline) => {
   render();
   deliveryCountdown = window.setInterval(render, 1000);
 };
-const showDeliveryStatus = ({ address, deadline }) => {
+const isDallasDeliveryAddress = (address) => /\bdallas\b|\b752\d{2}\b/i.test(address);
+const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddress(address) }) => {
   if (!addressSearch || !addressPanel || !deliveryStatus) return;
+  if (!covered) {
+    addressSearch.hidden = true;
+    heroEyebrow.hidden = true;
+    heroHours.hidden = true;
+    if (heroTitle) heroTitle.textContent = 'Not there yet.';
+    if (heroLede) heroLede.textContent = `${address.split(',')[0]} is next on the map. Leave your email and we’ll let you know when Jiffy Local arrives.`;
+    if (deliveryOutcome) {
+      deliveryOutcome.hidden = false;
+      deliveryOutcome.innerHTML = `<p class="jiffy-hero__outside-address">⌖ &nbsp; ${escapeHtml(address)}</p><form class="jiffy-hero__waitlist"><input type="email" required placeholder="you@yourshop.com" aria-label="Email address" /><button type="submit">Join the waitlist <span>→</span></button></form><p>Need it now? <a href="https://www.jiffy.com/">Shop standard from Jiffy.</a> <button type="button" data-change-address>Change address</button></p>`;
+      deliveryOutcome.querySelector('[data-change-address]')?.addEventListener('click', clearDeliveryStatus);
+      deliveryOutcome.querySelector('form')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const button = event.currentTarget.querySelector('button');
+        button.textContent = 'You’re on the waitlist ✓';
+        button.disabled = true;
+      });
+    }
+    return;
+  }
   deliveryAddress.textContent = address;
   addressInput.value = address;
   addressSearch.classList.add('is-confirmed');
   addressPanel.hidden = true;
   deliveryStatus.hidden = false;
-  if (heroTitle) heroTitle.textContent = "You're covered!";
-  if (heroLede) heroLede.textContent = 'Your Jiffy Local delivery window is open.';
+  heroEyebrow.hidden = true;
+  heroHours.hidden = true;
+  if (heroTitle) heroTitle.textContent = "You're covered.";
+  if (heroLede) heroLede.textContent = '';
+  if (deliveryOutcome) {
+    deliveryOutcome.hidden = false;
+    deliveryOutcome.innerHTML = `<section class="jiffy-hero__window-card" aria-label="Next delivery window"><p>◷ &nbsp; Next delivery window</p><strong>Today, 2 – 4 PM</strong><small>Order by 12:30 PM to make this window · Later windows until 10 PM</small><div><a href="https://www.jiffy.com/transfers">Shop transfers <span>→</span></a><a href="https://www.jiffy.com/">Shop blanks <span>→</span></a></div><button type="button" data-change-address>Change address</button></section>`;
+    deliveryOutcome.querySelector('[data-change-address]')?.addEventListener('click', clearDeliveryStatus);
+  }
   setDeliveryCountdown(deadline);
 };
 const clearDeliveryStatus = () => {
   window.clearInterval(deliveryCountdown);
   addressSearch?.classList.remove('is-confirmed');
+  if (addressSearch) addressSearch.hidden = false;
   if (addressPanel) addressPanel.hidden = false;
   if (deliveryStatus) deliveryStatus.hidden = true;
   if (addressInput) addressInput.value = '';
+  if (heroEyebrow) heroEyebrow.hidden = false;
+  if (heroHours) heroHours.hidden = false;
+  if (deliveryOutcome) { deliveryOutcome.hidden = true; deliveryOutcome.replaceChildren(); }
   if (heroTitle) heroTitle.innerHTML = 'Transfers and blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.';
   if (heroLede) heroLede.textContent = 'Order this morning. Press this afternoon.';
   window.localStorage.removeItem(deliveryStateKey);
@@ -303,7 +339,7 @@ addressForm?.addEventListener('submit', (event) => {
     addressInput?.focus();
     return;
   }
-  const delivery = { address, deadline: Date.now() + (2 * 60 * 60 * 1000) };
+  const delivery = { address, deadline: Date.now() + (2 * 60 * 60 * 1000), covered: isDallasDeliveryAddress(address) };
   window.localStorage.setItem(deliveryStateKey, JSON.stringify(delivery));
   showDeliveryStatus(delivery);
 });
@@ -314,7 +350,7 @@ deliveryChange?.addEventListener('click', () => {
 deliveryClear?.addEventListener('click', clearDeliveryStatus);
 try {
   const savedDelivery = JSON.parse(window.localStorage.getItem(deliveryStateKey));
-  if (savedDelivery?.address && savedDelivery.deadline > Date.now()) showDeliveryStatus(savedDelivery);
+  if (savedDelivery?.address && savedDelivery.deadline > Date.now()) showDeliveryStatus({ ...savedDelivery, covered: isDallasDeliveryAddress(savedDelivery.address) });
 } catch { window.localStorage.removeItem(deliveryStateKey); }
 let addressSearchFrame;
 const updateAddressSearch = () => {
