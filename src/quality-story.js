@@ -158,7 +158,7 @@ function renderStory() {
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const panelTop = window.innerHeight * .055 * reduce;
+  const panelTop = window.innerHeight * reduce * (.21 * (1 - commerce) + .055 * commerce);
   const rackHeight = window.innerHeight - panelTop - 76 * reduce;
 
   shell.style.setProperty('--reduce', reduce.toFixed(3));
@@ -247,7 +247,7 @@ function renderCarouselStory() {
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
   const rackLeft = gutter + heroWidth + 16;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const panelTop = window.innerHeight * .055 * reduce;
+  const panelTop = window.innerHeight * reduce * (.21 * (1 - commerce) + .055 * commerce);
   const rackHeight = window.innerHeight - panelTop - 76 * reduce;
 
   carouselShell.style.setProperty('--reduce', reduce.toFixed(3));
