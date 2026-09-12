@@ -144,6 +144,8 @@ function renderStory() {
   const reduce = ease(ramp(progress, .04, .22));
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
+  const headerTone = ease(ramp(progress, .22, .36));
+  const headerColor = `rgb(${Math.round(255 - 239 * headerTone)}, ${Math.round(255 - 215 * headerTone)}, ${Math.round(255 - 171 * headerTone)})`;
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
   const rackLeft = gutter + heroWidth + 24;
@@ -246,7 +248,8 @@ function renderCarouselStory() {
   carouselShell.style.setProperty('--rack-height', `${rackHeight}px`);
   carouselShell.style.setProperty('--rack-top', `${panelTop}px`);
   carouselShell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
-  carouselShell.style.setProperty('--header-opacity', ease(ramp(progress, .21, .33)).toFixed(3));
+  carouselShell.style.setProperty('--header-opacity', '1');
+  carouselShell.style.setProperty('--carousel-header-color', headerColor);
   carouselCards.forEach((card, index) => {
     card.style.width = `${rackWidth}px`;
     card.style.transform = `translate3d(${(index - slide - betweenSlides) * rackWidth}px,0,0)`;
