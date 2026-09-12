@@ -331,6 +331,7 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
   deliveryAddress.textContent = address;
   addressInput.value = address;
   addressSearch.classList.add('is-confirmed');
+  addressSearch.classList.remove('is-on-light-surface');
   addressPanel.hidden = true;
   deliveryStatus.hidden = false;
   heroEyebrow.hidden = true;
@@ -343,6 +344,7 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
 const clearDeliveryStatus = () => {
   window.clearInterval(deliveryCountdown);
   addressSearch?.classList.remove('is-confirmed');
+  addressSearch?.classList.remove('is-on-light-surface');
   if (addressSearch) addressSearch.hidden = false;
   if (addressPanel) addressPanel.hidden = false;
   if (deliveryStatus) deliveryStatus.hidden = true;
@@ -410,6 +412,21 @@ const updateAddressSearch = () => {
     addressSearchAnchor.removeAttribute('style');
   }
   addressSearch.classList.toggle('is-compact', shouldStick && shouldCompact);
+  const topSurface = [
+    document.querySelector('.jiffy-hero'),
+    document.querySelector('.quality-story.is-active'),
+    document.querySelector('.blanks-story'),
+    document.querySelector('.apparel-v2'),
+    document.querySelector('.section-three-v1'),
+    document.querySelector('.shop-in-range'),
+  ].find((section) => {
+    if (!section) return false;
+    const { top, bottom } = section.getBoundingClientRect();
+    return top <= 20 && bottom > 20;
+  });
+  const blanksReduced = Number.parseFloat(blanksSection.querySelector('.blanks-shell')?.style.getPropertyValue('--reduce') || '0') > .55;
+  const isLightSurface = topSurface?.matches('.quality-story, .section-three-v1') || (topSurface?.matches('.blanks-story') && blanksReduced);
+  addressSearch.classList.toggle('is-on-light-surface', Boolean(isLightSurface && addressSearch.classList.contains('is-confirmed')));
 };
 window.addEventListener('scroll', () => {
   if (!addressSearchFrame) addressSearchFrame = requestAnimationFrame(updateAddressSearch);
