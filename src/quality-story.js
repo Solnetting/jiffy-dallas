@@ -1,7 +1,7 @@
 const asset = (file) => `./assets/figma/${file}`;
 
 const proofs = [
-  { image: 'tiger-proof-color.png', title: 'Vibrant color', subtitle: 'Rich, consistent colors that last.' },
+  { image: 'tiger-transfer-hero.png', title: 'Vibrant color', subtitle: 'Rich, consistent colors that last.' },
   { image: 'tiger-proof-detail.png', title: 'Crisp detail', subtitle: 'Prints fine lines and complex artwork.' },
   { image: 'tiger-proof-peel.png', title: 'Clean peel', subtitle: 'Hot or cold peel. No hassle.' },
   { image: 'tiger-proof-worn.png', title: 'Fast processing', subtitle: 'Printed and ready for local delivery.' },

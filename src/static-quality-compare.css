@@ -10,3 +10,6 @@
 
 /* Keep the hand and lifted carrier film in view for the Clean peel proof. */
 .quality-story--compare .proof-card--3 img{object-position:24% center}
+
+/* The color proof uses the broader transfer-in-hand composition. */
+.quality-story--compare .proof-card--1 img{object-position:62% center}
