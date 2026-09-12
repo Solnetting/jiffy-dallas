@@ -22,8 +22,8 @@
 .quality-story--compare .compare-hero-title{top:6.5rem;left:1.5rem;width:calc(100% - 3rem)}
 .quality-story--compare .compare-hero-title h2{font-size:clamp(1.5rem,2.35vw,2.7rem)}
 .quality-story--compare .hero-art .upload-button--quiet{top:auto!important;bottom:48px!important;left:50%!important;transform:translateX(-50%)!important}
-.quality-story--compare .hero-art .upload-button--quiet:hover{transform:translate(-50%,-2px)!important}
-.hero-art .upload-button--quiet:hover{transform:translate(-50%,calc(-50% - 2px))}
+.quality-story .hero-art .upload-button--quiet:hover{background:rgba(255,255,255,.16)!important;backdrop-filter:blur(10px)!important;box-shadow:0 .35rem 1rem rgba(8,23,47,.16);transform:translate(-50%,-50%)!important}
+.quality-story--compare .hero-art .upload-button--quiet:hover{transform:translateX(-50%)!important}
 .story-header .local-mark,.quality-story--carousel .local-mark{font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;gap:.65rem}
 .story-header .local-mark small,.quality-story--carousel .local-mark small{color:currentColor;opacity:.72;font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em}
 .story-header .story-words,.quality-story--carousel .story-words{font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em}
