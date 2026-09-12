@@ -72,6 +72,8 @@ document.querySelector('#app').innerHTML = `
 
 const story = document.querySelector('.quality-story');
 const shell = document.querySelector('.story-shell');
+const rack = document.querySelector('.quality-rack');
+const proofCards = [...document.querySelectorAll('.proof-card')];
 const fileInput = document.querySelector('#artwork-input');
 const quietButton = document.querySelector('.upload-button--quiet');
 const solidButton = document.querySelector('[data-upload]');
@@ -83,21 +85,42 @@ const ease = (value) => value * value * (3 - 2 * value);
 function renderStory() {
   const maxScroll = Math.max(1, story.offsetHeight - window.innerHeight);
   const progress = clamp(-story.getBoundingClientRect().top / maxScroll);
-  const reduce = ease(ramp(progress, .08, .24));
-  const stacked = ease(ramp(progress, .22, .68));
-  const commerce = ease(ramp(progress, .72, .9));
-  const apparel = ease(ramp(progress, .84, .98));
-  const photoIndex = Math.min(5, 1 + Math.floor(ramp(progress, .15, .78) * 4.95));
+  const reduce = ease(ramp(progress, .06, .2));
+  const carousel = ramp(progress, .22, .72) * 4;
+  const stack = ease(ramp(progress, .72, .81));
+  const commerce = ease(ramp(progress, .82, .94));
+  const apparel = ease(ramp(progress, .91, 1));
+  const photoIndex = Math.min(5, 1 + Math.floor(clamp(carousel / 4) * 4.95));
+  const gutter = window.innerWidth * .045 * reduce;
+  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
+  const rackLeft = gutter + heroWidth + 24;
+  const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
+  const rackHeight = window.innerHeight - window.innerHeight * .21 - 76;
 
   shell.style.setProperty('--reduce', reduce.toFixed(3));
-  shell.style.setProperty('--stacked', stacked.toFixed(3));
+  shell.style.setProperty('--stack', stack.toFixed(3));
   shell.style.setProperty('--commerce', commerce.toFixed(3));
   shell.style.setProperty('--apparel', apparel.toFixed(3));
-  shell.style.setProperty('--gallery-shift', commerce.toFixed(3));
-  shell.style.setProperty('--hero-width', `${100 - reduce * 68}%`);
-  shell.style.setProperty('--hero-top', `${4 + reduce * 9}vh`);
-  shell.style.setProperty('--title-opacity', ease(ramp(progress, .08, .18)).toFixed(3));
-  shell.style.setProperty('--header-opacity', ease(ramp(progress, .09, .19)).toFixed(3));
+  shell.style.setProperty('--gutter', `${gutter}px`);
+  shell.style.setProperty('--hero-left', `${gutter}px`);
+  shell.style.setProperty('--hero-width', `${heroWidth}px`);
+  shell.style.setProperty('--hero-top', `${window.innerHeight * .21 * reduce}px`);
+  shell.style.setProperty('--hero-bottom', `${window.innerHeight * .055 * reduce}px`);
+  shell.style.setProperty('--rack-left', `${rackLeft}px`);
+  shell.style.setProperty('--rack-width', `${rackWidth}px`);
+  shell.style.setProperty('--rack-height', `${rackHeight}px`);
+  shell.style.setProperty('--title-opacity', ease(ramp(progress, .15, .28)).toFixed(3));
+  shell.style.setProperty('--header-opacity', ease(ramp(progress, .16, .29)).toFixed(3));
+  proofCards.forEach((card, index) => {
+    const fullX = (index - carousel) * rackWidth;
+    const stripWidth = Math.min(148, rackWidth / 4.7);
+    const finalX = index * (stripWidth + 10) - commerce * (stripWidth * 1.45);
+    const x = fullX * (1 - stack) + finalX * stack;
+    const width = rackWidth * (1 - stack) + stripWidth * stack;
+    card.style.width = `${width}px`;
+    card.style.transform = `translate3d(${x}px,0,0)`;
+    card.style.opacity = progress < .2 ? '0' : '1';
+  });
   count.innerHTML = `<b>${String(photoIndex).padStart(2, '0')}</b> / 05`;
 }
 
