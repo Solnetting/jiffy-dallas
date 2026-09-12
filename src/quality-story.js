@@ -8,10 +8,11 @@ const proofs = [
 ];
 
 const products = [
-  ['product-image4.png', 'Gildan G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
-  ['product-image5.png', 'Gildan G500', 'Heavy Cotton™ T-Shirt', '$2.59'],
-  ['product-image6.png', 'Gildan G185', 'Heavy Blend® Hoodie', '$9.76'],
-  ['product-image7.png', 'Gildan G185', 'Heavy Blend™ Crewneck', '$11.35'],
+  ['product-image4.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
+  ['product-image5.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
+  ['product-image6.png', 'GILDAN · G185', 'Heavy Blend® Hoodie', '$9.76'],
+  ['product-image7.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck', '$11.35'],
+  ['product-image7.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck', '$11.35'],
 ];
 
 document.querySelector('#app').innerHTML = `
@@ -40,19 +41,22 @@ document.querySelector('#app').innerHTML = `
         </div>
 
         <aside class="conversion-panel" aria-label="Choose a DTF transfer path">
-          <button class="upload-button upload-button--solid" type="button" data-upload>Upload artwork</button>
+          <h2>Start with your artwork</h2>
+          <div class="transfer-paths">
           <a class="transfer-choice" href="https://www.jiffy.com/transfers">
             <img src="${asset('image50.png')}" alt="" />
-            <span><strong>DTF Transfers by size</strong><small>Upload one design. Choose the size.</small></span><b>→</b>
+            <span><strong>DTF Transfers by<br />size</strong><small>Upload a design and<br />choose the size.</small><em>From $0.06 / sq. in.</em></span><b>→</b>
           </a>
           <a class="transfer-choice" href="https://www.jiffy.com/jiffytransfers-DTFGANG001.html">
             <img src="${asset('image52.png')}" alt="" />
-            <span><strong>Gang sheet — DTF transfers</strong><small>Arrange multiple designs on one sheet.</small></span><b>→</b>
+            <span><strong>Gang sheet- DTF<br />transfers</strong><small>Arrange multiple designs<br />on one sheet.</small><em>From $11.59 / foot</em></span><b>→</b>
           </a>
+          </div>
+          <nav class="specialty-links" aria-label="Specialty transfers"><a href="https://www.jiffy.com/transfers">Explore specialty transfers →</a><a href="https://www.jiffy.com/transfers">ProColor</a><a href="https://www.jiffy.com/transfers">Glitter</a><a href="https://www.jiffy.com/transfers">Glow-in-the-Dark</a><a href="https://www.jiffy.com/transfers">Reflective</a><a href="https://www.jiffy.com/transfers">Gold Foil</a></nav>
         </aside>
 
         <section class="apparel-rail" aria-labelledby="pair-title">
-          <div class="rail-copy"><h2 id="pair-title">Pair with apparel</h2><p>Add blanks to the same cart.</p></div>
+          <div class="rail-copy"><h2 id="pair-title">Pair with popular blanks</h2></div>
           <div class="rail-products">
             ${products.map(([image, brand, name, price]) => `
               <a class="rail-product" href="https://www.jiffy.com/">
@@ -258,10 +262,10 @@ window.addEventListener('scroll', renderAllStories, { passive: true });
 window.addEventListener('resize', renderAllStories);
 renderAllStories();
 
-[quietButton, solidButton].forEach((button) => button.addEventListener('click', () => fileInput.click()));
+[quietButton, solidButton].filter(Boolean).forEach((button) => button.addEventListener('click', () => fileInput.click()));
 fileInput.addEventListener('change', () => {
   const name = fileInput.files?.[0]?.name;
-  if (name) [quietButton, solidButton].forEach((button) => { button.textContent = 'Artwork selected'; });
+  if (name) [quietButton, solidButton].filter(Boolean).forEach((button) => { button.textContent = 'Artwork selected'; });
 });
 compareButtons.forEach((button) => button.addEventListener('click', () => compareFileInput.click()));
 compareFileInput.addEventListener('change', () => {
