@@ -233,6 +233,23 @@ sectionThreeV1.innerHTML = `
   </div>`;
 apparelV2.after(sectionThreeV1);
 
+const shopInRange = document.createElement('section');
+shopInRange.className = 'shop-in-range';
+shopInRange.setAttribute('aria-labelledby', 'shop-in-range-title');
+shopInRange.innerHTML = `
+  <img class="shop-in-range__background" src="${asset('shop-in-range-background.png')}" alt="" />
+  <div class="shop-in-range__shade"></div>
+  <div class="shop-in-range__inner">
+    <header><h2 id="shop-in-range-title">Is your shop in range?</h2><p>Type it in. If we cover you, you'll see the next window.</p></header>
+    <form class="shop-in-range__form">
+      <strong>Check your delivery time</strong>
+      <label><img src="${asset('shop-in-range-pin.svg')}" alt="" /><input type="text" name="shop-address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
+      <button type="submit">Check delivery time</button>
+    </form>
+    <p class="shop-in-range__trust"><img src="${asset('shop-in-range-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
+  </div>`;
+sectionThreeV1.after(shopInRange);
+
 document.querySelectorAll('[data-nav-scroll]').forEach((link) => {
   link.addEventListener('click', (event) => {
     event.preventDefault();
@@ -261,6 +278,8 @@ const heroLede = document.querySelector('.jiffy-hero__lede');
 const heroEyebrow = document.querySelector('.jiffy-hero__eyebrow');
 const heroHours = document.querySelector('.jiffy-hero__hours');
 const deliveryOutcome = document.querySelector('.jiffy-hero__delivery-outcome');
+const shopInRangeForm = document.querySelector('.shop-in-range__form');
+const shopInRangeInput = shopInRangeForm?.querySelector('input[name="shop-address"]');
 const addressSearchAnchor = document.createElement('div');
 addressSearch?.before(addressSearchAnchor);
 let deliveryCountdown;
@@ -282,6 +301,7 @@ const setDeliveryCountdown = (deadline) => {
 const isDallasDeliveryAddress = (address) => /\bdallas\b|\b752\d{2}\b/i.test(address);
 const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddress(address) }) => {
   if (!addressSearch || !addressPanel || !deliveryStatus) return;
+  shopInRange.hidden = true;
   if (!covered) {
     addressSearch.hidden = true;
     heroEyebrow.hidden = true;
@@ -325,6 +345,7 @@ const clearDeliveryStatus = () => {
   if (deliveryOutcome) { deliveryOutcome.hidden = true; deliveryOutcome.replaceChildren(); }
   if (heroTitle) heroTitle.innerHTML = 'Transfers and blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.';
   if (heroLede) heroLede.textContent = 'Order this morning. Press this afternoon.';
+  shopInRange.hidden = false;
   window.localStorage.removeItem(deliveryStateKey);
 };
 addressForm?.addEventListener('submit', (event) => {
@@ -337,6 +358,17 @@ addressForm?.addEventListener('submit', (event) => {
   const delivery = { address, deadline: Date.now() + (2 * 60 * 60 * 1000), covered: isDallasDeliveryAddress(address) };
   window.localStorage.setItem(deliveryStateKey, JSON.stringify(delivery));
   showDeliveryStatus(delivery);
+});
+shopInRangeForm?.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const address = shopInRangeInput?.value.trim();
+  if (!address) {
+    shopInRangeInput?.focus();
+    return;
+  }
+  if (addressInput) addressInput.value = address;
+  addressForm?.requestSubmit();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 deliveryChange?.addEventListener('click', () => {
   clearDeliveryStatus();
