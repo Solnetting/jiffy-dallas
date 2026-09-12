@@ -290,6 +290,17 @@ const shopInRangeForm = document.querySelector('.shop-in-range__form');
 const shopInRangeInput = shopInRangeForm?.querySelector('input[name="shop-address"]');
 const addressSearchAnchor = document.createElement('div');
 addressSearch?.before(addressSearchAnchor);
+let addressSearchIsPortaled = false;
+const portalAddressSearch = () => {
+  if (!addressSearch || addressSearchIsPortaled) return;
+  document.body.append(addressSearch);
+  addressSearchIsPortaled = true;
+};
+const restoreAddressSearch = () => {
+  if (!addressSearch || !addressSearchIsPortaled) return;
+  addressSearchAnchor.after(addressSearch);
+  addressSearchIsPortaled = false;
+};
 let deliveryCountdown;
 
 const deliveryStateKey = 'jiffy-local-delivery-window';
@@ -407,25 +418,20 @@ const updateAddressSearch = () => {
   if (shouldStick && !isSticky) {
     const { width, height } = addressSearch.getBoundingClientRect();
     addressSearchAnchor.style.cssText = `width:${width}px;height:${height}px;flex:0 0 ${height}px`;
+    portalAddressSearch();
     addressSearch.classList.add('is-sticky');
   } else if (!shouldStick && isSticky) {
     addressSearch.classList.remove('is-sticky');
+    restoreAddressSearch();
     addressSearchAnchor.removeAttribute('style');
   }
   addressSearch.classList.toggle('is-compact', shouldStick && shouldCompact);
-  // Resolve the surface from the page behind the fixed bar, rather than from
-  // the bar's own y-position. At y=20 the bar masks the element we need to
-  // inspect, which was leaving the dark treatment active over Section 1.
-  const sampledSurface = document.elementFromPoint(window.innerWidth * .5, Math.min(window.innerHeight - 1, 132));
-  const topSurface = sampledSurface?.closest('.jiffy-hero, .quality-story, .blanks-story, .apparel-v2, .section-three-v1, .shop-in-range');
-  const blanksReduced = Number.parseFloat(blanksSection.querySelector('.blanks-shell')?.style.getPropertyValue('--reduce') || '0') > .55;
-  const isLightSurface = topSurface?.matches('.quality-story, .section-three-v1') || (topSurface?.matches('.blanks-story') && blanksReduced);
-  addressSearch.classList.toggle('is-on-light-surface', Boolean(isLightSurface && addressSearch.classList.contains('is-confirmed')));
 };
 window.addEventListener('scroll', () => {
   if (!addressSearchFrame) addressSearchFrame = requestAnimationFrame(updateAddressSearch);
 }, { passive: true });
 window.addEventListener('resize', () => {
+  restoreAddressSearch();
   addressSearch?.classList.remove('is-sticky', 'is-compact');
   addressSearchAnchor.removeAttribute('style');
   updateAddressSearch();

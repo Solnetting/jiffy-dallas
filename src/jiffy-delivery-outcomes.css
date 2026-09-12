@@ -29,8 +29,7 @@
 .jiffy-hero__waitlist button{width:100%}
 }
 
-/* The confirmed bar is a global overlay. Light page surfaces receive an
-   explicit white-glass treatment, independent of a section's own styles. */
-.jiffy-hero__address.is-sticky{z-index:2000}
+/* The same address element is portaled to the document layer while fixed. */
+.jiffy-hero__address.is-sticky{z-index:2147483647}
 .jiffy-hero__address.is-confirmed .jiffy-hero__delivery-status :is(.jiffy-hero__delivery-address,.jiffy-hero__delivery-window small,.jiffy-hero__delivery-window strong,.jiffy-hero__delivery-clear){color:#fff!important;mix-blend-mode:difference}
 .jiffy-hero__address.is-confirmed .jiffy-hero__delivery-divider{background:#fff;mix-blend-mode:difference}
