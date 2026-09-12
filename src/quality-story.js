@@ -17,7 +17,9 @@ const products = [
 
 document.querySelector('#app').innerHTML = `
   <section class="jiffy-hero" aria-labelledby="jiffy-hero-title">
-    <img class="jiffy-hero__image" src="${asset('jiffy-hero-mixed.png')}" alt="Jiffy Local team preparing orders in Dallas" />
+    <video class="jiffy-hero__image" autoplay muted loop playsinline aria-hidden="true">
+      <source src="${asset('jiffy-hero-video.mp4')}" type="video/mp4" />
+    </video>
     <div class="jiffy-hero__shade"></div>
     <header class="jiffy-hero__nav">
       <div class="jiffy-hero__brand">JIFFY <span class="jiffy-hero__location"><img src="${asset('jiffy-hero-pin-small.svg')}" alt="" />DALLAS-FORT WORTH</span></div>
