@@ -21,7 +21,7 @@
 .quality-story .hero-art .upload-button--quiet{background:transparent!important;backdrop-filter:none!important}
 .quality-story--compare .compare-hero-title{top:6.5rem;left:1.5rem;width:calc(100% - 3rem)}
 .quality-story--compare .compare-hero-title h2{font-size:clamp(1.5rem,2.35vw,2.7rem)}
-.quality-story--compare .hero-art .upload-button--quiet{top:auto!important;bottom:48px!important;left:50%!important;transform:translateX(-50%)!important}
+.quality-story--compare .hero-art .upload-button--quiet{top:auto!important;bottom:48px!important;left:var(--compare-upload-left,1.5rem)!important;transform:translateX(-50%)!important}
 .quality-story .hero-art .upload-button--quiet:hover{background:rgba(255,255,255,.16)!important;backdrop-filter:blur(10px)!important;box-shadow:0 .35rem 1rem rgba(8,23,47,.16);transform:translate(-50%,-50%)!important}
 .quality-story--compare .hero-art .upload-button--quiet:hover{transform:translateX(-50%)!important}
 .story-count{display:none!important}

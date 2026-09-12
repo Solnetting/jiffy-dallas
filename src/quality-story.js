@@ -202,6 +202,7 @@ function renderCompareStory() {
   const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
+  const compareUploadLeft = 24 + (heroWidth * .5 - 24) * reduce;
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const compareTop = window.innerHeight * .055 * reduce;
@@ -218,6 +219,7 @@ function renderCompareStory() {
   compareShell.style.setProperty('--hero-top', `${compareTop}px`);
   compareShell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
   compareShell.style.setProperty('--upload-target-y', 'calc(100svh - 148px)');
+  compareShell.style.setProperty('--compare-upload-left', `${compareUploadLeft}px`);
   compareShell.style.setProperty('--rack-left', `${rackLeft}px`);
   compareShell.style.setProperty('--rack-width', `${rackWidth}px`);
   compareShell.style.setProperty('--rack-height', `${rackHeight}px`);
