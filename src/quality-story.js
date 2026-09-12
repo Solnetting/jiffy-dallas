@@ -184,7 +184,7 @@ function renderCompareStory() {
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
   const gutter = window.innerWidth * .045 * reduce;
-  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .74);
+  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const compareTop = window.innerHeight * .065 * reduce;
