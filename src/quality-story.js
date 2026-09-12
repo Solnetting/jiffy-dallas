@@ -407,19 +407,40 @@ renderAllStories();
 const variantTrigger = document.querySelector('.jiffy-hero__sign-in');
 const variantMenu = document.querySelector('.jiffy-hero__variant-menu');
 const qualityVariants = { v1: story, v2: compareStory, v3: carouselStory };
+const closeVariantMenu = () => {
+  variantTrigger.setAttribute('aria-expanded', 'false');
+  variantMenu.hidden = true;
+};
+const setQualityVariant = (chosen, { scroll = false } = {}) => {
+  Object.entries(qualityVariants).forEach(([name, section]) => section.classList.toggle('is-active', name === chosen));
+  variantMenu.querySelectorAll('[data-quality-variant]').forEach((button) => {
+    const active = button.dataset.qualityVariant === chosen;
+    button.setAttribute('aria-pressed', String(active));
+  });
+  if (scroll) window.scrollTo({ top: qualityVariants[chosen].getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+  renderAllStories();
+};
+setQualityVariant('v2');
 variantTrigger.addEventListener('click', () => {
   const open = variantTrigger.getAttribute('aria-expanded') === 'true';
-  variantTrigger.setAttribute('aria-expanded', String(!open));
-  variantMenu.hidden = open;
+  if (open) closeVariantMenu();
+  else {
+    variantTrigger.setAttribute('aria-expanded', 'true');
+    variantMenu.hidden = false;
+  }
 });
 variantMenu.addEventListener('click', (event) => {
   const button = event.target.closest('[data-quality-variant]');
   if (!button) return;
   const chosen = button.dataset.qualityVariant;
-  Object.entries(qualityVariants).forEach(([name, section]) => section.classList.toggle('is-active', name === chosen));
-  variantTrigger.setAttribute('aria-expanded', 'false');
-  variantMenu.hidden = true;
-  qualityVariants[chosen].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setQualityVariant(chosen, { scroll: true });
+  closeVariantMenu();
+});
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.jiffy-hero__variant-switcher')) closeVariantMenu();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeVariantMenu();
 });
 
 [quietButton, solidButton].filter(Boolean).forEach((button) => button.addEventListener('click', () => fileInput.click()));
