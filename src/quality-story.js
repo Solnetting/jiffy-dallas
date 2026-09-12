@@ -56,6 +56,7 @@ document.querySelector('#app').innerHTML = `
 
         <article class="hero-art" aria-label="DTF transfer quality">
           <img src="${asset('tiger-transfer-hero.png')}" alt="A maker holding a vivid tiger DTF transfer" />
+          <span class="hero-art__reflection" aria-hidden="true"></span>
           <button class="upload-button upload-button--quiet" type="button">Upload artwork</button>
           <input id="artwork-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
         </article>
@@ -605,6 +606,34 @@ const carouselButtons = [...carouselStory.querySelectorAll('.upload-button')];
 enableProofCardPreview(proofCards);
 enableProofCardPreview(compareProofCards);
 enableProofCardPreview(carouselCards);
+
+const enableHeroTilt = (card) => {
+  if (!card || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let frame;
+  const reset = () => {
+    card.classList.remove('is-tilting');
+    card.style.removeProperty('--tilt-x');
+    card.style.removeProperty('--tilt-y');
+    card.style.removeProperty('--reflection-x');
+    card.style.removeProperty('--reflection-y');
+  };
+  card.addEventListener('pointermove', (event) => {
+    if (event.pointerType !== 'mouse') return;
+    const bounds = card.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - .5;
+    const y = (event.clientY - bounds.top) / bounds.height - .5;
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      card.classList.add('is-tilting');
+      card.style.setProperty('--tilt-x', `${(-y * 1.5).toFixed(2)}deg`);
+      card.style.setProperty('--tilt-y', `${(x * 3).toFixed(2)}deg`);
+      card.style.setProperty('--reflection-x', `${((x + .5) * 100).toFixed(1)}%`);
+      card.style.setProperty('--reflection-y', `${((y + .5) * 100).toFixed(1)}%`);
+    });
+  });
+  card.addEventListener('pointerleave', reset);
+};
+enableHeroTilt(compareStory.querySelector('.hero-art'));
 
 function renderCarouselStory() {
   const maxScroll = Math.max(1, carouselStory.offsetHeight - window.innerHeight);

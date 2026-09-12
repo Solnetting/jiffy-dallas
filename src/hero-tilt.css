@@ -1,0 +1,24 @@
+/* S1 V2: a deliberately restrained physical response for the hero panel. */
+.quality-story--compare .hero-art{
+  --tilt-x:0deg;
+  --tilt-y:0deg;
+  --reflection-x:50%;
+  --reflection-y:50%;
+  transform:perspective(1400px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transform-style:preserve-3d;
+  transition:transform 260ms cubic-bezier(.2,.8,.2,1),box-shadow 260ms ease;
+  will-change:transform;
+}
+.quality-story--compare .hero-art.is-tilting{box-shadow:0 1.1rem 2.5rem rgba(8,23,47,.18)}
+.quality-story--compare .hero-art__reflection{
+  position:absolute;
+  z-index:1;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(circle at var(--reflection-x) var(--reflection-y),rgba(255,255,255,.28),rgba(255,255,255,.08) 18%,transparent 43%);
+  mix-blend-mode:screen;
+  transition:opacity 220ms ease;
+}
+.quality-story--compare .hero-art.is-tilting .hero-art__reflection{opacity:1}
+@media(prefers-reduced-motion:reduce),(hover:none){.quality-story--compare .hero-art{transform:none!important;transition:none}.quality-story--compare .hero-art__reflection{display:none}}
