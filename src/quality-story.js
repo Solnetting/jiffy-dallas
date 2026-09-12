@@ -89,6 +89,14 @@ document.querySelector('#app').innerHTML = `
 `;
 
 const story = document.querySelector('.quality-story');
+const compareStory = story.cloneNode(true);
+compareStory.classList.add('quality-story--compare');
+compareStory.setAttribute('aria-label', 'Alternative Jiffy Local DTF quality story');
+compareStory.querySelector('.hero-art').insertAdjacentHTML('afterbegin', `
+  <div class="compare-hero-title"><p>Jiffy Local / DTF Transfers</p><h2>Your design.<br />Our quality.</h2></div>
+`);
+document.querySelector('.static-quality-compare').replaceWith(compareStory);
+
 const shell = document.querySelector('.story-shell');
 const rack = document.querySelector('.quality-rack');
 const proofCards = [...document.querySelectorAll('.proof-card')];
@@ -149,12 +157,68 @@ function renderStory() {
   count.innerHTML = `<b>${String(displayed).padStart(2, '0')}</b> / 05`;
 }
 
-window.addEventListener('scroll', renderStory, { passive: true });
-window.addEventListener('resize', renderStory);
-renderStory();
+const compareShell = compareStory.querySelector('.story-shell');
+const compareProofCards = [...compareStory.querySelectorAll('.proof-card')];
+const compareCount = compareStory.querySelector('.story-count');
+const compareFileInput = compareStory.querySelector('#artwork-input');
+const compareButtons = [...compareStory.querySelectorAll('.upload-button')];
+
+function renderCompareStory() {
+  const maxScroll = Math.max(1, compareStory.offsetHeight - window.innerHeight);
+  const progress = clamp(-compareStory.getBoundingClientRect().top / maxScroll);
+  const reduce = ease(ramp(progress, .04, .22));
+  const commerce = ease(ramp(progress, .79, .91));
+  const apparel = ease(ramp(progress, .88, .99));
+  const gutter = window.innerWidth * .045 * reduce;
+  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .74);
+  const rackLeft = gutter + heroWidth + 24;
+  const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
+  const rackHeight = window.innerHeight - window.innerHeight * .21 - 76;
+
+  compareShell.style.setProperty('--reduce', reduce.toFixed(3));
+  compareShell.style.setProperty('--stack', '1');
+  compareShell.style.setProperty('--commerce', commerce.toFixed(3));
+  compareShell.style.setProperty('--apparel', apparel.toFixed(3));
+  compareShell.style.setProperty('--gutter', `${gutter}px`);
+  compareShell.style.setProperty('--hero-left', `${gutter}px`);
+  compareShell.style.setProperty('--hero-width', `${heroWidth}px`);
+  compareShell.style.setProperty('--hero-top', `${window.innerHeight * .21 * reduce}px`);
+  compareShell.style.setProperty('--hero-bottom', `${window.innerHeight * .055 * reduce}px`);
+  compareShell.style.setProperty('--rack-left', `${rackLeft}px`);
+  compareShell.style.setProperty('--rack-width', `${rackWidth}px`);
+  compareShell.style.setProperty('--rack-height', `${rackHeight}px`);
+  compareShell.style.setProperty('--title-opacity', ease(ramp(progress, .18, .3)).toFixed(3));
+  compareShell.style.setProperty('--header-opacity', '0');
+  compareProofCards.forEach((card, index) => {
+    const enterStart = .12 + index * .15;
+    const enterEnd = .2 + index * .15;
+    const packed = ease(ramp(progress, enterEnd, .27 + index * .15));
+    const entered = ease(ramp(progress, enterStart, enterEnd));
+    const gap = 16;
+    const slotWidth = Math.max(72, (rackWidth - gap * 3) / 4);
+    const finalX = index * (slotWidth + gap);
+    const entryX = finalX + 24;
+    const entryWidth = Math.max(slotWidth, rackWidth - entryX);
+    card.style.width = `${entryWidth * (1 - packed) + slotWidth * packed}px`;
+    card.style.transform = `translate3d(${(entryX + (finalX - entryX) * entered) * (1 - packed) + finalX * packed}px,0,0)`;
+    card.style.opacity = `${entered * (1 - commerce)}`;
+    card.style.zIndex = `${index + 1}`;
+  });
+  const shown = Math.min(5, 1 + compareProofCards.filter((_, index) => progress >= .12 + index * .15).length);
+  compareCount.innerHTML = `<b>${String(shown).padStart(2, '0')}</b> / 05`;
+}
+
+function renderAllStories() { renderStory(); renderCompareStory(); }
+window.addEventListener('scroll', renderAllStories, { passive: true });
+window.addEventListener('resize', renderAllStories);
+renderAllStories();
 
 [quietButton, solidButton].forEach((button) => button.addEventListener('click', () => fileInput.click()));
 fileInput.addEventListener('change', () => {
   const name = fileInput.files?.[0]?.name;
   if (name) [quietButton, solidButton].forEach((button) => { button.textContent = 'Artwork selected'; });
+});
+compareButtons.forEach((button) => button.addEventListener('click', () => compareFileInput.click()));
+compareFileInput.addEventListener('change', () => {
+  if (compareFileInput.files?.[0]) compareButtons.forEach((button) => { button.textContent = 'Artwork selected'; });
 });
