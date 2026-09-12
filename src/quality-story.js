@@ -34,6 +34,13 @@ document.querySelector('#app').innerHTML = `
           <label><img src="${asset('address-checker-panel-location.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
           <button type="submit"><span>Check your delivery time</span></button>
         </div>
+        <div class="jiffy-hero__delivery-status" hidden aria-live="polite">
+          <span class="jiffy-hero__delivery-address"></span>
+          <button class="jiffy-hero__delivery-change" type="button">Change</button>
+          <span class="jiffy-hero__delivery-divider" aria-hidden="true"></span>
+          <span class="jiffy-hero__delivery-window"><small>Order within</small><strong>--:--:--</strong></span>
+          <button class="jiffy-hero__delivery-clear" type="button" aria-label="Clear delivery address">×</button>
+        </div>
       </form>
       <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
     </div>
@@ -241,8 +248,74 @@ document.querySelectorAll('[data-nav-scroll]').forEach((link) => {
 });
 
 const addressSearch = document.querySelector('.jiffy-hero__address');
+const addressForm = addressSearch;
+const addressInput = addressSearch?.querySelector('input[name="address"]');
+const addressPanel = addressSearch?.querySelector('.jiffy-hero__address-panel');
+const deliveryStatus = addressSearch?.querySelector('.jiffy-hero__delivery-status');
+const deliveryAddress = addressSearch?.querySelector('.jiffy-hero__delivery-address');
+const deliveryWindow = addressSearch?.querySelector('.jiffy-hero__delivery-window strong');
+const deliveryChange = addressSearch?.querySelector('.jiffy-hero__delivery-change');
+const deliveryClear = addressSearch?.querySelector('.jiffy-hero__delivery-clear');
+const heroTitle = document.querySelector('#jiffy-hero-title');
+const heroLede = document.querySelector('.jiffy-hero__lede');
 const addressSearchAnchor = document.createElement('div');
 addressSearch?.before(addressSearchAnchor);
+let deliveryCountdown;
+
+const deliveryStateKey = 'jiffy-local-delivery-window';
+const setDeliveryCountdown = (deadline) => {
+  window.clearInterval(deliveryCountdown);
+  const render = () => {
+    const remaining = Math.max(0, deadline - Date.now());
+    const hours = Math.floor(remaining / 3600000);
+    const minutes = Math.floor((remaining % 3600000) / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
+    if (deliveryWindow) deliveryWindow.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  };
+  render();
+  deliveryCountdown = window.setInterval(render, 1000);
+};
+const showDeliveryStatus = ({ address, deadline }) => {
+  if (!addressSearch || !addressPanel || !deliveryStatus) return;
+  deliveryAddress.textContent = address;
+  addressInput.value = address;
+  addressSearch.classList.add('is-confirmed');
+  addressPanel.hidden = true;
+  deliveryStatus.hidden = false;
+  if (heroTitle) heroTitle.textContent = "You're covered!";
+  if (heroLede) heroLede.textContent = 'Your Jiffy Local delivery window is open.';
+  setDeliveryCountdown(deadline);
+};
+const clearDeliveryStatus = () => {
+  window.clearInterval(deliveryCountdown);
+  addressSearch?.classList.remove('is-confirmed');
+  if (addressPanel) addressPanel.hidden = false;
+  if (deliveryStatus) deliveryStatus.hidden = true;
+  if (addressInput) addressInput.value = '';
+  if (heroTitle) heroTitle.innerHTML = 'Transfers and blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.';
+  if (heroLede) heroLede.textContent = 'Order this morning. Press this afternoon.';
+  window.localStorage.removeItem(deliveryStateKey);
+};
+addressForm?.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const address = addressInput?.value.trim();
+  if (!address) {
+    addressInput?.focus();
+    return;
+  }
+  const delivery = { address, deadline: Date.now() + (2 * 60 * 60 * 1000) };
+  window.localStorage.setItem(deliveryStateKey, JSON.stringify(delivery));
+  showDeliveryStatus(delivery);
+});
+deliveryChange?.addEventListener('click', () => {
+  clearDeliveryStatus();
+  addressInput?.focus();
+});
+deliveryClear?.addEventListener('click', clearDeliveryStatus);
+try {
+  const savedDelivery = JSON.parse(window.localStorage.getItem(deliveryStateKey));
+  if (savedDelivery?.address && savedDelivery.deadline > Date.now()) showDeliveryStatus(savedDelivery);
+} catch { window.localStorage.removeItem(deliveryStateKey); }
 let addressSearchFrame;
 const updateAddressSearch = () => {
   addressSearchFrame = undefined;
