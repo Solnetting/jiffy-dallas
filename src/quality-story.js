@@ -30,8 +30,10 @@ document.querySelector('#app').innerHTML = `
       <h1 id="jiffy-hero-title">Transfers and blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.</h1>
       <p class="jiffy-hero__lede">Order this morning. Press this afternoon.</p>
       <form class="jiffy-hero__address" action="https://www.jiffy.com/" method="get">
-        <label><img src="${asset('jiffy-hero-pin.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
-        <button type="submit">Check delivery <img src="${asset('jiffy-hero-arrow.svg')}" alt="" /></button>
+        <div class="jiffy-hero__address-panel">
+          <label><img src="${asset('address-checker-location.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
+          <button type="submit">Check your delivery time</button>
+        </div>
       </form>
       <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
     </div>
