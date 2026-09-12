@@ -128,7 +128,7 @@ function renderStory() {
   shell.style.setProperty('--hero-left', `${gutter}px`);
   shell.style.setProperty('--hero-width', `${heroWidth}px`);
   shell.style.setProperty('--hero-top', `${window.innerHeight * .21 * reduce}px`);
-  shell.style.setProperty('--hero-bottom', `${window.innerHeight * .055 * reduce}px`);
+  shell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
   shell.style.setProperty('--rack-left', `${rackLeft}px`);
   shell.style.setProperty('--rack-width', `${rackWidth}px`);
   shell.style.setProperty('--rack-height', `${rackHeight}px`);
@@ -183,7 +183,7 @@ function renderCompareStory() {
   compareShell.style.setProperty('--hero-left', `${gutter}px`);
   compareShell.style.setProperty('--hero-width', `${heroWidth}px`);
   compareShell.style.setProperty('--hero-top', `${window.innerHeight * .21 * reduce}px`);
-  compareShell.style.setProperty('--hero-bottom', `${window.innerHeight * .055 * reduce}px`);
+  compareShell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
   compareShell.style.setProperty('--rack-left', `${rackLeft}px`);
   compareShell.style.setProperty('--rack-width', `${rackWidth}px`);
   compareShell.style.setProperty('--rack-height', `${rackHeight}px`);
