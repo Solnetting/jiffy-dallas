@@ -128,6 +128,7 @@ document.querySelector('.static-quality-compare').replaceWith(compareStory);
 const carouselStory = story.cloneNode(true);
 carouselStory.classList.add('quality-story--carousel');
 carouselStory.classList.add('quality-story--v3');
+carouselStory.id = 'transfers-section-v3';
 carouselStory.setAttribute('aria-label', 'Carousel Jiffy Local DTF quality story');
 compareStory.after(carouselStory);
 
@@ -447,13 +448,23 @@ const closeVariantMenu = () => {
   variantMenu.hidden = true;
 };
 const setQualityVariant = (chosen, { scroll = false } = {}) => {
-  Object.entries(qualityVariants).forEach(([name, section]) => section.classList.toggle('is-active', name === chosen));
+  const selectedSection = qualityVariants[chosen];
+  if (!selectedSection) return;
+  Object.entries(qualityVariants).forEach(([name, section]) => {
+    const active = name === chosen;
+    section.classList.toggle('is-active', active);
+    section.toggleAttribute('hidden', !active);
+    section.setAttribute('aria-hidden', String(!active));
+  });
   variantMenu.querySelectorAll('[data-quality-variant]').forEach((button) => {
     const active = button.dataset.qualityVariant === chosen;
     button.setAttribute('aria-pressed', String(active));
   });
-  if (scroll) window.scrollTo({ top: qualityVariants[chosen].getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
   renderAllStories();
+  if (scroll) requestAnimationFrame(() => {
+    window.scrollTo({ top: selectedSection.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+    renderAllStories();
+  });
 };
 setQualityVariant('v2');
 variantTrigger.addEventListener('click', () => {
