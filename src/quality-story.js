@@ -177,16 +177,27 @@ apparelV2.innerHTML = `
   <div class="apparel-v2__inner">
     <div class="apparel-v2__brand">Jiffy Local<span></span><small>Dallas–Fort Worth</small></div>
     <div class="apparel-v2__copy"><h2 id="apparel-v2-title">Choose the blank<br />that fits the idea<span>.</span></h2><p>Compare materials, weight, fit, and color before you choose.</p></div>
-    <div class="apparel-v2__products">
+    <div class="apparel-v2__products" aria-label="Popular blanks">
       ${[
-        ['apparel-v2-product-1.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck Sweatshirt (Black)', '$11.35'],
-        ['apparel-v2-product-2.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck Sweatshirt (Black)', '$11.35'],
-        ['apparel-v2-product-3.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck Sweatshirt (Black)', '$11.35'],
-        ['apparel-v2-product-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck Sweatshirt (Black)', '$11.35'],
+        ['apparel-v2-product-1.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
+        ['apparel-v2-product-2.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
+        ['apparel-v2-product-3.png', 'GILDAN · G185', 'Heavy Blend® Hoodie', '$9.76'],
+        ['apparel-v2-product-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck', '$11.35'],
+        ['apparel-v2-product-5.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
+        ['apparel-v2-product-6.png', 'GILDAN · G185', 'Heavy Blend® Hoodie', '$9.76'],
+        ['apparel-v2-product-7.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck', '$11.35'],
+        ['apparel-v2-product-8.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck', '$11.35'],
       ].map(([image, brand, name, price]) => `<a class="apparel-v2__product" href="https://www.jiffy.com/"><img src="${asset(image)}" alt="${name}" /><small>${brand}</small><strong>${name}</strong><b>from ${price}</b><span>★★★★<i>★</i> <em>(2,500)</em></span></a>`).join('')}
     </div>
+    <button class="apparel-v2__next" type="button" aria-label="Show more popular blanks"><span aria-hidden="true">→</span></button>
   </div>`;
 blanksSection.after(apparelV2);
+
+const apparelNext = apparelV2.querySelector('.apparel-v2__next');
+const apparelProducts = apparelV2.querySelector('.apparel-v2__products');
+apparelNext?.addEventListener('click', () => {
+  apparelProducts?.scrollBy({ left: apparelProducts.clientWidth * .82, behavior: 'smooth' });
+});
 
 const shell = document.querySelector('.story-shell');
 const rack = document.querySelector('.quality-rack');
