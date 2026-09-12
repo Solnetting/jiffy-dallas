@@ -412,18 +412,11 @@ const updateAddressSearch = () => {
     addressSearchAnchor.removeAttribute('style');
   }
   addressSearch.classList.toggle('is-compact', shouldStick && shouldCompact);
-  const topSurface = [
-    document.querySelector('.jiffy-hero'),
-    document.querySelector('.quality-story.is-active'),
-    document.querySelector('.blanks-story'),
-    document.querySelector('.apparel-v2'),
-    document.querySelector('.section-three-v1'),
-    document.querySelector('.shop-in-range'),
-  ].find((section) => {
-    if (!section) return false;
-    const { top, bottom } = section.getBoundingClientRect();
-    return top <= 20 && bottom > 20;
-  });
+  // Resolve the surface from the page behind the fixed bar, rather than from
+  // the bar's own y-position. At y=20 the bar masks the element we need to
+  // inspect, which was leaving the dark treatment active over Section 1.
+  const sampledSurface = document.elementFromPoint(window.innerWidth * .5, Math.min(window.innerHeight - 1, 132));
+  const topSurface = sampledSurface?.closest('.jiffy-hero, .quality-story, .blanks-story, .apparel-v2, .section-three-v1, .shop-in-range');
   const blanksReduced = Number.parseFloat(blanksSection.querySelector('.blanks-shell')?.style.getPropertyValue('--reduce') || '0') > .55;
   const isLightSurface = topSurface?.matches('.quality-story, .section-three-v1') || (topSurface?.matches('.blanks-story') && blanksReduced);
   addressSearch.classList.toggle('is-on-light-surface', Boolean(isLightSurface && addressSearch.classList.contains('is-confirmed')));
