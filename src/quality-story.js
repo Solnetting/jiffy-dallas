@@ -175,7 +175,7 @@ function renderStory() {
   const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
-  const uploadStart = window.innerWidth * .045;
+  const uploadStart = window.innerWidth * .045 + quietButton.offsetWidth * .5;
   const uploadLeft = uploadStart + (heroWidth * .5 - uploadStart) * reduce;
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
@@ -223,7 +223,7 @@ function renderCompareStory() {
   const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
-  const uploadStart = window.innerWidth * .045;
+  const uploadStart = window.innerWidth * .045 + compareButtons[0].offsetWidth * .5;
   const uploadLeft = uploadStart + (heroWidth * .5 - uploadStart) * reduce;
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
@@ -274,7 +274,7 @@ function renderCarouselStory() {
   const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
-  const uploadStart = window.innerWidth * .045;
+  const uploadStart = window.innerWidth * .045 + carouselButtons[0].offsetWidth * .5;
   const uploadLeft = uploadStart + (heroWidth * .5 - uploadStart) * reduce;
   const rackLeft = gutter + heroWidth + 16;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
