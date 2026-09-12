@@ -277,8 +277,9 @@ const navigationColor = (progress) => {
 };
 
 function layoutPackedCards(cards, progress, rackWidth, commerce) {
-  const gap = 16;
-  const slotWidth = Math.max(72, (rackWidth - gap * 3) / 4);
+  const gap = 10;
+  const sizeSteps = [0.68, 0.84, 1, 1.2];
+  const sizeUnit = Math.max(62, (rackWidth - gap * (cards.length - 1)) / sizeSteps.reduce((sum, size) => sum + size, 0));
   let previous = null;
   cards.forEach((card, index) => {
     const enterStart = .12 + index * .15;
@@ -288,8 +289,9 @@ function layoutPackedCards(cards, progress, rackWidth, commerce) {
     const entered = ease(ramp(progress, enterStart, enterEnd));
     const packed = ease(ramp(progress, packStart, packEnd));
     const x = previous ? previous.x + previous.width + gap : 0;
-    const availableWidth = Math.max(slotWidth, rackWidth - x);
-    const width = availableWidth * (1 - packed) + slotWidth * packed;
+    const targetWidth = sizeUnit * (sizeSteps[index] ?? 1);
+    const availableWidth = Math.max(targetWidth, rackWidth - x);
+    const width = availableWidth * (1 - packed) + targetWidth * packed;
     card.style.width = `${width}px`;
     card.style.transform = `translate3d(${x}px,0,0)`;
     card.style.opacity = `${entered * (1 - commerce)}`;
@@ -297,6 +299,13 @@ function layoutPackedCards(cards, progress, rackWidth, commerce) {
     previous = { x, width };
   });
 }
+
+const enableProofCardPreview = (cards) => cards.forEach((card) => {
+  card.addEventListener('mouseenter', () => card.classList.add('is-previewed'));
+  card.addEventListener('mouseleave', () => card.classList.remove('is-previewed'));
+  card.addEventListener('focusin', () => card.classList.add('is-previewed'));
+  card.addEventListener('focusout', () => card.classList.remove('is-previewed'));
+});
 
 let storyCompleted = false;
 let compareCompleted = false;
@@ -399,6 +408,10 @@ const carouselCards = [...carouselStory.querySelectorAll('.proof-card')];
 const carouselCount = carouselStory.querySelector('.story-count');
 const carouselFileInput = carouselStory.querySelector('#artwork-input');
 const carouselButtons = [...carouselStory.querySelectorAll('.upload-button')];
+
+enableProofCardPreview(proofCards);
+enableProofCardPreview(compareProofCards);
+enableProofCardPreview(carouselCards);
 
 function renderCarouselStory() {
   const maxScroll = Math.max(1, carouselStory.offsetHeight - window.innerHeight);
