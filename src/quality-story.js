@@ -479,7 +479,8 @@ function renderStory() {
   const reduce = ease(ramp(progress, .04, .22));
   const proofExit = ease(ramp(progress, .64, .79));
   const commerce = ease(ramp(progress, .77, .91));
-  const apparel = ease(ramp(progress, .84, .98));
+  const commerceExit = ease(ramp(progress, .82, .9));
+  const apparel = ease(ramp(progress, .9, .99));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + quietButton.offsetWidth * .5;
@@ -493,6 +494,8 @@ function renderStory() {
   shell.style.setProperty('--reduce', reduce.toFixed(3));
   shell.style.setProperty('--stack', '1');
   shell.style.setProperty('--commerce', commerce.toFixed(3));
+  shell.style.setProperty('--commerce-exit', commerceExit.toFixed(3));
+  shell.style.setProperty('--commerce-opacity', (commerce * (1 - commerceExit)).toFixed(3));
   shell.style.setProperty('--apparel', apparel.toFixed(3));
   shell.style.setProperty('--proof-exit', proofExit.toFixed(3));
   shell.style.setProperty('--gutter', `${gutter}px`);
@@ -528,7 +531,8 @@ function renderCompareStory() {
   const reduce = ease(ramp(progress, .04, .22));
   const proofExit = ease(ramp(progress, .64, .79));
   const commerce = ease(ramp(progress, .77, .91));
-  const apparel = ease(ramp(progress, .84, .98));
+  const commerceExit = ease(ramp(progress, .82, .9));
+  const apparel = ease(ramp(progress, .9, .99));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + compareButtons[0].offsetWidth * .5;
@@ -542,6 +546,8 @@ function renderCompareStory() {
   compareShell.style.setProperty('--reduce', reduce.toFixed(3));
   compareShell.style.setProperty('--stack', '1');
   compareShell.style.setProperty('--commerce', commerce.toFixed(3));
+  compareShell.style.setProperty('--commerce-exit', commerceExit.toFixed(3));
+  compareShell.style.setProperty('--commerce-opacity', (commerce * (1 - commerceExit)).toFixed(3));
   compareShell.style.setProperty('--apparel', apparel.toFixed(3));
   compareShell.style.setProperty('--proof-exit', proofExit.toFixed(3));
   compareShell.style.setProperty('--gutter', `${gutter}px`);
@@ -584,7 +590,8 @@ function renderCarouselStory() {
   const betweenSlides = slide === 3 ? 0 : ease(ramp(carouselPhase - slide, .72, 1));
   const proofExit = ease(ramp(progress, .64, .79));
   const commerce = ease(ramp(progress, .77, .91));
-  const apparel = ease(ramp(progress, .84, .98));
+  const commerceExit = ease(ramp(progress, .82, .9));
+  const apparel = ease(ramp(progress, .9, .99));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + carouselButtons[0].offsetWidth * .5;
@@ -598,6 +605,8 @@ function renderCarouselStory() {
   carouselShell.style.setProperty('--reduce', reduce.toFixed(3));
   carouselShell.style.setProperty('--stack', '0');
   carouselShell.style.setProperty('--commerce', commerce.toFixed(3));
+  carouselShell.style.setProperty('--commerce-exit', commerceExit.toFixed(3));
+  carouselShell.style.setProperty('--commerce-opacity', (commerce * (1 - commerceExit)).toFixed(3));
   carouselShell.style.setProperty('--apparel', apparel.toFixed(3));
   carouselShell.style.setProperty('--proof-exit', proofExit.toFixed(3));
   carouselShell.style.setProperty('--gutter', `${gutter}px`);
