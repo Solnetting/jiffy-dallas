@@ -55,3 +55,31 @@
 @media(min-width:901px){.quality-story--compare .conversion-panel{top:clamp(6rem,10vh,8rem)}.conversion-panel{gap:1.25rem}.conversion-panel__heading{gap:.4rem}.conversion-panel__heading p{font-size:.82rem}.transfer-paths{gap:1.1rem}.transfer-choice{gap:.8rem;padding:1rem;border-radius:1rem}.transfer-choice__thumbnail{aspect-ratio:16/7.5;border-radius:.75rem}.transfer-choice__info{gap:.6rem}.transfer-choice__title-row>strong{font-size:clamp(.9rem,1.12vw,1.15rem)}.transfer-choice__price b{font-size:clamp(.78rem,.9vw,1rem)}.transfer-choice__price small{font-size:.68rem}.transfer-choice__info>p{font-size:clamp(.66rem,.75vw,.78rem);line-height:1.35}.transfer-choice__action{min-height:2.65rem;padding:.5rem .8rem;border-radius:.65rem}.transfer-choice__action>span{font-size:.76rem}.apparel-rail{bottom:clamp(1.5rem,4vh,3rem)}.apparel-rail .rail-image{aspect-ratio:1.3/1}.apparel-rail .rail-product{padding:.5rem}.apparel-rail .rail-product small{margin-top:.4rem}.apparel-rail .rail-product strong{min-height:2.1em;font-size:clamp(.62rem,.72vw,.78rem)}.apparel-rail .rail-product>b{font-size:clamp(.76rem,.9vw,.95rem)}.apparel-rail .stars{margin-top:.25rem}}
 @media(min-width:901px){.blanks-art-copy--top{top:clamp(6rem,11vh,8.5rem)}}
 @media(max-width:900px){.conversion-panel{gap:1.5rem}.transfer-paths{grid-template-columns:1fr}.transfer-choice{border-radius:1.25rem}.transfer-choice__title-row{align-items:flex-start;flex-direction:column;gap:.45rem}.transfer-choice__price{white-space:normal}}
+
+/* Section 1's final frame shares the hero's top and bottom bounds. The only
+   internal separation is the quiet catalogue divider above the blanks rail. */
+@media(min-width:901px){
+  .quality-story--compare .conversion-panel{top:var(--hero-top)}
+  .quality-story--compare .apparel-rail{
+    top:calc(var(--hero-top) + 60vh);
+    bottom:var(--hero-bottom);
+    padding-top:clamp(1.25rem,2.4vh,2rem);
+    border-top:1px solid #e6dfd5;
+  }
+  .quality-story--compare .apparel-rail .rail-products{height:calc(100% - 3rem)}
+  .quality-story--compare .apparel-rail .rail-product{min-height:0}
+
+  .transfer-choice__action{
+    min-height:2.5rem;
+    border:1px solid #aab3c2;
+    border-radius:.65rem;
+    background:transparent;
+    color:#14213d;
+    font-weight:400;
+  }
+  .transfer-choice__action>img{filter:none;opacity:.68}
+  .transfer-choice__action>span{font-weight:400}
+  .transfer-choice__grid:before,.transfer-choice__grid:after{background:#14213d;box-shadow:0 6px 0 #14213d}
+  .transfer-choice__grid:after{box-shadow:none}
+  .transfer-choice:hover .transfer-choice__action{border-color:#14213d;background:rgba(20,33,61,.045)}
+}
