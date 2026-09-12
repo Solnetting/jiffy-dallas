@@ -206,6 +206,17 @@ document.querySelectorAll('[data-nav-scroll]').forEach((link) => {
   });
 });
 
+const addressSearch = document.querySelector('.jiffy-hero__address');
+let addressSearchFrame;
+const updateAddressSearch = () => {
+  addressSearchFrame = undefined;
+  addressSearch?.classList.toggle('is-sticky', window.scrollY > 32);
+};
+window.addEventListener('scroll', () => {
+  if (!addressSearchFrame) addressSearchFrame = requestAnimationFrame(updateAddressSearch);
+}, { passive: true });
+updateAddressSearch();
+
 const apparelNext = apparelV2.querySelector('.apparel-v2__next');
 const apparelProducts = apparelV2.querySelector('.apparel-v2__products');
 apparelNext?.addEventListener('click', () => {
