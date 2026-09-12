@@ -196,6 +196,7 @@
   }
   .blanks-story .blanks-carousel-group .blanks-cta{
     position:static;
+    order:-1;
     align-self:flex-end;
     width:auto;
     margin:0;
