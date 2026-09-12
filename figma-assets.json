@@ -1,0 +1,167 @@
+[
+  {
+    "name": "imgProperty1Dark",
+    "url": "https://www.figma.com/api/mcp/asset/5cbd782b-d08d-43a3-b7d7-41fa94c8088f.png",
+    "file": "property1-dark.png"
+  },
+  {
+    "name": "imgIcons",
+    "url": "https://www.figma.com/api/mcp/asset/7fd76895-af0f-4207-86b6-ca0b6ca26d2d.svg",
+    "file": "icons.svg"
+  },
+  {
+    "name": "imgClock",
+    "url": "https://www.figma.com/api/mcp/asset/1615e5d9-0e16-429e-8497-6096e5c4c2d4.svg",
+    "file": "clock.svg"
+  },
+  {
+    "name": "imgProperty1Frame77",
+    "url": "https://www.figma.com/api/mcp/asset/885f82e0-fb94-4861-a3ee-bd0cc993ba26.png",
+    "file": "property1-frame77.png"
+  },
+  {
+    "name": "imgLinkJiffyComSvg",
+    "url": "https://www.figma.com/api/mcp/asset/f6577615-a0c7-4122-aeb2-1c70d79a273a.svg",
+    "file": "link-jiffy-com-svg.svg"
+  },
+  {
+    "name": "imgImage50",
+    "url": "https://www.figma.com/api/mcp/asset/065fa4db-5bb5-4306-9f39-0d5dfd1e94a2.png",
+    "file": "image50.png"
+  },
+  {
+    "name": "imgImage51",
+    "url": "https://www.figma.com/api/mcp/asset/6e12cb59-3251-4d0b-9fad-8106ebf58420.png",
+    "file": "image51.png"
+  },
+  {
+    "name": "imgImage52",
+    "url": "https://www.figma.com/api/mcp/asset/03f5603a-e035-4ae1-9b5b-ea9808252078.png",
+    "file": "image52.png"
+  },
+  {
+    "name": "imgProductImage",
+    "url": "https://www.figma.com/api/mcp/asset/31a99c79-0b4c-4952-8759-535c43dcf780.png",
+    "file": "product-image.png"
+  },
+  {
+    "name": "imgProductImage1",
+    "url": "https://www.figma.com/api/mcp/asset/d5bdfe56-4f36-474a-b624-c90f6b4359b8.png",
+    "file": "product-image1.png"
+  },
+  {
+    "name": "imgProductImage2",
+    "url": "https://www.figma.com/api/mcp/asset/1877e051-71b9-47bf-9646-6448f687952f.png",
+    "file": "product-image2.png"
+  },
+  {
+    "name": "imgProductImage3",
+    "url": "https://www.figma.com/api/mcp/asset/13d9a419-551f-4a0c-a23e-a0498ddb5cc2.png",
+    "file": "product-image3.png"
+  },
+  {
+    "name": "imgPortraitCardStanding",
+    "url": "https://www.figma.com/api/mcp/asset/1af8c8a2-08f2-4f75-a399-057b815ba3d6.png",
+    "file": "portrait-card-standing.png"
+  },
+  {
+    "name": "imgProductImage4",
+    "url": "https://www.figma.com/api/mcp/asset/d585c5be-1894-4be9-a659-7d0bf45976c5.png",
+    "file": "product-image4.png"
+  },
+  {
+    "name": "imgProductImage5",
+    "url": "https://www.figma.com/api/mcp/asset/a15862df-e309-405b-a886-5fe779e735c0.png",
+    "file": "product-image5.png"
+  },
+  {
+    "name": "imgProductImage6",
+    "url": "https://www.figma.com/api/mcp/asset/33ea14bc-e4a1-4794-a9d4-72914401d7ee.png",
+    "file": "product-image6.png"
+  },
+  {
+    "name": "imgProductImage7",
+    "url": "https://www.figma.com/api/mcp/asset/2c6a2583-3b5c-46cc-b3a6-5f661f853d06.png",
+    "file": "product-image7.png"
+  },
+  {
+    "name": "imgExecE59462F1D28E4A95Ad478641157B2D8C1",
+    "url": "https://www.figma.com/api/mcp/asset/760fff0b-5cbd-45a6-a126-88578df0dfd7.png",
+    "file": "exec-e59462-f1-d28-e4-a95-ad478641157-b2-d8-c1.png"
+  },
+  {
+    "name": "imgExec9157Ce347A494E0D88D6Dadc260F445F1",
+    "url": "https://www.figma.com/api/mcp/asset/46543cc0-0516-4877-9f0d-c4d34386c81a.png",
+    "file": "exec9157-ce347-a494-e0-d88-d6-dadc260-f445-f1.png"
+  },
+  {
+    "name": "imgExec6Edb0D4736754193A9F97A1D4E14180A1",
+    "url": "https://www.figma.com/api/mcp/asset/27e7f659-505a-469d-8b55-f7c36f45a7d2.png",
+    "file": "exec6-edb0-d4736754193-a9-f97-a1-d4-e14180-a1.png"
+  },
+  {
+    "name": "imgExec8F8B18E3Fd534Ca286C5Ca34446891C31",
+    "url": "https://www.figma.com/api/mcp/asset/ad502dfb-e9be-41c4-8429-fd236c39b634.png",
+    "file": "exec8-f8-b18-e3-fd534-ca286-c5-ca34446891-c31.png"
+  },
+  {
+    "name": "imgApparelShot1",
+    "url": "https://www.figma.com/api/mcp/asset/19088e43-e342-4a78-ae00-13dfac15edb8.png",
+    "file": "apparel-shot1.png"
+  },
+  {
+    "name": "imgApparelShot2",
+    "url": "https://www.figma.com/api/mcp/asset/f3cef540-f783-46a3-9bdf-2b9e163e2c2b.png",
+    "file": "apparel-shot2.png"
+  },
+  {
+    "name": "imgApparelShot3",
+    "url": "https://www.figma.com/api/mcp/asset/11d98c17-5530-4437-866e-335e651ee456.png",
+    "file": "apparel-shot3.png"
+  },
+  {
+    "name": "imgApparelShot4",
+    "url": "https://www.figma.com/api/mcp/asset/ace7607f-b748-4ea7-bbd0-bab4f6dab089.png",
+    "file": "apparel-shot4.png"
+  },
+  {
+    "name": "imgCloudUpload",
+    "url": "https://www.figma.com/api/mcp/asset/84dde68e-e50e-44fa-a047-e7aa2f650bc4.svg",
+    "file": "cloud-upload.svg"
+  },
+  {
+    "name": "imgLine4",
+    "url": "https://www.figma.com/api/mcp/asset/ce002067-4309-4b1a-b73c-965f3e9dab19.svg",
+    "file": "line4.svg"
+  },
+  {
+    "name": "imgArrowForward",
+    "url": "https://www.figma.com/api/mcp/asset/a8a1986f-5e9a-4164-aef7-283f0b652de8.svg",
+    "file": "arrow-forward.svg"
+  },
+  {
+    "name": "imgLine5",
+    "url": "https://www.figma.com/api/mcp/asset/7e4ebfb0-80a0-418a-8dc8-8e76546cfd52.svg",
+    "file": "line5.svg"
+  },
+  {
+    "name": "imgGroup4",
+    "url": "https://www.figma.com/api/mcp/asset/704d6c5a-e495-4c8d-bb6e-0a3c7463139c.svg",
+    "file": "group4.svg"
+  },
+  {
+    "name": "imgShoppingCart",
+    "url": "https://www.figma.com/api/mcp/asset/4cd0ce43-1867-4ca7-8e55-9371ef00fea9.svg",
+    "file": "shopping-cart.svg"
+  },
+  {
+    "name": "imgColumnDivider",
+    "url": "https://www.figma.com/api/mcp/asset/796d1ad7-469c-4f53-ba41-e16c84eca0bf.svg",
+    "file": "column-divider.svg"
+  },
+  {
+    "name": "imgIcons1",
+    "url": "https://www.figma.com/api/mcp/asset/33998b50-dd4f-46f5-80c0-73128ac3462b.svg",
+    "file": "icons1.svg"
+  }
+]
