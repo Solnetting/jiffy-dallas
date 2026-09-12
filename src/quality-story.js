@@ -18,7 +18,7 @@ const products = [
 document.querySelector('#app').innerHTML = `
   <section class="jiffy-hero" aria-labelledby="jiffy-hero-title">
     <video class="jiffy-hero__image" autoplay muted loop playsinline aria-hidden="true">
-      <source src="${asset('jiffy-hero-video.mp4')}?v=2" type="video/mp4" />
+      <source src="${asset('jiffy-hero-video.mp4')}?v=3" type="video/mp4" />
     </video>
     <div class="jiffy-hero__shade"></div>
     <header class="jiffy-hero__nav">
