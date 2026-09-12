@@ -249,8 +249,15 @@ const updateAddressSearch = () => {
   if (!addressSearch) return;
   const sectionOne = document.querySelector('.quality-story.is-active');
   const sectionOneTop = sectionOne ? sectionOne.getBoundingClientRect().top + window.scrollY : Infinity;
-  const shouldStick = window.scrollY >= sectionOneTop - 16;
   const isSticky = addressSearch.classList.contains('is-sticky');
+  // The original hero form scrolls naturally until it reaches the viewport.
+  // From that exact point it becomes the same fixed form; Section 1 only
+  // changes its compact styling, it does not introduce a new search control.
+  const sourceTop = isSticky
+    ? addressSearchAnchor.getBoundingClientRect().top
+    : addressSearch.getBoundingClientRect().top;
+  const shouldStick = sourceTop <= 12;
+  const shouldCompact = window.scrollY >= sectionOneTop - 16;
   if (shouldStick && !isSticky) {
     const { width, height } = addressSearch.getBoundingClientRect();
     addressSearchAnchor.style.cssText = `width:${width}px;height:${height}px;flex:0 0 ${height}px`;
@@ -259,12 +266,13 @@ const updateAddressSearch = () => {
     addressSearch.classList.remove('is-sticky');
     addressSearchAnchor.removeAttribute('style');
   }
+  addressSearch.classList.toggle('is-compact', shouldStick && shouldCompact);
 };
 window.addEventListener('scroll', () => {
   if (!addressSearchFrame) addressSearchFrame = requestAnimationFrame(updateAddressSearch);
 }, { passive: true });
 window.addEventListener('resize', () => {
-  addressSearch?.classList.remove('is-sticky');
+  addressSearch?.classList.remove('is-sticky', 'is-compact');
   addressSearchAnchor.removeAttribute('style');
   updateAddressSearch();
 });
