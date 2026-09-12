@@ -96,6 +96,10 @@ compareStory.querySelector('.hero-art').insertAdjacentHTML('afterbegin', `
   <div class="compare-hero-title"><p>Jiffy Local / DTF Transfers</p><h2>Your design.<br />Our quality.</h2></div>
 `);
 document.querySelector('.static-quality-compare').replaceWith(compareStory);
+const carouselStory = story.cloneNode(true);
+carouselStory.classList.add('quality-story--carousel');
+carouselStory.setAttribute('aria-label', 'Carousel Jiffy Local DTF quality story');
+compareStory.after(carouselStory);
 
 const shell = document.querySelector('.story-shell');
 const rack = document.querySelector('.quality-rack');
@@ -208,7 +212,51 @@ function renderCompareStory() {
   compareCount.innerHTML = `<b>${String(shown).padStart(2, '0')}</b> / 05`;
 }
 
-function renderAllStories() { renderStory(); renderCompareStory(); }
+const carouselShell = carouselStory.querySelector('.story-shell');
+const carouselCards = [...carouselStory.querySelectorAll('.proof-card')];
+const carouselCount = carouselStory.querySelector('.story-count');
+const carouselFileInput = carouselStory.querySelector('#artwork-input');
+const carouselButtons = [...carouselStory.querySelectorAll('.upload-button')];
+
+function renderCarouselStory() {
+  const maxScroll = Math.max(1, carouselStory.offsetHeight - window.innerHeight);
+  const progress = clamp(-carouselStory.getBoundingClientRect().top / maxScroll);
+  const reduce = ease(ramp(progress, .04, .22));
+  const slide = ramp(progress, .2, .72) * 4;
+  const commerce = ease(ramp(progress, .79, .91));
+  const apparel = ease(ramp(progress, .88, .99));
+  const gutter = window.innerWidth * .045 * reduce;
+  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
+  const overlap = 64;
+  const rackLeft = gutter + heroWidth - overlap;
+  const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
+  const rackHeight = window.innerHeight - window.innerHeight * .21 - 76;
+
+  carouselShell.style.setProperty('--reduce', reduce.toFixed(3));
+  carouselShell.style.setProperty('--stack', '0');
+  carouselShell.style.setProperty('--commerce', commerce.toFixed(3));
+  carouselShell.style.setProperty('--apparel', apparel.toFixed(3));
+  carouselShell.style.setProperty('--gutter', `${gutter}px`);
+  carouselShell.style.setProperty('--hero-left', `${gutter}px`);
+  carouselShell.style.setProperty('--hero-width', `${heroWidth}px`);
+  carouselShell.style.setProperty('--hero-top', `${window.innerHeight * .21 * reduce}px`);
+  carouselShell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
+  carouselShell.style.setProperty('--rack-left', `${rackLeft}px`);
+  carouselShell.style.setProperty('--rack-width', `${rackWidth}px`);
+  carouselShell.style.setProperty('--rack-height', `${rackHeight}px`);
+  carouselShell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
+  carouselShell.style.setProperty('--header-opacity', ease(ramp(progress, .21, .33)).toFixed(3));
+  carouselCards.forEach((card, index) => {
+    card.style.width = `${rackWidth}px`;
+    card.style.transform = `translate3d(${(index - slide) * rackWidth}px,0,0)`;
+    card.style.opacity = `${progress < .16 ? 0 : 1 - commerce}`;
+    card.style.zIndex = `${index + 1}`;
+  });
+  const shown = Math.min(5, 1 + Math.floor(clamp(slide / 4) * 4.95));
+  carouselCount.innerHTML = `<b>${String(shown).padStart(2, '0')}</b> / 05`;
+}
+
+function renderAllStories() { renderStory(); renderCompareStory(); renderCarouselStory(); }
 window.addEventListener('scroll', renderAllStories, { passive: true });
 window.addEventListener('resize', renderAllStories);
 renderAllStories();
@@ -221,4 +269,8 @@ fileInput.addEventListener('change', () => {
 compareButtons.forEach((button) => button.addEventListener('click', () => compareFileInput.click()));
 compareFileInput.addEventListener('change', () => {
   if (compareFileInput.files?.[0]) compareButtons.forEach((button) => { button.textContent = 'Artwork selected'; });
+});
+carouselButtons.forEach((button) => button.addEventListener('click', () => carouselFileInput.click()));
+carouselFileInput.addEventListener('change', () => {
+  if (carouselFileInput.files?.[0]) carouselButtons.forEach((button) => { button.textContent = 'Artwork selected'; });
 });
