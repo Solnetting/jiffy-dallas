@@ -556,7 +556,8 @@ function renderCompareStory() {
   const proofExit = ease(ramp(progress, .64, .79));
   const commerce = ease(ramp(progress, .77, .91));
   const commerceExit = ease(ramp(progress, .82, .9));
-  const apparel = ease(ramp(progress, .9, .99));
+  // Let the blanks rail follow the transfer paths with only a short beat.
+  const apparel = ease(ramp(progress, .80, .90));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + compareButtons[0].offsetWidth * .5;
