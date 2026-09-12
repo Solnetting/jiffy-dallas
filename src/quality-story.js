@@ -36,9 +36,8 @@ document.querySelector('#app').innerHTML = `
         </div>
         <div class="jiffy-hero__delivery-status" hidden aria-live="polite">
           <span class="jiffy-hero__delivery-address"></span>
-          <button class="jiffy-hero__delivery-change" type="button">Change</button>
           <span class="jiffy-hero__delivery-divider" aria-hidden="true"></span>
-          <span class="jiffy-hero__delivery-window"><small>Order within</small><strong>--:--:--</strong></span>
+          <span class="jiffy-hero__delivery-window"><small>Today, 2 – 4 PM</small><strong>--:--:--</strong></span>
           <button class="jiffy-hero__delivery-clear" type="button" aria-label="Clear delivery address">×</button>
         </div>
       </form>
@@ -311,11 +310,7 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
   heroHours.hidden = true;
   if (heroTitle) heroTitle.textContent = "You're covered.";
   if (heroLede) heroLede.textContent = '';
-  if (deliveryOutcome) {
-    deliveryOutcome.hidden = false;
-    deliveryOutcome.innerHTML = `<section class="jiffy-hero__window-card" aria-label="Next delivery window"><p>◷ &nbsp; Next delivery window</p><strong>Today, 2 – 4 PM</strong><small>Order by 12:30 PM to make this window · Later windows until 10 PM</small><div><a href="https://www.jiffy.com/transfers">Shop transfers <span>→</span></a><a href="https://www.jiffy.com/">Shop blanks <span>→</span></a></div><button type="button" data-change-address>Change address</button></section>`;
-    deliveryOutcome.querySelector('[data-change-address]')?.addEventListener('click', clearDeliveryStatus);
-  }
+  if (deliveryOutcome) { deliveryOutcome.hidden = true; deliveryOutcome.replaceChildren(); }
   setDeliveryCountdown(deadline);
 };
 const clearDeliveryStatus = () => {
