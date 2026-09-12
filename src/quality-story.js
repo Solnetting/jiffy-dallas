@@ -8,11 +8,11 @@ const proofs = [
 ];
 
 const products = [
-  ['product-image4.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
-  ['product-image5.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
-  ['product-image6.png', 'GILDAN · G185', 'Heavy Blend® Hoodie', '$9.76'],
-  ['product-image7.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck', '$11.35'],
-  ['product-image7.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck', '$11.35'],
+  ['product-figma-1.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (White)', '$2.59'],
+  ['product-figma-2.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (Black)', '$2.59'],
+  ['product-figma-3.png', 'GILDAN · G185', 'Heavy Blend® Hoodie (Grey)', '$9.76'],
+  ['product-figma-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck (Black)', '$11.35'],
+  ['product-figma-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck (Black)', '$11.35'],
 ];
 
 document.querySelector('#app').innerHTML = `
@@ -78,11 +78,11 @@ document.querySelector('#app').innerHTML = `
         <section class="apparel-rail" aria-labelledby="pair-title">
           <div class="rail-copy"><h2 id="pair-title">Pair with popular blanks</h2></div>
           <div class="rail-products">
-            ${products.map(([image, brand, name, price]) => `
+            ${products.map(([image, brand, name, price], index) => `
               <a class="rail-product" href="https://www.jiffy.com/">
                 <div class="rail-image"><img src="${asset(image)}" alt="${name}" /></div>
                 <small>${brand}</small><strong>${name}</strong>
-                <span class="stars">★★★★<i>★</i></span><b>from ${price}</b>
+                <b>from ${price}</b><span class="stars"><img src="${asset(`rating-figma-${Math.min(index + 1, 5)}.svg`)}" alt="4 out of 5 stars" /><i>(2,500)</i></span>
                 <em>⚡ Jiffy Local</em>
               </a>
             `).join('')}
@@ -172,13 +172,14 @@ function renderStory() {
   if (rawProgress >= .995) storyCompleted = true;
   const progress = storyCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .04, .22));
-  const proofExit = ease(ramp(progress, .79, .89));
-  const commerce = ease(ramp(progress, .86, .96));
-  const apparel = ease(ramp(progress, .93, 1));
+  const proofExit = ease(ramp(progress, .66, .73));
+  const commerce = ease(ramp(progress, .70, .78));
+  const apparel = ease(ramp(progress, .75, .83));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + quietButton.offsetWidth * .5;
-  const uploadLeft = uploadStart + (heroWidth * .5 - uploadStart) * reduce;
+  const finalHeroWidth = (window.innerWidth - window.innerWidth * .09) * .30;
+  const uploadLeft = uploadStart + (finalHeroWidth * .5 - uploadStart) * reduce;
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const panelTop = window.innerHeight * .21 * reduce;
@@ -220,13 +221,14 @@ function renderCompareStory() {
   if (rawProgress >= .995) compareCompleted = true;
   const progress = compareCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .04, .22));
-  const proofExit = ease(ramp(progress, .79, .89));
-  const commerce = ease(ramp(progress, .86, .96));
-  const apparel = ease(ramp(progress, .93, 1));
+  const proofExit = ease(ramp(progress, .66, .73));
+  const commerce = ease(ramp(progress, .70, .78));
+  const apparel = ease(ramp(progress, .75, .83));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + compareButtons[0].offsetWidth * .5;
-  const uploadLeft = uploadStart + (heroWidth * .5 - uploadStart) * reduce;
+  const finalHeroWidth = (window.innerWidth - window.innerWidth * .09) * .30;
+  const uploadLeft = uploadStart + (finalHeroWidth * .5 - uploadStart) * reduce;
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const compareTop = window.innerHeight * .055 * reduce;
@@ -271,13 +273,14 @@ function renderCarouselStory() {
   const carouselPhase = ramp(progress, .2, .72) * 4;
   const slide = Math.min(3, Math.floor(carouselPhase));
   const betweenSlides = slide === 3 ? 0 : ease(ramp(carouselPhase - slide, .72, 1));
-  const proofExit = ease(ramp(progress, .79, .89));
-  const commerce = ease(ramp(progress, .86, .96));
-  const apparel = ease(ramp(progress, .93, 1));
+  const proofExit = ease(ramp(progress, .66, .73));
+  const commerce = ease(ramp(progress, .70, .78));
+  const apparel = ease(ramp(progress, .75, .83));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + carouselButtons[0].offsetWidth * .5;
-  const uploadLeft = uploadStart + (heroWidth * .5 - uploadStart) * reduce;
+  const finalHeroWidth = (window.innerWidth - window.innerWidth * .09) * .30;
+  const uploadLeft = uploadStart + (finalHeroWidth * .5 - uploadStart) * reduce;
   const rackLeft = gutter + heroWidth + 16;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const panelTop = window.innerHeight * .21 * reduce;
