@@ -144,8 +144,6 @@ function renderStory() {
   const reduce = ease(ramp(progress, .04, .22));
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
-  const headerTone = ease(ramp(progress, .22, .36));
-  const headerColor = `rgb(${Math.round(255 - 239 * headerTone)}, ${Math.round(255 - 215 * headerTone)}, ${Math.round(255 - 171 * headerTone)})`;
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
   const rackLeft = gutter + heroWidth + 24;
@@ -185,6 +183,8 @@ function renderCompareStory() {
   const reduce = ease(ramp(progress, .04, .22));
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
+  const headerTone = ease(ramp(progress, .22, .36));
+  const headerColor = `rgb(${Math.round(255 - 239 * headerTone)}, ${Math.round(255 - 215 * headerTone)}, ${Math.round(255 - 171 * headerTone)})`;
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .74);
   const rackLeft = gutter + heroWidth + 24;
