@@ -142,9 +142,15 @@ function layoutPackedCards(cards, progress, rackWidth, commerce) {
   });
 }
 
+let storyCompleted = false;
+let compareCompleted = false;
+let carouselCompleted = false;
+
 function renderStory() {
   const maxScroll = Math.max(1, story.offsetHeight - window.innerHeight);
-  const progress = clamp(-story.getBoundingClientRect().top / maxScroll);
+  const rawProgress = clamp(-story.getBoundingClientRect().top / maxScroll);
+  if (rawProgress >= .995) storyCompleted = true;
+  const progress = storyCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .04, .22));
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
@@ -185,7 +191,9 @@ const compareButtons = [...compareStory.querySelectorAll('.upload-button')];
 
 function renderCompareStory() {
   const maxScroll = Math.max(1, compareStory.offsetHeight - window.innerHeight);
-  const progress = clamp(-compareStory.getBoundingClientRect().top / maxScroll);
+  const rawProgress = clamp(-compareStory.getBoundingClientRect().top / maxScroll);
+  if (rawProgress >= .995) compareCompleted = true;
+  const progress = compareCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .04, .22));
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
@@ -226,7 +234,9 @@ const carouselButtons = [...carouselStory.querySelectorAll('.upload-button')];
 
 function renderCarouselStory() {
   const maxScroll = Math.max(1, carouselStory.offsetHeight - window.innerHeight);
-  const progress = clamp(-carouselStory.getBoundingClientRect().top / maxScroll);
+  const rawProgress = clamp(-carouselStory.getBoundingClientRect().top / maxScroll);
+  if (rawProgress >= .995) carouselCompleted = true;
+  const progress = carouselCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .04, .22));
   const carouselPhase = ramp(progress, .2, .72) * 4;
   const slide = Math.min(3, Math.floor(carouselPhase));
