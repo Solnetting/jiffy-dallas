@@ -244,15 +244,11 @@ const addressSearch = document.querySelector('.jiffy-hero__address');
 const addressSearchAnchor = document.createElement('div');
 addressSearch?.before(addressSearchAnchor);
 let addressSearchFrame;
-let addressStickAt = Infinity;
-const measureAddressSearch = () => {
-  if (!addressSearch || addressSearch.classList.contains('is-sticky')) return;
-  addressStickAt = addressSearch.getBoundingClientRect().top + window.scrollY - 16;
-};
 const updateAddressSearch = () => {
   addressSearchFrame = undefined;
   if (!addressSearch) return;
-  const shouldStick = window.scrollY >= addressStickAt;
+  const sectionTwoTop = blanksSection.getBoundingClientRect().top + window.scrollY;
+  const shouldStick = window.scrollY >= sectionTwoTop - 16;
   const isSticky = addressSearch.classList.contains('is-sticky');
   if (shouldStick && !isSticky) {
     const { width, height } = addressSearch.getBoundingClientRect();
@@ -262,7 +258,6 @@ const updateAddressSearch = () => {
     addressSearch.classList.remove('is-sticky');
     addressSearchAnchor.removeAttribute('style');
   }
-  if (!shouldStick) measureAddressSearch();
 };
 window.addEventListener('scroll', () => {
   if (!addressSearchFrame) addressSearchFrame = requestAnimationFrame(updateAddressSearch);
@@ -270,10 +265,8 @@ window.addEventListener('scroll', () => {
 window.addEventListener('resize', () => {
   addressSearch?.classList.remove('is-sticky');
   addressSearchAnchor.removeAttribute('style');
-  measureAddressSearch();
   updateAddressSearch();
 });
-measureAddressSearch();
 updateAddressSearch();
 
 const apparelNext = apparelV2.querySelector('.apparel-v2__next');
