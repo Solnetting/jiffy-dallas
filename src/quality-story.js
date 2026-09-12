@@ -209,9 +209,8 @@ sectionThreeV1.setAttribute('aria-labelledby', 'section-three-v1-title');
 sectionThreeV1.innerHTML = `
   <div class="section-three-v1__inner">
     <header class="section-three-v1__header">
-      <p>S3 · V1</p>
+      <div class="section-three-v1__brand">Jiffy Local<span></span><small>Dallas–Fort Worth</small></div>
       <h2 id="section-three-v1-title">Transfers + blanks.<br />One delivery. <span>Best price.</span></h2>
-      <div><p>Build the full project in one cart, from print to apparel.</p><a href="https://www.jiffy.com/">Build your order <span>→</span></a></div>
     </header>
     <div class="section-three-v1__cards">
       ${[
