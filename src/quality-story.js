@@ -70,18 +70,19 @@ document.querySelector('#app').innerHTML = `
         </div>
 
         <aside class="conversion-panel" aria-label="Choose a DTF transfer path">
-          <h2>Start with your artwork</h2>
+          <header class="conversion-panel__heading"><h2>Start with your artwork</h2><p>Choose how you want to build and scale your custom print transfers.</p></header>
           <div class="transfer-paths">
           <a class="transfer-choice" href="https://www.jiffy.com/transfers">
-            <img src="${asset('image50.png')}" alt="" />
-            <span><strong>DTF Transfers by<br />size</strong><small>Upload a design and<br />choose the size.</small><em>From $0.06 / sq. in.</em></span><b>→</b>
+            <div class="transfer-choice__thumbnail"><img src="${asset('image50.png')}" alt="" /></div>
+            <div class="transfer-choice__info"><div class="transfer-choice__title-row"><strong>DTF Transfers by size</strong><p class="transfer-choice__price"><b>from $0.06</b><small>/ sq. in.</small></p></div><p>Upload a single design, set your custom dimensions, and let us handle the rest. Perfect for individual logos, chest prints, or large back graphics.</p></div>
+            <div class="transfer-choice__action"><img src="${asset('cloud-upload.svg')}" alt="" /><span>Upload your design</span></div>
           </a>
           <a class="transfer-choice" href="https://www.jiffy.com/jiffytransfers-DTFGANG001.html">
-            <img src="${asset('image52.png')}" alt="" />
-            <span><strong>Gang sheet- DTF<br />transfers</strong><small>Arrange multiple designs<br />on one sheet.</small><em>From $11.59 / foot</em></span><b>→</b>
+            <div class="transfer-choice__thumbnail"><img src="${asset('image52.png')}" alt="" /></div>
+            <div class="transfer-choice__info"><div class="transfer-choice__title-row"><strong>Gang sheet-DTF transfers</strong><p class="transfer-choice__price"><b>from $11.59</b><small>/ foot</small></p></div><p>Maximize your value. Arrange multiple designs, duplicates, or varied sizes on a single roll. Use our interactive builder to pack your artwork efficiently.</p></div>
+            <div class="transfer-choice__action"><i class="transfer-choice__grid" aria-hidden="true"></i><span>Build your gang sheet</span></div>
           </a>
           </div>
-          <nav class="specialty-links" aria-label="Specialty transfers"><a href="https://www.jiffy.com/transfers">Explore specialty transfers →</a><a href="https://www.jiffy.com/transfers">ProColor</a><a href="https://www.jiffy.com/transfers">Glitter</a><a href="https://www.jiffy.com/transfers">Glow-in-the-Dark</a><a href="https://www.jiffy.com/transfers">Reflective</a><a href="https://www.jiffy.com/transfers">Gold Foil</a></nav>
         </aside>
 
         <section class="apparel-rail" aria-labelledby="pair-title">
