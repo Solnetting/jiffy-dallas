@@ -23,7 +23,7 @@ document.querySelector('#app').innerHTML = `
     <div class="jiffy-hero__shade"></div>
     <header class="jiffy-hero__nav">
       <div class="jiffy-hero__brand">JIFFY <span class="jiffy-hero__location"><img src="${asset('jiffy-hero-pin-small.svg')}" alt="" />DALLAS-FORT WORTH</span></div>
-      <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="https://www.jiffy.com/transfers">Transfers</a><a href="https://www.jiffy.com/">Blanks</a><span class="jiffy-hero__coming-soon" tabindex="0" aria-disabled="true">Custom<span role="tooltip">Available soon</span></span><a class="jiffy-hero__sign-in" href="https://www.jiffy.com/account/login">Sign in</a></nav>
+      <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="https://www.jiffy.com/transfers">Transfers</a><a href="https://www.jiffy.com/">Blanks</a><span class="jiffy-hero__coming-soon" tabindex="0" aria-disabled="true">Custom<span role="tooltip">Available soon</span></span><div class="jiffy-hero__variant-switcher"><button class="jiffy-hero__sign-in" type="button" aria-expanded="false" aria-controls="section-one-variants">Sign in</button><div class="jiffy-hero__variant-menu" id="section-one-variants" hidden><button type="button" data-quality-variant="v1">Section 1 · V1</button><button type="button" data-quality-variant="v2">Section 1 · V2</button><button type="button" data-quality-variant="v3">Section 1 · V3</button></div></div></nav>
     </header>
     <div class="jiffy-hero__content">
       <p class="jiffy-hero__eyebrow"><span></span>Now delivering · Dallas-Fort Worth</p>
@@ -115,8 +115,10 @@ document.querySelector('#app').innerHTML = `
 `;
 
 const story = document.querySelector('.quality-story');
+story.classList.add('quality-story--v1');
 const compareStory = story.cloneNode(true);
 compareStory.classList.add('quality-story--compare');
+compareStory.classList.add('quality-story--v2', 'is-active');
 compareStory.setAttribute('aria-label', 'Alternative Jiffy Local DTF quality story');
 compareStory.querySelector('.hero-art').insertAdjacentHTML('afterbegin', `
   <div class="compare-hero-title"><h2>Your design.<br />Our quality.</h2></div>
@@ -124,6 +126,7 @@ compareStory.querySelector('.hero-art').insertAdjacentHTML('afterbegin', `
 document.querySelector('.static-quality-compare').replaceWith(compareStory);
 const carouselStory = story.cloneNode(true);
 carouselStory.classList.add('quality-story--carousel');
+carouselStory.classList.add('quality-story--v3');
 carouselStory.setAttribute('aria-label', 'Carousel Jiffy Local DTF quality story');
 compareStory.after(carouselStory);
 
@@ -380,6 +383,24 @@ function renderAllStories() { renderStory(); renderCompareStory(); renderCarouse
 window.addEventListener('scroll', renderAllStories, { passive: true });
 window.addEventListener('resize', renderAllStories);
 renderAllStories();
+
+const variantTrigger = document.querySelector('.jiffy-hero__sign-in');
+const variantMenu = document.querySelector('.jiffy-hero__variant-menu');
+const qualityVariants = { v1: story, v2: compareStory, v3: carouselStory };
+variantTrigger.addEventListener('click', () => {
+  const open = variantTrigger.getAttribute('aria-expanded') === 'true';
+  variantTrigger.setAttribute('aria-expanded', String(!open));
+  variantMenu.hidden = open;
+});
+variantMenu.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-quality-variant]');
+  if (!button) return;
+  const chosen = button.dataset.qualityVariant;
+  Object.entries(qualityVariants).forEach(([name, section]) => section.classList.toggle('is-active', name === chosen));
+  variantTrigger.setAttribute('aria-expanded', 'false');
+  variantMenu.hidden = true;
+  qualityVariants[chosen].scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 
 [quietButton, solidButton].filter(Boolean).forEach((button) => button.addEventListener('click', () => fileInput.click()));
 fileInput.addEventListener('change', () => {
