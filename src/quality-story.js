@@ -32,7 +32,7 @@ document.querySelector('#app').innerHTML = `
       <form class="jiffy-hero__address" action="https://www.jiffy.com/" method="get">
         <div class="jiffy-hero__address-panel">
           <label><img src="${asset('address-checker-panel-location.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
-          <button type="submit">Check your delivery time</button>
+          <button type="submit"><span>Check your delivery time</span></button>
         </div>
       </form>
       <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
