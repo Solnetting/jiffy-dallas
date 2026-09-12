@@ -11,8 +11,9 @@
 .rail-copy{padding:0 0 1rem;min-width:0}.rail-copy h2{margin:0;font:800 clamp(1.1rem,1.45vw,1.55rem)/1.1 Poppins,Inter,sans-serif;color:#102854}.rail-copy p{display:none}.rail-products{grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem}.rail-product{padding:0;border:0;border-radius:0;background:transparent}.rail-image{height:clamp(8rem,13vw,14rem);border-radius:0;background:#f0eff0}.rail-product small{margin-top:.8rem;font-size:clamp(.52rem,.65vw,.7rem);text-align:center}.rail-product strong{margin-top:.35rem;min-height:1.3em;font-size:clamp(.66rem,.82vw,.92rem);line-height:1.15;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rail-product>b{margin-top:.4rem;font-size:clamp(.9rem,1.1vw,1.2rem);text-align:center}.rail-product>b::first-letter{font-weight:400}.stars{margin-top:.55rem;font-size:clamp(.65rem,.85vw,.9rem);text-align:center}.rail-product em{display:none}
 .quality-story--carousel .conversion-panel,.quality-story--carousel .apparel-rail{left:calc(var(--hero-left) + var(--hero-width) + 16px)}
 .quality-story:not(.quality-story--compare) .story-title{font-size:clamp(2.8rem,3.7vw,4rem)}
-.quality-story--carousel .story-header{opacity:1;color:var(--carousel-header-color,#fff)}
-.quality-story--carousel .local-mark{font:600 clamp(1rem,1.45vw,1.35rem)/1 Poppins,Inter,sans-serif;letter-spacing:-.035em}
-.quality-story--carousel .local-mark small{color:currentColor;opacity:.72;font-weight:500;font-size:.62rem;letter-spacing:.1em}
-.quality-story--carousel .story-words{font-size:.65rem;font-weight:600;letter-spacing:.1em}
+.story-header,.quality-story--carousel .story-header{opacity:1;color:var(--story-header-color,#fff)}
+.quality-story--compare .story-header{display:flex!important}
+.story-header .local-mark,.quality-story--carousel .local-mark{font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;gap:.65rem}
+.story-header .local-mark small,.quality-story--carousel .local-mark small{color:currentColor;opacity:.72;font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em}
+.story-header .story-words,.quality-story--carousel .story-words{font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em}
 @media(max-width:900px){.conversion-panel,.quality-story--compare .conversion-panel{left:auto;right:auto;top:auto}.transfer-paths{grid-template-columns:1fr}.specialty-links{display:flex;flex-wrap:wrap;gap:.7rem}.specialty-links a{padding:0;border:0}.apparel-rail{left:auto;right:auto;bottom:auto}.rail-products{grid-template-columns:repeat(5,10rem);overflow:auto}.rail-image{height:9rem}}

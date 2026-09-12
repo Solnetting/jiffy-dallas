@@ -115,6 +115,10 @@ const count = document.querySelector('.story-count');
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 const ramp = (value, start, end) => clamp((value - start) / (end - start));
 const ease = (value) => value * value * (3 - 2 * value);
+const navigationColor = (progress) => {
+  const tone = ease(ramp(progress, .06, .18));
+  return `rgb(${Math.round(255 - 239 * tone)}, ${Math.round(255 - 215 * tone)}, ${Math.round(255 - 171 * tone)})`;
+};
 
 function layoutPackedCards(cards, progress, rackWidth, commerce) {
   const gap = 16;
@@ -165,7 +169,8 @@ function renderStory() {
   shell.style.setProperty('--rack-height', `${rackHeight}px`);
   shell.style.setProperty('--rack-top', `${panelTop}px`);
   shell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
-  shell.style.setProperty('--header-opacity', ease(ramp(progress, .21, .33)).toFixed(3));
+  shell.style.setProperty('--header-opacity', '1');
+  shell.style.setProperty('--story-header-color', navigationColor(progress));
   layoutPackedCards(proofCards, progress, rackWidth, commerce);
   const displayed = Math.min(5, 1 + proofCards.filter((_, index) => progress >= .12 + index * .15).length);
   count.innerHTML = `<b>${String(displayed).padStart(2, '0')}</b> / 05`;
@@ -204,7 +209,8 @@ function renderCompareStory() {
   compareShell.style.setProperty('--rack-height', `${rackHeight}px`);
   compareShell.style.setProperty('--compare-top', `${compareTop}px`);
   compareShell.style.setProperty('--title-opacity', '1');
-  compareShell.style.setProperty('--header-opacity', '0');
+  compareShell.style.setProperty('--header-opacity', '1');
+  compareShell.style.setProperty('--story-header-color', navigationColor(progress));
   layoutPackedCards(compareProofCards, progress, rackWidth, commerce);
   const shown = Math.min(5, 1 + compareProofCards.filter((_, index) => progress >= .12 + index * .15).length);
   compareCount.innerHTML = `<b>${String(shown).padStart(2, '0')}</b> / 05`;
@@ -225,8 +231,6 @@ function renderCarouselStory() {
   const betweenSlides = slide === 3 ? 0 : ease(ramp(carouselPhase - slide, .72, 1));
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
-  const headerTone = ease(ramp(progress, .22, .36));
-  const headerColor = `rgb(${Math.round(255 - 239 * headerTone)}, ${Math.round(255 - 215 * headerTone)}, ${Math.round(255 - 171 * headerTone)})`;
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
   const rackLeft = gutter + heroWidth + 16;
@@ -249,7 +253,7 @@ function renderCarouselStory() {
   carouselShell.style.setProperty('--rack-top', `${panelTop}px`);
   carouselShell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
   carouselShell.style.setProperty('--header-opacity', '1');
-  carouselShell.style.setProperty('--carousel-header-color', headerColor);
+  carouselShell.style.setProperty('--story-header-color', navigationColor(progress));
   carouselCards.forEach((card, index) => {
     card.style.width = `${rackWidth}px`;
     card.style.transform = `translate3d(${(index - slide - betweenSlides) * rackWidth}px,0,0)`;
