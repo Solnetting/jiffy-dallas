@@ -178,6 +178,8 @@ function renderStory() {
   const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
+  const uploadStart = window.innerWidth * .045;
+  const uploadLeft = uploadStart + (heroWidth * .5 - uploadStart) * reduce;
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const panelTop = window.innerHeight * .21 * reduce;
@@ -194,6 +196,7 @@ function renderStory() {
   shell.style.setProperty('--hero-top', `${panelTop}px`);
   shell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
   shell.style.setProperty('--upload-target-y', 'calc(100svh - 148px)');
+  shell.style.setProperty('--upload-left', `${uploadLeft}px`);
   shell.style.setProperty('--rack-left', `${rackLeft}px`);
   shell.style.setProperty('--rack-width', `${rackWidth}px`);
   shell.style.setProperty('--rack-height', `${rackHeight}px`);
@@ -223,7 +226,8 @@ function renderCompareStory() {
   const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
-  const compareUploadLeft = 24 + (heroWidth * .5 - 24) * reduce;
+  const uploadStart = window.innerWidth * .045;
+  const uploadLeft = uploadStart + (heroWidth * .5 - uploadStart) * reduce;
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const compareTop = window.innerHeight * .055 * reduce;
@@ -240,7 +244,7 @@ function renderCompareStory() {
   compareShell.style.setProperty('--hero-top', `${compareTop}px`);
   compareShell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
   compareShell.style.setProperty('--upload-target-y', 'calc(100svh - 148px)');
-  compareShell.style.setProperty('--compare-upload-left', `${compareUploadLeft}px`);
+  compareShell.style.setProperty('--upload-left', `${uploadLeft}px`);
   compareShell.style.setProperty('--rack-left', `${rackLeft}px`);
   compareShell.style.setProperty('--rack-width', `${rackWidth}px`);
   compareShell.style.setProperty('--rack-height', `${rackHeight}px`);
@@ -273,6 +277,8 @@ function renderCarouselStory() {
   const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
+  const uploadStart = window.innerWidth * .045;
+  const uploadLeft = uploadStart + (heroWidth * .5 - uploadStart) * reduce;
   const rackLeft = gutter + heroWidth + 16;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const panelTop = window.innerHeight * .21 * reduce;
@@ -289,6 +295,7 @@ function renderCarouselStory() {
   carouselShell.style.setProperty('--hero-top', `${panelTop}px`);
   carouselShell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
   carouselShell.style.setProperty('--upload-target-y', 'calc(100svh - 148px)');
+  carouselShell.style.setProperty('--upload-left', `${uploadLeft}px`);
   carouselShell.style.setProperty('--rack-left', `${rackLeft}px`);
   carouselShell.style.setProperty('--rack-width', `${rackWidth}px`);
   carouselShell.style.setProperty('--rack-height', `${rackHeight}px`);
