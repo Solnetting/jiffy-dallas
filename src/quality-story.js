@@ -225,7 +225,10 @@ document.querySelectorAll('[data-nav-scroll]').forEach((link) => {
     const section = link.dataset.navScroll === 'transfers'
       ? document.querySelector('.quality-story.is-active')
       : blanksSection;
-    section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    section?.scrollIntoView({
+      behavior: link.dataset.navScroll === 'blanks' ? 'auto' : 'smooth',
+      block: 'start',
+    });
     history.replaceState(null, '', link.getAttribute('href'));
   });
 });
