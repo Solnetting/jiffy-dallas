@@ -666,11 +666,13 @@ function renderBlanksStory() {
   const progress = blanksCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .05, .32));
   const reveal = ease(ramp(progress, .25, .43));
+  const carousel = ease(ramp(progress, .38, .52));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const panelTop = window.innerHeight * .15 * reduce;
   blanksShell.style.setProperty('--reduce', reduce.toFixed(3));
   blanksShell.style.setProperty('--reveal', reveal.toFixed(3));
+  blanksShell.style.setProperty('--carousel', carousel.toFixed(3));
   blanksShell.style.setProperty('--gutter', `${gutter}px`);
   blanksShell.style.setProperty('--hero-width', `${heroWidth}px`);
   blanksShell.style.setProperty('--hero-top', `${panelTop}px`);

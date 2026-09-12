@@ -144,3 +144,25 @@
   }
   .blanks-story .blanks-cta:hover{color:#ef2b22}
 }
+
+/* The portrait locks into its left column before the S2 product rail enters.
+   The rail belongs solely to the right-hand content area and never overlaps it. */
+@media(min-width:901px){
+  .blanks-story .blanks-products{
+    --blank-card-gap:clamp(.8rem,1.1vw,1.25rem);
+    left:calc(var(--gutter) + var(--hero-width) + clamp(2rem,5.5vw,6.8rem));
+    right:var(--gutter);
+    gap:var(--blank-card-gap);
+    opacity:var(--carousel,0);
+    transform:translateY(calc((1 - var(--carousel,0)) * 2rem));
+    pointer-events:auto;
+    transition:opacity .18s ease,transform .18s ease;
+  }
+  .blanks-story .blanks-product{flex:0 0 calc((100% - var(--blank-card-gap) * 3) / 4)}
+  .blanks-story .blanks-cta{
+    bottom:calc(var(--hero-bottom) + clamp(16rem,26vh,22rem));
+    opacity:var(--carousel,0);
+    transform:translateY(calc((1 - var(--carousel,0)) * 1rem));
+    pointer-events:auto;
+  }
+}
