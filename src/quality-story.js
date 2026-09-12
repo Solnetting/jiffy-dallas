@@ -410,7 +410,7 @@ const navigationColor = (progress) => {
 
 function layoutPackedCards(cards, progress, rackWidth, commerce) {
   const gap = 10;
-  const sizeSteps = [0.68, 0.84, 1, 1.2];
+  const sizeSteps = [0.48, 0.74, 1.1, 1.68];
   const sizeUnit = Math.max(62, (rackWidth - gap * (cards.length - 1)) / sizeSteps.reduce((sum, size) => sum + size, 0));
   let previous = null;
   cards.forEach((card, index) => {
