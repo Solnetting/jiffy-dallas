@@ -2,16 +2,13 @@
 .jiffy-hero:has(.jiffy-hero__delivery-outcome:not([hidden])) .jiffy-hero__content{justify-content:center}
 .jiffy-hero:has(.jiffy-hero__delivery-outcome:not([hidden])) h1{font-size:clamp(3.8rem,7vw,7rem)}
 .jiffy-hero__address.is-confirmed{width:min(100%,640px)}
-.jiffy-hero__address.is-confirmed .jiffy-hero__delivery-status,.jiffy-hero__address.is-confirmed.is-sticky.is-compact .jiffy-hero__delivery-status{padding:.42rem .5rem .42rem 1.25rem;border:1px solid rgba(255,255,255,.62);border-radius:1rem;background:rgba(16,40,84,.74);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);box-shadow:0 .75rem 2rem rgba(7,15,36,.14);color:#fff;transition:background .2s ease,color .2s ease,border-color .2s ease}
-.jiffy-hero__address.is-confirmed.is-on-light-surface .jiffy-hero__delivery-status{border-color:rgba(20,33,61,.15);background:rgba(255,255,255,.9);color:#102854}
+.jiffy-hero__address.is-confirmed .jiffy-hero__delivery-status,.jiffy-hero__address.is-confirmed.is-sticky.is-compact .jiffy-hero__delivery-status{padding:.42rem .5rem .42rem 1.25rem;border:1px solid rgba(255,255,255,.62);border-radius:1rem;background:rgba(255,255,255,.24);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);box-shadow:0 .75rem 2rem rgba(7,15,36,.14);color:#fff;transition:background .2s ease,color .2s ease,border-color .2s ease}
 .jiffy-hero__address.is-confirmed .jiffy-hero__delivery-address{font:600 1rem/1 Inter,Arial,sans-serif}
 .jiffy-hero__address.is-confirmed .jiffy-hero__delivery-window{gap:.15rem}
 .jiffy-hero__address.is-confirmed .jiffy-hero__delivery-window small{font:500 .68rem/1 Inter,Arial,sans-serif;letter-spacing:.03em;text-transform:none}
 .jiffy-hero__address.is-confirmed .jiffy-hero__delivery-window strong{font:800 1.25rem/1 Inter,Arial,sans-serif}
 .jiffy-hero__address.is-confirmed .jiffy-hero__delivery-clear{width:3rem;height:3rem;border:1px solid transparent!important;color:#fff!important;font-size:1.35rem;transition:border-color .18s ease,background .18s ease,color .2s ease}
-.jiffy-hero__address.is-confirmed.is-on-light-surface .jiffy-hero__delivery-clear{color:#102854!important}
 .jiffy-hero__address.is-confirmed .jiffy-hero__delivery-clear:hover,.jiffy-hero__address.is-confirmed .jiffy-hero__delivery-clear:focus-visible{border-color:#fff!important;background:rgba(255,255,255,.22)!important}
-.jiffy-hero__address.is-confirmed.is-on-light-surface .jiffy-hero__delivery-clear:hover,.jiffy-hero__address.is-confirmed.is-on-light-surface .jiffy-hero__delivery-clear:focus-visible{border-color:#102854!important;background:rgba(20,33,61,.06)!important}
 .jiffy-hero__outside-address{display:table;margin:0 auto 1.5rem;padding:.85rem 1.25rem;border:1px solid rgba(255,255,255,.66);border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font:600 .95rem/1 Inter,Arial,sans-serif}
 .jiffy-hero__waitlist{display:flex;gap:.5rem;padding:.4rem;border:1px solid rgba(255,255,255,.72);border-radius:.75rem;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);box-shadow:0 .75rem 2rem rgba(7,15,36,.16)}
 .jiffy-hero__waitlist input{flex:1;min-width:0;padding:0 1.25rem;border:0;outline:0;background:transparent;color:#102854;font:400 .95rem/1 Inter,Arial,sans-serif}
@@ -34,8 +31,6 @@
 
 /* The confirmed bar is a global overlay. Light page surfaces receive an
    explicit white-glass treatment, independent of a section's own styles. */
-.jiffy-hero__address.is-sticky{z-index:1000}
-.jiffy-hero__address.is-confirmed.is-on-light-surface .jiffy-hero__delivery-status{border-color:rgba(20,33,61,.16)!important;background:rgba(255,255,255,.9)!important;color:#102854!important}
-.jiffy-hero__address.is-confirmed.is-on-light-surface .jiffy-hero__delivery-status *{color:#102854!important}
-.jiffy-hero__address.is-confirmed.is-on-light-surface .jiffy-hero__delivery-divider{background:#102854!important}
-.jiffy-hero__address.is-confirmed.is-on-light-surface .jiffy-hero__delivery-clear:hover,.jiffy-hero__address.is-confirmed.is-on-light-surface .jiffy-hero__delivery-clear:focus-visible{border-color:#102854!important;background:rgba(20,33,61,.06)!important}
+.jiffy-hero__address.is-sticky{z-index:2000}
+.jiffy-hero__address.is-confirmed .jiffy-hero__delivery-status :is(.jiffy-hero__delivery-address,.jiffy-hero__delivery-window small,.jiffy-hero__delivery-window strong,.jiffy-hero__delivery-clear){color:#fff!important;mix-blend-mode:difference}
+.jiffy-hero__address.is-confirmed .jiffy-hero__delivery-divider{background:#fff;mix-blend-mode:difference}
