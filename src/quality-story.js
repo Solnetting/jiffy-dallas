@@ -16,6 +16,27 @@ const products = [
 ];
 
 document.querySelector('#app').innerHTML = `
+  <section class="jiffy-hero" aria-labelledby="jiffy-hero-title">
+    <img class="jiffy-hero__image" src="${asset('jiffy-hero-mixed.png')}" alt="Jiffy Local team preparing orders in Dallas" />
+    <div class="jiffy-hero__shade"></div>
+    <header class="jiffy-hero__nav">
+      <div class="jiffy-hero__brand">JIFFY <span class="jiffy-hero__location"><img src="${asset('jiffy-hero-pin-small.svg')}" alt="" />DALLAS-FORT WORTH</span></div>
+      <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="https://www.jiffy.com/transfers">Transfers</a><a href="https://www.jiffy.com/">Blanks</a><a class="jiffy-hero__sign-in" href="https://www.jiffy.com/account/login">Sign in</a></nav>
+    </header>
+    <div class="jiffy-hero__content">
+      <p class="jiffy-hero__eyebrow"><span></span>Now delivering · Dallas-Fort Worth</p>
+      <h1 id="jiffy-hero-title">Transfers and blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.</h1>
+      <p class="jiffy-hero__lede">Order this morning. Press this afternoon.</p>
+      <form class="jiffy-hero__address" action="https://www.jiffy.com/" method="get">
+        <label><img src="${asset('jiffy-hero-pin.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
+        <button type="submit">Check delivery <img src="${asset('jiffy-hero-arrow.svg')}" alt="" /></button>
+      </form>
+      <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
+    </div>
+    <div class="jiffy-hero__ticker" aria-label="Dallas factory status">
+      <span><i></i>Dallas micro-factory: open</span><b></b><span><img src="${asset('jiffy-hero-clock.svg')}" alt="" />Next window today 2 – 4 PM</span><b></b><span><img src="${asset('jiffy-hero-bulb.svg')}" alt="" />Last window tonight 8 – 10 PM</span>
+    </div>
+  </section>
   <section class="quality-story" aria-label="Jiffy Local DTF quality story">
     <div class="story-sticky">
       <div class="story-shell">
