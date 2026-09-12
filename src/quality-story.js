@@ -175,7 +175,7 @@ function renderStory() {
   shell.style.setProperty('--rack-width', `${rackWidth}px`);
   shell.style.setProperty('--rack-height', `${rackHeight}px`);
   shell.style.setProperty('--rack-top', `${panelTop}px`);
-  shell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
+  shell.style.setProperty('--title-opacity', (ease(ramp(progress, .2, .32)) * (1 - commerce)).toFixed(3));
   shell.style.setProperty('--header-opacity', '1');
   shell.style.setProperty('--story-header-color', navigationColor(progress));
   layoutPackedCards(proofCards, progress, rackWidth, commerce);
@@ -264,7 +264,7 @@ function renderCarouselStory() {
   carouselShell.style.setProperty('--rack-width', `${rackWidth}px`);
   carouselShell.style.setProperty('--rack-height', `${rackHeight}px`);
   carouselShell.style.setProperty('--rack-top', `${panelTop}px`);
-  carouselShell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
+  carouselShell.style.setProperty('--title-opacity', (ease(ramp(progress, .2, .32)) * (1 - commerce)).toFixed(3));
   carouselShell.style.setProperty('--header-opacity', '1');
   carouselShell.style.setProperty('--story-header-color', navigationColor(progress));
   carouselCards.forEach((card, index) => {
