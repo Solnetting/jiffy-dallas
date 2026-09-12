@@ -33,9 +33,6 @@ document.querySelector('#app').innerHTML = `
       </form>
       <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
     </div>
-    <div class="jiffy-hero__ticker" aria-label="Dallas factory status">
-      <span><i></i>Dallas micro-factory: open</span><b></b><span><img src="${asset('jiffy-hero-clock.svg')}" alt="" />Next window today 2 – 4 PM</span><b></b><span><img src="${asset('jiffy-hero-bulb.svg')}" alt="" />Last window tonight 8 – 10 PM</span>
-    </div>
   </section>
   <section class="quality-story" aria-label="Jiffy Local DTF quality story">
     <div class="story-sticky">
