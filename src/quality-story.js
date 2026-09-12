@@ -164,7 +164,7 @@ function renderStory() {
   shell.style.setProperty('--hero-width', `${heroWidth}px`);
   shell.style.setProperty('--hero-top', `${panelTop}px`);
   shell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
-  shell.style.setProperty('--upload-target-y', 'calc(60.5svh - 38px)');
+  shell.style.setProperty('--upload-target-y', 'calc(100svh - 148px)');
   shell.style.setProperty('--rack-left', `${rackLeft}px`);
   shell.style.setProperty('--rack-width', `${rackWidth}px`);
   shell.style.setProperty('--rack-height', `${rackHeight}px`);
@@ -205,7 +205,7 @@ function renderCompareStory() {
   compareShell.style.setProperty('--hero-width', `${heroWidth}px`);
   compareShell.style.setProperty('--hero-top', `${compareTop}px`);
   compareShell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
-  compareShell.style.setProperty('--upload-target-y', 'calc(53.25svh - 38px)');
+  compareShell.style.setProperty('--upload-target-y', 'calc(100svh - 148px)');
   compareShell.style.setProperty('--rack-left', `${rackLeft}px`);
   compareShell.style.setProperty('--rack-width', `${rackWidth}px`);
   compareShell.style.setProperty('--rack-height', `${rackHeight}px`);
@@ -249,7 +249,7 @@ function renderCarouselStory() {
   carouselShell.style.setProperty('--hero-width', `${heroWidth}px`);
   carouselShell.style.setProperty('--hero-top', `${panelTop}px`);
   carouselShell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
-  carouselShell.style.setProperty('--upload-target-y', 'calc(60.5svh - 38px)');
+  carouselShell.style.setProperty('--upload-target-y', 'calc(100svh - 148px)');
   carouselShell.style.setProperty('--rack-left', `${rackLeft}px`);
   carouselShell.style.setProperty('--rack-width', `${rackWidth}px`);
   carouselShell.style.setProperty('--rack-height', `${rackHeight}px`);
