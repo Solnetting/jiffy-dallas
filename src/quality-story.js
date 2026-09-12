@@ -231,6 +231,8 @@ document.querySelectorAll('[data-nav-scroll]').forEach((link) => {
 });
 
 const addressSearch = document.querySelector('.jiffy-hero__address');
+const addressSearchAnchor = document.createElement('div');
+addressSearch?.before(addressSearchAnchor);
 let addressSearchFrame;
 let addressStickAt = Infinity;
 const measureAddressSearch = () => {
@@ -241,7 +243,15 @@ const updateAddressSearch = () => {
   addressSearchFrame = undefined;
   if (!addressSearch) return;
   const shouldStick = window.scrollY >= addressStickAt;
-  addressSearch.classList.toggle('is-sticky', shouldStick);
+  const isSticky = addressSearch.classList.contains('is-sticky');
+  if (shouldStick && !isSticky) {
+    const { width, height } = addressSearch.getBoundingClientRect();
+    addressSearchAnchor.style.cssText = `width:${width}px;height:${height}px;flex:0 0 ${height}px`;
+    addressSearch.classList.add('is-sticky');
+  } else if (!shouldStick && isSticky) {
+    addressSearch.classList.remove('is-sticky');
+    addressSearchAnchor.removeAttribute('style');
+  }
   if (!shouldStick) measureAddressSearch();
 };
 window.addEventListener('scroll', () => {
@@ -249,6 +259,7 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 window.addEventListener('resize', () => {
   addressSearch?.classList.remove('is-sticky');
+  addressSearchAnchor.removeAttribute('style');
   measureAddressSearch();
   updateAddressSearch();
 });
