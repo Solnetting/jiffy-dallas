@@ -16,10 +16,9 @@
 .story-header,.quality-story--carousel .story-header{opacity:1;color:var(--story-header-color,#fff)}
 .quality-story--compare .story-header{display:flex!important}
 .story-header{left:4.5vw;right:4.5vw}
-.quality-story--compare .compare-hero-title p{display:block}
 .quality-story .hero-art .upload-button--quiet{position:absolute!important;top:calc(var(--upload-target-y) - var(--hero-top))!important;bottom:auto!important;left:var(--upload-left,4.5vw)!important;border-width:1px;font-weight:500;letter-spacing:0;transform:translate(-50%,-50%)}
 .quality-story .hero-art .upload-button--quiet{background:transparent!important;backdrop-filter:none!important}
-.quality-story--compare .compare-hero-title{top:6.5rem;left:1.5rem;width:calc(100% - 3rem)}
+.quality-story--compare .compare-hero-title{top:6.5rem;left:calc(4.5vw - var(--hero-left));width:calc(100% - 3rem)}
 .quality-story--compare .compare-hero-title h2{font-size:clamp(1.5rem,2.35vw,2.7rem)}
 .quality-story--compare .hero-art .upload-button--quiet{top:auto!important;bottom:48px!important;left:var(--upload-left,4.5vw)!important;transform:translateX(-50%)!important}
 .quality-story .hero-art .upload-button--quiet:hover{background:rgba(255,255,255,.16)!important;backdrop-filter:blur(10px)!important;box-shadow:0 .35rem 1rem rgba(8,23,47,.16);transform:translate(-50%,-50%)!important}

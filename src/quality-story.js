@@ -117,7 +117,7 @@ const compareStory = story.cloneNode(true);
 compareStory.classList.add('quality-story--compare');
 compareStory.setAttribute('aria-label', 'Alternative Jiffy Local DTF quality story');
 compareStory.querySelector('.hero-art').insertAdjacentHTML('afterbegin', `
-  <div class="compare-hero-title"><p>Jiffy Local / DTF Transfers</p><h2>Your design.<br />Our quality.</h2></div>
+  <div class="compare-hero-title"><h2>Your design.<br />Our quality.</h2></div>
 `);
 document.querySelector('.static-quality-compare').replaceWith(compareStory);
 const carouselStory = story.cloneNode(true);
