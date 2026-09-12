@@ -1,10 +1,10 @@
 const asset = (file) => `./assets/figma/${file}`;
 
 const proofs = [
-  { image: 'apparel-shot1.png', label: 'Color' },
-  { image: 'apparel-shot2.png', label: 'Detail' },
-  { image: 'apparel-shot3.png', label: 'Release' },
-  { image: 'apparel-shot4.png', label: 'Worn' },
+  { image: 'tiger-transfer-hero.png', label: 'Color' },
+  { image: 'tiger-transfer-hero.png', label: 'Fine detail' },
+  { image: 'tiger-transfer-hero.png', label: 'Ink coverage' },
+  { image: 'tiger-transfer-hero.png', label: 'Print precision' },
 ];
 
 const products = [
@@ -25,7 +25,7 @@ document.querySelector('#app').innerHTML = `
         <h1 class="story-title">Your design. Our quality<span>.</span></h1>
 
         <article class="hero-art" aria-label="DTF transfer quality">
-          <img src="${asset('property1-frame77.png')}" alt="A maker holding a printed DTF transfer" />
+          <img src="${asset('tiger-transfer-hero.png')}" alt="A maker holding a vivid tiger DTF transfer" />
           <button class="upload-button upload-button--quiet" type="button">Upload artwork</button>
           <input id="artwork-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
         </article>
