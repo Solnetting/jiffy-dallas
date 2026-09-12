@@ -209,13 +209,27 @@ document.querySelectorAll('[data-nav-scroll]').forEach((link) => {
 
 const addressSearch = document.querySelector('.jiffy-hero__address');
 let addressSearchFrame;
+let addressStickAt = Infinity;
+const measureAddressSearch = () => {
+  if (!addressSearch || addressSearch.classList.contains('is-sticky')) return;
+  addressStickAt = addressSearch.getBoundingClientRect().top + window.scrollY - 16;
+};
 const updateAddressSearch = () => {
   addressSearchFrame = undefined;
-  addressSearch?.classList.toggle('is-sticky', window.scrollY > 32);
+  if (!addressSearch) return;
+  const shouldStick = window.scrollY >= addressStickAt;
+  addressSearch.classList.toggle('is-sticky', shouldStick);
+  if (!shouldStick) measureAddressSearch();
 };
 window.addEventListener('scroll', () => {
   if (!addressSearchFrame) addressSearchFrame = requestAnimationFrame(updateAddressSearch);
 }, { passive: true });
+window.addEventListener('resize', () => {
+  addressSearch?.classList.remove('is-sticky');
+  measureAddressSearch();
+  updateAddressSearch();
+});
+measureAddressSearch();
 updateAddressSearch();
 
 const apparelNext = apparelV2.querySelector('.apparel-v2__next');
