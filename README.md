@@ -30,3 +30,20 @@ the integration points are the address forms, product links, and upload panel.
   full-scene background and translucent product rail.
 - Section 3 · V1 follows Apparel V2 and combines transfer and blank-apparel
   product cards under “Transfers + blanks. One delivery. Best price.”
+
+## Prototype interactions
+
+- The hero address form is the single delivery-state component. A Dallas/752xx
+  address confirms coverage and shows the delivery window; other addresses
+  show the waitlist outcome. The final address checker is shown only before an
+  address is submitted.
+- When the address component becomes sticky, that same DOM element is moved to
+  the document layer so it remains above every page section. Its translucent
+  glass surface is unchanged; the status text, divider, and close icon use
+  blend-difference for background-aware contrast.
+- Section 1 transfer entry points share the final desktop frame with the
+  popular blanks rail. Their actions are secondary treatments.
+- Section 2’s editorial image completes its left-column transition before the
+  right-column glass-card apparel carousel appears. The tertiary apparel link
+  sits above the carousel at its top-right edge.
+- A fixed support-chat entry point remains available throughout the page.
