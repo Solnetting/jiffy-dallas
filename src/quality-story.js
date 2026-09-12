@@ -156,7 +156,7 @@ function renderStory() {
   const commerce = ease(ramp(progress, .86, .96));
   const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
-  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
+  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const panelTop = window.innerHeight * .21 * reduce;
@@ -201,7 +201,7 @@ function renderCompareStory() {
   const commerce = ease(ramp(progress, .86, .96));
   const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
-  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
+  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const compareUploadLeft = 24 + (heroWidth * .5 - 24) * reduce;
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
@@ -251,7 +251,7 @@ function renderCarouselStory() {
   const commerce = ease(ramp(progress, .86, .96));
   const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
-  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
+  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const rackLeft = gutter + heroWidth + 16;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const panelTop = window.innerHeight * .21 * reduce;
