@@ -31,7 +31,7 @@ document.querySelector('#app').innerHTML = `
       <p class="jiffy-hero__lede">Order this morning. Press this afternoon.</p>
       <form class="jiffy-hero__address" action="https://www.jiffy.com/" method="get">
         <div class="jiffy-hero__address-panel">
-          <label><img src="${asset('address-checker-location.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
+          <label><img src="${asset('address-checker-panel-location.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
           <button type="submit">Check your delivery time</button>
         </div>
       </form>
