@@ -250,6 +250,13 @@ shopInRange.innerHTML = `
   </div>`;
 sectionThreeV1.after(shopInRange);
 
+const supportChat = document.createElement('button');
+supportChat.className = 'support-chat';
+supportChat.type = 'button';
+supportChat.setAttribute('aria-label', 'Open help chat');
+supportChat.innerHTML = '<span class="support-chat__tooltip" role="tooltip">Do you need help?</span><span class="support-chat__glyph" aria-hidden="true"><i></i><i></i><i></i></span>';
+document.body.append(supportChat);
+
 document.querySelectorAll('[data-nav-scroll]').forEach((link) => {
   link.addEventListener('click', (event) => {
     event.preventDefault();
