@@ -152,19 +152,21 @@ function renderStory() {
   if (rawProgress >= .995) storyCompleted = true;
   const progress = storyCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .04, .22));
-  const commerce = ease(ramp(progress, .79, .91));
-  const apparel = ease(ramp(progress, .88, .99));
+  const proofExit = ease(ramp(progress, .79, .89));
+  const commerce = ease(ramp(progress, .86, .96));
+  const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const panelTop = window.innerHeight * reduce * (.21 * (1 - commerce) + .055 * commerce);
+  const panelTop = window.innerHeight * .21 * reduce;
   const rackHeight = window.innerHeight - panelTop - 76 * reduce;
 
   shell.style.setProperty('--reduce', reduce.toFixed(3));
   shell.style.setProperty('--stack', '1');
   shell.style.setProperty('--commerce', commerce.toFixed(3));
   shell.style.setProperty('--apparel', apparel.toFixed(3));
+  shell.style.setProperty('--proof-exit', proofExit.toFixed(3));
   shell.style.setProperty('--gutter', `${gutter}px`);
   shell.style.setProperty('--hero-left', `${gutter}px`);
   shell.style.setProperty('--hero-width', `${heroWidth}px`);
@@ -175,7 +177,7 @@ function renderStory() {
   shell.style.setProperty('--rack-width', `${rackWidth}px`);
   shell.style.setProperty('--rack-height', `${rackHeight}px`);
   shell.style.setProperty('--rack-top', `${panelTop}px`);
-  shell.style.setProperty('--title-opacity', (ease(ramp(progress, .2, .32)) * (1 - commerce)).toFixed(3));
+  shell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
   shell.style.setProperty('--header-opacity', '1');
   shell.style.setProperty('--story-header-color', navigationColor(progress));
   layoutPackedCards(proofCards, progress, rackWidth, commerce);
@@ -195,8 +197,9 @@ function renderCompareStory() {
   if (rawProgress >= .995) compareCompleted = true;
   const progress = compareCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .04, .22));
-  const commerce = ease(ramp(progress, .79, .91));
-  const apparel = ease(ramp(progress, .88, .99));
+  const proofExit = ease(ramp(progress, .79, .89));
+  const commerce = ease(ramp(progress, .86, .96));
+  const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
   const rackLeft = gutter + heroWidth + 24;
@@ -208,6 +211,7 @@ function renderCompareStory() {
   compareShell.style.setProperty('--stack', '1');
   compareShell.style.setProperty('--commerce', commerce.toFixed(3));
   compareShell.style.setProperty('--apparel', apparel.toFixed(3));
+  compareShell.style.setProperty('--proof-exit', proofExit.toFixed(3));
   compareShell.style.setProperty('--gutter', `${gutter}px`);
   compareShell.style.setProperty('--hero-left', `${gutter}px`);
   compareShell.style.setProperty('--hero-width', `${heroWidth}px`);
@@ -241,19 +245,21 @@ function renderCarouselStory() {
   const carouselPhase = ramp(progress, .2, .72) * 4;
   const slide = Math.min(3, Math.floor(carouselPhase));
   const betweenSlides = slide === 3 ? 0 : ease(ramp(carouselPhase - slide, .72, 1));
-  const commerce = ease(ramp(progress, .79, .91));
-  const apparel = ease(ramp(progress, .88, .99));
+  const proofExit = ease(ramp(progress, .79, .89));
+  const commerce = ease(ramp(progress, .86, .96));
+  const apparel = ease(ramp(progress, .93, 1));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
   const rackLeft = gutter + heroWidth + 16;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const panelTop = window.innerHeight * reduce * (.21 * (1 - commerce) + .055 * commerce);
+  const panelTop = window.innerHeight * .21 * reduce;
   const rackHeight = window.innerHeight - panelTop - 76 * reduce;
 
   carouselShell.style.setProperty('--reduce', reduce.toFixed(3));
   carouselShell.style.setProperty('--stack', '0');
   carouselShell.style.setProperty('--commerce', commerce.toFixed(3));
   carouselShell.style.setProperty('--apparel', apparel.toFixed(3));
+  carouselShell.style.setProperty('--proof-exit', proofExit.toFixed(3));
   carouselShell.style.setProperty('--gutter', `${gutter}px`);
   carouselShell.style.setProperty('--hero-left', `${gutter}px`);
   carouselShell.style.setProperty('--hero-width', `${heroWidth}px`);
@@ -264,7 +270,7 @@ function renderCarouselStory() {
   carouselShell.style.setProperty('--rack-width', `${rackWidth}px`);
   carouselShell.style.setProperty('--rack-height', `${rackHeight}px`);
   carouselShell.style.setProperty('--rack-top', `${panelTop}px`);
-  carouselShell.style.setProperty('--title-opacity', (ease(ramp(progress, .2, .32)) * (1 - commerce)).toFixed(3));
+  carouselShell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
   carouselShell.style.setProperty('--header-opacity', '1');
   carouselShell.style.setProperty('--story-header-color', navigationColor(progress));
   carouselCards.forEach((card, index) => {

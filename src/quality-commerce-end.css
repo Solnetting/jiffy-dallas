@@ -25,6 +25,7 @@
 .quality-story .hero-art .upload-button--quiet:hover{background:rgba(255,255,255,.16)!important;backdrop-filter:blur(10px)!important;box-shadow:0 .35rem 1rem rgba(8,23,47,.16);transform:translate(-50%,-50%)!important}
 .quality-story--compare .hero-art .upload-button--quiet:hover{transform:translateX(-50%)!important}
 .story-count{display:none!important}
+.quality-rack{transform:translateY(calc(var(--proof-exit,0) * -115svh));will-change:transform}
 .story-header .local-mark,.quality-story--carousel .local-mark{font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;gap:.65rem}
 .story-header .local-mark small,.quality-story--carousel .local-mark small{color:currentColor;opacity:.72;font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em}
 .story-header .story-words,.quality-story--carousel .story-words{font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em}
