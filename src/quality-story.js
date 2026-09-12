@@ -247,8 +247,9 @@ let addressSearchFrame;
 const updateAddressSearch = () => {
   addressSearchFrame = undefined;
   if (!addressSearch) return;
-  const sectionTwoTop = blanksSection.getBoundingClientRect().top + window.scrollY;
-  const shouldStick = window.scrollY >= sectionTwoTop - 16;
+  const sectionOne = document.querySelector('.quality-story.is-active');
+  const sectionOneTop = sectionOne ? sectionOne.getBoundingClientRect().top + window.scrollY : Infinity;
+  const shouldStick = window.scrollY >= sectionOneTop - 16;
   const isSticky = addressSearch.classList.contains('is-sticky');
   if (shouldStick && !isSticky) {
     const { width, height } = addressSearch.getBoundingClientRect();
