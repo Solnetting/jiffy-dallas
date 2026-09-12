@@ -210,12 +210,19 @@ sectionThreeV1.innerHTML = `
       ${[
         ['image50.png', 'Transfers', 'DTF Transfers by size', 'from $0.06 / sq. in.'],
         ['image52.png', 'Transfers', 'Gang sheet DTF transfers', 'from $11.59 / foot'],
+        ['tiger-proof-color.png', 'Transfers', 'Full-color DTF transfers', 'from $0.06 / sq. in.'],
+        ['tiger-proof-detail.png', 'Transfers', 'Fine-detail DTF transfers', 'from $0.06 / sq. in.'],
         ['apparel-v2-product-1.png', 'Blanks', 'Heavy Cotton™ T-Shirt', 'from $2.59'],
         ['apparel-v2-product-3.png', 'Blanks', 'Heavy Blend® Hoodie', 'from $9.76'],
         ['apparel-v2-product-4.png', 'Blanks', 'Heavy Blend™ Crewneck', 'from $11.35'],
         ['apparel-v2-product-2.png', 'Blanks', 'Heavy Cotton™ T-Shirt', 'from $2.59'],
+        ['apparel-v2-product-5.png', 'Blanks', 'Heavy Cotton™ T-Shirt', 'from $2.59'],
+        ['apparel-v2-product-6.png', 'Blanks', 'Heavy Blend® Hoodie', 'from $9.76'],
+        ['apparel-v2-product-7.png', 'Blanks', 'Heavy Blend™ Crewneck', 'from $11.35'],
+        ['apparel-v2-product-8.png', 'Blanks', 'Heavy Blend™ Crewneck', 'from $11.35'],
       ].map(([image, type, name, price]) => `<a class="section-three-v1__card" href="https://www.jiffy.com/"><img src="${asset(image)}" alt="${name}" /><span>${type}</span><strong>${name}</strong><b>${price}</b><i aria-hidden="true">↗</i></a>`).join('')}
     </div>
+    <div class="section-three-v1__tertiary" aria-label="Shop by product type"><a href="https://www.jiffy.com/transfers">Shop Transfers <span>→</span></a><a href="https://www.jiffy.com/">Shop Blanks <span>→</span></a></div>
   </div>`;
 apparelV2.after(sectionThreeV1);
 
