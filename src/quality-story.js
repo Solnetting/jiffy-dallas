@@ -149,10 +149,10 @@ function renderStory() {
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
   const gutter = window.innerWidth * .045 * reduce;
-  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
+  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const panelTop = window.innerHeight * .21 * reduce;
+  const panelTop = window.innerHeight * .055 * reduce;
   const rackHeight = window.innerHeight - panelTop - 76 * reduce;
 
   shell.style.setProperty('--reduce', reduce.toFixed(3));
@@ -190,10 +190,10 @@ function renderCompareStory() {
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
   const gutter = window.innerWidth * .045 * reduce;
-  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
+  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const compareTop = window.innerHeight * .065 * reduce;
+  const compareTop = window.innerHeight * .055 * reduce;
   const rackHeight = window.innerHeight - compareTop - 76 * reduce;
 
   compareShell.style.setProperty('--reduce', reduce.toFixed(3));
@@ -234,10 +234,10 @@ function renderCarouselStory() {
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
   const gutter = window.innerWidth * .045 * reduce;
-  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
+  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .76);
   const rackLeft = gutter + heroWidth + 16;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const panelTop = window.innerHeight * .21 * reduce;
+  const panelTop = window.innerHeight * .055 * reduce;
   const rackHeight = window.innerHeight - panelTop - 76 * reduce;
 
   carouselShell.style.setProperty('--reduce', reduce.toFixed(3));
