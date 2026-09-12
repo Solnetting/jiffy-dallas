@@ -160,7 +160,9 @@
   }
   .blanks-story .blanks-product{flex:0 0 calc((100% - var(--blank-card-gap) * 3) / 4)}
   .blanks-story .blanks-cta{
-    bottom:calc(var(--hero-bottom) + clamp(16rem,26vh,22rem));
+    right:var(--gutter);
+    left:auto;
+    bottom:calc(var(--hero-bottom) + clamp(26rem,47vh,37rem));
     opacity:var(--carousel,0);
     transform:translateY(calc((1 - var(--carousel,0)) * 1rem));
     pointer-events:auto;
