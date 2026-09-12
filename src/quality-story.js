@@ -1,10 +1,10 @@
 const asset = (file) => `./assets/figma/${file}`;
 
 const proofs = [
-  { image: 'tiger-proof-color.png', label: 'Color' },
-  { image: 'tiger-proof-detail.png', label: 'Fine detail' },
-  { image: 'tiger-proof-peel.png', label: 'Clean peel' },
-  { image: 'tiger-proof-worn.png', label: 'Finished print' },
+  { image: 'tiger-proof-color.png', title: 'Vibrant color', subtitle: 'Rich, consistent colors that last.' },
+  { image: 'tiger-proof-detail.png', title: 'Crisp detail', subtitle: 'Prints fine lines and complex artwork.' },
+  { image: 'tiger-proof-peel.png', title: 'Clean peel', subtitle: 'Hot or cold peel. No hassle.' },
+  { image: 'tiger-proof-worn.png', title: 'Fast processing', subtitle: 'Printed and ready for local delivery.' },
 ];
 
 const products = [
@@ -63,8 +63,8 @@ document.querySelector('#app').innerHTML = `
         <div class="quality-rack" aria-label="Quality proof gallery">
           ${proofs.map((proof, index) => `
             <figure class="proof-card proof-card--${index + 1}">
-              <img src="${asset(proof.image)}" alt="${proof.label} proof for a DTF transfer" />
-              <figcaption>${String(index + 1).padStart(2, '0')} / ${proof.label}</figcaption>
+              <img src="${asset(proof.image)}" alt="${proof.title} proof for a DTF transfer" />
+              <figcaption><strong>${proof.title}</strong><span>${proof.subtitle}</span></figcaption>
             </figure>
           `).join('')}
         </div>
@@ -113,8 +113,8 @@ document.querySelector('#app').innerHTML = `
       </article>
       ${proofs.map((proof, index) => `
         <figure class="static-proof">
-          <img src="${asset(proof.image)}" alt="${proof.label} proof for a DTF transfer" />
-          <figcaption>${String(index + 1).padStart(2, '0')} / ${proof.label}</figcaption>
+          <img src="${asset(proof.image)}" alt="${proof.title} proof for a DTF transfer" />
+          <figcaption><strong>${proof.title}</strong><span>${proof.subtitle}</span></figcaption>
         </figure>
       `).join('')}
     </div>
@@ -423,6 +423,7 @@ function layoutPackedCards(cards, progress, rackWidth, commerce) {
     card.style.transform = `translate3d(${x}px,0,0)`;
     card.style.opacity = `${entered * (1 - commerce)}`;
     card.style.zIndex = `${index + 1}`;
+    card.classList.toggle('is-collapsed', packed > .5);
     previous = { x, width };
   });
 }
