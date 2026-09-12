@@ -87,6 +87,11 @@
 /* S2 V1: a bottom-aligned, scrollable catalogue that carries the same soft
    glass card language as the approved apparel carousel. */
 @media(min-width:901px){
+  .quality-story--compare .quality-rack,
+  .quality-story--carousel .quality-rack{
+    top:var(--hero-top)!important;
+    height:calc(100svh - var(--hero-top) - var(--hero-bottom))!important;
+  }
   .blanks-story .blanks-products{
     position:absolute;
     z-index:7;
