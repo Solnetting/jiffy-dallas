@@ -22,7 +22,7 @@ document.querySelector('#app').innerHTML = `
     </video>
     <div class="jiffy-hero__shade"></div>
     <header class="jiffy-hero__nav">
-      <div class="jiffy-hero__brand">JIFFY <span class="jiffy-hero__location"><img src="${asset('jiffy-hero-pin-small.svg')}" alt="" />DALLAS-FORT WORTH</span></div>
+      <div class="jiffy-hero__brand"><img class="jiffy-hero__logo" src="${asset('jiffy-local-logo.svg')}" alt="Jiffy" /><span class="jiffy-hero__location"><img src="${asset('jiffy-hero-pin-small.svg')}" alt="" />DALLAS-FORT WORTH</span></div>
       <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="#transfers-section" data-nav-scroll="transfers">Transfers</a><a href="#blanks-section" data-nav-scroll="blanks">Blanks</a><span class="jiffy-hero__coming-soon" tabindex="0" aria-disabled="true">Custom<span role="tooltip">Available soon</span></span><div class="jiffy-hero__variant-switcher"><button class="jiffy-hero__sign-in" type="button" aria-expanded="false" aria-controls="section-one-variants">Sign in</button><div class="jiffy-hero__variant-menu" id="section-one-variants" hidden><button type="button" data-quality-variant="v1">Section 1 · V1</button><button type="button" data-quality-variant="v2">Section 1 · V2</button><button type="button" data-quality-variant="v3">Section 1 · V3</button></div></div></nav>
     </header>
     <div class="jiffy-hero__content">
