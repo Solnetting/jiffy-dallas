@@ -1,2 +1,12 @@
 /* Alternative full-scroll sequence: the title belongs to the left upload image. */
-.quality-story--compare .story-header,.quality-story--compare .story-title{display:none}.quality-story--compare .compare-hero-title{position:absolute;z-index:2;top:1.5rem;left:1.5rem;color:#fff;opacity:1;pointer-events:none}.compare-hero-title p{margin:0 0 .7rem;font:700 .68rem/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase}.compare-hero-title h2{margin:0;font:800 clamp(1.7rem,3.2vw,3.4rem)/.92 Poppins,Inter,sans-serif;letter-spacing:-.055em}.quality-story--compare .hero-art:after{background:linear-gradient(180deg,rgba(6,19,40,.48),transparent 48%,rgba(6,19,40,.22))}.quality-story--compare .quality-rack{top:var(--compare-top,21vh)}.quality-story--compare .proof-card{border-radius:16px}.quality-story--compare .conversion-panel{right:var(--gutter)}
+.quality-story--compare .story-header,.quality-story--compare .story-title{display:none}
+.quality-story--compare .compare-hero-title{position:absolute;z-index:2;top:1.5rem;left:1.5rem;color:#fff;opacity:1;pointer-events:none}
+.compare-hero-title p{margin:0 0 .7rem;font:700 .68rem/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.compare-hero-title h2{margin:0;font:800 clamp(1.7rem,3.2vw,3.4rem)/.92 Poppins,Inter,sans-serif;letter-spacing:-.055em}
+.quality-story--compare .hero-art:after{background:linear-gradient(180deg,rgba(6,19,40,.48),transparent 48%,rgba(6,19,40,.22))}
+.quality-story--compare .quality-rack{top:var(--compare-top,21vh)}
+.quality-story--compare .proof-card{border-radius:16px}
+.quality-story--compare .conversion-panel{right:var(--gutter)}
+
+/* Keep the hand and lifted carrier film in view for the Clean peel proof. */
+.quality-story--compare .proof-card--3 img{object-position:24% center}
