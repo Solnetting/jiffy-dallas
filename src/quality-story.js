@@ -1,4 +1,4 @@
-const asset = (file) => `./assets/figma/${file}`;
+const asset = (file) => `${import.meta.env.BASE_URL}figma/${file}`;
 
 const proofs = [
   { image: 'tiger-transfer-hero.png', title: 'Vibrant color', subtitle: 'Rich, consistent colors that last.' },
