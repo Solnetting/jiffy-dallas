@@ -23,7 +23,7 @@ document.querySelector('#app').innerHTML = `
     <div class="jiffy-hero__shade"></div>
     <header class="jiffy-hero__nav">
       <div class="jiffy-hero__brand">JIFFY <span class="jiffy-hero__location"><img src="${asset('jiffy-hero-pin-small.svg')}" alt="" />DALLAS-FORT WORTH</span></div>
-      <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="https://www.jiffy.com/transfers">Transfers</a><a href="https://www.jiffy.com/">Blanks</a><a class="jiffy-hero__sign-in" href="https://www.jiffy.com/account/login">Sign in</a></nav>
+      <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="https://www.jiffy.com/transfers">Transfers</a><a href="https://www.jiffy.com/">Blanks</a><span class="jiffy-hero__coming-soon" tabindex="0" aria-disabled="true">Custom<span role="tooltip">Available soon</span></span><a class="jiffy-hero__sign-in" href="https://www.jiffy.com/account/login">Sign in</a></nav>
     </header>
     <div class="jiffy-hero__content">
       <p class="jiffy-hero__eyebrow"><span></span>Now delivering · Dallas-Fort Worth</p>
