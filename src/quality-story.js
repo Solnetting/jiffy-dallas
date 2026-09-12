@@ -196,6 +196,29 @@ apparelV2.innerHTML = `
   </div>`;
 blanksSection.after(apparelV2);
 
+const sectionThreeV1 = document.createElement('section');
+sectionThreeV1.className = 'section-three-v1';
+sectionThreeV1.setAttribute('aria-labelledby', 'section-three-v1-title');
+sectionThreeV1.innerHTML = `
+  <div class="section-three-v1__inner">
+    <header class="section-three-v1__header">
+      <p>S3 · V1</p>
+      <h2 id="section-three-v1-title">Transfers + blanks.<br />One delivery. <span>Best price.</span></h2>
+      <div><p>Build the full project in one cart, from print to apparel.</p><a href="https://www.jiffy.com/">Build your order <span>→</span></a></div>
+    </header>
+    <div class="section-three-v1__cards">
+      ${[
+        ['image50.png', 'Transfers', 'DTF Transfers by size', 'from $0.06 / sq. in.'],
+        ['image52.png', 'Transfers', 'Gang sheet DTF transfers', 'from $11.59 / foot'],
+        ['apparel-v2-product-1.png', 'Blanks', 'Heavy Cotton™ T-Shirt', 'from $2.59'],
+        ['apparel-v2-product-3.png', 'Blanks', 'Heavy Blend® Hoodie', 'from $9.76'],
+        ['apparel-v2-product-4.png', 'Blanks', 'Heavy Blend™ Crewneck', 'from $11.35'],
+        ['apparel-v2-product-2.png', 'Blanks', 'Heavy Cotton™ T-Shirt', 'from $2.59'],
+      ].map(([image, type, name, price]) => `<a class="section-three-v1__card" href="https://www.jiffy.com/"><img src="${asset(image)}" alt="${name}" /><span>${type}</span><strong>${name}</strong><b>${price}</b><i aria-hidden="true">↗</i></a>`).join('')}
+    </div>
+  </div>`;
+apparelV2.after(sectionThreeV1);
+
 document.querySelectorAll('[data-nav-scroll]').forEach((link) => {
   link.addEventListener('click', (event) => {
     event.preventDefault();
