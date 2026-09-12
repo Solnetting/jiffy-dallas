@@ -216,7 +216,9 @@ function renderCarouselStory() {
   const maxScroll = Math.max(1, carouselStory.offsetHeight - window.innerHeight);
   const progress = clamp(-carouselStory.getBoundingClientRect().top / maxScroll);
   const reduce = ease(ramp(progress, .04, .22));
-  const slide = Math.min(3, Math.floor(ramp(progress, .2, .72) * 4));
+  const carouselPhase = ramp(progress, .2, .72) * 4;
+  const slide = Math.min(3, Math.floor(carouselPhase));
+  const betweenSlides = slide === 3 ? 0 : ease(ramp(carouselPhase - slide, .72, 1));
   const commerce = ease(ramp(progress, .79, .91));
   const apparel = ease(ramp(progress, .88, .99));
   const gutter = window.innerWidth * .045 * reduce;
@@ -243,11 +245,11 @@ function renderCarouselStory() {
   carouselShell.style.setProperty('--header-opacity', ease(ramp(progress, .21, .33)).toFixed(3));
   carouselCards.forEach((card, index) => {
     card.style.width = `${rackWidth}px`;
-    card.style.transform = `translate3d(${(index - slide) * rackWidth}px,0,0)`;
+    card.style.transform = `translate3d(${(index - slide - betweenSlides) * rackWidth}px,0,0)`;
     card.style.opacity = `${progress < .16 ? 0 : 1 - commerce}`;
     card.style.zIndex = `${index + 1}`;
   });
-  const shown = Math.min(5, 1 + Math.floor(clamp(slide / 4) * 4.95));
+  const shown = slide === 3 ? 5 : Math.min(5, 1 + slide + (betweenSlides > .5 ? 1 : 0));
   carouselCount.innerHTML = `<b>${String(shown).padStart(2, '0')}</b> / 05`;
 }
 
