@@ -144,7 +144,8 @@ function renderStory() {
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const rackHeight = window.innerHeight - window.innerHeight * .21 - 76;
+  const panelTop = window.innerHeight * .21 * reduce;
+  const rackHeight = window.innerHeight - panelTop - 76 * reduce;
 
   shell.style.setProperty('--reduce', reduce.toFixed(3));
   shell.style.setProperty('--stack', '1');
@@ -153,11 +154,12 @@ function renderStory() {
   shell.style.setProperty('--gutter', `${gutter}px`);
   shell.style.setProperty('--hero-left', `${gutter}px`);
   shell.style.setProperty('--hero-width', `${heroWidth}px`);
-  shell.style.setProperty('--hero-top', `${window.innerHeight * .21 * reduce}px`);
+  shell.style.setProperty('--hero-top', `${panelTop}px`);
   shell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
   shell.style.setProperty('--rack-left', `${rackLeft}px`);
   shell.style.setProperty('--rack-width', `${rackWidth}px`);
   shell.style.setProperty('--rack-height', `${rackHeight}px`);
+  shell.style.setProperty('--rack-top', `${panelTop}px`);
   shell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
   shell.style.setProperty('--header-opacity', ease(ramp(progress, .21, .33)).toFixed(3));
   layoutPackedCards(proofCards, progress, rackWidth, commerce);
@@ -182,7 +184,7 @@ function renderCompareStory() {
   const rackLeft = gutter + heroWidth + 24;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
   const compareTop = window.innerHeight * .065 * reduce;
-  const rackHeight = window.innerHeight - compareTop - 76;
+  const rackHeight = window.innerHeight - compareTop - 76 * reduce;
 
   compareShell.style.setProperty('--reduce', reduce.toFixed(3));
   compareShell.style.setProperty('--stack', '1');
@@ -197,7 +199,7 @@ function renderCompareStory() {
   compareShell.style.setProperty('--rack-width', `${rackWidth}px`);
   compareShell.style.setProperty('--rack-height', `${rackHeight}px`);
   compareShell.style.setProperty('--compare-top', `${compareTop}px`);
-  compareShell.style.setProperty('--title-opacity', ease(ramp(progress, .18, .3)).toFixed(3));
+  compareShell.style.setProperty('--title-opacity', '1');
   compareShell.style.setProperty('--header-opacity', '0');
   layoutPackedCards(compareProofCards, progress, rackWidth, commerce);
   const shown = Math.min(5, 1 + compareProofCards.filter((_, index) => progress >= .12 + index * .15).length);
@@ -221,7 +223,8 @@ function renderCarouselStory() {
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .68);
   const rackLeft = gutter + heroWidth + 16;
   const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const rackHeight = window.innerHeight - window.innerHeight * .21 - 76;
+  const panelTop = window.innerHeight * .21 * reduce;
+  const rackHeight = window.innerHeight - panelTop - 76 * reduce;
 
   carouselShell.style.setProperty('--reduce', reduce.toFixed(3));
   carouselShell.style.setProperty('--stack', '0');
@@ -230,11 +233,12 @@ function renderCarouselStory() {
   carouselShell.style.setProperty('--gutter', `${gutter}px`);
   carouselShell.style.setProperty('--hero-left', `${gutter}px`);
   carouselShell.style.setProperty('--hero-width', `${heroWidth}px`);
-  carouselShell.style.setProperty('--hero-top', `${window.innerHeight * .21 * reduce}px`);
+  carouselShell.style.setProperty('--hero-top', `${panelTop}px`);
   carouselShell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
   carouselShell.style.setProperty('--rack-left', `${rackLeft}px`);
   carouselShell.style.setProperty('--rack-width', `${rackWidth}px`);
   carouselShell.style.setProperty('--rack-height', `${rackHeight}px`);
+  carouselShell.style.setProperty('--rack-top', `${panelTop}px`);
   carouselShell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
   carouselShell.style.setProperty('--header-opacity', ease(ramp(progress, .21, .33)).toFixed(3));
   carouselCards.forEach((card, index) => {
