@@ -210,9 +210,9 @@ function renderStory() {
   if (rawProgress >= .995) storyCompleted = true;
   const progress = storyCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .04, .22));
-  const proofExit = ease(ramp(progress, .66, .73));
-  const commerce = ease(ramp(progress, .70, .78));
-  const apparel = ease(ramp(progress, .75, .83));
+  const proofExit = ease(ramp(progress, .64, .79));
+  const commerce = ease(ramp(progress, .77, .91));
+  const apparel = ease(ramp(progress, .84, .98));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + quietButton.offsetWidth * .5;
@@ -259,9 +259,9 @@ function renderCompareStory() {
   if (rawProgress >= .995) compareCompleted = true;
   const progress = compareCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .04, .22));
-  const proofExit = ease(ramp(progress, .66, .73));
-  const commerce = ease(ramp(progress, .70, .78));
-  const apparel = ease(ramp(progress, .75, .83));
+  const proofExit = ease(ramp(progress, .64, .79));
+  const commerce = ease(ramp(progress, .77, .91));
+  const apparel = ease(ramp(progress, .84, .98));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + compareButtons[0].offsetWidth * .5;
@@ -311,9 +311,9 @@ function renderCarouselStory() {
   const carouselPhase = ramp(progress, .2, .72) * 4;
   const slide = Math.min(3, Math.floor(carouselPhase));
   const betweenSlides = slide === 3 ? 0 : ease(ramp(carouselPhase - slide, .72, 1));
-  const proofExit = ease(ramp(progress, .66, .73));
-  const commerce = ease(ramp(progress, .70, .78));
-  const apparel = ease(ramp(progress, .75, .83));
+  const proofExit = ease(ramp(progress, .64, .79));
+  const commerce = ease(ramp(progress, .77, .91));
+  const apparel = ease(ramp(progress, .84, .98));
   const gutter = window.innerWidth * .045 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + carouselButtons[0].offsetWidth * .5;
