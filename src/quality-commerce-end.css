@@ -16,6 +16,8 @@
 .story-header{left:4.5vw;right:4.5vw}
 .quality-story--compare .compare-hero-title p{display:none}
 .quality-story .hero-art .upload-button--quiet{position:absolute!important;top:calc(var(--upload-target-y) - var(--hero-top))!important;bottom:auto!important;left:calc(19.06vw - var(--hero-left))!important;border-width:1px;font-weight:500;letter-spacing:0;transform:translate(-50%,-50%)}
+.quality-story .hero-art .upload-button--quiet{background:transparent!important;backdrop-filter:none!important}
+.quality-story--compare .compare-hero-title{top:6.5rem}
 .hero-art .upload-button--quiet:hover{transform:translate(-50%,calc(-50% - 2px))}
 .story-header .local-mark,.quality-story--carousel .local-mark{font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;gap:.65rem}
 .story-header .local-mark small,.quality-story--carousel .local-mark small{color:currentColor;opacity:.72;font:500 clamp(.72rem,.78vw,.86rem)/1 Inter,Arial,sans-serif;letter-spacing:.08em}
