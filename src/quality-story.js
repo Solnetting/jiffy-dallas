@@ -168,6 +168,26 @@ blanksSection.innerHTML = `
   </div>`;
 carouselStory.after(blanksSection);
 
+const apparelV2 = document.createElement('section');
+apparelV2.className = 'apparel-v2';
+apparelV2.setAttribute('aria-labelledby', 'apparel-v2-title');
+apparelV2.innerHTML = `
+  <img class="apparel-v2__background" src="${asset('apparel-v2-background.png')}" alt="" />
+  <div class="apparel-v2__shade"></div>
+  <div class="apparel-v2__inner">
+    <div class="apparel-v2__brand">Jiffy Local<span></span><small>Dallas–Fort Worth</small></div>
+    <div class="apparel-v2__copy"><h2 id="apparel-v2-title">Choose the blank<br />that fits the idea<span>.</span></h2><p>Compare materials, weight, fit, and color before you choose.</p></div>
+    <div class="apparel-v2__products">
+      ${[
+        ['apparel-v2-product-1.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck Sweatshirt (Black)', '$11.35'],
+        ['apparel-v2-product-2.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck Sweatshirt (Black)', '$11.35'],
+        ['apparel-v2-product-3.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck Sweatshirt (Black)', '$11.35'],
+        ['apparel-v2-product-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck Sweatshirt (Black)', '$11.35'],
+      ].map(([image, brand, name, price]) => `<a class="apparel-v2__product" href="https://www.jiffy.com/"><img src="${asset(image)}" alt="${name}" /><small>${brand}</small><strong>${name}</strong><b>from ${price}</b><span>★★★★<i>★</i> <em>(2,500)</em></span></a>`).join('')}
+    </div>
+  </div>`;
+blanksSection.after(apparelV2);
+
 const shell = document.querySelector('.story-shell');
 const rack = document.querySelector('.quality-rack');
 const proofCards = [...document.querySelectorAll('.proof-card')];
