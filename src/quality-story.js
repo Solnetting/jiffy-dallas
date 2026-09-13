@@ -183,6 +183,154 @@ blanksSection.innerHTML = `
   </div>`;
 carouselStory.after(blanksSection);
 
+// New S3: the quality showroom is the first visible experience. The older
+// exploratory S1/S2/S3 variants remain in the file for reference but are
+// deliberately hidden so they cannot compete with this single source of UI.
+const s3Showroom = document.createElement('section');
+s3Showroom.className = 's3-showroom';
+s3Showroom.id = 'transfers-section';
+s3Showroom.setAttribute('aria-labelledby', 's3-title');
+s3Showroom.innerHTML = `
+  <div class="s3-sticky">
+    <div class="s3-canvas">
+      <header class="s3-nav">
+        <a href="#transfers-section" class="s3-logo-link" aria-label="Jiffy home"><img src="${asset('jiffy-local-logo.svg')}" alt="Jiffy Local" /></a>
+        <span class="s3-location">DALLAS–FORT WORTH</span>
+      </header>
+      <div class="s3-copy">
+        <p class="s3-eyebrow">DTF PROOF OF QUALITY</p>
+        <h1 id="s3-title">Your design.<br />Our quality<span>.</span></h1>
+        <p class="s3-lede">Richer detail. Truer color.<br />A higher standard in every transfer.</p>
+      </div>
+      <div class="s3-stage" aria-live="polite">
+        <figure class="s3-frame s3-frame--anchor is-active"><img src="${asset('tiger-proof-worn.png')}" alt="Vivid tiger DTF transfer applied to a white shirt" /><figcaption><strong>Your design. Our quality.</strong><span>Finished, ready-to-wear DTF.</span></figcaption></figure>
+        <figure class="s3-frame"><img src="${asset('tiger-transfer-hero.png')}" alt="Jiffy tiger DTF transfer held on clear film" /><figcaption><strong>Competitor vs. Jiffy</strong><span>Sharper, denser, cleaner transfer results.</span></figcaption></figure>
+        <figure class="s3-frame"><img src="${asset('tiger-proof-detail.png')}" alt="Close-up of tiger DTF artwork" /><span class="s3-analysis-mark s3-analysis-mark--one" aria-hidden="true"></span><span class="s3-analysis-mark s3-analysis-mark--two" aria-hidden="true"></span><figcaption><strong>AI process</strong><span>Artwork analyzed and prepared for print.</span></figcaption></figure>
+        <figure class="s3-frame"><img src="${asset('tiger-proof-peel.png')}" alt="Hand peeling DTF film from a printed shirt" /><figcaption><strong>Hot peel</strong><span>Clean release immediately after pressing.</span></figcaption></figure>
+        <figure class="s3-frame"><img src="${asset('tiger-proof-color.png')}" alt="Macro view of vivid blue, orange, and black DTF detail" /><figcaption><strong>Color accuracy</strong><span>True color with fine detail, up close.</span></figcaption></figure>
+      </div>
+      <nav class="s3-index" aria-label="Explore quality proof">
+        <button type="button" class="is-active" data-s3-step="1"><i></i><span>Competitor vs. Jiffy</span></button>
+        <button type="button" data-s3-step="2"><i></i><span>AI process</span></button>
+        <button type="button" data-s3-step="3"><i></i><span>Hot peel</span></button>
+        <button type="button" data-s3-step="4"><i></i><span>Color accuracy</span></button>
+      </nav>
+      <button class="s3-upload" type="button" aria-label="Upload artwork. Drag and drop a file or select one."><span class="s3-upload-icon" aria-hidden="true">↑</span><span><strong>Upload artwork</strong><small>Drag &amp; drop or select a file</small></span></button>
+      <input class="s3-file-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
+      <div class="s3-progress" aria-label="Quality proof controls"><button type="button" class="s3-arrow" data-s3-prev aria-label="Previous quality proof">←</button><span class="s3-progress-track" aria-hidden="true"><i></i></span><span class="s3-progress-count"><b>01</b><em>/ 04</em></span><button type="button" class="s3-arrow" data-s3-next aria-label="Next quality proof">→</button></div>
+    </div>
+  </div>
+</section>`;
+document.querySelector('#app').prepend(s3Showroom);
+document.querySelectorAll('.jiffy-hero, .quality-story, .static-quality-compare').forEach((element) => {
+  element.hidden = true;
+  element.setAttribute('aria-hidden', 'true');
+});
+
+const setupS3Showroom = (showroom) => {
+  const index = showroom.querySelector('.s3-index');
+  showroom.querySelector('.s3-copy').append(index);
+  const frames = [...showroom.querySelectorAll('.s3-frame')];
+  const items = [...showroom.querySelectorAll('[data-s3-step]')];
+  const fileInput = showroom.querySelector('.s3-file-input');
+  const upload = showroom.querySelector('.s3-upload');
+  const title = showroom.querySelector('h1');
+  const lede = showroom.querySelector('.s3-lede');
+  const progressCount = showroom.querySelector('.s3-progress-count b');
+  const progressTrack = showroom.querySelector('.s3-progress-track');
+  let manualStep = null;
+  let autoStep = 0;
+  let stepStartedAt = performance.now();
+  let lastStep = 0;
+  const autoplayDuration = 4200;
+  const render = () => {
+    const bounds = showroom.getBoundingClientRect();
+    const maxScroll = Math.max(1, showroom.offsetHeight - innerHeight);
+    const sectionProgress = clamp(-bounds.top / maxScroll);
+    const isScrollControlled = sectionProgress > 0.01;
+    const scrollPosition = sectionProgress * 5;
+    const scrollStep = clamp(Math.floor(scrollPosition), 0, 4);
+    const rawStep = manualStep ?? autoStep;
+    const step = isScrollControlled ? scrollStep : clamp(rawStep, 0, 4);
+    if (step !== lastStep) {
+      stepStartedAt = performance.now();
+      lastStep = step;
+    }
+    frames.forEach((frame, frameIndex) => frame.classList.toggle('is-active', frameIndex === step));
+    const activeCopy = frames[step]?.querySelector('figcaption');
+    if (activeCopy && step > 0) {
+      title.textContent = activeCopy.querySelector('strong').textContent;
+      lede.textContent = activeCopy.querySelector('span').textContent;
+    } else {
+      title.innerHTML = 'Your design.<br />Our quality<span>.</span>';
+      lede.innerHTML = 'Richer detail. Truer color.<br />A higher standard in every transfer.';
+    }
+    items.forEach((item, index) => {
+      item.classList.toggle('is-active', index === Math.max(0, step - 1));
+      item.setAttribute('aria-current', index === Math.max(0, step - 1) ? 'step' : 'false');
+    });
+    showroom.style.setProperty('--s3-step', step);
+    progressCount.textContent = String(Math.max(1, step)).padStart(2, '0');
+    if (isScrollControlled) {
+      const localProgress = (scrollPosition - Math.floor(scrollPosition)) * 100;
+      progressTrack.style.setProperty('--s3-fill', `${localProgress}%`);
+    } else {
+      progressTrack.style.setProperty('--s3-fill', '0%');
+    }
+  };
+  showroom.querySelector('[data-s3-prev]').addEventListener('click', () => { autoStep = (autoStep + 4) % 5; manualStep = null; stepStartedAt = performance.now(); render(); });
+  showroom.querySelector('[data-s3-next]').addEventListener('click', () => { autoStep = (autoStep + 1) % 5; manualStep = null; stepStartedAt = performance.now(); render(); });
+  items.forEach((item) => item.addEventListener('click', () => {
+    const targetStep = Number(item.dataset.s3Step);
+    autoStep = targetStep;
+    manualStep = null;
+    stepStartedAt = performance.now();
+    const maxScroll = Math.max(1, showroom.offsetHeight - innerHeight);
+    const targetTop = showroom.offsetTop + (targetStep / 5) * maxScroll;
+    window.scrollTo({ top: targetTop, behavior: 'smooth' });
+  }));
+  upload.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files?.[0]) upload.querySelector('strong').textContent = 'Artwork selected';
+  });
+  upload.addEventListener('dragover', (event) => { event.preventDefault(); upload.classList.add('is-dragging'); });
+  upload.addEventListener('dragleave', () => upload.classList.remove('is-dragging'));
+  upload.addEventListener('drop', (event) => {
+    event.preventDefault();
+    upload.classList.remove('is-dragging');
+    const file = event.dataTransfer.files?.[0];
+    if (file) upload.querySelector('strong').textContent = 'Artwork selected';
+  });
+  window.addEventListener('scroll', render, { passive: true });
+  window.addEventListener('resize', render);
+  requestAnimationFrame(render);
+  const animateAutoplay = (now) => {
+    if (!document.hidden) {
+      const bounds = showroom.getBoundingClientRect();
+      const maxScroll = Math.max(1, showroom.offsetHeight - innerHeight);
+      const sectionProgress = clamp(-bounds.top / maxScroll);
+      const isScrollControlled = sectionProgress > 0.01;
+      const isAtStart = bounds.top <= 16 && bounds.bottom >= innerHeight * 0.95 && !isScrollControlled;
+      if (isAtStart) {
+        const elapsed = now - stepStartedAt;
+        if (elapsed >= autoplayDuration) {
+          autoStep = (autoStep + 1) % 5;
+          stepStartedAt = now;
+          render();
+        }
+        progressTrack.style.setProperty('--s3-fill', `${Math.min(100, Math.max(0, (elapsed / autoplayDuration) * 100))}%`);
+      } else if (isScrollControlled) {
+        const scrollPosition = sectionProgress * 5;
+        const localProgress = (scrollPosition - Math.floor(scrollPosition)) * 100;
+        progressTrack.style.setProperty('--s3-fill', `${localProgress}%`);
+      }
+    }
+    requestAnimationFrame(animateAutoplay);
+  };
+  requestAnimationFrame(animateAutoplay);
+};
+setupS3Showroom(s3Showroom);
+
 const apparelV2 = document.createElement('section');
 apparelV2.className = 'apparel-v2';
 apparelV2.setAttribute('aria-labelledby', 'apparel-v2-title');
@@ -775,3 +923,9 @@ carouselButtons.forEach((button) => button.addEventListener('click', () => carou
 carouselFileInput.addEventListener('change', () => {
   if (carouselFileInput.files?.[0]) carouselButtons.forEach((button) => { button.textContent = 'Artwork selected'; });
 });
+
+// The new S3 is the sole quality experience. Remove the retired variants
+// after their legacy setup has completed so duplicate IDs and hidden variant
+// state cannot interfere with refreshes or later scroll events.
+document.querySelectorAll('.jiffy-hero, .quality-story, .static-quality-compare').forEach((element) => element.remove());
+addressSearch?.remove();
