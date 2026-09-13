@@ -166,10 +166,10 @@ blanksSection.innerHTML = `
       <div class="blanks-carousel-group">
       <div class="blanks-products" aria-label="Popular blank apparel">
         ${[
-          ['blanks-product-1.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (White)', '$2.59'],
-          ['blanks-product-2.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (Black)', '$2.59'],
-          ['blanks-product-3.png', 'GILDAN · G185', 'Heavy Blend® Hoodie (Grey)', '$9.76'],
-          ['blanks-product-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck (Black)', '$11.35'],
+          ['apparel-v2-product-1.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
+          ['apparel-v2-product-2.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
+          ['apparel-v2-product-3.png', 'GILDAN · G185', 'Heavy Blend® Hoodie', '$9.76'],
+          ['apparel-v2-product-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck', '$11.35'],
         ].map(([image, brand, name, price]) => `
           <a href="https://www.jiffy.com/" class="blanks-product">
             <img src="${asset(image)}" alt="${name}" />
@@ -198,10 +198,6 @@ apparelV2.innerHTML = `
         ['apparel-v2-product-2.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
         ['apparel-v2-product-3.png', 'GILDAN · G185', 'Heavy Blend® Hoodie', '$9.76'],
         ['apparel-v2-product-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck', '$11.35'],
-        ['apparel-v2-product-5.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt', '$2.59'],
-        ['apparel-v2-product-6.png', 'GILDAN · G185', 'Heavy Blend® Hoodie', '$9.76'],
-        ['apparel-v2-product-7.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck', '$11.35'],
-        ['apparel-v2-product-8.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck', '$11.35'],
       ].map(([image, brand, name, price]) => `<a class="apparel-v2__product" href="https://www.jiffy.com/"><img src="${asset(image)}" alt="${name}" /><small>${brand}</small><strong>${name}</strong><b>from ${price}</b><span>★★★★<i>★</i> <em>(2,500)</em></span></a>`).join('')}
     </div>
     <button class="apparel-v2__next" type="button" aria-label="Show more popular blanks"><span aria-hidden="true">→</span></button>
@@ -462,16 +458,16 @@ const navigationColor = (progress) => {
   return `rgb(${Math.round(255 - 239 * tone)}, ${Math.round(255 - 215 * tone)}, ${Math.round(255 - 171 * tone)})`;
 };
 
-function layoutPackedCards(cards, progress, rackWidth, commerce) {
+function layoutPackedCards(cards, progress, rackWidth, commerce, proofExit) {
   const gap = 10;
   const sizeSteps = [0.48, 0.74, 1.1, 1.68];
   const sizeUnit = Math.max(62, (rackWidth - gap * (cards.length - 1)) / sizeSteps.reduce((sum, size) => sum + size, 0));
   let previous = null;
   cards.forEach((card, index) => {
-    const enterStart = .12 + index * .15;
-    const enterEnd = .2 + index * .15;
-    const packStart = index === cards.length - 1 ? .72 : .12 + (index + 1) * .15;
-    const packEnd = index === cards.length - 1 ? .8 : .2 + (index + 1) * .15;
+    const enterStart = .10 + index * .04;
+    const enterEnd = .18 + index * .04;
+    const packStart = .14 + index * .04;
+    const packEnd = .26 + index * .04;
     const entered = ease(ramp(progress, enterStart, enterEnd));
     const packed = ease(ramp(progress, packStart, packEnd));
     const x = previous ? previous.x + previous.width + gap : 0;
@@ -480,9 +476,9 @@ function layoutPackedCards(cards, progress, rackWidth, commerce) {
     const width = availableWidth * (1 - packed) + targetWidth * packed;
     card.style.width = `${width}px`;
     card.style.transform = `translate3d(${x}px,0,0)`;
-    card.style.opacity = `${entered * (1 - commerce)}`;
+    card.style.opacity = `${entered * (1 - Math.max(commerce, proofExit))}`;
     card.style.zIndex = `${index + 1}`;
-    card.classList.toggle('is-collapsed', packed > .5);
+    card.classList.toggle('is-collapsed', width < 460);
     previous = { x, width };
   });
 }
@@ -504,11 +500,11 @@ function renderStory() {
   if (rawProgress >= .995) storyCompleted = true;
   const progress = storyCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .04, .22));
-  const proofExit = ease(ramp(progress, .64, .79));
-  const commerce = ease(ramp(progress, .77, .91));
-  const commerceExit = ease(ramp(progress, .82, .9));
-  const apparel = ease(ramp(progress, .9, .99));
-  const gutter = window.innerWidth * .045 * reduce;
+  const proofExit = ease(ramp(progress, .34, .38));
+  const commerce = ease(ramp(progress, .36, .42));
+  const commerceExit = ease(ramp(progress, .54, .7));
+  const apparel = commerce;
+  const gutter = 160 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + quietButton.offsetWidth * .5;
   const finalHeroWidth = (window.innerWidth - window.innerWidth * .09) * .30;
@@ -539,7 +535,7 @@ function renderStory() {
   shell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
   shell.style.setProperty('--header-opacity', '1');
   shell.style.setProperty('--story-header-color', navigationColor(progress));
-  layoutPackedCards(proofCards, progress, rackWidth, commerce);
+  layoutPackedCards(proofCards, progress, rackWidth, commerce, proofExit);
   const displayed = Math.min(5, 1 + proofCards.filter((_, index) => progress >= .12 + index * .15).length);
   count.innerHTML = `<b>${String(displayed).padStart(2, '0')}</b> / 05`;
 }
@@ -556,12 +552,12 @@ function renderCompareStory() {
   if (rawProgress >= .995) compareCompleted = true;
   const progress = compareCompleted ? 1 : rawProgress;
   const reduce = ease(ramp(progress, .04, .22));
-  const proofExit = ease(ramp(progress, .64, .79));
-  const commerce = ease(ramp(progress, .77, .91));
-  const commerceExit = ease(ramp(progress, .82, .9));
+  const proofExit = ease(ramp(progress, .34, .38));
+  const commerce = ease(ramp(progress, .36, .42));
+  const commerceExit = ease(ramp(progress, .54, .7));
   // Let the blanks rail follow the transfer paths with only a short beat.
-  const apparel = ease(ramp(progress, .80, .90));
-  const gutter = window.innerWidth * .045 * reduce;
+  const apparel = commerce;
+  const gutter = 160 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + compareButtons[0].offsetWidth * .5;
   const finalHeroWidth = (window.innerWidth - window.innerWidth * .09) * .30;
@@ -592,7 +588,7 @@ function renderCompareStory() {
   compareShell.style.setProperty('--title-opacity', '1');
   compareShell.style.setProperty('--header-opacity', '1');
   compareShell.style.setProperty('--story-header-color', navigationColor(progress));
-  layoutPackedCards(compareProofCards, progress, rackWidth, commerce);
+  layoutPackedCards(compareProofCards, progress, rackWidth, commerce, proofExit);
   const shown = Math.min(5, 1 + compareProofCards.filter((_, index) => progress >= .12 + index * .15).length);
   compareCount.innerHTML = `<b>${String(shown).padStart(2, '0')}</b> / 05`;
 }
@@ -644,11 +640,11 @@ function renderCarouselStory() {
   const carouselPhase = ramp(progress, .2, .72) * 4;
   const slide = Math.min(3, Math.floor(carouselPhase));
   const betweenSlides = slide === 3 ? 0 : ease(ramp(carouselPhase - slide, .72, 1));
-  const proofExit = ease(ramp(progress, .64, .79));
-  const commerce = ease(ramp(progress, .77, .91));
-  const commerceExit = ease(ramp(progress, .82, .9));
-  const apparel = ease(ramp(progress, .9, .99));
-  const gutter = window.innerWidth * .045 * reduce;
+  const proofExit = ease(ramp(progress, .34, .38));
+  const commerce = ease(ramp(progress, .36, .42));
+  const commerceExit = ease(ramp(progress, .54, .7));
+  const apparel = commerce;
+  const gutter = 160 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const uploadStart = window.innerWidth * .045 + carouselButtons[0].offsetWidth * .5;
   const finalHeroWidth = (window.innerWidth - window.innerWidth * .09) * .30;
@@ -682,7 +678,7 @@ function renderCarouselStory() {
   carouselCards.forEach((card, index) => {
     card.style.width = `${rackWidth}px`;
     card.style.transform = `translate3d(${(index - slide - betweenSlides) * rackWidth}px,0,0)`;
-    card.style.opacity = `${progress < .16 ? 0 : 1 - commerce}`;
+    card.style.opacity = `${progress < .16 ? 0 : 1 - Math.max(commerce, proofExit)}`;
     card.style.zIndex = `${index + 1}`;
   });
   const shown = slide === 3 ? 5 : Math.min(5, 1 + slide + (betweenSlides > .5 ? 1 : 0));
@@ -699,7 +695,7 @@ function renderBlanksStory() {
   const reduce = ease(ramp(progress, .05, .32));
   const reveal = ease(ramp(progress, .25, .43));
   const carousel = ease(ramp(progress, .38, .52));
-  const gutter = window.innerWidth * .045 * reduce;
+  const gutter = 160 * reduce;
   const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
   const panelTop = window.innerHeight * .15 * reduce;
   blanksShell.style.setProperty('--reduce', reduce.toFixed(3));

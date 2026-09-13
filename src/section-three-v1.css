@@ -1,4 +1,4 @@
-.section-three-v1{position:relative;overflow:hidden;padding:clamp(4.5rem,9vw,9rem) clamp(1.5rem,4.7vw,5rem);background:#f5f1ea;color:#14213d}
+.section-three-v1{position:relative;overflow:hidden;padding:clamp(4.5rem,9vw,9rem) clamp(1.5rem,4.7vw,160px);background:#f5f1ea;color:#14213d}
 .section-three-v1:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 88% 10%,rgba(255,200,0,.18),transparent 27%),radial-gradient(circle at 8% 90%,rgba(22,54,100,.11),transparent 30%);pointer-events:none}
 .section-three-v1__inner{position:relative;z-index:1;max-width:120rem;margin:auto}
 .section-three-v1__header{margin-bottom:clamp(2.5rem,5vw,5rem)}
@@ -17,7 +17,7 @@
 .section-three-v1__card i{position:absolute;right:1rem;bottom:.85rem;color:#7b8492;font:400 1rem/1 Inter,Arial,sans-serif;font-style:normal}
 .section-three-v1__tertiary{display:flex;justify-content:center;gap:1.5rem;margin-top:clamp(2.25rem,4vw,4rem)}
 .section-three-v1__tertiary a{display:inline-flex;align-items:center;gap:.55rem;padding:.2rem 0;border-bottom:1px solid rgba(20,33,61,.42);color:#14213d;font:500 .9rem/1 Inter,Arial,sans-serif;transition:border-color .2s,color .2s}
-.section-three-v1__tertiary a:hover{border-color:#e52b22;color:#e52b22}
+.section-three-v1__tertiary a:hover{border-color:#ffc800;color:#ffc800}
 .section-three-v1__tertiary span{font-size:1.1rem}
 @media(max-width:1050px){.section-three-v1__cards{grid-template-columns:repeat(3,minmax(0,1fr))}
 }

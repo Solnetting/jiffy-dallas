@@ -1,0 +1,105 @@
+/* Keep the desktop apparel stage exactly viewport height. */
+@media (min-width: 901px) {
+  .apparel-v2,
+  .apparel-v2__inner {
+    height: 100svh;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .apparel-v2,
+  .apparel-v2__inner {
+    height: auto;
+    min-height: 100svh;
+  }
+}
+
+/* The blank-stage carousel uses the approved apparel-card system. */
+@media (min-width: 901px) {
+  .blanks-story .blanks-product {
+    padding: .75rem;
+    border: 1px solid rgba(255, 255, 255, .38);
+    border-radius: .75rem;
+    background: rgba(255, 255, 255, .55);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 .5rem 1.5rem rgba(20, 33, 61, .07);
+  }
+
+  .blanks-story .blanks-product:hover {
+    background: rgba(255, 255, 255, .65);
+  }
+
+  .blanks-story .blanks-product > img {
+    aspect-ratio: 1.15 / 1;
+    border-radius: 1rem;
+  }
+
+  .blanks-story .blanks-product small {
+    margin-top: .7rem;
+    color: #5b6577;
+  }
+
+  .blanks-story .blanks-product strong {
+    min-height: 0;
+    margin-top: .45rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .blanks-story .blanks-product b {
+    margin-top: .45rem;
+    font-size: 1.1rem;
+  }
+
+  .blanks-story .blanks-product__rating {
+    margin-top: .55rem;
+  }
+
+  /* The full-viewport rail and the lower blank carousel are one card system. */
+  .apparel-v2__product {
+    padding: .75rem;
+    border: 1px solid rgba(255, 255, 255, .38);
+    border-radius: .75rem;
+    background: rgba(255, 255, 255, .55);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 .5rem 1.5rem rgba(20, 33, 61, .07);
+  }
+
+  .apparel-v2__product:hover {
+    background: rgba(255, 255, 255, .65);
+  }
+
+  .apparel-v2__product > img {
+    aspect-ratio: 1.15 / 1;
+    border-radius: 1rem;
+  }
+
+  .apparel-v2__product small {
+    margin-top: .7rem;
+    color: #5b6577;
+  }
+
+  .apparel-v2__product strong {
+    margin-top: .45rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .apparel-v2__product b {
+    margin-top: .45rem;
+    font-size: 1.1rem;
+  }
+
+  .apparel-v2__product span {
+    margin-top: .55rem;
+  }
+}

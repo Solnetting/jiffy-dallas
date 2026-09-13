@@ -1,0 +1,194 @@
+/* Mobile layout: return the editorial sections to document flow. The desktop
+   story choreography uses absolute geometry; on small screens each stage must
+   stack naturally so text, media, and rails cannot cover one another. */
+@media (max-width: 900px) {
+  html, body { overflow-x: hidden; }
+
+  .jiffy-hero { min-height: 100svh; }
+  .jiffy-hero__nav { padding: 1rem; }
+  .jiffy-hero__brand { gap: .65rem; }
+  .jiffy-hero__logo { width: 6rem; height: auto; }
+  .jiffy-hero__content { padding: 3rem 1rem 2rem; }
+  .jiffy-hero h1 { max-width: 22rem; font-size: clamp(2rem, 10vw, 3rem); }
+  .jiffy-hero__lede { max-width: 20rem; font-size: 1rem; }
+  .jiffy-hero__address { width: 100%; }
+
+  .quality-story {
+    height: auto !important;
+    overflow: visible;
+  }
+  .quality-story[hidden] { display: none !important; }
+  .story-sticky {
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .story-shell {
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 1rem !important;
+  }
+  .story-header, .story-title {
+    position: relative !important;
+    inset: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+    margin: 0 0 1rem;
+  }
+  .story-header { display: none !important; }
+  .story-title { font-size: clamp(2.1rem, 10vw, 3rem) !important; }
+
+  .hero-art {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: min(76svh, 42rem) !important;
+    transform: none !important;
+  }
+  .hero-art .upload-button--quiet {
+    left: 50% !important;
+    top: auto !important;
+    bottom: 1.25rem !important;
+    transform: translateX(-50%) !important;
+    white-space: nowrap;
+  }
+  .compare-hero-title {
+    top: 1.25rem !important;
+    left: 1.25rem !important;
+    width: calc(100% - 2.5rem) !important;
+  }
+  .compare-hero-title h2 { font-size: clamp(2rem, 9vw, 3rem) !important; }
+
+  .quality-rack {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: 22rem !important;
+    display: flex !important;
+    gap: .75rem;
+    margin-top: 1rem;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    transform: none !important;
+  }
+  .proof-card {
+    position: relative !important;
+    inset: auto !important;
+    flex: 0 0 76% !important;
+    width: auto !important;
+    height: 100% !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .proof-card figcaption { left: .85rem; bottom: .85rem; }
+  .proof-card figcaption strong { font-size: 1.15rem; }
+  .proof-card figcaption span { font-size: .82rem; }
+
+  .conversion-panel {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    margin-top: 1rem;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .conversion-panel__heading { gap: .5rem; }
+  .conversion-panel__heading h2 { font-size: 1.25rem !important; }
+  .conversion-panel__heading p { font-size: .9rem !important; }
+  .transfer-paths { grid-template-columns: 1fr !important; gap: 1rem !important; }
+  .transfer-choice {
+    display: grid !important;
+    grid-template-columns: 7rem 1fr !important;
+    gap: .85rem !important;
+    padding: .75rem !important;
+    border-radius: 1rem !important;
+  }
+  .transfer-choice__thumbnail { grid-row: 1 / span 2; aspect-ratio: 1; }
+  .transfer-choice__info { gap: .4rem; }
+  .transfer-choice__title-row { display: block; }
+  .transfer-choice__title-row > strong { display: block; font-size: 1rem !important; }
+  .transfer-choice__price { margin-top: .25rem; }
+  .transfer-choice__info > p { font-size: .78rem !important; }
+  .transfer-choice__action { grid-column: 2; min-height: 2.6rem !important; }
+
+  .apparel-rail {
+    position: relative !important;
+    inset: auto !important;
+    display: block !important;
+    width: 100% !important;
+    margin-top: 1.5rem;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .rail-copy { padding-bottom: .75rem; }
+  .rail-copy h2 { font-size: 1.25rem !important; }
+  .rail-products {
+    display: flex !important;
+    gap: .75rem !important;
+    width: 100%;
+    overflow-x: auto !important;
+    padding-bottom: .5rem;
+  }
+  .rail-product { flex: 0 0 10rem !important; }
+
+  .blanks-story { height: auto !important; }
+  .blanks-sticky {
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .blanks-shell {
+    height: auto !important;
+    padding: 1rem !important;
+  }
+  .blanks-hero-art {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: min(78svh, 42rem) !important;
+  }
+  .blanks-content {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    margin-top: 1.5rem;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .blanks-content-copy h2 { font-size: clamp(2rem, 9vw, 3rem); }
+  .blanks-carousel-group {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    margin-top: 1.25rem;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .blanks-carousel-group .blanks-cta {
+    position: relative !important;
+    inset: auto !important;
+    order: -1;
+    align-self: flex-end;
+    display: inline-flex;
+    width: auto;
+    margin: 0 0 .75rem auto;
+    padding: 0;
+    background: transparent;
+    color: #14213d;
+    font-size: .9rem;
+  }
+  .blanks-carousel-group .blanks-products {
+    position: relative !important;
+    inset: auto !important;
+    display: flex !important;
+    width: 100% !important;
+    gap: .75rem;
+    overflow-x: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .blanks-carousel-group .blanks-product {
+    flex: 0 0 76% !important;
+  }
+}

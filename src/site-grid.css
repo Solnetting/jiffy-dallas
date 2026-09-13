@@ -1,0 +1,24 @@
+/* Shared desktop alignment grid. Every full-width section uses the same
+   160px inner boundary; mobile keeps its existing responsive padding. */
+@media (min-width: 901px) {
+  :root { --site-gutter: 160px; }
+
+  .jiffy-hero__nav,
+  .jiffy-hero__content,
+  .hero,
+  .transfers,
+  .apparel,
+  .quality-content,
+  .footer,
+  .transfer-catalog,
+  .apparel-v2__inner,
+  .section-three-v1 {
+    padding-inline: var(--site-gutter);
+  }
+
+  .shop-in-range__inner {
+    width: calc(100% - (2 * var(--site-gutter)));
+    max-width: none;
+    padding-inline: 0;
+  }
+}
