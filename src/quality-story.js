@@ -53,11 +53,6 @@ blanksSection.innerHTML = `
           <small>Scroll to compare 20+ styles</small>
         </div>
       </article>
-      <main class="blanks-content">
-        <div class="blanks-content-copy">
-          <p class="blanks-content-eyebrow">Apparel</p>
-        </div>
-      </main>
       <div class="blanks-carousel-group">
       <div class="blanks-products" aria-label="Popular blank apparel">
         ${[
@@ -388,6 +383,7 @@ apparelV2.after(apparelV3);
 // available in one view, with chips providing the only lightweight control.
 const finalBlanksCatalog = blanksSection.querySelector('.blanks-carousel-group');
 finalBlanksCatalog.innerHTML = `
+  <p class="blanks-content-eyebrow">Apparel</p>
   <div class="blanks-static-toolbar">
     <div class="blanks-static-filters" role="group" aria-label="Filter blank apparel">
       <button type="button" class="is-active" data-apparel-filter="all" aria-pressed="true">All <span>20</span></button>
@@ -866,7 +862,10 @@ function renderBlanksStory() {
   // into the next frame and stop the final rows short of the viewport edge.
   const groupTopInShell = blanksCarouselGroup.offsetTop;
   const visibleGroupHeight = Math.max(0, window.innerHeight - groupTopInShell);
-  const maxCatalogTranslate = Math.max(0, blanksCarouselGroup.offsetHeight - visibleGroupHeight);
+  // Leave a generous visual pause after the final product row before the next
+  // story begins instead of ending the catalogue flush against the viewport.
+  const catalogBottomGap = Math.max(192, Math.min(288, window.innerHeight * .2));
+  const maxCatalogTranslate = Math.max(0, blanksCarouselGroup.offsetHeight - visibleGroupHeight + catalogBottomGap);
   blanksShell.style.setProperty('--hero-progress', heroProgress.toFixed(3));
   blanksShell.style.setProperty('--catalog-progress', catalogProgress.toFixed(3));
   blanksShell.style.setProperty('--catalog-translate', `${(-maxCatalogTranslate * catalogScroll).toFixed(1)}px`);

@@ -57,6 +57,7 @@
 .blanks-story--interactive .blanks-hero-title h2{font-size:clamp(2rem,calc((1 - var(--hero-progress,0)) * 5vw + var(--hero-progress,0) * 2.8vw),5.6rem);line-height:.92}
 .blanks-story--static.blanks-story--interactive .blanks-content-copy h2,.blanks-story--static.blanks-story--interactive .blanks-content-copy>p:not(.blanks-content-eyebrow){display:none!important}
 .blanks-story--static.blanks-story--interactive .blanks-content-copy .blanks-content-eyebrow{display:block;margin:0;color:#14213d;font:700 clamp(.72rem,1.05vw,.95rem)/1 Inter,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+.blanks-story--static.blanks-story--interactive .blanks-carousel-group>.blanks-content-eyebrow{display:block;margin:0 0 clamp(.75rem,1.5vw,1.25rem);color:#14213d;font:700 clamp(.72rem,1.05vw,.95rem)/1 Inter,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
 .blanks-story--interactive .blanks-content{z-index:5;opacity:var(--catalog-progress);transform:translateY(calc((1 - var(--catalog-progress)) * 2rem));transition:none}
 .blanks-story--interactive .blanks-carousel-group{z-index:5;opacity:var(--catalog-progress);transform:translateY(calc((1 - var(--catalog-progress)) * 2rem + var(--catalog-translate,0px)));transition:none}
 @media(max-width:900px){
@@ -90,3 +91,7 @@
   .blanks-story--static.blanks-story--interactive .blanks-static-toolbar{align-items:flex-start;flex-direction:column}
   .blanks-story--static.blanks-story--interactive .blanks-static-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;max-height:none;overflow:visible}
 }
+
+/* Keep the editorial headline inside the image's left content area at every
+   stage of the handoff, including the initial full-bleed frame. */
+.blanks-story--static.blanks-story--interactive .blanks-hero-title{right:auto!important;left:clamp(1.25rem,3vw,3rem)!important;width:min(38rem,calc(100% - clamp(2.5rem,6vw,6rem)))!important;max-width:38rem!important}
