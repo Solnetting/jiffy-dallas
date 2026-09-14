@@ -197,6 +197,18 @@ s3Showroom.innerHTML = `
         <a href="#transfers-section" class="s3-logo-link" aria-label="Jiffy home"><img src="${asset('jiffy-local-logo.svg')}" alt="Jiffy Local" /></a>
         <span class="s3-location">DALLAS–FORT WORTH</span>
       </header>
+      <form class="s3-addressbar" action="https://www.jiffy.com/" method="get">
+        <div class="s3-addressbar__panel">
+          <label><img src="${asset('address-checker-panel-location.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
+          <button type="submit">Check your delivery time</button>
+        </div>
+        <div class="s3-addressbar__status" hidden aria-live="polite">
+          <span class="s3-addressbar__delivery-address"></span>
+          <span class="s3-addressbar__delivery-divider" aria-hidden="true"></span>
+          <span class="s3-addressbar__delivery-window"><small>Today, 2 – 4 PM</small><strong>--:--:--</strong></span>
+          <button class="s3-addressbar__clear" type="button" aria-label="Clear delivery address">×</button>
+        </div>
+      </form>
       <div class="s3-copy">
         <p class="s3-eyebrow">DTF PROOF OF QUALITY</p>
         <h1 id="s3-title">Your design.<br />Our quality<span>.</span></h1>
@@ -381,6 +393,147 @@ sectionThreeV1.innerHTML = `
   </div>`;
 apparelV2.after(sectionThreeV1);
 
+const coverageStory = document.createElement('section');
+coverageStory.className = 'coverage-story';
+coverageStory.id = 'delivery-coverage';
+coverageStory.setAttribute('aria-labelledby', 'coverage-story-title');
+coverageStory.innerHTML = `
+  <div class="coverage-story__sticky">
+    <div class="coverage-story__inner">
+      <div class="coverage-story__copy">
+        <p class="coverage-story__eyebrow">DELIVERY AREA</p>
+        <div class="coverage-story__copy-stage" aria-live="polite">
+          <article class="coverage-story__chapter coverage-story__chapter--local is-active" data-coverage-copy="0">
+            <h2 id="coverage-story-title">Fast.<br />Right here<span>.</span></h2>
+            <h3>Today · Two-hour windows</h3>
+            <p>Dallas–Fort Worth delivery, seven days a week from 5 AM to 7 PM.</p>
+            <strong class="coverage-story__price">First local delivery <em>free</em></strong>
+          </article>
+          <article class="coverage-story__chapter coverage-story__chapter--texas" data-coverage-copy="1" aria-hidden="true">
+            <h2>Texas.<br />By tomorrow<span>.</span></h2>
+            <h3>Next day · Statewide</h3>
+            <p>Jiffy Overnight connects Dallas production with shops across Texas.</p>
+            <strong class="coverage-story__price">Free delivery <em>on $49+</em></strong>
+          </article>
+        </div>
+        <nav class="coverage-story__index" aria-label="Delivery coverage">
+          <button class="is-active" type="button" data-coverage-step="0" aria-current="step">
+            <i aria-hidden="true"></i><span><b>LOCAL</b><small>Dallas–Fort Worth</small></span>
+          </button>
+          <button type="button" data-coverage-step="1">
+            <i aria-hidden="true"></i><span><b>OVERNIGHT</b><small>All of Texas</small></span>
+          </button>
+        </nav>
+      </div>
+      <div class="coverage-story__map-card" aria-label="Map zooming from Dallas–Fort Worth to all of Texas">
+        <div class="coverage-story__map-meta"><span>Dallas micro-factory</span><strong data-coverage-scale>DFW / LOCAL</strong></div>
+        <svg class="coverage-story__map" viewBox="0 0 1000 700" role="img" aria-labelledby="coverage-map-title coverage-map-description">
+          <title id="coverage-map-title">Jiffy Local and Jiffy Overnight delivery coverage</title>
+          <desc id="coverage-map-description">The map begins focused on Dallas and Fort Worth, then zooms out to show statewide Texas delivery.</desc>
+          <defs>
+            <pattern id="coverage-grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#dcd8cf" stroke-width="1" /></pattern>
+            <filter id="coverage-glow"><feGaussianBlur stdDeviation="14" /></filter>
+          </defs>
+          <rect width="1000" height="700" fill="#f7f4ee" />
+          <rect width="1000" height="700" fill="url(#coverage-grid)" opacity=".34" />
+          <g class="coverage-story__map-world">
+            <path class="coverage-story__neighbor" d="M75 62H916V642H75z" />
+            <path class="coverage-story__texas-shadow" d="M332 78L553 82L551 205L674 205L704 252L793 275L759 340L720 379L691 451L645 500L604 595L551 647L505 586L449 558L394 487L331 454L245 421L263 356L220 300L276 253L331 222Z" />
+            <path class="coverage-story__texas" d="M332 78L553 82L551 205L674 205L704 252L793 275L759 340L720 379L691 451L645 500L604 595L551 647L505 586L449 558L394 487L331 454L245 421L263 356L220 300L276 253L331 222Z" />
+            <g class="coverage-story__roads" aria-hidden="true">
+              <path d="M290 210C391 263 511 276 683 267" />
+              <path d="M314 402C432 353 547 325 751 305" />
+              <path d="M363 109C438 246 471 395 512 574" />
+              <path d="M548 97C534 229 574 340 645 493" />
+              <path d="M267 354C370 369 487 438 591 593" />
+              <path d="M407 230C492 247 568 274 667 365" />
+              <path d="M387 476C470 456 562 457 668 474" />
+            </g>
+            <g class="coverage-story__cities" aria-hidden="true">
+              <circle cx="410" cy="244" r="5" /><circle cx="632" cy="265" r="5" /><circle cx="511" cy="416" r="5" /><circle cx="579" cy="500" r="5" /><circle cx="346" cy="365" r="5" /><circle cx="669" cy="382" r="5" />
+            </g>
+            <g class="coverage-story__local-area">
+              <circle class="coverage-story__local-glow" cx="575" cy="236" r="112" />
+              <circle class="coverage-story__local-ring coverage-story__local-ring--outer" cx="575" cy="236" r="104" />
+              <circle class="coverage-story__local-ring" cx="575" cy="236" r="70" />
+              <circle class="coverage-story__local-ring" cx="575" cy="236" r="36" />
+              <path class="coverage-story__route" d="M470 261C505 242 527 237 575 236" />
+              <circle class="coverage-story__facility-halo" cx="575" cy="236" r="18" />
+              <circle class="coverage-story__facility" cx="575" cy="236" r="8" />
+              <g class="coverage-story__local-labels"><text x="448" y="286">FORT WORTH</text><text x="604" y="218">DALLAS</text></g>
+            </g>
+          </g>
+        </svg>
+        <div class="coverage-story__map-footer">
+          <span data-coverage-caption>Local delivery radius</span>
+          <div><i></i><strong data-coverage-window>Today · 2-hour windows</strong></div>
+        </div>
+      </div>
+    </div>
+    <p class="coverage-story__scroll-cue" aria-hidden="true"><span></span>Scroll to expand the map</p>
+  </div>`;
+sectionThreeV1.after(coverageStory);
+
+const setupCoverageStory = () => {
+  const mapWorld = coverageStory.querySelector('.coverage-story__map-world');
+  const copy = [...coverageStory.querySelectorAll('[data-coverage-copy]')];
+  const steps = [...coverageStory.querySelectorAll('[data-coverage-step]')];
+  const scaleLabel = coverageStory.querySelector('[data-coverage-scale]');
+  const caption = coverageStory.querySelector('[data-coverage-caption]');
+  const deliveryWindow = coverageStory.querySelector('[data-coverage-window]');
+  const persistentAddressBar = document.querySelector('.s3-addressbar');
+  const localClamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+  const smooth = (value) => value * value * (3 - 2 * value);
+  let currentStep = 0;
+  let frame;
+
+  const render = () => {
+    frame = undefined;
+    const maxScroll = Math.max(1, coverageStory.offsetHeight - innerHeight);
+    const bounds = coverageStory.getBoundingClientRect();
+    const progress = localClamp(-bounds.top / maxScroll);
+    persistentAddressBar?.classList.toggle('is-on-light-surface', bounds.top <= 80 && bounds.bottom >= 80);
+    const zoom = smooth(progress);
+    const scale = 2.58 + ((1 - 2.58) * zoom);
+    const localX = 500 - (575 * 2.58);
+    const localY = 350 - (236 * 2.58);
+    const translateX = localX * (1 - zoom);
+    const translateY = localY * (1 - zoom);
+    mapWorld.setAttribute('transform', `translate(${translateX.toFixed(2)} ${translateY.toFixed(2)}) scale(${scale.toFixed(3)})`);
+    coverageStory.style.setProperty('--coverage-progress', progress.toFixed(3));
+
+    const nextStep = progress >= .5 ? 1 : 0;
+    if (nextStep !== currentStep) currentStep = nextStep;
+    copy.forEach((chapter, index) => {
+      const active = index === currentStep;
+      chapter.classList.toggle('is-active', active);
+      chapter.setAttribute('aria-hidden', String(!active));
+    });
+    steps.forEach((step, index) => {
+      const active = index === currentStep;
+      step.classList.toggle('is-active', active);
+      step.setAttribute('aria-current', active ? 'step' : 'false');
+    });
+    const statewide = currentStep === 1;
+    scaleLabel.textContent = statewide ? 'TEXAS / STATEWIDE' : 'DFW / LOCAL';
+    caption.textContent = statewide ? 'Statewide overnight network' : 'Local delivery radius';
+    deliveryWindow.textContent = statewide ? 'Tomorrow · All of Texas' : 'Today · 2-hour windows';
+  };
+
+  const queueRender = () => {
+    if (!frame) frame = requestAnimationFrame(render);
+  };
+  steps.forEach((step) => step.addEventListener('click', () => {
+    const target = Number(step.dataset.coverageStep);
+    const maxScroll = Math.max(1, coverageStory.offsetHeight - innerHeight);
+    window.scrollTo({ top: coverageStory.offsetTop + (target * maxScroll), behavior: 'smooth' });
+  }));
+  window.addEventListener('scroll', queueRender, { passive: true });
+  window.addEventListener('resize', queueRender);
+  render();
+};
+setupCoverageStory();
+
 const shopInRange = document.createElement('section');
 shopInRange.className = 'shop-in-range';
 shopInRange.setAttribute('aria-labelledby', 'shop-in-range-title');
@@ -396,7 +549,7 @@ shopInRange.innerHTML = `
     </form>
     <p class="shop-in-range__trust"><img src="${asset('shop-in-range-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
   </div>`;
-sectionThreeV1.after(shopInRange);
+coverageStory.after(shopInRange);
 
 const supportChat = document.createElement('button');
 supportChat.className = 'support-chat';
@@ -419,15 +572,15 @@ document.querySelectorAll('[data-nav-scroll]').forEach((link) => {
   });
 });
 
-const addressSearch = document.querySelector('.jiffy-hero__address');
+const addressSearch = document.querySelector('.s3-addressbar');
 const addressForm = addressSearch;
 const addressInput = addressSearch?.querySelector('input[name="address"]');
-const addressPanel = addressSearch?.querySelector('.jiffy-hero__address-panel');
-const deliveryStatus = addressSearch?.querySelector('.jiffy-hero__delivery-status');
-const deliveryAddress = addressSearch?.querySelector('.jiffy-hero__delivery-address');
-const deliveryWindow = addressSearch?.querySelector('.jiffy-hero__delivery-window strong');
-const deliveryChange = addressSearch?.querySelector('.jiffy-hero__delivery-change');
-const deliveryClear = addressSearch?.querySelector('.jiffy-hero__delivery-clear');
+const addressPanel = addressSearch?.querySelector('.s3-addressbar__panel');
+const deliveryStatus = addressSearch?.querySelector('.s3-addressbar__status');
+const deliveryAddress = addressSearch?.querySelector('.s3-addressbar__delivery-address');
+const deliveryWindow = addressSearch?.querySelector('.s3-addressbar__delivery-window strong');
+const deliveryChange = addressSearch?.querySelector('.s3-addressbar__change');
+const deliveryClear = addressSearch?.querySelector('.s3-addressbar__clear');
 const heroTitle = document.querySelector('#jiffy-hero-title');
 const heroLede = document.querySelector('.jiffy-hero__lede');
 const heroEyebrow = document.querySelector('.jiffy-hero__eyebrow');
@@ -928,4 +1081,3 @@ carouselFileInput.addEventListener('change', () => {
 // after their legacy setup has completed so duplicate IDs and hidden variant
 // state cannot interfere with refreshes or later scroll events.
 document.querySelectorAll('.jiffy-hero, .quality-story, .static-quality-compare').forEach((element) => element.remove());
-addressSearch?.remove();
