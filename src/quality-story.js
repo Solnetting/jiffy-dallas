@@ -35,13 +35,13 @@ document.querySelector('#app').innerHTML = `
           <button type="submit"><span>Check your delivery time</span></button>
         </div>
         <div class="jiffy-hero__delivery-status" hidden aria-live="polite">
-          <span class="jiffy-hero__delivery-address"></span>
+          <span class="jiffy-hero__delivery-address-group"><small>Delivering to</small><span class="jiffy-hero__delivery-address"></span></span>
           <span class="jiffy-hero__delivery-divider" aria-hidden="true"></span>
-          <span class="jiffy-hero__delivery-window"><small>Today, 2 – 4 PM</small><strong>--:--:--</strong></span>
+          <span class="jiffy-hero__delivery-window"><small>Next delivery window</small><strong>Today, 2 – 4 PM</strong><em>Order within <b class="jiffy-hero__delivery-countdown">--:--:--</b></em></span>
           <button class="jiffy-hero__delivery-clear" type="button" aria-label="Clear delivery address">×</button>
         </div>
       </form>
-      <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
+      <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 7 PM · Printed and driven from Dallas</p>
       <div class="jiffy-hero__delivery-outcome" hidden aria-live="polite"></div>
     </div>
   </section>
@@ -156,6 +156,11 @@ blanksSection.innerHTML = `
         <img src="${asset('blanks-editorial-hero.png')}" alt="Person wearing a blank shirt" />
         <div class="blanks-art-copy blanks-art-copy--top">Same<br />good<br />ideas<br />a brighter<br />DFW <span></span></div>
         <div class="blanks-art-copy blanks-art-copy--bottom">Blanks<br />for a more<br />local tomorrow <span></span></div>
+        <div class="blanks-hero-title" aria-hidden="true">
+          <p>Blank apparel</p>
+          <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
+          <small>Scroll to compare 20+ styles</small>
+        </div>
       </article>
       <main class="blanks-content">
         <div class="blanks-content-copy">
@@ -197,18 +202,6 @@ s3Showroom.innerHTML = `
         <a href="#transfers-section" class="s3-logo-link" aria-label="Jiffy home"><img src="${asset('jiffy-local-logo.svg')}" alt="Jiffy Local" /></a>
         <span class="s3-location">DALLAS–FORT WORTH</span>
       </header>
-      <form class="s3-addressbar" action="https://www.jiffy.com/" method="get">
-        <div class="s3-addressbar__panel">
-          <label><img src="${asset('address-checker-panel-location.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
-          <button type="submit">Check your delivery time</button>
-        </div>
-        <div class="s3-addressbar__status" hidden aria-live="polite">
-          <span class="s3-addressbar__delivery-address"></span>
-          <span class="s3-addressbar__delivery-divider" aria-hidden="true"></span>
-          <span class="s3-addressbar__delivery-window"><small>Today, 2 – 4 PM</small><strong>--:--:--</strong></span>
-          <button class="s3-addressbar__clear" type="button" aria-label="Clear delivery address">×</button>
-        </div>
-      </form>
       <div class="s3-copy">
         <p class="s3-eyebrow">DTF PROOF OF QUALITY</p>
         <h1 id="s3-title">Your design.<br />Our quality<span>.</span></h1>
@@ -229,19 +222,49 @@ s3Showroom.innerHTML = `
       </nav>
       <button class="s3-upload" type="button" aria-label="Upload artwork. Drag and drop a file or select one."><span class="s3-upload-icon" aria-hidden="true">↑</span><span><strong>Upload artwork</strong><small>Drag &amp; drop or select a file</small></span></button>
       <input class="s3-file-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
-      <div class="s3-progress" aria-label="Quality proof controls"><button type="button" class="s3-arrow" data-s3-prev aria-label="Previous quality proof">←</button><span class="s3-progress-track" aria-hidden="true"><i></i></span><span class="s3-progress-count"><b>01</b><em>/ 04</em></span><button type="button" class="s3-arrow" data-s3-next aria-label="Next quality proof">→</button></div>
+      <div class="s3-progress" aria-label="Quality proof controls"><button type="button" class="s3-arrow" data-s3-prev aria-label="Previous quality proof">←</button><span class="s3-progress-track" aria-hidden="true"><i></i></span><span class="s3-progress-count"><b>01</b><em>/ 05</em></span><button type="button" class="s3-arrow" data-s3-next aria-label="Next quality proof">→</button></div>
     </div>
   </div>
 </section>`;
 document.querySelector('#app').prepend(s3Showroom);
 const originalHero = document.querySelector('.jiffy-hero');
 originalHero?.after(s3Showroom);
+const localPromiseStrip = document.createElement('section');
+localPromiseStrip.className = 'local-promise-strip';
+localPromiseStrip.setAttribute('aria-label', 'Jiffy Local advantages');
+localPromiseStrip.innerHTML = `
+  <div class="local-promise-strip__inner">
+    <article class="local-promise-strip__item local-promise-strip__item--delivery" data-promise-item>
+      <div class="local-promise-strip__copy"><p>Local delivery</p><h2>First local<br />delivery <mark>free.</mark></h2><span>Get your order delivered in the Dallas–Fort Worth area. On us.</span></div>
+    </article>
+    <article class="local-promise-strip__item local-promise-strip__item--apparel" data-promise-item>
+      <div class="local-promise-strip__shirts" aria-hidden="true"><img src="${asset('product-figma-2.png')}" alt="" /><img src="${asset('product-figma-3.png')}" alt="" /><img src="${asset('product-figma-4.png')}" alt="" /></div>
+      <div class="local-promise-strip__copy"><p>Apparel</p><h2>20+ shirt styles<br />from <mark>$2.41.</mark></h2><span>Premium blanks from leading brands, ready for your design.</span></div>
+    </article>
+    <article class="local-promise-strip__item local-promise-strip__item--printing" data-promise-item>
+      <img class="local-promise-strip__print-image" src="${asset('s1v3-transfer-film.png')}" alt="DTF transfer film detail" />
+      <div class="local-promise-strip__copy"><p>Custom printing</p><h2>Custom direct<br />to film from<br /><mark>$0.02 per line.</mark></h2><span>High-quality DTF printing for any design, big or small.</span></div>
+    </article>
+  </div>`;
+originalHero?.after(localPromiseStrip);
+const promiseObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      localPromiseStrip.classList.add('is-revealed');
+      promiseObserver.unobserve(localPromiseStrip);
+    }
+  });
+}, { threshold:.35 });
+promiseObserver.observe(localPromiseStrip);
 document.querySelectorAll('.quality-story, .static-quality-compare').forEach((element) => {
   element.hidden = true;
   element.setAttribute('aria-hidden', 'true');
 });
 
 const setupS3Showroom = (showroom) => {
+  // Keep this controller self-contained. The page has other scroll stories
+  // below it, so it must never depend on a later story helper being initialized.
+  const clampS3 = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
   const index = showroom.querySelector('.s3-index');
   showroom.querySelector('.s3-copy').append(index);
   const frames = [...showroom.querySelectorAll('.s3-frame')];
@@ -251,21 +274,21 @@ const setupS3Showroom = (showroom) => {
   const title = showroom.querySelector('h1');
   const lede = showroom.querySelector('.s3-lede');
   const progressCount = showroom.querySelector('.s3-progress-count b');
+  const progressTotal = showroom.querySelector('.s3-progress-count em');
   const progressTrack = showroom.querySelector('.s3-progress-track');
-  let manualStep = null;
   let autoStep = 0;
   let stepStartedAt = performance.now();
   let lastStep = 0;
-  const autoplayDuration = 4200;
+  const lastFrame = frames.length - 1;
+  const autoplayDuration = 3200;
   const render = () => {
     const bounds = showroom.getBoundingClientRect();
     const maxScroll = Math.max(1, showroom.offsetHeight - innerHeight);
-    const sectionProgress = clamp(-bounds.top / maxScroll);
-    const isScrollControlled = sectionProgress > 0.01;
-    const scrollPosition = sectionProgress * 5;
-    const scrollStep = clamp(Math.floor(scrollPosition), 0, 4);
-    const rawStep = manualStep ?? autoStep;
-    const step = isScrollControlled ? scrollStep : clamp(rawStep, 0, 4);
+    const sectionProgress = clampS3(-bounds.top / maxScroll);
+    const isScrollControlled = sectionProgress > 0.08;
+    const scrollPosition = sectionProgress * lastFrame;
+    const scrollStep = clampS3(Math.round(scrollPosition), 0, lastFrame);
+    const step = isScrollControlled ? scrollStep : clampS3(autoStep, 0, lastFrame);
     if (step !== lastStep) {
       stepStartedAt = performance.now();
       lastStep = step;
@@ -284,7 +307,8 @@ const setupS3Showroom = (showroom) => {
       item.setAttribute('aria-current', index === Math.max(0, step - 1) ? 'step' : 'false');
     });
     showroom.style.setProperty('--s3-step', step);
-    progressCount.textContent = String(Math.max(1, step)).padStart(2, '0');
+    progressCount.textContent = String(step + 1).padStart(2, '0');
+    progressTotal.textContent = `/ ${String(frames.length).padStart(2, '0')}`;
     if (isScrollControlled) {
       const localProgress = (scrollPosition - Math.floor(scrollPosition)) * 100;
       progressTrack.style.setProperty('--s3-fill', `${localProgress}%`);
@@ -292,15 +316,14 @@ const setupS3Showroom = (showroom) => {
       progressTrack.style.setProperty('--s3-fill', '0%');
     }
   };
-  showroom.querySelector('[data-s3-prev]').addEventListener('click', () => { autoStep = (autoStep + 4) % 5; manualStep = null; stepStartedAt = performance.now(); render(); });
-  showroom.querySelector('[data-s3-next]').addEventListener('click', () => { autoStep = (autoStep + 1) % 5; manualStep = null; stepStartedAt = performance.now(); render(); });
+  showroom.querySelector('[data-s3-prev]').addEventListener('click', () => { autoStep = (autoStep + lastFrame) % frames.length; stepStartedAt = performance.now(); render(); });
+  showroom.querySelector('[data-s3-next]').addEventListener('click', () => { autoStep = (autoStep + 1) % frames.length; stepStartedAt = performance.now(); render(); });
   items.forEach((item) => item.addEventListener('click', () => {
     const targetStep = Number(item.dataset.s3Step);
     autoStep = targetStep;
-    manualStep = null;
     stepStartedAt = performance.now();
     const maxScroll = Math.max(1, showroom.offsetHeight - innerHeight);
-    const targetTop = showroom.offsetTop + (targetStep / 5) * maxScroll;
+    const targetTop = showroom.offsetTop + (targetStep / lastFrame) * maxScroll;
     window.scrollTo({ top: targetTop, behavior: 'smooth' });
   }));
   upload.addEventListener('click', () => fileInput.click());
@@ -322,19 +345,19 @@ const setupS3Showroom = (showroom) => {
     if (!document.hidden) {
       const bounds = showroom.getBoundingClientRect();
       const maxScroll = Math.max(1, showroom.offsetHeight - innerHeight);
-      const sectionProgress = clamp(-bounds.top / maxScroll);
-      const isScrollControlled = sectionProgress > 0.01;
-      const isAtStart = bounds.top <= 16 && bounds.bottom >= innerHeight * 0.95 && !isScrollControlled;
+      const sectionProgress = clampS3(-bounds.top / maxScroll);
+      const isScrollControlled = sectionProgress > 0.08;
+      const isAtStart = bounds.top <= 24 && bounds.bottom >= innerHeight * 0.85 && !isScrollControlled;
       if (isAtStart) {
         const elapsed = now - stepStartedAt;
         if (elapsed >= autoplayDuration) {
-          autoStep = (autoStep + 1) % 5;
+          autoStep = (autoStep + 1) % frames.length;
           stepStartedAt = now;
           render();
         }
         progressTrack.style.setProperty('--s3-fill', `${Math.min(100, Math.max(0, (elapsed / autoplayDuration) * 100))}%`);
       } else if (isScrollControlled) {
-        const scrollPosition = sectionProgress * 5;
+        const scrollPosition = sectionProgress * lastFrame;
         const localProgress = (scrollPosition - Math.floor(scrollPosition)) * 100;
         progressTrack.style.setProperty('--s3-fill', `${localProgress}%`);
       }
@@ -419,6 +442,7 @@ const setupS1V1 = (section) => {
   let frame;
   let hasRevealed = false;
   let carouselStarted = false;
+  let autoplayFinished = false;
 
   const clampLocal = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
   const easeLocal = (value) => value * value * (3 - 2 * value);
@@ -441,6 +465,8 @@ const setupS1V1 = (section) => {
       }, 260);
     }
     count.textContent = String(activeIndex + 1).padStart(2, '0');
+    autoplayFinished = activeIndex === cards.length - 1;
+    section.classList.toggle('is-carousel-finished', autoplayFinished);
     startedAt = performance.now();
   };
 
@@ -507,13 +533,191 @@ const setupS1V1 = (section) => {
     const progress = clampLocal(-bounds.top / maxScroll);
     const reveal = easeLocal(clampLocal((progress - .06) / .22));
     const inView = bounds.top < innerHeight && bounds.bottom > 0;
-    if (!reducedMotion.matches && reveal > .72 && inView && activeIndex < cards.length - 1 && !document.hidden && now - startedAt >= autoplayDuration) move(1);
+    if (!reducedMotion.matches && reveal > .72 && inView && !autoplayFinished && !document.hidden && now - startedAt >= autoplayDuration) move(1);
     if (reveal > .72 && inView) progressTrack.style.setProperty('--s1v1-fill', `${Math.min(100, ((now - startedAt) / autoplayDuration) * 100)}%`);
     requestAnimationFrame(animate);
   };
   requestAnimationFrame(animate);
 };
 setupS1V1(s1v1);
+
+// S1 V3: a compact, persistent upload panel paired with the quality carousel.
+// This is a separate experiment so the approved S1 and S1V1 experiences stay intact.
+const s1v3Cards = [
+  { image: 'tiger-transfer-hero.png', title: 'Competitor vs. Jiffy', subtitle: 'Sharper, denser, cleaner transfer results.', description: 'Compare fine edges, solid coverage, and a cleaner finish against the competing transfer.' },
+  { image: 'tiger-proof-detail.png', title: 'AI process', subtitle: 'Artwork analyzed and prepared for print.', description: 'Your artwork is checked and prepared before print so detail and color stay true to the design.' },
+  { image: 'tiger-proof-peel.png', title: 'Hot peel', subtitle: 'Clean release immediately after pressing.', description: 'A clean release immediately after pressing means less waiting between the press and the finished garment.' },
+  { image: 'tiger-proof-color.png', title: 'Color accuracy', subtitle: 'True color with fine detail, up close.', description: 'Richer detail and truer color set a higher standard in every transfer.' },
+];
+
+const s1v3 = document.createElement('section');
+s1v3.className = 's1v3-story';
+s1v3.id = 'transfers-section-s1v3';
+s1v3.setAttribute('aria-label', 'DTF quality carousel with artwork upload');
+s1v3.innerHTML = `
+  <div class="s1v3-sticky">
+    <div class="s1v3-canvas">
+      <header class="s1v3-nav">
+        <div class="s1v3-local-mark">Jiffy Local <span></span><small>Dallas–Fort Worth</small></div>
+      </header>
+      <div class="s1v3-inner">
+    <div class="s1v3-main">
+      <figure class="s1v3-hero">
+        <img src="${asset('s1v3-transfer-film.png')}" alt="A dark emerald DTF transfer film held by two hands" />
+        <span class="s1v3-hero-shade" aria-hidden="true"></span>
+        <figcaption class="s1v3-hero-copy">
+          <p class="s1v3-eyebrow">DTF PROOF OF QUALITY</p>
+          <strong>Your design.<br />Our quality<span>.</span></strong>
+          <span>Richer detail. Truer color.<br />A higher standard in every transfer.</span>
+        </figcaption>
+        <button class="s1v3-upload" type="button" aria-label="Upload artwork. Drag and drop a file or select one.">
+          <span class="s1v3-upload-icon"><img src="${asset('cloud-upload.svg')}" alt="" /></span>
+          <strong class="s1v3-upload-drag">Drag your artwork</strong>
+          <small class="s1v3-upload-subtitle">Drop a file anywhere in this panel</small>
+          <span class="s1v3-upload-or" aria-hidden="true"><i></i><b>or</b><i></i></span>
+          <span class="s1v3-upload-files">Upload from your files <b aria-hidden="true">↗</b></span>
+          <small class="s1v3-upload-meta">PNG, JPG, or PDF&nbsp; · &nbsp;up to 50 MB</small>
+        </button>
+        <input class="s1v3-file-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
+      </figure>
+
+      <div class="s1v3-stage" aria-live="polite">
+        <div class="s1v3-frames">
+          ${s1v3Cards.map(({ image, title, subtitle }, index) => `
+            <figure class="s1v3-card${index === 0 ? ' is-active' : ''}" data-s1v3-card="${index}">
+              <img src="${asset(image)}" alt="${title} proof for a DTF transfer" />
+              <figcaption><strong>${title}</strong><span>${subtitle}</span></figcaption>
+            </figure>
+          `).join('')}
+        </div>
+        <nav class="s1v3-index" aria-label="Explore quality proof">
+          ${s1v3Cards.map(({ title, subtitle, description }, index) => `
+            <button type="button" class="${index === 0 ? 'is-active' : ''}" data-s1v3-step="${index}" aria-current="${index === 0 ? 'step' : 'false'}">
+              <span class="s1v3-index__label">
+                <i aria-hidden="true"></i>
+                <span class="s1v3-index__copy">
+                  <strong>${title}</strong>
+                  <small>${subtitle}</small>
+                </span>
+              </span>
+              <p class="s1v3-index__description">${description}</p>
+            </button>
+          `).join('')}
+        </nav>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div>
+`;
+s1v1.after(s1v3);
+
+const setupS1V3 = (section) => {
+  const cards = [...section.querySelectorAll('.s1v3-card')];
+  const indexItems = [...section.querySelectorAll('[data-s1v3-step]')];
+  const fileInput = section.querySelector('.s1v3-file-input');
+  const upload = section.querySelector('.s1v3-upload');
+  const autoplayDuration = 10000;
+  let activeIndex = 0;
+  let startedAt = performance.now();
+  let reveal = 0;
+  let hasRevealed = false;
+  let renderToken = 0;
+  let copyTimer;
+
+  const render = (direction = 0, immediate = false) => {
+    renderToken += 1;
+    const token = renderToken;
+    cards.forEach((card, index) => {
+      card.classList.remove('is-active', 'is-next', 'is-entering-right', 'is-entering-left', 'is-exiting-left', 'is-exiting-right', 'is-settled', 'is-copy-ready');
+      if (index === activeIndex) {
+        card.classList.add('is-active');
+        if (immediate) card.classList.add('is-settled');
+        else if (direction) card.classList.add(direction > 0 ? 'is-entering-right' : 'is-entering-left');
+      } else if (!immediate && index === (activeIndex - direction + cards.length) % cards.length) {
+        card.classList.add(direction > 0 ? 'is-exiting-left' : 'is-exiting-right');
+      } else if (index === (activeIndex + 1) % cards.length) {
+        card.classList.add('is-next');
+      } else {
+        card.classList.remove('is-active');
+      }
+    });
+    indexItems.forEach((item, index) => {
+      const active = index === activeIndex;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-current', active ? 'step' : 'false');
+    });
+    window.clearTimeout(copyTimer);
+    if (immediate) cards[activeIndex]?.classList.add('is-copy-ready');
+    else if (hasRevealed) copyTimer = window.setTimeout(() => cards[activeIndex]?.classList.add('is-copy-ready'), 280);
+    startedAt = performance.now();
+    if (!immediate && direction) requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (token === renderToken) section.querySelector('.s1v3-card.is-active')?.classList.add('is-settled');
+    }));
+  };
+
+  const move = (direction) => {
+    activeIndex = (activeIndex + direction + cards.length) % cards.length;
+    render(direction);
+  };
+
+  indexItems.forEach((item) => item.addEventListener('click', () => {
+    const target = Number(item.dataset.s1v3Step);
+    if (target === activeIndex) return;
+    const direction = target > activeIndex ? 1 : -1;
+    activeIndex = target;
+    render(direction);
+  }));
+  upload.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files?.[0]) upload.querySelector('.s1v3-upload-files').textContent = 'Artwork selected';
+  });
+  upload.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    upload.classList.add('is-dragging');
+  });
+  upload.addEventListener('dragleave', () => upload.classList.remove('is-dragging'));
+  upload.addEventListener('drop', (event) => {
+    event.preventDefault();
+    upload.classList.remove('is-dragging');
+    if (event.dataTransfer.files?.[0]) upload.querySelector('.s1v3-upload-files').textContent = 'Artwork selected';
+  });
+  const renderScroll = () => {
+    const bounds = section.getBoundingClientRect();
+    const maxScroll = Math.max(1, section.offsetHeight - innerHeight);
+    const progress = Math.min(1, Math.max(0, -bounds.top / maxScroll));
+    reveal = progress < .24 ? Math.min(1, Math.max(0, (progress - .03) / .21)) : 1;
+    reveal = reveal * reveal * (3 - 2 * reveal);
+    const inView = bounds.top < innerHeight && bounds.bottom > 0;
+    section.style.setProperty('--s1v3-reveal', reveal.toFixed(3));
+    section.classList.toggle('is-revealed', reveal > .72);
+    section.classList.toggle('is-upload-mode', reveal > .58);
+    section.classList.toggle('is-carousel-ready', reveal > .98);
+    section.classList.toggle('is-in-view', inView);
+    if (reveal > .72 && !hasRevealed) {
+      hasRevealed = true;
+      startedAt = performance.now();
+      cards[activeIndex]?.classList.add('is-copy-ready');
+    }
+  };
+  window.addEventListener('scroll', renderScroll, { passive: true });
+  window.addEventListener('resize', renderScroll);
+  cards[0]?.classList.add('is-copy-ready');
+  render(0, true);
+  cards[0]?.classList.add('is-copy-ready');
+  renderScroll();
+
+  const animate = (now) => {
+    const bounds = section.getBoundingClientRect();
+    const inView = bounds.top < innerHeight && bounds.bottom > 0;
+    if (!document.hidden && hasRevealed && inView && now - startedAt >= autoplayDuration) {
+      move(1);
+    }
+    requestAnimationFrame(animate);
+  };
+  requestAnimationFrame(animate);
+};
+setupS1V3(s1v3);
 
 const apparelV2 = document.createElement('section');
 apparelV2.className = 'apparel-v2';
@@ -535,6 +739,76 @@ apparelV2.innerHTML = `
     <button class="apparel-v2__next" type="button" aria-label="Show more popular blanks"><span aria-hidden="true">→</span></button>
   </div>`;
 blanksSection.after(apparelV2);
+
+// Apparel V3 keeps all 20 cards in one rail. Product names are based on the
+// documented top blank sellers; price treatment remains static until it is
+// connected to the product catalog.
+const apparelV3Items = [
+  ['apparel-v2-product-1.png', 'tees', 'GILDAN · G500', 'Heavy Cotton™ T-Shirt', '$3.49', '$2.59'],
+  ['apparel-v2-product-2.png', 'tees', 'GILDAN · G500', 'Heavy Cotton™ T-Shirt', '$3.49', '$2.59'],
+  ['blanks-product-1.png', 'tees', 'GILDAN · G640', 'Softstyle® T-Shirt', '$3.29', '$2.49'],
+  ['product-figma-1.png', 'tees', 'GILDAN · G640', 'Softstyle® T-Shirt', '$3.29', '$2.49'],
+  ['blanks-product-3.png', 'tees', 'COMFORT COLORS · C1717', 'Heavyweight RS T-Shirt', '$8.99', '$6.89'],
+  ['product-figma-2.png', 'tees', 'COMFORT COLORS · C1717', 'Heavyweight RS T-Shirt', '$8.99', '$6.89'],
+  ['apparel-v2-product-5.png', 'tees', 'GILDAN · G300', 'Light Cotton T-Shirt', '$2.59', '$1.89'],
+  ['blanks-product-2.png', 'tees', 'GILDAN · G300', 'Light Cotton T-Shirt', '$2.59', '$1.89'],
+  ['apparel-v2-product-4.png', 'fleece', 'GILDAN · G180', 'Heavy Blend 50/50 Fleece Crew', '$9.49', '$7.31'],
+  ['apparel-v2-product-7.png', 'fleece', 'GILDAN · G180', 'Heavy Blend 50/50 Fleece Crew', '$9.49', '$7.31'],
+  ['apparel-v2-product-2.png', 'tees', 'GILDAN · G800', 'Unisex 50/50 T-Shirt', '$3.29', '$2.49'],
+  ['product-figma-3.png', 'tees', 'GILDAN · G800', 'Unisex 50/50 T-Shirt', '$3.29', '$2.49'],
+  ['apparel-v2-product-1.png', 'tees', 'GILDAN · G500B', 'Youth Heavy Cotton T-Shirt', '$3.79', '$2.62'],
+  ['blanks-product-1.png', 'tees', 'GILDAN · G500B', 'Youth Heavy Cotton T-Shirt', '$3.79', '$2.62'],
+  ['product-figma-1.png', 'tees', 'BELLA + CANVAS · 3001C', 'Unisex Jersey T-Shirt', '$5.19', '$4.29'],
+  ['apparel-v2-product-5.png', 'tees', 'BELLA + CANVAS · 3001C', 'Unisex Jersey T-Shirt', '$5.19', '$4.29'],
+  ['apparel-v2-product-3.png', 'hoodies', 'GILDAN · G185', 'Heavy Blend 50/50 Hoodie', '$12.99', '$9.76'],
+  ['apparel-v2-product-6.png', 'hoodies', 'GILDAN · G185', 'Heavy Blend 50/50 Hoodie', '$12.99', '$9.76'],
+  ['product-figma-4.png', 'performance', 'A4 · N3142', 'Men’s Cooling Performance T-Shirt', '$4.89', '$3.99'],
+  ['apparel-v2-product-8.png', 'performance', 'A4 · N3142', 'Men’s Cooling Performance T-Shirt', '$4.89', '$3.99'],
+];
+
+const apparelV3 = document.createElement('section');
+apparelV3.className = 'apparel-v3';
+apparelV3.setAttribute('aria-labelledby', 'apparel-v3-title');
+apparelV3.innerHTML = `
+  <div class="apparel-v3__inner">
+    <header class="apparel-v3__topline">
+      <div class="apparel-v3__brand">Jiffy Local<span></span><small>Dallas–Fort Worth</small></div>
+      <nav class="apparel-v3__nav" aria-label="Jiffy Local sections"><a href="#">Ideas</a><a href="#delivery-coverage">Local</a><a href="#apparel-v3-title">Wear</a><a href="#">Further</a><i aria-hidden="true"></i></nav>
+    </header>
+    <div class="apparel-v3__showcase">
+      <figure class="apparel-v3__portrait">
+        <img src="${asset('portrait-card-standing.png')}" alt="Woman wearing a white blank T-shirt" />
+        <figcaption><span>Same<br />good<br />ideas<br />a brighter<br />DFW</span><i aria-hidden="true"></i><b>Blanks<br />for a more<br />local tomorrow</b></figcaption>
+      </figure>
+      <div class="apparel-v3__main">
+        <header class="apparel-v3__copy">
+          <p>BLANK APPAREL</p>
+          <h2 id="apparel-v3-title">Choose the blank<br />that fits the idea<span>.</span></h2>
+          <span>Compare materials, weight, fit, and color before you choose.</span>
+        </header>
+        <div class="apparel-v3__rail-head">
+          <a href="https://www.jiffy.com/" class="apparel-v3__browse">Browse blank apparel</a>
+          <div class="apparel-v3__controls" aria-label="Apparel carousel controls">
+            <button class="apparel-v3__arrow" type="button" data-apparel-v3-prev aria-label="Previous blank">←</button>
+            <div class="apparel-v3__progress" role="progressbar" aria-label="Apparel carousel progress" aria-valuemin="1" aria-valuemax="20" aria-valuenow="1"><i></i></div>
+            <p class="apparel-v3__count" aria-live="polite"><b>01</b><span>/</span><em>20</em></p>
+            <button class="apparel-v3__arrow" type="button" data-apparel-v3-next aria-label="Next blank">→</button>
+          </div>
+        </div>
+        <div class="apparel-v3__viewport" tabindex="0" aria-label="Browse blank apparel">
+          <div class="apparel-v3__track">
+            ${apparelV3Items.map(([image, category, brand, name, wasPrice, price]) => `
+              <a class="apparel-v3__card" data-category="${category}" href="https://www.jiffy.com/" aria-label="${brand} ${name}, now from ${price}">
+                <img src="${asset(image)}" alt="${name}" />
+                <span class="apparel-v3__card-copy"><small>${brand}</small><strong>${name}</strong><span class="apparel-v3__price"><em>was ${wasPrice}</em><b>from ${price}</b></span><span class="apparel-v3__rating" aria-label="4 out of 5 stars">★★★★<i>★</i><em>(2,500)</em></span></span>
+              </a>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+apparelV2.after(apparelV3);
 
 const sectionThreeV1 = document.createElement('section');
 sectionThreeV1.className = 'section-three-v1';
@@ -563,7 +837,35 @@ sectionThreeV1.innerHTML = `
     </div>
     <div class="section-three-v1__tertiary" aria-label="Shop by product type"><a href="https://www.jiffy.com/transfers">Shop Transfers <span>→</span></a><a href="https://www.jiffy.com/">Shop Blanks <span>→</span></a></div>
   </div>`;
-apparelV2.after(sectionThreeV1);
+// Keep the V1 editorial transformation—the portrait fills the frame, then
+// contracts into its left column—but let the final V3 catalog own the rail.
+// The prior two apparel experiments are removed from the document entirely.
+const finalBlanksCarousel = blanksSection.querySelector('.blanks-carousel-group');
+finalBlanksCarousel.innerHTML = `
+  <div class="blanks-final-rail-head">
+    <div class="blanks-final-controls" aria-label="Blank apparel carousel controls">
+      <button type="button" data-blanks-prev aria-label="Previous blank">←</button>
+      <span class="blanks-final-progress" role="progressbar" aria-label="Blank apparel carousel progress" aria-valuemin="1" aria-valuemax="20" aria-valuenow="1"><i></i></span>
+      <p aria-live="polite"><b>01</b><span>/</span><em>20</em></p>
+      <button type="button" data-blanks-next aria-label="Next blank">→</button>
+    </div>
+  </div>
+  <div class="blanks-final-viewport" tabindex="0" aria-label="Browse blank apparel">
+    <div class="blanks-products">
+      ${apparelV3Items.map(([image, category, brand, name, wasPrice, price]) => `
+        <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" aria-label="${brand} ${name}, now from ${price}">
+          <img src="${asset(image)}" alt="${name}" />
+          <small>${brand}</small><strong>${name}</strong>
+          <span class="blanks-product__price"><em>was ${wasPrice}</em><b>from ${price}</b></span>
+          <span class="blanks-product__rating">★★★★<i>★</i> <em>(2,500)</em></span>
+        </a>`).join('')}
+    </div>
+  </div>`;
+
+apparelV2.remove();
+apparelV3.remove();
+carouselStory.after(blanksSection);
+blanksSection.after(sectionThreeV1);
 
 const coverageStory = document.createElement('section');
 coverageStory.className = 'coverage-story';
@@ -571,44 +873,45 @@ coverageStory.id = 'delivery-coverage';
 coverageStory.setAttribute('aria-labelledby', 'coverage-story-title');
 coverageStory.innerHTML = `
   <div class="coverage-story__sticky">
+    <div class="coverage-story__map-card" aria-label="Map moving from the Dallas–Fort Worth Jiffy Local coverage area to the Texas Jiffy 1st service area">
+      <div class="coverage-story__map" role="img" aria-label="A map of the Jiffy Local Dallas–Fort Worth delivery area expanding to the Jiffy 1st Texas service view">
+        <div class="coverage-story__map-scene">
+          <img class="coverage-story__map-image" src="${asset('texas-map-reference.png')}" alt="Map of Texas and its major delivery destinations" />
+        </div>
+      </div>
+      <p class="coverage-story__attribution">Map reference supplied by Jiffy</p>
+      <div class="coverage-story__map-footer">
+        <span data-coverage-caption>Dallas–Fort Worth · Jiffy Local coverage</span>
+        <div><i></i><strong data-coverage-window>Delivery in hours · 7 days</strong></div>
+      </div>
+    </div>
     <div class="coverage-story__inner">
       <div class="coverage-story__copy">
         <p class="coverage-story__eyebrow">DELIVERY AREA</p>
-        <div class="coverage-story__copy-stage" aria-live="polite">
-          <article class="coverage-story__chapter coverage-story__chapter--local is-active" data-coverage-copy="0">
-            <h2 id="coverage-story-title">Fort Worth.<br />Right here<span>.</span></h2>
-            <h3>Today · Two-hour windows</h3>
-            <p>Seven-day local delivery from the Jiffy micro-factory.</p>
-            <strong class="coverage-story__price">First local delivery <em>free</em></strong>
+        <nav class="coverage-story__index" aria-label="Delivery coverage" aria-live="polite">
+          <article class="coverage-story__index-item is-active" data-coverage-item="0">
+            <button class="is-active" type="button" data-coverage-step="0" aria-current="step" aria-expanded="true">
+              <em aria-hidden="true">01</em><span><b id="coverage-story-title">Dallas–Fort Worth<span>.</span></b><small>Jiffy Local. Right here.</small></span>
+            </button>
+            <div class="coverage-story__index-details">
+              <p>Transfers and blanks from the Jiffy micro-factory.</p>
+              <aside class="coverage-story__panel-service" aria-label="Jiffy Local delivery details">
+                <span>Jiffy Local</span><i aria-hidden="true"></i><span>5 AM–10 PM · 7 days</span><i aria-hidden="true"></i><strong>Free at $59+ · blanks + transfers</strong>
+              </aside>
+            </div>
           </article>
-          <article class="coverage-story__chapter coverage-story__chapter--metro" data-coverage-copy="1" aria-hidden="true">
-            <h2>DFW.<br />Same day<span>.</span></h2>
-            <h3>Today · Three-hour windows</h3>
-            <p>Expanded delivery across the Dallas–Fort Worth metroplex.</p>
-            <strong class="coverage-story__price">Free delivery <em>on $49+</em></strong>
+          <article class="coverage-story__index-item" data-coverage-item="1">
+            <button type="button" data-coverage-step="1" aria-expanded="false">
+              <em aria-hidden="true">02</em><span><b>Texas<span>.</span></b><small>Jiffy 1st. Next day.</small></span>
+            </button>
+            <div class="coverage-story__index-details">
+              <p>Statewide fulfillment when Jiffy Local is not the route.</p>
+              <aside class="coverage-story__panel-service coverage-story__panel-service--first" aria-label="Jiffy 1st delivery details">
+                <span>Jiffy 1st</span><i aria-hidden="true"></i><span>Delivery · 7 days</span><i aria-hidden="true"></i><strong>Receive it next day</strong>
+              </aside>
+            </div>
           </article>
-        </div>
-        <nav class="coverage-story__index" aria-label="Delivery coverage">
-          <button class="is-active" type="button" data-coverage-step="0" aria-current="step">
-            <i aria-hidden="true"></i><span><b>LOCAL</b><small>Fort Worth</small></span>
-          </button>
-          <button type="button" data-coverage-step="1">
-            <i aria-hidden="true"></i><span><b>EXPANDED</b><small>Dallas–Fort Worth</small></span>
-          </button>
         </nav>
-      </div>
-      <div class="coverage-story__map-card" aria-label="Map zooming from Fort Worth local delivery to Dallas–Fort Worth expanded delivery">
-        <div class="coverage-story__map-meta"><span>Dallas micro-factory</span><strong data-coverage-scale>FORT WORTH / LOCAL</strong></div>
-        <div class="coverage-story__map" role="img" aria-label="A DFW map shifting from a selected Fort Worth delivery zone to a wider Dallas–Fort Worth zone">
-          <img class="coverage-story__map-image" src="${asset('dfw-map-reference.png')}" alt="Map of Dallas–Fort Worth and surrounding delivery area" />
-          <svg class="coverage-story__zone coverage-story__zone--local" viewBox="0 0 1280 1024" preserveAspectRatio="none" aria-hidden="true"><polygon points="160,385 340,330 515,385 540,545 468,680 285,704 150,605 115,470" /></svg>
-          <svg class="coverage-story__zone coverage-story__zone--metro" viewBox="0 0 1280 1024" preserveAspectRatio="none" aria-hidden="true"><polygon points="135,267 498,156 972,182 1150,365 1090,737 856,894 481,851 191,694 92,453" /></svg>
-        </div>
-        <p class="coverage-story__attribution">Map reference supplied by Jiffy</p>
-        <div class="coverage-story__map-footer">
-          <span data-coverage-caption>Fort Worth local delivery zone</span>
-          <div><i></i><strong data-coverage-window>Today · 2-hour windows</strong></div>
-        </div>
       </div>
     </div>
     <p class="coverage-story__scroll-cue" aria-hidden="true"><span></span>Scroll to expand the map</p>
@@ -616,12 +919,10 @@ coverageStory.innerHTML = `
 sectionThreeV1.after(coverageStory);
 
 const setupCoverageStory = () => {
-  const copy = [...coverageStory.querySelectorAll('[data-coverage-copy]')];
+  const items = [...coverageStory.querySelectorAll('[data-coverage-item]')];
   const steps = [...coverageStory.querySelectorAll('[data-coverage-step]')];
-  const scaleLabel = coverageStory.querySelector('[data-coverage-scale]');
   const caption = coverageStory.querySelector('[data-coverage-caption]');
   const deliveryWindow = coverageStory.querySelector('[data-coverage-window]');
-  const persistentAddressBar = document.querySelector('.s3-addressbar');
   const localClamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
   const smooth = (value) => value * value * (3 - 2 * value);
   let currentStep = 0;
@@ -632,28 +933,29 @@ const setupCoverageStory = () => {
     const maxScroll = Math.max(1, coverageStory.offsetHeight - innerHeight);
     const bounds = coverageStory.getBoundingClientRect();
     const progress = localClamp(-bounds.top / maxScroll);
-    persistentAddressBar?.classList.toggle('is-on-light-surface', bounds.top <= 80 && bounds.bottom >= 80);
     const mapBlend = smooth(localClamp((progress - .18) / .64));
     coverageStory.style.setProperty('--coverage-progress', progress.toFixed(3));
     coverageStory.style.setProperty('--coverage-map-blend', mapBlend.toFixed(3));
-    coverageStory.style.setProperty('--coverage-map-scale', (1.72 - (mapBlend * .72)).toFixed(3));
+    // One continuous Texas map: camera starts tightly on DFW, then pulls out
+    // to the full state for Jiffy 1st. Nothing crossfades or swaps.
+    coverageStory.style.setProperty('--coverage-map-scale', (2.55 - (mapBlend * 1.55)).toFixed(3));
+    coverageStory.style.setProperty('--coverage-map-x', '0px');
 
     const nextStep = progress >= .5 ? 1 : 0;
     if (nextStep !== currentStep) currentStep = nextStep;
-    copy.forEach((chapter, index) => {
+    items.forEach((item, index) => {
       const active = index === currentStep;
-      chapter.classList.toggle('is-active', active);
-      chapter.setAttribute('aria-hidden', String(!active));
+      item.classList.toggle('is-active', active);
     });
     steps.forEach((step, index) => {
       const active = index === currentStep;
       step.classList.toggle('is-active', active);
       step.setAttribute('aria-current', active ? 'step' : 'false');
+      step.setAttribute('aria-expanded', String(active));
     });
-    const metro = currentStep === 1;
-    scaleLabel.textContent = metro ? 'DFW / EXPANDED' : 'FORT WORTH / LOCAL';
-    caption.textContent = metro ? 'Dallas–Fort Worth expanded zone' : 'Fort Worth local delivery zone';
-    deliveryWindow.textContent = metro ? 'Today · 3-hour windows' : 'Today · 2-hour windows';
+    const first = currentStep === 1;
+    caption.textContent = first ? 'Texas · Jiffy 1st service area' : 'Dallas–Fort Worth · Jiffy Local coverage';
+    deliveryWindow.textContent = first ? 'Next-day delivery · 7 days' : 'Delivery in hours · 7 days';
   };
 
   const queueRender = () => {
@@ -683,7 +985,7 @@ shopInRange.innerHTML = `
       <label><img src="${asset('shop-in-range-pin.svg')}" alt="" /><input type="text" name="shop-address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
       <button type="submit">Check delivery time</button>
     </form>
-    <p class="shop-in-range__trust"><img src="${asset('shop-in-range-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
+    <p class="shop-in-range__trust"><img src="${asset('shop-in-range-clock.svg')}" alt="" />7 days a week · 5 AM – 7 PM · Printed and driven from Dallas</p>
   </div>`;
 coverageStory.after(shopInRange);
 
@@ -708,15 +1010,14 @@ document.querySelectorAll('[data-nav-scroll]').forEach((link) => {
   });
 });
 
-const addressSearch = document.querySelector('.s3-addressbar');
+const addressSearch = document.querySelector('.jiffy-hero__address');
 const addressForm = addressSearch;
 const addressInput = addressSearch?.querySelector('input[name="address"]');
-const addressPanel = addressSearch?.querySelector('.s3-addressbar__panel');
-const deliveryStatus = addressSearch?.querySelector('.s3-addressbar__status');
-const deliveryAddress = addressSearch?.querySelector('.s3-addressbar__delivery-address');
-const deliveryWindow = addressSearch?.querySelector('.s3-addressbar__delivery-window strong');
-const deliveryChange = addressSearch?.querySelector('.s3-addressbar__change');
-const deliveryClear = addressSearch?.querySelector('.s3-addressbar__clear');
+const addressPanel = addressSearch?.querySelector('.jiffy-hero__address-panel');
+const deliveryStatus = addressSearch?.querySelector('.jiffy-hero__delivery-status');
+const deliveryAddress = addressSearch?.querySelector('.jiffy-hero__delivery-address');
+const deliveryWindow = addressSearch?.querySelector('.jiffy-hero__delivery-countdown');
+const deliveryClear = addressSearch?.querySelector('.jiffy-hero__delivery-clear');
 const heroTitle = document.querySelector('#jiffy-hero-title');
 const heroLede = document.querySelector('.jiffy-hero__lede');
 const heroEyebrow = document.querySelector('.jiffy-hero__eyebrow');
@@ -785,7 +1086,11 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
   heroEyebrow.hidden = true;
   heroHours.hidden = true;
   if (heroTitle) heroTitle.textContent = "You're covered.";
-  if (heroLede) heroLede.textContent = '';
+  if (heroLede) heroLede.textContent = 'Your address is in the Jiffy Local service area. Order before the countdown ends to secure this window.';
+  if (heroHours) {
+    heroHours.hidden = false;
+    heroHours.innerHTML = `<img src="${asset('jiffy-hero-clock.svg')}" alt="" />Local delivery · 7 days · 5 AM – 10 PM`;
+  }
   if (deliveryOutcome) { deliveryOutcome.hidden = true; deliveryOutcome.replaceChildren(); }
   setDeliveryCountdown(deadline);
 };
@@ -802,6 +1107,7 @@ const clearDeliveryStatus = () => {
   if (deliveryOutcome) { deliveryOutcome.hidden = true; deliveryOutcome.replaceChildren(); }
   if (heroTitle) heroTitle.innerHTML = 'Transfers and blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.';
   if (heroLede) heroLede.textContent = 'Order this morning. Press this afternoon.';
+  if (heroHours) heroHours.innerHTML = `<img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 7 PM · Printed and driven from Dallas`;
   shopInRange.hidden = false;
   window.localStorage.removeItem(deliveryStateKey);
 };
@@ -827,10 +1133,6 @@ shopInRangeForm?.addEventListener('submit', (event) => {
   addressForm?.requestSubmit();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
-deliveryChange?.addEventListener('click', () => {
-  clearDeliveryStatus();
-  addressInput?.focus();
-});
 deliveryClear?.addEventListener('click', clearDeliveryStatus);
 try {
   const savedDelivery = JSON.parse(window.localStorage.getItem(deliveryStateKey));
@@ -840,7 +1142,9 @@ let addressSearchFrame;
 const updateAddressSearch = () => {
   addressSearchFrame = undefined;
   if (!addressSearch) return;
-  const sectionOne = document.querySelector('.quality-story.is-active');
+  // The visible local flow starts with the S3 showroom; the older quality
+  // variants are intentionally hidden, so they must not drive compact mode.
+  const sectionOne = s3Showroom || document.querySelector('.quality-story.is-active');
   const sectionOneTop = sectionOne ? sectionOne.getBoundingClientRect().top + window.scrollY : Infinity;
   const isSticky = addressSearch.classList.contains('is-sticky');
   // The original hero form scrolls naturally until it reaches the viewport.
@@ -879,6 +1183,133 @@ const apparelProducts = apparelV2.querySelector('.apparel-v2__products');
 apparelNext?.addEventListener('click', () => {
   apparelProducts?.scrollBy({ left: apparelProducts.clientWidth * .82, behavior: 'smooth' });
 });
+
+const setupApparelV3 = (section) => {
+  const viewport = section.querySelector('.apparel-v3__viewport');
+  const track = section.querySelector('.apparel-v3__track');
+  const cards = [...section.querySelectorAll('.apparel-v3__card')];
+  const filters = [...section.querySelectorAll('[data-apparel-v3-filter]')];
+  const previous = section.querySelector('[data-apparel-v3-prev]');
+  const next = section.querySelector('[data-apparel-v3-next]');
+  const progress = section.querySelector('.apparel-v3__progress');
+  const progressFill = progress.querySelector('i');
+  const count = section.querySelector('.apparel-v3__count');
+  let category = 'all';
+  let activeIndex = 0;
+  let visibleCards = cards;
+  let pointerStart = null;
+  let suppressClick = false;
+
+  const displayNumber = (value) => String(value).padStart(2, '0');
+  const update = (animate = true) => {
+    visibleCards = cards.filter((card) => category === 'all' || card.dataset.category === category);
+    activeIndex = Math.max(0, Math.min(activeIndex, visibleCards.length - 1));
+    cards.forEach((card) => {
+      const itemIndex = visibleCards.indexOf(card);
+      card.hidden = itemIndex === -1;
+      card.classList.toggle('is-active', itemIndex === activeIndex);
+      card.classList.toggle('is-neighbor', Math.abs(itemIndex - activeIndex) === 1);
+    });
+    const activeCard = visibleCards[activeIndex];
+    if (!activeCard) return;
+    track.classList.toggle('is-instant', !animate);
+    const offset = Math.min(activeCard.offsetLeft, Math.max(0, track.scrollWidth - viewport.clientWidth));
+    track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+    if (!animate) requestAnimationFrame(() => track.classList.remove('is-instant'));
+    const total = visibleCards.length;
+    const current = activeIndex + 1;
+    count.innerHTML = `<b>${displayNumber(current)}</b><span>/</span><em>${displayNumber(total)}</em>`;
+    progress.setAttribute('aria-valuemax', String(total));
+    progress.setAttribute('aria-valuenow', String(current));
+    progress.setAttribute('aria-label', `Blank ${current} of ${total}`);
+    progressFill.style.width = `${(current / total) * 100}%`;
+    previous.disabled = activeIndex === 0;
+    next.disabled = activeIndex === total - 1;
+  };
+
+  const move = (direction) => {
+    const nextIndex = Math.max(0, Math.min(activeIndex + direction, visibleCards.length - 1));
+    if (nextIndex === activeIndex) return;
+    activeIndex = nextIndex;
+    update();
+  };
+
+  filters.forEach((filter) => filter.addEventListener('click', () => {
+    category = filter.dataset.apparelV3Filter;
+    activeIndex = 0;
+    filters.forEach((button) => button.setAttribute('aria-pressed', String(button === filter)));
+    update(false);
+  }));
+  previous.addEventListener('click', () => move(-1));
+  next.addEventListener('click', () => move(1));
+  viewport.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') { event.preventDefault(); move(-1); }
+    if (event.key === 'ArrowRight') { event.preventDefault(); move(1); }
+  });
+  viewport.addEventListener('pointerdown', (event) => {
+    if (event.button !== 0) return;
+    pointerStart = event.clientX;
+    suppressClick = false;
+    viewport.setPointerCapture?.(event.pointerId);
+    viewport.classList.add('is-dragging');
+  });
+  viewport.addEventListener('pointerup', (event) => {
+    if (pointerStart === null) return;
+    const distance = event.clientX - pointerStart;
+    pointerStart = null;
+    viewport.classList.remove('is-dragging');
+    if (Math.abs(distance) < 38) return;
+    suppressClick = true;
+    move(distance < 0 ? 1 : -1);
+  });
+  viewport.addEventListener('pointercancel', () => {
+    pointerStart = null;
+    viewport.classList.remove('is-dragging');
+  });
+  viewport.addEventListener('click', (event) => {
+    if (!suppressClick) return;
+    event.preventDefault();
+    suppressClick = false;
+  }, true);
+  window.addEventListener('resize', () => update(false));
+  update(false);
+};
+const setupFinalBlanksCarousel = (section) => {
+  const viewport = section.querySelector('.blanks-final-viewport');
+  const track = section.querySelector('.blanks-products');
+  const cards = [...section.querySelectorAll('.blanks-product')];
+  const previous = section.querySelector('[data-blanks-prev]');
+  const next = section.querySelector('[data-blanks-next]');
+  const count = section.querySelector('.blanks-final-controls p');
+  const progress = section.querySelector('.blanks-final-progress');
+  let activeIndex = 0;
+
+  const update = (animated = true) => {
+    const card = cards[0];
+    if (!card) return;
+    const styles = getComputedStyle(track);
+    const gap = Number.parseFloat(styles.gap) || 0;
+    const visible = Math.max(1, Math.round((viewport.clientWidth + gap) / (card.getBoundingClientRect().width + gap)));
+    const maxIndex = Math.max(0, cards.length - visible);
+    activeIndex = Math.min(Math.max(0, activeIndex), maxIndex);
+    track.classList.toggle('is-instant', !animated);
+    track.style.transform = `translate3d(${-activeIndex * (card.getBoundingClientRect().width + gap)}px,0,0)`;
+    count.innerHTML = `<b>${String(activeIndex + 1).padStart(2, '0')}</b><span>/</span><em>${String(cards.length).padStart(2, '0')}</em>`;
+    progress.setAttribute('aria-valuenow', String(activeIndex + 1));
+    progress.querySelector('i').style.width = `${((activeIndex + 1) / cards.length) * 100}%`;
+    previous.disabled = activeIndex === 0;
+    next.disabled = activeIndex === maxIndex;
+  };
+  previous.addEventListener('click', () => { activeIndex -= 1; update(); });
+  next.addEventListener('click', () => { activeIndex += 1; update(); });
+  viewport.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') { event.preventDefault(); activeIndex -= 1; update(); }
+    if (event.key === 'ArrowRight') { event.preventDefault(); activeIndex += 1; update(); }
+  });
+  window.addEventListener('resize', () => update(false));
+  update(false);
+};
+setupFinalBlanksCarousel(blanksSection);
 
 const shell = document.querySelector('.story-shell');
 const rack = document.querySelector('.quality-rack');
@@ -1123,12 +1554,9 @@ function renderCarouselStory() {
 }
 
 const blanksShell = blanksSection.querySelector('.blanks-shell');
-let blanksCompleted = false;
 function renderBlanksStory() {
   const maxScroll = Math.max(1, blanksSection.offsetHeight - window.innerHeight);
-  const rawProgress = clamp(-blanksSection.getBoundingClientRect().top / maxScroll);
-  if (rawProgress >= .995) blanksCompleted = true;
-  const progress = blanksCompleted ? 1 : rawProgress;
+  const progress = clamp(-blanksSection.getBoundingClientRect().top / maxScroll);
   const reduce = ease(ramp(progress, .05, .32));
   const reveal = ease(ramp(progress, .25, .43));
   const carousel = ease(ramp(progress, .38, .52));
