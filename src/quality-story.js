@@ -142,7 +142,7 @@ carouselStory.setAttribute('aria-label', 'Carousel Jiffy Local DTF quality story
 compareStory.after(carouselStory);
 
 const blanksSection = document.createElement('section');
-blanksSection.className = 'blanks-story blanks-story--static';
+blanksSection.className = 'blanks-story blanks-story--static blanks-story--interactive';
 blanksSection.id = 'blanks-section';
 blanksSection.setAttribute('aria-label', 'Choose blank apparel');
 blanksSection.innerHTML = `
@@ -1515,23 +1515,13 @@ function renderCarouselStory() {
 
 const blanksShell = blanksSection.querySelector('.blanks-shell');
 function renderBlanksStory() {
-  if (blanksSection.classList.contains('blanks-story--static')) return;
-  const maxScroll = Math.max(1, blanksSection.offsetHeight - window.innerHeight);
-  const progress = clamp(-blanksSection.getBoundingClientRect().top / maxScroll);
-  const reduce = ease(ramp(progress, .05, .32));
-  const reveal = ease(ramp(progress, .25, .43));
-  const carousel = ease(ramp(progress, .38, .52));
-  const gutter = 160 * reduce;
-  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
-  const panelTop = window.innerHeight * .15 * reduce;
-  blanksShell.style.setProperty('--reduce', reduce.toFixed(3));
-  blanksShell.style.setProperty('--reveal', reveal.toFixed(3));
-  blanksShell.style.setProperty('--carousel', carousel.toFixed(3));
-  blanksShell.style.setProperty('--gutter', `${gutter}px`);
-  blanksShell.style.setProperty('--hero-width', `${heroWidth}px`);
-  blanksShell.style.setProperty('--hero-top', `${panelTop}px`);
-  blanksShell.style.setProperty('--hero-bottom', `${Math.max(46, 72 * reduce)}px`);
-  blanksShell.style.setProperty('--header-color', navigationColor(progress));
+  if (!blanksSection.classList.contains('blanks-story--interactive')) return;
+  const progress = clamp(-blanksSection.getBoundingClientRect().top / Math.max(1, window.innerHeight));
+  const heroProgress = ease(ramp(progress, 0, .68));
+  const catalogProgress = ease(ramp(progress, .82, .98));
+  blanksShell.style.setProperty('--hero-progress', heroProgress.toFixed(3));
+  blanksShell.style.setProperty('--catalog-progress', catalogProgress.toFixed(3));
+  blanksShell.style.setProperty('--header-color', navigationColor(heroProgress));
 }
 
 function renderAllStories() { renderStory(); renderCompareStory(); renderCarouselStory(); renderBlanksStory(); }
