@@ -234,7 +234,9 @@ s3Showroom.innerHTML = `
   </div>
 </section>`;
 document.querySelector('#app').prepend(s3Showroom);
-document.querySelectorAll('.jiffy-hero, .quality-story, .static-quality-compare').forEach((element) => {
+const originalHero = document.querySelector('.jiffy-hero');
+originalHero?.after(s3Showroom);
+document.querySelectorAll('.quality-story, .static-quality-compare').forEach((element) => {
   element.hidden = true;
   element.setAttribute('aria-hidden', 'true');
 });
@@ -342,6 +344,176 @@ const setupS3Showroom = (showroom) => {
   requestAnimationFrame(animateAutoplay);
 };
 setupS3Showroom(s3Showroom);
+
+// S1 V1: an isolated scroll-to-carousel variant below the locked showroom.
+// It reuses the approved quality images and copy, but owns its own state so
+// the existing S1/S3 experience above remains unchanged.
+const s1v1Cards = [
+  { image: 'tiger-proof-worn.png', title: 'Your design. Our quality.', subtitle: 'Richer detail. Truer color. A higher standard in every transfer.' },
+  { image: 'tiger-proof-detail.png', title: 'AI process', subtitle: 'Artwork analyzed and prepared for print.' },
+  { image: 'tiger-proof-peel.png', title: 'Hot peel', subtitle: 'Clean release immediately after pressing.' },
+  { image: 'tiger-proof-color.png', title: 'Color accuracy', subtitle: 'True color with fine detail, up close.' },
+  { image: 'tiger-transfer-hero.png', title: 'Competitor vs. Jiffy', subtitle: 'Sharper, denser, cleaner transfer results.' },
+];
+
+const s1v1 = document.createElement('section');
+s1v1.className = 's1v1-story';
+s1v1.id = 'transfers-section-s1v1';
+s1v1.setAttribute('aria-labelledby', 's1v1-title');
+s1v1.innerHTML = `
+  <div class="s1v1-sticky">
+    <div class="s1v1-canvas">
+      <header class="s1v1-nav">
+        <a href="#transfers-section-s1v1" class="s1v1-logo" aria-label="Jiffy Local"><img src="${asset('jiffy-local-logo.svg')}" alt="Jiffy" /></a>
+        <span>DALLAS–FORT WORTH</span>
+      </header>
+
+      <div class="s1v1-carousel" aria-live="polite" aria-label="DTF quality examples">
+        ${s1v1Cards.map(({ image, title, subtitle }, index) => `
+          <figure class="s1v1-card${index === 0 ? ' s1v1-first-card' : ''}" data-s1v1-card="${index}">
+            <img src="${asset(image)}" alt="${title} proof for a DTF transfer" />
+            <figcaption>
+              <p class="s1v1-card-eyebrow">DTF PROOF OF QUALITY</p>
+              <strong>${index === 0 ? 'Your design.<br />Our quality<span>.</span>' : title}</strong>
+              <span>${subtitle}</span>
+            </figcaption>
+          </figure>
+        `).join('')}
+      </div>
+
+      <div class="s1v1-actions" aria-label="Choose how to continue">
+        <button class="s1v1-action s1v1-action--upload" type="button" aria-label="Upload artwork. Drag and drop a file or select one.">
+          <span><strong>Upload your artwork</strong><small>Drag &amp; drop or select a file</small></span>
+        </button>
+        <a class="s1v1-action" href="https://www.jiffy.com/transfers">
+          <span><strong>Shop transfers by size</strong><small>Choose the exact dimensions you need</small></span>
+        </a>
+        <a class="s1v1-action" href="https://www.jiffy.com/jiffytransfers-DTFGANG001.html">
+          <span><strong>Build a gang sheet</strong><small>Pack more artwork into one sheet</small></span>
+        </a>
+      </div>
+      <input class="s1v1-file-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
+
+      <div class="s1v1-controls" aria-label="Quality carousel controls">
+        <button type="button" data-s1v1-prev aria-label="Previous quality example">←</button>
+        <span class="s1v1-progress-track" aria-hidden="true"><i></i></span>
+        <span class="s1v1-count"><b>01</b><em>/ 05</em></span>
+        <button type="button" data-s1v1-next aria-label="Next quality example">→</button>
+      </div>
+    </div>
+  </div>
+`;
+s3Showroom.after(s1v1);
+
+const setupS1V1 = (section) => {
+  const cards = [...section.querySelectorAll('.s1v1-card')];
+  const progressTrack = section.querySelector('.s1v1-progress-track');
+  const count = section.querySelector('.s1v1-count b');
+  const fileInput = section.querySelector('.s1v1-file-input');
+  const upload = section.querySelector('.s1v1-action--upload');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const autoplayDuration = 4000;
+  let activeIndex = 0;
+  let copyTimer;
+  let startedAt = performance.now();
+  let frame;
+  let hasRevealed = false;
+  let carouselStarted = false;
+
+  const clampLocal = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+  const easeLocal = (value) => value * value * (3 - 2 * value);
+
+  const renderCards = () => {
+    cards.forEach((card, index) => {
+      const distance = index - activeIndex;
+      card.classList.toggle('is-active', distance === 0);
+      card.classList.toggle('is-next', carouselStarted && distance === 1);
+      card.classList.toggle('is-prev', carouselStarted && distance === -1);
+      card.classList.toggle('is-behind', carouselStarted && distance > 1);
+      card.classList.toggle('is-past', carouselStarted && distance < -1);
+      card.classList.remove('is-copy-ready');
+      card.style.setProperty('--s1v1-distance', distance);
+    });
+    window.clearTimeout(copyTimer);
+    if (hasRevealed) {
+      copyTimer = window.setTimeout(() => {
+        cards[activeIndex]?.classList.add('is-copy-ready');
+      }, 260);
+    }
+    count.textContent = String(activeIndex + 1).padStart(2, '0');
+    startedAt = performance.now();
+  };
+
+  const move = (direction) => {
+    if (!carouselStarted) {
+      if (direction < 0) return;
+      carouselStarted = true;
+      activeIndex = 0;
+    }
+    const nextIndex = activeIndex + direction;
+    if (nextIndex < 0 || nextIndex >= cards.length) return;
+    section.classList.add('is-carousel-started');
+    activeIndex = nextIndex;
+    renderCards();
+  };
+
+  const renderScroll = () => {
+    frame = undefined;
+    const bounds = section.getBoundingClientRect();
+    const maxScroll = Math.max(1, section.offsetHeight - innerHeight);
+    const progress = clampLocal(-bounds.top / maxScroll);
+    const reveal = easeLocal(clampLocal((progress - .06) / .22));
+    const inView = bounds.top < innerHeight && bounds.bottom > 0;
+    if (reveal > .72 && !hasRevealed) {
+      hasRevealed = true;
+      startedAt = performance.now();
+      window.clearTimeout(copyTimer);
+      copyTimer = window.setTimeout(() => cards[activeIndex]?.classList.add('is-copy-ready'), 260);
+    }
+    section.style.setProperty('--s1v1-reveal', reveal.toFixed(3));
+    section.classList.toggle('is-revealed', reveal > .72);
+    section.classList.toggle('is-in-view', inView);
+    progressTrack.style.setProperty('--s1v1-fill', `${Math.min(100, ((performance.now() - startedAt) / autoplayDuration) * 100)}%`);
+  };
+
+  const queueScroll = () => {
+    if (!frame) frame = requestAnimationFrame(renderScroll);
+  };
+
+  section.querySelector('[data-s1v1-prev]').addEventListener('click', () => move(-1));
+  section.querySelector('[data-s1v1-next]').addEventListener('click', () => move(1));
+  upload.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files?.[0]) upload.querySelector('strong').textContent = 'Artwork selected';
+  });
+  upload.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    upload.classList.add('is-dragging');
+  });
+  upload.addEventListener('dragleave', () => upload.classList.remove('is-dragging'));
+  upload.addEventListener('drop', (event) => {
+    event.preventDefault();
+    upload.classList.remove('is-dragging');
+    if (event.dataTransfer.files?.[0]) upload.querySelector('strong').textContent = 'Artwork selected';
+  });
+  window.addEventListener('scroll', queueScroll, { passive: true });
+  window.addEventListener('resize', queueScroll);
+  renderCards();
+  renderScroll();
+
+  const animate = (now) => {
+    const bounds = section.getBoundingClientRect();
+    const maxScroll = Math.max(1, section.offsetHeight - innerHeight);
+    const progress = clampLocal(-bounds.top / maxScroll);
+    const reveal = easeLocal(clampLocal((progress - .06) / .22));
+    const inView = bounds.top < innerHeight && bounds.bottom > 0;
+    if (!reducedMotion.matches && reveal > .72 && inView && activeIndex < cards.length - 1 && !document.hidden && now - startedAt >= autoplayDuration) move(1);
+    if (reveal > .72 && inView) progressTrack.style.setProperty('--s1v1-fill', `${Math.min(100, ((now - startedAt) / autoplayDuration) * 100)}%`);
+    requestAnimationFrame(animate);
+  };
+  requestAnimationFrame(animate);
+};
+setupS1V1(s1v1);
 
 const apparelV2 = document.createElement('section');
 apparelV2.className = 'apparel-v2';
@@ -1044,4 +1216,4 @@ carouselFileInput.addEventListener('change', () => {
 // The new S3 is the sole quality experience. Remove the retired variants
 // after their legacy setup has completed so duplicate IDs and hidden variant
 // state cannot interfere with refreshes or later scroll events.
-document.querySelectorAll('.jiffy-hero, .quality-story, .static-quality-compare').forEach((element) => element.remove());
+document.querySelectorAll('.quality-story, .static-quality-compare').forEach((element) => element.remove());
