@@ -404,68 +404,37 @@ coverageStory.innerHTML = `
         <p class="coverage-story__eyebrow">DELIVERY AREA</p>
         <div class="coverage-story__copy-stage" aria-live="polite">
           <article class="coverage-story__chapter coverage-story__chapter--local is-active" data-coverage-copy="0">
-            <h2 id="coverage-story-title">Fast.<br />Right here<span>.</span></h2>
+            <h2 id="coverage-story-title">Fort Worth.<br />Right here<span>.</span></h2>
             <h3>Today · Two-hour windows</h3>
-            <p>Dallas–Fort Worth delivery, seven days a week from 5 AM to 7 PM.</p>
+            <p>Seven-day local delivery from the Jiffy micro-factory.</p>
             <strong class="coverage-story__price">First local delivery <em>free</em></strong>
           </article>
-          <article class="coverage-story__chapter coverage-story__chapter--texas" data-coverage-copy="1" aria-hidden="true">
-            <h2>Texas.<br />By tomorrow<span>.</span></h2>
-            <h3>Next day · Statewide</h3>
-            <p>Jiffy Overnight connects Dallas production with shops across Texas.</p>
+          <article class="coverage-story__chapter coverage-story__chapter--metro" data-coverage-copy="1" aria-hidden="true">
+            <h2>DFW.<br />Same day<span>.</span></h2>
+            <h3>Today · Three-hour windows</h3>
+            <p>Expanded delivery across the Dallas–Fort Worth metroplex.</p>
             <strong class="coverage-story__price">Free delivery <em>on $49+</em></strong>
           </article>
         </div>
         <nav class="coverage-story__index" aria-label="Delivery coverage">
           <button class="is-active" type="button" data-coverage-step="0" aria-current="step">
-            <i aria-hidden="true"></i><span><b>LOCAL</b><small>Dallas–Fort Worth</small></span>
+            <i aria-hidden="true"></i><span><b>LOCAL</b><small>Fort Worth</small></span>
           </button>
           <button type="button" data-coverage-step="1">
-            <i aria-hidden="true"></i><span><b>OVERNIGHT</b><small>All of Texas</small></span>
+            <i aria-hidden="true"></i><span><b>EXPANDED</b><small>Dallas–Fort Worth</small></span>
           </button>
         </nav>
       </div>
-      <div class="coverage-story__map-card" aria-label="Map zooming from Dallas–Fort Worth to all of Texas">
-        <div class="coverage-story__map-meta"><span>Dallas micro-factory</span><strong data-coverage-scale>DFW / LOCAL</strong></div>
-        <svg class="coverage-story__map" viewBox="0 0 1000 700" role="img" aria-labelledby="coverage-map-title coverage-map-description">
-          <title id="coverage-map-title">Jiffy Local and Jiffy Overnight delivery coverage</title>
-          <desc id="coverage-map-description">The map begins focused on Dallas and Fort Worth, then zooms out to show statewide Texas delivery.</desc>
-          <defs>
-            <pattern id="coverage-grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#dcd8cf" stroke-width="1" /></pattern>
-            <filter id="coverage-glow"><feGaussianBlur stdDeviation="14" /></filter>
-          </defs>
-          <rect width="1000" height="700" fill="#f7f4ee" />
-          <rect width="1000" height="700" fill="url(#coverage-grid)" opacity=".34" />
-          <g class="coverage-story__map-world">
-            <path class="coverage-story__neighbor" d="M75 62H916V642H75z" />
-            <path class="coverage-story__texas-shadow" d="M332 78L553 82L551 205L674 205L704 252L793 275L759 340L720 379L691 451L645 500L604 595L551 647L505 586L449 558L394 487L331 454L245 421L263 356L220 300L276 253L331 222Z" />
-            <path class="coverage-story__texas" d="M332 78L553 82L551 205L674 205L704 252L793 275L759 340L720 379L691 451L645 500L604 595L551 647L505 586L449 558L394 487L331 454L245 421L263 356L220 300L276 253L331 222Z" />
-            <g class="coverage-story__roads" aria-hidden="true">
-              <path d="M290 210C391 263 511 276 683 267" />
-              <path d="M314 402C432 353 547 325 751 305" />
-              <path d="M363 109C438 246 471 395 512 574" />
-              <path d="M548 97C534 229 574 340 645 493" />
-              <path d="M267 354C370 369 487 438 591 593" />
-              <path d="M407 230C492 247 568 274 667 365" />
-              <path d="M387 476C470 456 562 457 668 474" />
-            </g>
-            <g class="coverage-story__cities" aria-hidden="true">
-              <circle cx="410" cy="244" r="5" /><circle cx="632" cy="265" r="5" /><circle cx="511" cy="416" r="5" /><circle cx="579" cy="500" r="5" /><circle cx="346" cy="365" r="5" /><circle cx="669" cy="382" r="5" />
-            </g>
-            <g class="coverage-story__local-area">
-              <circle class="coverage-story__local-glow" cx="575" cy="236" r="112" />
-              <circle class="coverage-story__local-ring coverage-story__local-ring--outer" cx="575" cy="236" r="104" />
-              <circle class="coverage-story__local-ring" cx="575" cy="236" r="70" />
-              <circle class="coverage-story__local-ring" cx="575" cy="236" r="36" />
-              <path class="coverage-story__route" d="M470 261C505 242 527 237 575 236" />
-              <circle class="coverage-story__facility-halo" cx="575" cy="236" r="18" />
-              <circle class="coverage-story__facility" cx="575" cy="236" r="8" />
-              <g class="coverage-story__local-labels"><text x="448" y="286">FORT WORTH</text><text x="604" y="218">DALLAS</text></g>
-            </g>
-          </g>
-        </svg>
+      <div class="coverage-story__map-card" aria-label="Map zooming from Fort Worth local delivery to Dallas–Fort Worth expanded delivery">
+        <div class="coverage-story__map-meta"><span>Dallas micro-factory</span><strong data-coverage-scale>FORT WORTH / LOCAL</strong></div>
+        <div class="coverage-story__map" role="img" aria-label="A DFW map shifting from a selected Fort Worth delivery zone to a wider Dallas–Fort Worth zone">
+          <img class="coverage-story__map-image" src="${asset('dfw-map-reference.png')}" alt="Map of Dallas–Fort Worth and surrounding delivery area" />
+          <svg class="coverage-story__zone coverage-story__zone--local" viewBox="0 0 1280 1024" preserveAspectRatio="none" aria-hidden="true"><polygon points="160,385 340,330 515,385 540,545 468,680 285,704 150,605 115,470" /></svg>
+          <svg class="coverage-story__zone coverage-story__zone--metro" viewBox="0 0 1280 1024" preserveAspectRatio="none" aria-hidden="true"><polygon points="135,267 498,156 972,182 1150,365 1090,737 856,894 481,851 191,694 92,453" /></svg>
+        </div>
+        <p class="coverage-story__attribution">Map reference supplied by Jiffy</p>
         <div class="coverage-story__map-footer">
-          <span data-coverage-caption>Local delivery radius</span>
+          <span data-coverage-caption>Fort Worth local delivery zone</span>
           <div><i></i><strong data-coverage-window>Today · 2-hour windows</strong></div>
         </div>
       </div>
@@ -475,7 +444,6 @@ coverageStory.innerHTML = `
 sectionThreeV1.after(coverageStory);
 
 const setupCoverageStory = () => {
-  const mapWorld = coverageStory.querySelector('.coverage-story__map-world');
   const copy = [...coverageStory.querySelectorAll('[data-coverage-copy]')];
   const steps = [...coverageStory.querySelectorAll('[data-coverage-step]')];
   const scaleLabel = coverageStory.querySelector('[data-coverage-scale]');
@@ -493,14 +461,10 @@ const setupCoverageStory = () => {
     const bounds = coverageStory.getBoundingClientRect();
     const progress = localClamp(-bounds.top / maxScroll);
     persistentAddressBar?.classList.toggle('is-on-light-surface', bounds.top <= 80 && bounds.bottom >= 80);
-    const zoom = smooth(progress);
-    const scale = 2.58 + ((1 - 2.58) * zoom);
-    const localX = 500 - (575 * 2.58);
-    const localY = 350 - (236 * 2.58);
-    const translateX = localX * (1 - zoom);
-    const translateY = localY * (1 - zoom);
-    mapWorld.setAttribute('transform', `translate(${translateX.toFixed(2)} ${translateY.toFixed(2)}) scale(${scale.toFixed(3)})`);
+    const mapBlend = smooth(localClamp((progress - .18) / .64));
     coverageStory.style.setProperty('--coverage-progress', progress.toFixed(3));
+    coverageStory.style.setProperty('--coverage-map-blend', mapBlend.toFixed(3));
+    coverageStory.style.setProperty('--coverage-map-scale', (1.72 - (mapBlend * .72)).toFixed(3));
 
     const nextStep = progress >= .5 ? 1 : 0;
     if (nextStep !== currentStep) currentStep = nextStep;
@@ -514,10 +478,10 @@ const setupCoverageStory = () => {
       step.classList.toggle('is-active', active);
       step.setAttribute('aria-current', active ? 'step' : 'false');
     });
-    const statewide = currentStep === 1;
-    scaleLabel.textContent = statewide ? 'TEXAS / STATEWIDE' : 'DFW / LOCAL';
-    caption.textContent = statewide ? 'Statewide overnight network' : 'Local delivery radius';
-    deliveryWindow.textContent = statewide ? 'Tomorrow · All of Texas' : 'Today · 2-hour windows';
+    const metro = currentStep === 1;
+    scaleLabel.textContent = metro ? 'DFW / EXPANDED' : 'FORT WORTH / LOCAL';
+    caption.textContent = metro ? 'Dallas–Fort Worth expanded zone' : 'Fort Worth local delivery zone';
+    deliveryWindow.textContent = metro ? 'Today · 3-hour windows' : 'Today · 2-hour windows';
   };
 
   const queueRender = () => {

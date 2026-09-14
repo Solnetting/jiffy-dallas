@@ -186,55 +186,39 @@
   inset:0;
   width:100%;
   height:100%;
+  overflow:hidden;
+  background:#e9edf0;
 }
-.coverage-story__map-world{
-  transform-origin:0 0;
+.coverage-story__map-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform-origin:28% 50%;
+  transform:scale(var(--coverage-map-scale,1.72));
+  filter:saturate(.9) contrast(.98);
   will-change:transform;
 }
-.coverage-story__neighbor{fill:#f7f4ee;stroke:none}
-.coverage-story__texas-shadow{
-  fill:none;
-  stroke:rgba(20,33,61,.06);
-  stroke-width:24;
-}
-.coverage-story__texas{
-  fill:rgba(255,200,0,calc(.08 + var(--coverage-progress) * .16));
-  stroke:#14213d;
-  stroke-width:2;
+.coverage-story__zone{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.coverage-story__zone--local{opacity:calc(1 - var(--coverage-map-blend,0))}
+.coverage-story__zone--metro{opacity:var(--coverage-map-blend,0)}
+.coverage-story__zone polygon{
+  fill:rgba(255,200,0,.30);
+  stroke:#d39a00;
+  stroke-width:5;
   vector-effect:non-scaling-stroke;
+  stroke-linejoin:round;
 }
-.coverage-story__roads path{
-  fill:none;
-  stroke:#aeb5bf;
-  stroke-width:1.4;
-  stroke-dasharray:3 6;
-  vector-effect:non-scaling-stroke;
-}
-.coverage-story__cities circle{fill:#14213d;opacity:calc(.18 + var(--coverage-progress) * .45)}
-.coverage-story__local-area{opacity:calc(1 - var(--coverage-progress) * .66)}
-.coverage-story__local-glow{fill:#ffc800;opacity:.18;filter:url(#coverage-glow)}
-.coverage-story__local-ring{
-  fill:none;
-  stroke:#ffc800;
-  stroke-width:2;
-  opacity:.62;
-  vector-effect:non-scaling-stroke;
-}
-.coverage-story__local-ring--outer{stroke-dasharray:5 7;opacity:.84}
-.coverage-story__route{
-  fill:none;
-  stroke:#14213d;
-  stroke-width:3;
-  stroke-linecap:round;
-  stroke-dasharray:5 8;
-  vector-effect:non-scaling-stroke;
-}
-.coverage-story__facility-halo{fill:#ffc800;opacity:.55}
-.coverage-story__facility{fill:#14213d;stroke:#ffc800;stroke-width:4;vector-effect:non-scaling-stroke}
-.coverage-story__local-labels text{
-  fill:#14213d;
-  font:800 14px Inter,Arial,sans-serif;
-  letter-spacing:.08em;
+.coverage-story__attribution{
+  position:absolute;
+  z-index:4;
+  right:1.25rem;
+  bottom:1.15rem;
+  margin:0;
+  color:rgba(20,33,61,.68);
+  font:600 .56rem/1 Inter,Arial,sans-serif;
+  letter-spacing:.03em;
 }
 .coverage-story__map-footer{bottom:clamp(1.15rem,2vw,1.75rem);color:#687387}
 .coverage-story__map-footer>div{display:flex;align-items:center;gap:.55rem;color:#14213d}
@@ -303,5 +287,5 @@
 }
 @media(prefers-reduced-motion:reduce){
   .coverage-story__chapter{transition:none}
-  .coverage-story__map-world{will-change:auto}
+  .coverage-story__map-image{will-change:auto}
 }
