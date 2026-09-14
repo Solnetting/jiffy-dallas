@@ -142,7 +142,7 @@ carouselStory.setAttribute('aria-label', 'Carousel Jiffy Local DTF quality story
 compareStory.after(carouselStory);
 
 const blanksSection = document.createElement('section');
-blanksSection.className = 'blanks-story';
+blanksSection.className = 'blanks-story blanks-story--static';
 blanksSection.id = 'blanks-section';
 blanksSection.setAttribute('aria-label', 'Choose blank apparel');
 blanksSection.innerHTML = `
@@ -619,11 +619,25 @@ const setupS1V3 = (section) => {
   const upload = section.querySelector('.s1v3-upload');
   const autoplayDuration = 10000;
   let activeIndex = 0;
-  let startedAt = performance.now();
   let reveal = 0;
   let hasRevealed = false;
   let renderToken = 0;
   let copyTimer;
+  let autoplayTimer;
+
+  const isInView = () => {
+    const bounds = section.getBoundingClientRect();
+    return bounds.top < innerHeight && bounds.bottom > 0;
+  };
+
+  const scheduleAutoplay = () => {
+    window.clearTimeout(autoplayTimer);
+    if (!hasRevealed) return;
+    autoplayTimer = window.setTimeout(() => {
+      if (!document.hidden && isInView()) move(1);
+      scheduleAutoplay();
+    }, autoplayDuration);
+  };
 
   const render = (direction = 0, immediate = false) => {
     renderToken += 1;
@@ -634,12 +648,8 @@ const setupS1V3 = (section) => {
         card.classList.add('is-active');
         if (immediate) card.classList.add('is-settled');
         else if (direction) card.classList.add(direction > 0 ? 'is-entering-right' : 'is-entering-left');
-      } else if (!immediate && index === (activeIndex - direction + cards.length) % cards.length) {
+      } else if (!immediate && direction && index === (activeIndex - direction + cards.length) % cards.length) {
         card.classList.add(direction > 0 ? 'is-exiting-left' : 'is-exiting-right');
-      } else if (index === (activeIndex + 1) % cards.length) {
-        card.classList.add('is-next');
-      } else {
-        card.classList.remove('is-active');
       }
     });
     indexItems.forEach((item, index) => {
@@ -650,10 +660,12 @@ const setupS1V3 = (section) => {
     window.clearTimeout(copyTimer);
     if (immediate) cards[activeIndex]?.classList.add('is-copy-ready');
     else if (hasRevealed) copyTimer = window.setTimeout(() => cards[activeIndex]?.classList.add('is-copy-ready'), 280);
-    startedAt = performance.now();
-    if (!immediate && direction) requestAnimationFrame(() => requestAnimationFrame(() => {
-      if (token === renderToken) section.querySelector('.s1v3-card.is-active')?.classList.add('is-settled');
-    }));
+    if (!immediate && direction) {
+      void cards[activeIndex]?.offsetWidth;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (token === renderToken) section.querySelector('.s1v3-card.is-active')?.classList.add('is-settled');
+      }));
+    }
   };
 
   const move = (direction) => {
@@ -667,6 +679,7 @@ const setupS1V3 = (section) => {
     const direction = target > activeIndex ? 1 : -1;
     activeIndex = target;
     render(direction);
+    scheduleAutoplay();
   }));
   upload.addEventListener('click', () => fileInput.click());
   fileInput.addEventListener('change', () => {
@@ -696,8 +709,8 @@ const setupS1V3 = (section) => {
     section.classList.toggle('is-in-view', inView);
     if (reveal > .72 && !hasRevealed) {
       hasRevealed = true;
-      startedAt = performance.now();
       cards[activeIndex]?.classList.add('is-copy-ready');
+      scheduleAutoplay();
     }
   };
   window.addEventListener('scroll', renderScroll, { passive: true });
@@ -706,16 +719,6 @@ const setupS1V3 = (section) => {
   render(0, true);
   cards[0]?.classList.add('is-copy-ready');
   renderScroll();
-
-  const animate = (now) => {
-    const bounds = section.getBoundingClientRect();
-    const inView = bounds.top < innerHeight && bounds.bottom > 0;
-    if (!document.hidden && hasRevealed && inView && now - startedAt >= autoplayDuration) {
-      move(1);
-    }
-    requestAnimationFrame(animate);
-  };
-  requestAnimationFrame(animate);
 };
 setupS1V3(s1v3);
 
@@ -810,62 +813,33 @@ apparelV3.innerHTML = `
   </div>`;
 apparelV2.after(apparelV3);
 
-const sectionThreeV1 = document.createElement('section');
-sectionThreeV1.className = 'section-three-v1';
-sectionThreeV1.setAttribute('aria-labelledby', 'section-three-v1-title');
-sectionThreeV1.innerHTML = `
-  <div class="section-three-v1__inner">
-    <header class="section-three-v1__header">
-      <div class="section-three-v1__brand">Jiffy Local<span></span><small>Dallas–Fort Worth</small></div>
-      <h2 id="section-three-v1-title">Transfers + blanks.<br />One delivery. <span>Best price.</span></h2>
-    </header>
-    <div class="section-three-v1__cards">
-      ${[
-        ['image50.png', 'Transfers', 'DTF Transfers by size', 'from $0.06 / sq. in.'],
-        ['image52.png', 'Transfers', 'Gang sheet DTF transfers', 'from $11.59 / foot'],
-        ['tiger-proof-color.png', 'Transfers', 'Full-color DTF transfers', 'from $0.06 / sq. in.'],
-        ['tiger-proof-detail.png', 'Transfers', 'Fine-detail DTF transfers', 'from $0.06 / sq. in.'],
-        ['apparel-v2-product-1.png', 'Blanks', 'Heavy Cotton™ T-Shirt', 'from $2.59'],
-        ['apparel-v2-product-3.png', 'Blanks', 'Heavy Blend® Hoodie', 'from $9.76'],
-        ['apparel-v2-product-4.png', 'Blanks', 'Heavy Blend™ Crewneck', 'from $11.35'],
-        ['apparel-v2-product-2.png', 'Blanks', 'Heavy Cotton™ T-Shirt', 'from $2.59'],
-        ['apparel-v2-product-5.png', 'Blanks', 'Heavy Cotton™ T-Shirt', 'from $2.59'],
-        ['apparel-v2-product-6.png', 'Blanks', 'Heavy Blend® Hoodie', 'from $9.76'],
-        ['apparel-v2-product-7.png', 'Blanks', 'Heavy Blend™ Crewneck', 'from $11.35'],
-        ['apparel-v2-product-8.png', 'Blanks', 'Heavy Blend™ Crewneck', 'from $11.35'],
-      ].map(([image, type, name, price]) => `<a class="section-three-v1__card" href="https://www.jiffy.com/"><img src="${asset(image)}" alt="${name}" /><span>${type}</span><strong>${name}</strong><b>${price}</b><i aria-hidden="true">↗</i></a>`).join('')}
+// The final apparel experience is a static catalogue: all 20 products stay
+// available in one view, with chips providing the only lightweight control.
+const finalBlanksCatalog = blanksSection.querySelector('.blanks-carousel-group');
+finalBlanksCatalog.innerHTML = `
+  <div class="blanks-static-toolbar">
+    <div class="blanks-static-filters" role="group" aria-label="Filter blank apparel">
+      <button type="button" class="is-active" data-apparel-filter="all" aria-pressed="true">All <span>20</span></button>
+      <button type="button" data-apparel-filter="tees" aria-pressed="false">T-shirts <span>14</span></button>
+      <button type="button" data-apparel-filter="fleece" aria-pressed="false">Fleece <span>2</span></button>
+      <button type="button" data-apparel-filter="hoodies" aria-pressed="false">Hoodies <span>2</span></button>
+      <button type="button" data-apparel-filter="performance" aria-pressed="false">Performance <span>2</span></button>
     </div>
-    <div class="section-three-v1__tertiary" aria-label="Shop by product type"><a href="https://www.jiffy.com/transfers">Shop Transfers <span>→</span></a><a href="https://www.jiffy.com/">Shop Blanks <span>→</span></a></div>
-  </div>`;
-// Keep the V1 editorial transformation—the portrait fills the frame, then
-// contracts into its left column—but let the final V3 catalog own the rail.
-// The prior two apparel experiments are removed from the document entirely.
-const finalBlanksCarousel = blanksSection.querySelector('.blanks-carousel-group');
-finalBlanksCarousel.innerHTML = `
-  <div class="blanks-final-rail-head">
-    <div class="blanks-final-controls" aria-label="Blank apparel carousel controls">
-      <button type="button" data-blanks-prev aria-label="Previous blank">←</button>
-      <span class="blanks-final-progress" role="progressbar" aria-label="Blank apparel carousel progress" aria-valuemin="1" aria-valuemax="20" aria-valuenow="1"><i></i></span>
-      <p aria-live="polite"><b>01</b><span>/</span><em>20</em></p>
-      <button type="button" data-blanks-next aria-label="Next blank">→</button>
-    </div>
+    <p aria-live="polite"><b>20</b> blank styles</p>
   </div>
-  <div class="blanks-final-viewport" tabindex="0" aria-label="Browse blank apparel">
-    <div class="blanks-products">
-      ${apparelV3Items.map(([image, category, brand, name, wasPrice, price]) => `
-        <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" aria-label="${brand} ${name}, now from ${price}">
-          <img src="${asset(image)}" alt="${name}" />
-          <small>${brand}</small><strong>${name}</strong>
-          <span class="blanks-product__price"><em>was ${wasPrice}</em><b>from ${price}</b></span>
-          <span class="blanks-product__rating">★★★★<i>★</i> <em>(2,500)</em></span>
-        </a>`).join('')}
-    </div>
+  <div class="blanks-static-grid" aria-label="Blank apparel styles">
+    ${apparelV3Items.map(([image, category, brand, name, wasPrice, price]) => `
+      <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" aria-label="${brand} ${name}, now from ${price}">
+        <img src="${asset(image)}" alt="${name}" />
+        <small>${brand}</small><strong>${name}</strong>
+        <span class="blanks-product__price"><em>was ${wasPrice}</em><b>from ${price}</b></span>
+        <span class="blanks-product__rating">★★★★<i>★</i> <em>(2,500)</em></span>
+      </a>`).join('')}
   </div>`;
 
 apparelV2.remove();
 apparelV3.remove();
 carouselStory.after(blanksSection);
-blanksSection.after(sectionThreeV1);
 
 const coverageStory = document.createElement('section');
 coverageStory.className = 'coverage-story';
@@ -916,7 +890,7 @@ coverageStory.innerHTML = `
     </div>
     <p class="coverage-story__scroll-cue" aria-hidden="true"><span></span>Scroll to expand the map</p>
   </div>`;
-sectionThreeV1.after(coverageStory);
+blanksSection.after(coverageStory);
 
 const setupCoverageStory = () => {
   const items = [...coverageStory.querySelectorAll('[data-coverage-item]')];
@@ -1274,42 +1248,28 @@ const setupApparelV3 = (section) => {
   window.addEventListener('resize', () => update(false));
   update(false);
 };
-const setupFinalBlanksCarousel = (section) => {
-  const viewport = section.querySelector('.blanks-final-viewport');
-  const track = section.querySelector('.blanks-products');
+const setupStaticApparelFilters = (section) => {
+  const filters = [...section.querySelectorAll('[data-apparel-filter]')];
   const cards = [...section.querySelectorAll('.blanks-product')];
-  const previous = section.querySelector('[data-blanks-prev]');
-  const next = section.querySelector('[data-blanks-next]');
-  const count = section.querySelector('.blanks-final-controls p');
-  const progress = section.querySelector('.blanks-final-progress');
-  let activeIndex = 0;
+  const count = section.querySelector('.blanks-static-toolbar p');
 
-  const update = (animated = true) => {
-    const card = cards[0];
-    if (!card) return;
-    const styles = getComputedStyle(track);
-    const gap = Number.parseFloat(styles.gap) || 0;
-    const visible = Math.max(1, Math.round((viewport.clientWidth + gap) / (card.getBoundingClientRect().width + gap)));
-    const maxIndex = Math.max(0, cards.length - visible);
-    activeIndex = Math.min(Math.max(0, activeIndex), maxIndex);
-    track.classList.toggle('is-instant', !animated);
-    track.style.transform = `translate3d(${-activeIndex * (card.getBoundingClientRect().width + gap)}px,0,0)`;
-    count.innerHTML = `<b>${String(activeIndex + 1).padStart(2, '0')}</b><span>/</span><em>${String(cards.length).padStart(2, '0')}</em>`;
-    progress.setAttribute('aria-valuenow', String(activeIndex + 1));
-    progress.querySelector('i').style.width = `${((activeIndex + 1) / cards.length) * 100}%`;
-    previous.disabled = activeIndex === 0;
-    next.disabled = activeIndex === maxIndex;
-  };
-  previous.addEventListener('click', () => { activeIndex -= 1; update(); });
-  next.addEventListener('click', () => { activeIndex += 1; update(); });
-  viewport.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowLeft') { event.preventDefault(); activeIndex -= 1; update(); }
-    if (event.key === 'ArrowRight') { event.preventDefault(); activeIndex += 1; update(); }
+  filters.forEach((filter) => {
+    filter.addEventListener('click', () => {
+      const category = filter.dataset.apparelFilter;
+      const visibleCards = cards.filter((card) => category === 'all' || card.dataset.category === category);
+      filters.forEach((item) => {
+        const active = item === filter;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+      cards.forEach((card) => {
+        card.hidden = category !== 'all' && card.dataset.category !== category;
+      });
+      count.innerHTML = `<b>${visibleCards.length}</b> blank ${visibleCards.length === 1 ? 'style' : 'styles'}`;
+    });
   });
-  window.addEventListener('resize', () => update(false));
-  update(false);
 };
-setupFinalBlanksCarousel(blanksSection);
+setupStaticApparelFilters(blanksSection);
 
 const shell = document.querySelector('.story-shell');
 const rack = document.querySelector('.quality-rack');
@@ -1555,6 +1515,7 @@ function renderCarouselStory() {
 
 const blanksShell = blanksSection.querySelector('.blanks-shell');
 function renderBlanksStory() {
+  if (blanksSection.classList.contains('blanks-story--static')) return;
   const maxScroll = Math.max(1, blanksSection.offsetHeight - window.innerHeight);
   const progress = clamp(-blanksSection.getBoundingClientRect().top / maxScroll);
   const reduce = ease(ramp(progress, .05, .32));
