@@ -79,6 +79,9 @@
 .s1v3-index button.is-active .s1v3-index__copy small{color:rgba(255,255,255,.72)}
 .s1v3-index__description{display:none;margin:0}
 .s1v3-index button.is-active .s1v3-index__description{display:block;margin-top:.85rem;color:rgba(255,255,255,.74);font:400 14px/1.42 Inter,Arial,sans-serif;letter-spacing:0}
+.s1v3-index button.is-active.is-collapsed{padding:.85rem 1.15rem;border-radius:1.7rem;background:linear-gradient(140deg,rgba(255,255,255,.16),rgba(255,255,255,.07) 48%,rgba(8,14,19,.42));box-shadow:0 .6rem 1.6rem rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.12),inset 0 -1px rgba(0,0,0,.12)}
+.s1v3-index button.is-active.is-collapsed .s1v3-index__description{display:none}
+.s1v3-index button.is-active.is-collapsed .s1v3-index__label i::after{opacity:1;transform:translate(-50%,-50%) scaleY(1)}
 
 /* Bring the four glass topics in as one quick top-to-bottom sequence after
    the proof viewport is ready. The stagger is 140ms, so item four begins

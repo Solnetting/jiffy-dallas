@@ -157,7 +157,7 @@ s1v3.innerHTML = `
         </div>
         <nav class="s1v3-index" aria-label="Explore quality proof">
           ${s1v3Cards.map(({ title, subtitle, description }, index) => `
-            <button type="button" class="${index === 0 ? 'is-active' : ''}" data-s1v3-step="${index}" aria-current="${index === 0 ? 'step' : 'false'}">
+            <button type="button" class="${index === 0 ? 'is-active' : ''}" data-s1v3-step="${index}" aria-current="${index === 0 ? 'step' : 'false'}" aria-expanded="${index === 0 ? 'true' : 'false'}">
               <span class="s1v3-index__label">
                 <i aria-hidden="true"></i>
                 <span class="s1v3-index__copy">
@@ -182,27 +182,10 @@ const setupS1V3 = (section) => {
   const indexItems = [...section.querySelectorAll('[data-s1v3-step]')];
   const fileInput = section.querySelector('.s1v3-file-input');
   const upload = section.querySelector('.s1v3-upload');
-  const autoplayDuration = 10000;
   let activeIndex = 0;
   let reveal = 0;
-  let hasRevealed = false;
   let renderToken = 0;
   let copyTimer;
-  let autoplayTimer;
-
-  const isInView = () => {
-    const bounds = section.getBoundingClientRect();
-    return bounds.top < innerHeight && bounds.bottom > 0;
-  };
-
-  const scheduleAutoplay = () => {
-    window.clearTimeout(autoplayTimer);
-    if (!hasRevealed) return;
-    autoplayTimer = window.setTimeout(() => {
-      if (!document.hidden && isInView()) move(1);
-      scheduleAutoplay();
-    }, autoplayDuration);
-  };
 
   const render = (direction = 0, immediate = false) => {
     renderToken += 1;
@@ -221,6 +204,7 @@ const setupS1V3 = (section) => {
       const active = index === activeIndex;
       item.classList.toggle('is-active', active);
       item.setAttribute('aria-current', active ? 'step' : 'false');
+      item.setAttribute('aria-expanded', active ? String(!item.classList.contains('is-collapsed')) : 'false');
     });
     window.clearTimeout(copyTimer);
     if (immediate) cards[activeIndex]?.classList.add('is-copy-ready');
@@ -233,18 +217,17 @@ const setupS1V3 = (section) => {
     }
   };
 
-  const move = (direction) => {
-    activeIndex = (activeIndex + direction + cards.length) % cards.length;
-    render(direction);
-  };
-
   indexItems.forEach((item) => item.addEventListener('click', () => {
     const target = Number(item.dataset.s1v3Step);
-    if (target === activeIndex) return;
+    if (target === activeIndex) {
+      const collapsed = item.classList.toggle('is-collapsed');
+      item.setAttribute('aria-expanded', String(!collapsed));
+      return;
+    }
     const direction = target > activeIndex ? 1 : -1;
+    indexItems.forEach((indexItem) => indexItem.classList.remove('is-collapsed'));
     activeIndex = target;
     render(direction);
-    scheduleAutoplay();
   }));
   upload.querySelector('.s1v3-upload-files').addEventListener('click', () => fileInput.click());
   fileInput.addEventListener('change', () => {
@@ -272,11 +255,6 @@ const setupS1V3 = (section) => {
     section.classList.toggle('is-upload-mode', reveal > .58);
     section.classList.toggle('is-carousel-ready', reveal > .98);
     section.classList.toggle('is-in-view', inView);
-    if (reveal > .72 && !hasRevealed) {
-      hasRevealed = true;
-      cards[activeIndex]?.classList.add('is-copy-ready');
-      scheduleAutoplay();
-    }
   };
   window.addEventListener('scroll', renderScroll, { passive: true });
   window.addEventListener('resize', renderScroll);
