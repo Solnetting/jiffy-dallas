@@ -1,20 +1,5 @@
 const asset = (file) => `${import.meta.env.BASE_URL}figma/${file}`;
 
-const proofs = [
-  { image: 'tiger-transfer-hero.png', title: 'Vibrant color', subtitle: 'Rich, consistent colors that last.' },
-  { image: 'tiger-proof-detail.png', title: 'Crisp detail', subtitle: 'Prints fine lines and complex artwork.' },
-  { image: 'tiger-proof-peel.png', title: 'Clean peel', subtitle: 'Hot or cold peel. No hassle.' },
-  { image: 'tiger-proof-worn.png', title: 'Fast processing', subtitle: 'Printed and ready for local delivery.' },
-];
-
-const products = [
-  ['product-figma-1.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (White)', '$2.59'],
-  ['product-figma-2.png', 'GILDAN · G800', 'Heavy Cotton™ T-Shirt (Black)', '$2.59'],
-  ['product-figma-3.png', 'GILDAN · G185', 'Heavy Blend® Hoodie (Grey)', '$9.76'],
-  ['product-figma-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck (Black)', '$11.35'],
-  ['product-figma-4.png', 'GILDAN · G185', 'Heavy Blend™ Crewneck (Black)', '$11.35'],
-];
-
 document.querySelector('#app').innerHTML = `
   <section class="jiffy-hero" aria-labelledby="jiffy-hero-title">
     <video class="jiffy-hero__image" autoplay muted loop playsinline aria-hidden="true">
@@ -23,7 +8,7 @@ document.querySelector('#app').innerHTML = `
     <div class="jiffy-hero__shade"></div>
     <header class="jiffy-hero__nav">
       <div class="jiffy-hero__brand"><img class="jiffy-hero__logo" src="${asset('jiffy-local-logo.svg')}" alt="Jiffy" /><span class="jiffy-hero__location">DALLAS-FORT WORTH</span></div>
-      <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="#transfers-section" data-nav-scroll="transfers">Transfers</a><a href="#blanks-section" data-nav-scroll="blanks">Blanks</a><span class="jiffy-hero__coming-soon" tabindex="0" aria-disabled="true">Custom<span role="tooltip">Available soon</span></span><div class="jiffy-hero__variant-switcher"><button class="jiffy-hero__sign-in" type="button" aria-expanded="false" aria-controls="section-one-variants">Sign in</button><div class="jiffy-hero__variant-menu" id="section-one-variants" hidden><button type="button" data-quality-variant="v1">Section 1 · V1</button><button type="button" data-quality-variant="v2">Section 1 · V2</button><button type="button" data-quality-variant="v3">Section 1 · V3</button></div></div></nav>
+      <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="#transfers-section" data-nav-scroll="transfers">Transfers</a><a href="#blanks-section" data-nav-scroll="blanks">Blanks</a><span class="jiffy-hero__coming-soon" tabindex="0" aria-disabled="true">Custom<span role="tooltip">Available soon</span></span></nav>
     </header>
     <div class="jiffy-hero__content">
       <p class="jiffy-hero__eyebrow"><span></span>Now delivering · Dallas-Fort Worth</p>
@@ -45,101 +30,7 @@ document.querySelector('#app').innerHTML = `
       <div class="jiffy-hero__delivery-outcome" hidden aria-live="polite"></div>
     </div>
   </section>
-  <section class="quality-story" aria-label="Jiffy Local DTF quality story">
-    <div class="story-sticky">
-      <div class="story-shell">
-        <header class="story-header" aria-hidden="true">
-          <div class="local-mark">Jiffy Local <span></span><small>Dallas–Fort Worth</small></div>
-          <div class="story-words">Ideas <b>Local</b> Wear <i>Further</i><em></em></div>
-        </header>
-        <h1 class="story-title">Your design. Our quality<span>.</span></h1>
-
-        <article class="hero-art" aria-label="DTF transfer quality">
-          <img src="${asset('tiger-transfer-hero.png')}" alt="A maker holding a vivid tiger DTF transfer" />
-          <span class="hero-art__reflection" aria-hidden="true"></span>
-          <button class="upload-button upload-button--quiet" type="button">Upload artwork</button>
-          <input id="artwork-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
-        </article>
-
-        <div class="quality-rack" aria-label="Quality proof gallery">
-          ${proofs.map((proof, index) => `
-            <figure class="proof-card proof-card--${index + 1}">
-              <img src="${asset(proof.image)}" alt="${proof.title} proof for a DTF transfer" />
-              <figcaption><strong>${proof.title}</strong><span>${proof.subtitle}</span></figcaption>
-            </figure>
-          `).join('')}
-        </div>
-
-        <aside class="conversion-panel" aria-label="Choose a DTF transfer path">
-          <header class="conversion-panel__heading"><h2>Start with your artwork</h2><p>Choose how you want to build and scale your custom print transfers.</p></header>
-          <div class="transfer-paths">
-          <a class="transfer-choice" href="https://www.jiffy.com/transfers">
-            <div class="transfer-choice__thumbnail"><img src="${asset('image50.png')}" alt="" /></div>
-            <div class="transfer-choice__info"><div class="transfer-choice__title-row"><strong>DTF Transfers by size</strong><p class="transfer-choice__price"><b>from $0.06</b><small>/ sq. in.</small></p></div><p>Upload a single design, set your custom dimensions, and let us handle the rest. Perfect for individual logos, chest prints, or large back graphics.</p></div>
-            <div class="transfer-choice__action"><img src="${asset('cloud-upload.svg')}" alt="" /><span>Upload your design</span></div>
-          </a>
-          <a class="transfer-choice" href="https://www.jiffy.com/jiffytransfers-DTFGANG001.html">
-            <div class="transfer-choice__thumbnail"><img src="${asset('image52.png')}" alt="" /></div>
-            <div class="transfer-choice__info"><div class="transfer-choice__title-row"><strong>Gang sheet-DTF transfers</strong><p class="transfer-choice__price"><b>from $11.59</b><small>/ foot</small></p></div><p>Maximize your value. Arrange multiple designs, duplicates, or varied sizes on a single roll. Use our interactive builder to pack your artwork efficiently.</p></div>
-            <div class="transfer-choice__action"><i class="transfer-choice__grid" aria-hidden="true"></i><span>Build your gang sheet</span></div>
-          </a>
-          </div>
-        </aside>
-
-        <section class="apparel-rail" aria-labelledby="pair-title">
-          <div class="rail-copy"><h2 id="pair-title">Pair with popular blanks</h2></div>
-          <div class="rail-products">
-            ${products.map(([image, brand, name, price], index) => `
-              <a class="rail-product" href="https://www.jiffy.com/">
-                <div class="rail-image"><img src="${asset(image)}" alt="${name}" /></div>
-                <small>${brand}</small><strong>${name}</strong>
-                <b>from ${price}</b><span class="stars"><img src="${asset(`rating-figma-${Math.min(index + 1, 5)}.svg`)}" alt="4 out of 5 stars" /><i>(2,500)</i></span>
-                <em>⚡ Jiffy Local</em>
-              </a>
-            `).join('')}
-          </div>
-        </section>
-        <p class="story-count" aria-hidden="true"><b>01</b> / 05</p>
-      </div>
-    </div>
-  </section>
-  <section class="static-quality-compare" aria-labelledby="static-quality-title">
-    <div class="static-quality-grid">
-      <article class="static-quality-intro">
-        <img src="${asset('tiger-transfer-hero.png')}" alt="Maker holding a tiger DTF transfer" />
-        <div class="static-quality-copy">
-          <p>Jiffy Local / DTF Transfers</p>
-          <h2 id="static-quality-title">Your design.<br />Our quality.</h2>
-        </div>
-        <button class="static-upload" type="button">Upload artwork</button>
-      </article>
-      ${proofs.map((proof, index) => `
-        <figure class="static-proof">
-          <img src="${asset(proof.image)}" alt="${proof.title} proof for a DTF transfer" />
-          <figcaption><strong>${proof.title}</strong><span>${proof.subtitle}</span></figcaption>
-        </figure>
-      `).join('')}
-    </div>
-  </section>
 `;
-
-const story = document.querySelector('.quality-story');
-story.classList.add('quality-story--v1');
-const compareStory = story.cloneNode(true);
-compareStory.classList.add('quality-story--compare');
-compareStory.classList.add('quality-story--v2', 'is-active');
-compareStory.id = 'transfers-section';
-compareStory.setAttribute('aria-label', 'Alternative Jiffy Local DTF quality story');
-compareStory.querySelector('.hero-art').insertAdjacentHTML('afterbegin', `
-  <div class="compare-hero-title"><h2>Your design.<br />Our quality.</h2></div>
-`);
-document.querySelector('.static-quality-compare').replaceWith(compareStory);
-const carouselStory = story.cloneNode(true);
-carouselStory.classList.add('quality-story--carousel');
-carouselStory.classList.add('quality-story--v3');
-carouselStory.id = 'transfers-section-v3';
-carouselStory.setAttribute('aria-label', 'Carousel Jiffy Local DTF quality story');
-compareStory.after(carouselStory);
 
 const blanksSection = document.createElement('section');
 blanksSection.className = 'blanks-story blanks-story--static blanks-story--interactive';
@@ -186,20 +77,17 @@ blanksSection.innerHTML = `
       </div>
     </div>
   </div>`;
-carouselStory.after(blanksSection);
-
-// New S3: the quality showroom is the first visible experience. The older
-// exploratory S1/S2/S3 variants remain in the file for reference but are
-// deliberately hidden so they cannot compete with this single source of UI.
+// S3 is the transfer-quality showroom. S1V3 below is the only Section 1
+// quality experience kept in this build.
 const s3Showroom = document.createElement('section');
 s3Showroom.className = 's3-showroom';
-s3Showroom.id = 'transfers-section';
+s3Showroom.id = 'quality-showroom';
 s3Showroom.setAttribute('aria-labelledby', 's3-title');
 s3Showroom.innerHTML = `
   <div class="s3-sticky">
     <div class="s3-canvas">
       <header class="s3-nav">
-        <a href="#transfers-section" class="s3-logo-link" aria-label="Jiffy home"><img src="${asset('jiffy-local-logo.svg')}" alt="Jiffy Local" /></a>
+        <a href="#quality-showroom" class="s3-logo-link" aria-label="Jiffy home"><img src="${asset('jiffy-local-logo.svg')}" alt="Jiffy Local" /></a>
         <span class="s3-location">DALLAS–FORT WORTH</span>
       </header>
       <div class="s3-copy">
@@ -256,11 +144,6 @@ const promiseObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold:.35 });
 promiseObserver.observe(localPromiseStrip);
-document.querySelectorAll('.quality-story, .static-quality-compare').forEach((element) => {
-  element.hidden = true;
-  element.setAttribute('aria-hidden', 'true');
-});
-
 const setupS3Showroom = (showroom) => {
   // Keep this controller self-contained. The page has other scroll stories
   // below it, so it must never depend on a later story helper being initialized.
@@ -368,181 +251,7 @@ const setupS3Showroom = (showroom) => {
 };
 setupS3Showroom(s3Showroom);
 
-// S1 V1: an isolated scroll-to-carousel variant below the locked showroom.
-// It reuses the approved quality images and copy, but owns its own state so
-// the existing S1/S3 experience above remains unchanged.
-const s1v1Cards = [
-  { image: 'tiger-proof-worn.png', title: 'Your design. Our quality.', subtitle: 'Richer detail. Truer color. A higher standard in every transfer.' },
-  { image: 'tiger-proof-detail.png', title: 'AI process', subtitle: 'Artwork analyzed and prepared for print.' },
-  { image: 'tiger-proof-peel.png', title: 'Hot peel', subtitle: 'Clean release immediately after pressing.' },
-  { image: 'tiger-proof-color.png', title: 'Color accuracy', subtitle: 'True color with fine detail, up close.' },
-  { image: 'tiger-transfer-hero.png', title: 'Competitor vs. Jiffy', subtitle: 'Sharper, denser, cleaner transfer results.' },
-];
-
-const s1v1 = document.createElement('section');
-s1v1.className = 's1v1-story';
-s1v1.id = 'transfers-section-s1v1';
-s1v1.setAttribute('aria-labelledby', 's1v1-title');
-s1v1.innerHTML = `
-  <div class="s1v1-sticky">
-    <div class="s1v1-canvas">
-      <header class="s1v1-nav">
-        <a href="#transfers-section-s1v1" class="s1v1-logo" aria-label="Jiffy Local"><img src="${asset('jiffy-local-logo.svg')}" alt="Jiffy" /></a>
-        <span>DALLAS–FORT WORTH</span>
-      </header>
-
-      <div class="s1v1-carousel" aria-live="polite" aria-label="DTF quality examples">
-        ${s1v1Cards.map(({ image, title, subtitle }, index) => `
-          <figure class="s1v1-card${index === 0 ? ' s1v1-first-card' : ''}" data-s1v1-card="${index}">
-            <img src="${asset(image)}" alt="${title} proof for a DTF transfer" />
-            <figcaption>
-              <p class="s1v1-card-eyebrow">DTF PROOF OF QUALITY</p>
-              <strong>${index === 0 ? 'Your design.<br />Our quality<span>.</span>' : title}</strong>
-              <span>${subtitle}</span>
-            </figcaption>
-          </figure>
-        `).join('')}
-      </div>
-
-      <div class="s1v1-actions" aria-label="Choose how to continue">
-        <button class="s1v1-action s1v1-action--upload" type="button" aria-label="Upload artwork. Drag and drop a file or select one.">
-          <span><strong>Upload your artwork</strong><small>Drag &amp; drop or select a file</small></span>
-        </button>
-        <a class="s1v1-action" href="https://www.jiffy.com/transfers">
-          <span><strong>Shop transfers by size</strong><small>Choose the exact dimensions you need</small></span>
-        </a>
-        <a class="s1v1-action" href="https://www.jiffy.com/jiffytransfers-DTFGANG001.html">
-          <span><strong>Build a gang sheet</strong><small>Pack more artwork into one sheet</small></span>
-        </a>
-      </div>
-      <input class="s1v1-file-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
-
-      <div class="s1v1-controls" aria-label="Quality carousel controls">
-        <button type="button" data-s1v1-prev aria-label="Previous quality example">←</button>
-        <span class="s1v1-progress-track" aria-hidden="true"><i></i></span>
-        <span class="s1v1-count"><b>01</b><em>/ 05</em></span>
-        <button type="button" data-s1v1-next aria-label="Next quality example">→</button>
-      </div>
-    </div>
-  </div>
-`;
-s3Showroom.after(s1v1);
-
-const setupS1V1 = (section) => {
-  const cards = [...section.querySelectorAll('.s1v1-card')];
-  const progressTrack = section.querySelector('.s1v1-progress-track');
-  const count = section.querySelector('.s1v1-count b');
-  const fileInput = section.querySelector('.s1v1-file-input');
-  const upload = section.querySelector('.s1v1-action--upload');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const autoplayDuration = 4000;
-  let activeIndex = 0;
-  let copyTimer;
-  let startedAt = performance.now();
-  let frame;
-  let hasRevealed = false;
-  let carouselStarted = false;
-  let autoplayFinished = false;
-
-  const clampLocal = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-  const easeLocal = (value) => value * value * (3 - 2 * value);
-
-  const renderCards = () => {
-    cards.forEach((card, index) => {
-      const distance = index - activeIndex;
-      card.classList.toggle('is-active', distance === 0);
-      card.classList.toggle('is-next', carouselStarted && distance === 1);
-      card.classList.toggle('is-prev', carouselStarted && distance === -1);
-      card.classList.toggle('is-behind', carouselStarted && distance > 1);
-      card.classList.toggle('is-past', carouselStarted && distance < -1);
-      card.classList.remove('is-copy-ready');
-      card.style.setProperty('--s1v1-distance', distance);
-    });
-    window.clearTimeout(copyTimer);
-    if (hasRevealed) {
-      copyTimer = window.setTimeout(() => {
-        cards[activeIndex]?.classList.add('is-copy-ready');
-      }, 260);
-    }
-    count.textContent = String(activeIndex + 1).padStart(2, '0');
-    autoplayFinished = activeIndex === cards.length - 1;
-    section.classList.toggle('is-carousel-finished', autoplayFinished);
-    startedAt = performance.now();
-  };
-
-  const move = (direction) => {
-    if (!carouselStarted) {
-      if (direction < 0) return;
-      carouselStarted = true;
-      activeIndex = 0;
-    }
-    const nextIndex = activeIndex + direction;
-    if (nextIndex < 0 || nextIndex >= cards.length) return;
-    section.classList.add('is-carousel-started');
-    activeIndex = nextIndex;
-    renderCards();
-  };
-
-  const renderScroll = () => {
-    frame = undefined;
-    const bounds = section.getBoundingClientRect();
-    const maxScroll = Math.max(1, section.offsetHeight - innerHeight);
-    const progress = clampLocal(-bounds.top / maxScroll);
-    const reveal = easeLocal(clampLocal((progress - .06) / .22));
-    const inView = bounds.top < innerHeight && bounds.bottom > 0;
-    if (reveal > .72 && !hasRevealed) {
-      hasRevealed = true;
-      startedAt = performance.now();
-      window.clearTimeout(copyTimer);
-      copyTimer = window.setTimeout(() => cards[activeIndex]?.classList.add('is-copy-ready'), 260);
-    }
-    section.style.setProperty('--s1v1-reveal', reveal.toFixed(3));
-    section.classList.toggle('is-revealed', reveal > .72);
-    section.classList.toggle('is-in-view', inView);
-    progressTrack.style.setProperty('--s1v1-fill', `${Math.min(100, ((performance.now() - startedAt) / autoplayDuration) * 100)}%`);
-  };
-
-  const queueScroll = () => {
-    if (!frame) frame = requestAnimationFrame(renderScroll);
-  };
-
-  section.querySelector('[data-s1v1-prev]').addEventListener('click', () => move(-1));
-  section.querySelector('[data-s1v1-next]').addEventListener('click', () => move(1));
-  upload.addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', () => {
-    if (fileInput.files?.[0]) upload.querySelector('strong').textContent = 'Artwork selected';
-  });
-  upload.addEventListener('dragover', (event) => {
-    event.preventDefault();
-    upload.classList.add('is-dragging');
-  });
-  upload.addEventListener('dragleave', () => upload.classList.remove('is-dragging'));
-  upload.addEventListener('drop', (event) => {
-    event.preventDefault();
-    upload.classList.remove('is-dragging');
-    if (event.dataTransfer.files?.[0]) upload.querySelector('strong').textContent = 'Artwork selected';
-  });
-  window.addEventListener('scroll', queueScroll, { passive: true });
-  window.addEventListener('resize', queueScroll);
-  renderCards();
-  renderScroll();
-
-  const animate = (now) => {
-    const bounds = section.getBoundingClientRect();
-    const maxScroll = Math.max(1, section.offsetHeight - innerHeight);
-    const progress = clampLocal(-bounds.top / maxScroll);
-    const reveal = easeLocal(clampLocal((progress - .06) / .22));
-    const inView = bounds.top < innerHeight && bounds.bottom > 0;
-    if (!reducedMotion.matches && reveal > .72 && inView && !autoplayFinished && !document.hidden && now - startedAt >= autoplayDuration) move(1);
-    if (reveal > .72 && inView) progressTrack.style.setProperty('--s1v1-fill', `${Math.min(100, ((now - startedAt) / autoplayDuration) * 100)}%`);
-    requestAnimationFrame(animate);
-  };
-  requestAnimationFrame(animate);
-};
-setupS1V1(s1v1);
-
-// S1 V3: a compact, persistent upload panel paired with the quality carousel.
-// This is a separate experiment so the approved S1 and S1V1 experiences stay intact.
+// S1 V3 is the only Section 1 quality experience kept in the build.
 const s1v3Cards = [
   { image: 'tiger-transfer-hero.png', title: 'Competitor vs. Jiffy', subtitle: 'Sharper, denser, cleaner transfer results.', description: 'Compare fine edges, solid coverage, and a cleaner finish against the competing transfer.' },
   { image: 'tiger-proof-detail.png', title: 'AI process', subtitle: 'Artwork analyzed and prepared for print.', description: 'Your artwork is checked and prepared before print so detail and color stay true to the design.' },
@@ -552,7 +261,7 @@ const s1v3Cards = [
 
 const s1v3 = document.createElement('section');
 s1v3.className = 's1v3-story';
-s1v3.id = 'transfers-section-s1v3';
+s1v3.id = 'transfers-section';
 s1v3.setAttribute('aria-label', 'DTF quality carousel with artwork upload');
 s1v3.innerHTML = `
   <div class="s1v3-sticky">
@@ -610,7 +319,7 @@ s1v3.innerHTML = `
     </div>
   </div>
 `;
-s1v1.after(s1v3);
+s3Showroom.after(s1v3);
 
 const setupS1V3 = (section) => {
   const cards = [...section.querySelectorAll('.s1v3-card')];
@@ -721,6 +430,7 @@ const setupS1V3 = (section) => {
   renderScroll();
 };
 setupS1V3(s1v3);
+s1v3.after(blanksSection);
 
 const apparelV2 = document.createElement('section');
 apparelV2.className = 'apparel-v2';
@@ -839,8 +549,6 @@ finalBlanksCatalog.innerHTML = `
 
 apparelV2.remove();
 apparelV3.remove();
-carouselStory.after(blanksSection);
-
 const coverageStory = document.createElement('section');
 coverageStory.className = 'coverage-story';
 coverageStory.id = 'delivery-coverage';
@@ -974,7 +682,7 @@ document.querySelectorAll('[data-nav-scroll]').forEach((link) => {
   link.addEventListener('click', (event) => {
     event.preventDefault();
     const section = link.dataset.navScroll === 'transfers'
-      ? document.querySelector('.quality-story.is-active')
+      ? s1v3
       : blanksSection;
     section?.scrollIntoView({
       behavior: link.dataset.navScroll === 'blanks' ? 'auto' : 'smooth',
@@ -1116,9 +824,8 @@ let addressSearchFrame;
 const updateAddressSearch = () => {
   addressSearchFrame = undefined;
   if (!addressSearch) return;
-  // The visible local flow starts with the S3 showroom; the older quality
-  // variants are intentionally hidden, so they must not drive compact mode.
-  const sectionOne = s3Showroom || document.querySelector('.quality-story.is-active');
+  // The visible Section 1 flow is the retained S1V3 experience.
+  const sectionOne = s1v3;
   const sectionOneTop = sectionOne ? sectionOne.getBoundingClientRect().top + window.scrollY : Infinity;
   const isSticky = addressSearch.classList.contains('is-sticky');
   // The original hero form scrolls naturally until it reaches the viewport.
@@ -1271,13 +978,6 @@ const setupStaticApparelFilters = (section) => {
 };
 setupStaticApparelFilters(blanksSection);
 
-const shell = document.querySelector('.story-shell');
-const rack = document.querySelector('.quality-rack');
-const proofCards = [...document.querySelectorAll('.proof-card')];
-const fileInput = document.querySelector('#artwork-input');
-const quietButton = document.querySelector('.upload-button--quiet');
-const solidButton = document.querySelector('[data-upload]');
-const count = document.querySelector('.story-count');
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 const ramp = (value, start, end) => clamp((value - start) / (end - start));
 const ease = (value) => value * value * (3 - 2 * value);
@@ -1285,233 +985,6 @@ const navigationColor = (progress) => {
   const tone = ease(ramp(progress, .06, .18));
   return `rgb(${Math.round(255 - 239 * tone)}, ${Math.round(255 - 215 * tone)}, ${Math.round(255 - 171 * tone)})`;
 };
-
-function layoutPackedCards(cards, progress, rackWidth, commerce, proofExit) {
-  const gap = 10;
-  const sizeSteps = [0.48, 0.74, 1.1, 1.68];
-  const sizeUnit = Math.max(62, (rackWidth - gap * (cards.length - 1)) / sizeSteps.reduce((sum, size) => sum + size, 0));
-  let previous = null;
-  cards.forEach((card, index) => {
-    const enterStart = .10 + index * .04;
-    const enterEnd = .18 + index * .04;
-    const packStart = .14 + index * .04;
-    const packEnd = .26 + index * .04;
-    const entered = ease(ramp(progress, enterStart, enterEnd));
-    const packed = ease(ramp(progress, packStart, packEnd));
-    const x = previous ? previous.x + previous.width + gap : 0;
-    const targetWidth = sizeUnit * (sizeSteps[index] ?? 1);
-    const availableWidth = Math.max(targetWidth, rackWidth - x);
-    const width = availableWidth * (1 - packed) + targetWidth * packed;
-    card.style.width = `${width}px`;
-    card.style.transform = `translate3d(${x}px,0,0)`;
-    card.style.opacity = `${entered * (1 - Math.max(commerce, proofExit))}`;
-    card.style.zIndex = `${index + 1}`;
-    card.classList.toggle('is-collapsed', width < 460);
-    previous = { x, width };
-  });
-}
-
-const enableProofCardPreview = (cards) => cards.forEach((card) => {
-  card.addEventListener('mouseenter', () => card.classList.add('is-previewed'));
-  card.addEventListener('mouseleave', () => card.classList.remove('is-previewed'));
-  card.addEventListener('focusin', () => card.classList.add('is-previewed'));
-  card.addEventListener('focusout', () => card.classList.remove('is-previewed'));
-});
-
-let storyCompleted = false;
-let compareCompleted = false;
-let carouselCompleted = false;
-
-function renderStory() {
-  const maxScroll = Math.max(1, story.offsetHeight - window.innerHeight);
-  const rawProgress = clamp(-story.getBoundingClientRect().top / maxScroll);
-  if (rawProgress >= .995) storyCompleted = true;
-  const progress = storyCompleted ? 1 : rawProgress;
-  const reduce = ease(ramp(progress, .04, .22));
-  const proofExit = ease(ramp(progress, .34, .38));
-  const commerce = ease(ramp(progress, .36, .42));
-  const commerceExit = ease(ramp(progress, .54, .7));
-  const apparel = commerce;
-  const gutter = 160 * reduce;
-  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
-  const uploadStart = window.innerWidth * .045 + quietButton.offsetWidth * .5;
-  const finalHeroWidth = (window.innerWidth - window.innerWidth * .09) * .30;
-  const uploadLeft = uploadStart + (finalHeroWidth * .5 - uploadStart) * reduce;
-  const rackLeft = gutter + heroWidth + 24;
-  const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const panelTop = window.innerHeight * .21 * reduce;
-  const rackHeight = window.innerHeight - panelTop - 76 * reduce;
-
-  shell.style.setProperty('--reduce', reduce.toFixed(3));
-  shell.style.setProperty('--stack', '1');
-  shell.style.setProperty('--commerce', commerce.toFixed(3));
-  shell.style.setProperty('--commerce-exit', commerceExit.toFixed(3));
-  shell.style.setProperty('--commerce-opacity', (commerce * (1 - commerceExit)).toFixed(3));
-  shell.style.setProperty('--apparel', apparel.toFixed(3));
-  shell.style.setProperty('--proof-exit', proofExit.toFixed(3));
-  shell.style.setProperty('--gutter', `${gutter}px`);
-  shell.style.setProperty('--hero-left', `${gutter}px`);
-  shell.style.setProperty('--hero-width', `${heroWidth}px`);
-  shell.style.setProperty('--hero-top', `${panelTop}px`);
-  shell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
-  shell.style.setProperty('--upload-target-y', 'calc(100svh - 148px)');
-  shell.style.setProperty('--upload-left', `${uploadLeft}px`);
-  shell.style.setProperty('--rack-left', `${rackLeft}px`);
-  shell.style.setProperty('--rack-width', `${rackWidth}px`);
-  shell.style.setProperty('--rack-height', `${rackHeight}px`);
-  shell.style.setProperty('--rack-top', `${panelTop}px`);
-  shell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
-  shell.style.setProperty('--header-opacity', '1');
-  shell.style.setProperty('--story-header-color', navigationColor(progress));
-  layoutPackedCards(proofCards, progress, rackWidth, commerce, proofExit);
-  const displayed = Math.min(5, 1 + proofCards.filter((_, index) => progress >= .12 + index * .15).length);
-  count.innerHTML = `<b>${String(displayed).padStart(2, '0')}</b> / 05`;
-}
-
-const compareShell = compareStory.querySelector('.story-shell');
-const compareProofCards = [...compareStory.querySelectorAll('.proof-card')];
-const compareCount = compareStory.querySelector('.story-count');
-const compareFileInput = compareStory.querySelector('#artwork-input');
-const compareButtons = [...compareStory.querySelectorAll('.upload-button')];
-
-function renderCompareStory() {
-  const maxScroll = Math.max(1, compareStory.offsetHeight - window.innerHeight);
-  const rawProgress = clamp(-compareStory.getBoundingClientRect().top / maxScroll);
-  if (rawProgress >= .995) compareCompleted = true;
-  const progress = compareCompleted ? 1 : rawProgress;
-  const reduce = ease(ramp(progress, .04, .22));
-  const proofExit = ease(ramp(progress, .34, .38));
-  const commerce = ease(ramp(progress, .36, .42));
-  const commerceExit = ease(ramp(progress, .54, .7));
-  // Let the blanks rail follow the transfer paths with only a short beat.
-  const apparel = commerce;
-  const gutter = 160 * reduce;
-  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
-  const uploadStart = window.innerWidth * .045 + compareButtons[0].offsetWidth * .5;
-  const finalHeroWidth = (window.innerWidth - window.innerWidth * .09) * .30;
-  const uploadLeft = uploadStart + (finalHeroWidth * .5 - uploadStart) * reduce;
-  const rackLeft = gutter + heroWidth + 24;
-  const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const compareTop = window.innerHeight * .055 * reduce;
-  const rackHeight = window.innerHeight - compareTop - 76 * reduce;
-
-  compareShell.style.setProperty('--reduce', reduce.toFixed(3));
-  compareShell.style.setProperty('--stack', '1');
-  compareShell.style.setProperty('--commerce', commerce.toFixed(3));
-  compareShell.style.setProperty('--commerce-exit', commerceExit.toFixed(3));
-  compareShell.style.setProperty('--commerce-opacity', (commerce * (1 - commerceExit)).toFixed(3));
-  compareShell.style.setProperty('--apparel', apparel.toFixed(3));
-  compareShell.style.setProperty('--proof-exit', proofExit.toFixed(3));
-  compareShell.style.setProperty('--gutter', `${gutter}px`);
-  compareShell.style.setProperty('--hero-left', `${gutter}px`);
-  compareShell.style.setProperty('--hero-width', `${heroWidth}px`);
-  compareShell.style.setProperty('--hero-top', `${compareTop}px`);
-  compareShell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
-  compareShell.style.setProperty('--upload-target-y', 'calc(100svh - 148px)');
-  compareShell.style.setProperty('--upload-left', `${uploadLeft}px`);
-  compareShell.style.setProperty('--rack-left', `${rackLeft}px`);
-  compareShell.style.setProperty('--rack-width', `${rackWidth}px`);
-  compareShell.style.setProperty('--rack-height', `${rackHeight}px`);
-  compareShell.style.setProperty('--compare-top', `${compareTop}px`);
-  compareShell.style.setProperty('--title-opacity', '1');
-  compareShell.style.setProperty('--header-opacity', '1');
-  compareShell.style.setProperty('--story-header-color', navigationColor(progress));
-  layoutPackedCards(compareProofCards, progress, rackWidth, commerce, proofExit);
-  const shown = Math.min(5, 1 + compareProofCards.filter((_, index) => progress >= .12 + index * .15).length);
-  compareCount.innerHTML = `<b>${String(shown).padStart(2, '0')}</b> / 05`;
-}
-
-const carouselShell = carouselStory.querySelector('.story-shell');
-const carouselCards = [...carouselStory.querySelectorAll('.proof-card')];
-const carouselCount = carouselStory.querySelector('.story-count');
-const carouselFileInput = carouselStory.querySelector('#artwork-input');
-const carouselButtons = [...carouselStory.querySelectorAll('.upload-button')];
-
-enableProofCardPreview(proofCards);
-enableProofCardPreview(compareProofCards);
-enableProofCardPreview(carouselCards);
-
-const enableHeroTilt = (card) => {
-  if (!card || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let frame;
-  const reset = () => {
-    card.classList.remove('is-tilting');
-    card.style.removeProperty('--tilt-x');
-    card.style.removeProperty('--tilt-y');
-    card.style.removeProperty('--reflection-x');
-    card.style.removeProperty('--reflection-y');
-  };
-  card.addEventListener('pointermove', (event) => {
-    if (event.pointerType !== 'mouse') return;
-    const bounds = card.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - .5;
-    const y = (event.clientY - bounds.top) / bounds.height - .5;
-    cancelAnimationFrame(frame);
-    frame = requestAnimationFrame(() => {
-      card.classList.add('is-tilting');
-      card.style.setProperty('--tilt-x', `${(-y * 1.5).toFixed(2)}deg`);
-      card.style.setProperty('--tilt-y', `${(x * 3).toFixed(2)}deg`);
-      card.style.setProperty('--reflection-x', `${((x + .5) * 100).toFixed(1)}%`);
-      card.style.setProperty('--reflection-y', `${((y + .5) * 100).toFixed(1)}%`);
-    });
-  });
-  card.addEventListener('pointerleave', reset);
-};
-enableHeroTilt(compareStory.querySelector('.hero-art'));
-
-function renderCarouselStory() {
-  const maxScroll = Math.max(1, carouselStory.offsetHeight - window.innerHeight);
-  const rawProgress = clamp(-carouselStory.getBoundingClientRect().top / maxScroll);
-  if (rawProgress >= .995) carouselCompleted = true;
-  const progress = carouselCompleted ? 1 : rawProgress;
-  const reduce = ease(ramp(progress, .04, .22));
-  const carouselPhase = ramp(progress, .2, .72) * 4;
-  const slide = Math.min(3, Math.floor(carouselPhase));
-  const betweenSlides = slide === 3 ? 0 : ease(ramp(carouselPhase - slide, .72, 1));
-  const proofExit = ease(ramp(progress, .34, .38));
-  const commerce = ease(ramp(progress, .36, .42));
-  const commerceExit = ease(ramp(progress, .54, .7));
-  const apparel = commerce;
-  const gutter = 160 * reduce;
-  const heroWidth = (window.innerWidth - gutter * 2) * (1 - reduce * .70);
-  const uploadStart = window.innerWidth * .045 + carouselButtons[0].offsetWidth * .5;
-  const finalHeroWidth = (window.innerWidth - window.innerWidth * .09) * .30;
-  const uploadLeft = uploadStart + (finalHeroWidth * .5 - uploadStart) * reduce;
-  const rackLeft = gutter + heroWidth + 16;
-  const rackWidth = Math.max(280, window.innerWidth - gutter - rackLeft);
-  const panelTop = window.innerHeight * .21 * reduce;
-  const rackHeight = window.innerHeight - panelTop - 76 * reduce;
-
-  carouselShell.style.setProperty('--reduce', reduce.toFixed(3));
-  carouselShell.style.setProperty('--stack', '0');
-  carouselShell.style.setProperty('--commerce', commerce.toFixed(3));
-  carouselShell.style.setProperty('--commerce-exit', commerceExit.toFixed(3));
-  carouselShell.style.setProperty('--commerce-opacity', (commerce * (1 - commerceExit)).toFixed(3));
-  carouselShell.style.setProperty('--apparel', apparel.toFixed(3));
-  carouselShell.style.setProperty('--proof-exit', proofExit.toFixed(3));
-  carouselShell.style.setProperty('--gutter', `${gutter}px`);
-  carouselShell.style.setProperty('--hero-left', `${gutter}px`);
-  carouselShell.style.setProperty('--hero-width', `${heroWidth}px`);
-  carouselShell.style.setProperty('--hero-top', `${panelTop}px`);
-  carouselShell.style.setProperty('--hero-bottom', `${76 * reduce}px`);
-  carouselShell.style.setProperty('--upload-target-y', 'calc(100svh - 148px)');
-  carouselShell.style.setProperty('--upload-left', `${uploadLeft}px`);
-  carouselShell.style.setProperty('--rack-left', `${rackLeft}px`);
-  carouselShell.style.setProperty('--rack-width', `${rackWidth}px`);
-  carouselShell.style.setProperty('--rack-height', `${rackHeight}px`);
-  carouselShell.style.setProperty('--rack-top', `${panelTop}px`);
-  carouselShell.style.setProperty('--title-opacity', ease(ramp(progress, .2, .32)).toFixed(3));
-  carouselShell.style.setProperty('--header-opacity', '1');
-  carouselShell.style.setProperty('--story-header-color', navigationColor(progress));
-  carouselCards.forEach((card, index) => {
-    card.style.width = `${rackWidth}px`;
-    card.style.transform = `translate3d(${(index - slide - betweenSlides) * rackWidth}px,0,0)`;
-    card.style.opacity = `${progress < .16 ? 0 : 1 - Math.max(commerce, proofExit)}`;
-    card.style.zIndex = `${index + 1}`;
-  });
-  const shown = slide === 3 ? 5 : Math.min(5, 1 + slide + (betweenSlides > .5 ? 1 : 0));
-  carouselCount.innerHTML = `<b>${String(shown).padStart(2, '0')}</b> / 05`;
-}
 
 const blanksShell = blanksSection.querySelector('.blanks-shell');
 function renderBlanksStory() {
@@ -1524,75 +997,7 @@ function renderBlanksStory() {
   blanksShell.style.setProperty('--header-color', navigationColor(heroProgress));
 }
 
-function renderAllStories() { renderStory(); renderCompareStory(); renderCarouselStory(); renderBlanksStory(); }
+function renderAllStories() { renderBlanksStory(); }
 window.addEventListener('scroll', renderAllStories, { passive: true });
 window.addEventListener('resize', renderAllStories);
 renderAllStories();
-
-const variantTrigger = document.querySelector('.jiffy-hero__sign-in');
-const variantMenu = document.querySelector('.jiffy-hero__variant-menu');
-const qualityVariants = { v1: story, v2: compareStory, v3: carouselStory };
-const closeVariantMenu = () => {
-  variantTrigger.setAttribute('aria-expanded', 'false');
-  variantMenu.hidden = true;
-};
-const setQualityVariant = (chosen, { scroll = false } = {}) => {
-  const selectedSection = qualityVariants[chosen];
-  if (!selectedSection) return;
-  Object.entries(qualityVariants).forEach(([name, section]) => {
-    const active = name === chosen;
-    section.classList.toggle('is-active', active);
-    section.toggleAttribute('hidden', !active);
-    section.setAttribute('aria-hidden', String(!active));
-  });
-  variantMenu.querySelectorAll('[data-quality-variant]').forEach((button) => {
-    const active = button.dataset.qualityVariant === chosen;
-    button.setAttribute('aria-pressed', String(active));
-  });
-  renderAllStories();
-  if (scroll) requestAnimationFrame(() => {
-    window.scrollTo({ top: selectedSection.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
-    renderAllStories();
-  });
-};
-setQualityVariant('v2');
-variantTrigger.addEventListener('click', () => {
-  const open = variantTrigger.getAttribute('aria-expanded') === 'true';
-  if (open) closeVariantMenu();
-  else {
-    variantTrigger.setAttribute('aria-expanded', 'true');
-    variantMenu.hidden = false;
-  }
-});
-variantMenu.addEventListener('click', (event) => {
-  const button = event.target.closest('[data-quality-variant]');
-  if (!button) return;
-  const chosen = button.dataset.qualityVariant;
-  setQualityVariant(chosen, { scroll: true });
-  closeVariantMenu();
-});
-document.addEventListener('click', (event) => {
-  if (!event.target.closest('.jiffy-hero__variant-switcher')) closeVariantMenu();
-});
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') closeVariantMenu();
-});
-
-[quietButton, solidButton].filter(Boolean).forEach((button) => button.addEventListener('click', () => fileInput.click()));
-fileInput.addEventListener('change', () => {
-  const name = fileInput.files?.[0]?.name;
-  if (name) [quietButton, solidButton].filter(Boolean).forEach((button) => { button.textContent = 'Artwork selected'; });
-});
-compareButtons.forEach((button) => button.addEventListener('click', () => compareFileInput.click()));
-compareFileInput.addEventListener('change', () => {
-  if (compareFileInput.files?.[0]) compareButtons.forEach((button) => { button.textContent = 'Artwork selected'; });
-});
-carouselButtons.forEach((button) => button.addEventListener('click', () => carouselFileInput.click()));
-carouselFileInput.addEventListener('change', () => {
-  if (carouselFileInput.files?.[0]) carouselButtons.forEach((button) => { button.textContent = 'Artwork selected'; });
-});
-
-// The new S3 is the sole quality experience. Remove the retired variants
-// after their legacy setup has completed so duplicate IDs and hidden variant
-// state cannot interfere with refreshes or later scroll events.
-document.querySelectorAll('.quality-story, .static-quality-compare').forEach((element) => element.remove());

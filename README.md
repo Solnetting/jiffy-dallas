@@ -3,10 +3,11 @@
 Local Vite implementation of the Jiffy Dallas–Fort Worth landing page.
 
 The current page follows the meeting sequence: the hero collects the delivery
-address first; the transfer entry point combines upload, transfer paths,
-product discovery, and the transfer-quality story; a dedicated transfer-types
-section follows; blanks come after that. Sections use native sticky stacking so
-the next section covers the previous one as the page scrolls.
+address first; the local promise strip introduces the offer; the transfer
+quality showroom and the single S1V3 experience follow; the static blanks
+catalogue and coverage story complete the page. Sections use native sticky
+stacking where the interaction calls for it, while the catalogue remains a
+regular document flow.
 
 ## Run locally
 
@@ -15,6 +16,8 @@ npm install
 npm run dev
 ```
 
+Run `npm run build` to verify the production bundle locally.
+
 The page uses the downloaded Figma assets and local font files in
 `assets/figma` and `assets/fonts`.
 
@@ -22,14 +25,18 @@ The repository is a static front-end preview. Address validation, live delivery
 windows, cart operations, and upload processing are intentionally not faked;
 the integration points are the address forms, product links, and upload panel.
 
-## Current section variants
+## Current section structure
 
-- Section 1 has three selectable quality-story variants in the hero’s Sign in
-  control; V2 is the default.
-- Section 2 contains the blanks story followed by Apparel V2, its Figma-based
-  full-scene background and translucent product rail.
-- Section 3 · V1 follows Apparel V2 and combines transfer and blank-apparel
-  product cards under “Transfers + blanks. One delivery. Best price.”
+- Section 1 is the single retained S1V3 quality experience. The retired S1V1
+  and S1V2 implementations, selectors, and styles are removed rather than
+  rendered as hidden alternatives.
+- S1V3 keeps one active proof image in place, with a user-controlled topic
+  index and a 10-second autoplay interval after the section is revealed.
+- The blanks experience is a static 20-item catalogue with filter chips for
+  All, T-shirts, Fleece, Hoodies, and Performance. Product cards show the
+  crossed-out previous price beside the current starting price.
+- Delivery coverage is a continuous map camera move from the Dallas–Fort Worth
+  local area to the full Texas Jiffy 1st service view.
 
 ## Prototype interactions
 
@@ -41,9 +48,10 @@ the integration points are the address forms, product links, and upload panel.
   the document layer so it remains above every page section. Its translucent
   glass surface is unchanged; the status text, divider, and close icon use
   blend-difference for background-aware contrast.
-- Section 1 transfer entry points share the final desktop frame with the
-  popular blanks rail. Their actions are secondary treatments.
-- Section 2’s editorial image completes its left-column transition before the
-  right-column glass-card apparel carousel appears. The tertiary apparel link
-  sits above the carousel at its top-right edge.
+- S1V3’s topic buttons are glass panels with a title, supporting subtitle, and
+  explanatory copy. Selecting a topic replaces the active image in place; it
+  does not slide a preview in from either side.
+- The hero-to-catalog apparel transition keeps the editorial image large until
+  it contracts into the left column, then reveals the title, filters, and all
+  product rows.
 - A fixed support-chat entry point remains available throughout the page.
