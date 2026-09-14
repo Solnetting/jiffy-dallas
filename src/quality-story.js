@@ -55,8 +55,7 @@ blanksSection.innerHTML = `
       </article>
       <main class="blanks-content">
         <div class="blanks-content-copy">
-          <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
-          <p>Compare materials, weight, fit, and color before you choose.</p>
+          <p class="blanks-content-eyebrow">Apparel</p>
         </div>
       </main>
       <div class="blanks-carousel-group">
@@ -77,46 +76,7 @@ blanksSection.innerHTML = `
       </div>
     </div>
   </div>`;
-// S3 is the transfer-quality showroom. S1V3 below is the only Section 1
-// quality experience kept in this build.
-const s3Showroom = document.createElement('section');
-s3Showroom.className = 's3-showroom';
-s3Showroom.id = 'quality-showroom';
-s3Showroom.setAttribute('aria-labelledby', 's3-title');
-s3Showroom.innerHTML = `
-  <div class="s3-sticky">
-    <div class="s3-canvas">
-      <header class="s3-nav">
-        <a href="#quality-showroom" class="s3-logo-link" aria-label="Jiffy home"><img src="${asset('jiffy-local-logo.svg')}" alt="Jiffy Local" /></a>
-        <span class="s3-location">DALLAS–FORT WORTH</span>
-      </header>
-      <div class="s3-copy">
-        <p class="s3-eyebrow">DTF PROOF OF QUALITY</p>
-        <h1 id="s3-title">Your design.<br />Our quality<span>.</span></h1>
-        <p class="s3-lede">Richer detail. Truer color.<br />A higher standard in every transfer.</p>
-      </div>
-      <div class="s3-stage" aria-live="polite">
-        <figure class="s3-frame s3-frame--anchor is-active"><img src="${asset('tiger-proof-worn.png')}" alt="Vivid tiger DTF transfer applied to a white shirt" /><figcaption><strong>Your design. Our quality.</strong><span>Finished, ready-to-wear DTF.</span></figcaption></figure>
-        <figure class="s3-frame"><img src="${asset('tiger-transfer-hero.png')}" alt="Jiffy tiger DTF transfer held on clear film" /><figcaption><strong>Competitor vs. Jiffy</strong><span>Sharper, denser, cleaner transfer results.</span></figcaption></figure>
-        <figure class="s3-frame"><img src="${asset('tiger-proof-detail.png')}" alt="Close-up of tiger DTF artwork" /><span class="s3-analysis-mark s3-analysis-mark--one" aria-hidden="true"></span><span class="s3-analysis-mark s3-analysis-mark--two" aria-hidden="true"></span><figcaption><strong>AI process</strong><span>Artwork analyzed and prepared for print.</span></figcaption></figure>
-        <figure class="s3-frame"><img src="${asset('tiger-proof-peel.png')}" alt="Hand peeling DTF film from a printed shirt" /><figcaption><strong>Hot peel</strong><span>Clean release immediately after pressing.</span></figcaption></figure>
-        <figure class="s3-frame"><img src="${asset('tiger-proof-color.png')}" alt="Macro view of vivid blue, orange, and black DTF detail" /><figcaption><strong>Color accuracy</strong><span>True color with fine detail, up close.</span></figcaption></figure>
-      </div>
-      <nav class="s3-index" aria-label="Explore quality proof">
-        <button type="button" class="is-active" data-s3-step="1"><i></i><span>Competitor vs. Jiffy</span></button>
-        <button type="button" data-s3-step="2"><i></i><span>AI process</span></button>
-        <button type="button" data-s3-step="3"><i></i><span>Hot peel</span></button>
-        <button type="button" data-s3-step="4"><i></i><span>Color accuracy</span></button>
-      </nav>
-      <button class="s3-upload" type="button" aria-label="Upload artwork. Drag and drop a file or select one."><span class="s3-upload-icon" aria-hidden="true">↑</span><span><strong>Upload artwork</strong><small>Drag &amp; drop or select a file</small></span></button>
-      <input class="s3-file-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
-      <div class="s3-progress" aria-label="Quality proof controls"><button type="button" class="s3-arrow" data-s3-prev aria-label="Previous quality proof">←</button><span class="s3-progress-track" aria-hidden="true"><i></i></span><span class="s3-progress-count"><b>01</b><em>/ 05</em></span><button type="button" class="s3-arrow" data-s3-next aria-label="Next quality proof">→</button></div>
-    </div>
-  </div>
-</section>`;
-document.querySelector('#app').prepend(s3Showroom);
 const originalHero = document.querySelector('.jiffy-hero');
-originalHero?.after(s3Showroom);
 const localPromiseStrip = document.createElement('section');
 localPromiseStrip.className = 'local-promise-strip';
 localPromiseStrip.setAttribute('aria-label', 'Jiffy Local advantages');
@@ -144,113 +104,6 @@ const promiseObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold:.35 });
 promiseObserver.observe(localPromiseStrip);
-const setupS3Showroom = (showroom) => {
-  // Keep this controller self-contained. The page has other scroll stories
-  // below it, so it must never depend on a later story helper being initialized.
-  const clampS3 = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-  const index = showroom.querySelector('.s3-index');
-  showroom.querySelector('.s3-copy').append(index);
-  const frames = [...showroom.querySelectorAll('.s3-frame')];
-  const items = [...showroom.querySelectorAll('[data-s3-step]')];
-  const fileInput = showroom.querySelector('.s3-file-input');
-  const upload = showroom.querySelector('.s3-upload');
-  const title = showroom.querySelector('h1');
-  const lede = showroom.querySelector('.s3-lede');
-  const progressCount = showroom.querySelector('.s3-progress-count b');
-  const progressTotal = showroom.querySelector('.s3-progress-count em');
-  const progressTrack = showroom.querySelector('.s3-progress-track');
-  let autoStep = 0;
-  let stepStartedAt = performance.now();
-  let lastStep = 0;
-  const lastFrame = frames.length - 1;
-  const autoplayDuration = 3200;
-  const render = () => {
-    const bounds = showroom.getBoundingClientRect();
-    const maxScroll = Math.max(1, showroom.offsetHeight - innerHeight);
-    const sectionProgress = clampS3(-bounds.top / maxScroll);
-    const isScrollControlled = sectionProgress > 0.08;
-    const scrollPosition = sectionProgress * lastFrame;
-    const scrollStep = clampS3(Math.round(scrollPosition), 0, lastFrame);
-    const step = isScrollControlled ? scrollStep : clampS3(autoStep, 0, lastFrame);
-    if (step !== lastStep) {
-      stepStartedAt = performance.now();
-      lastStep = step;
-    }
-    frames.forEach((frame, frameIndex) => frame.classList.toggle('is-active', frameIndex === step));
-    const activeCopy = frames[step]?.querySelector('figcaption');
-    if (activeCopy && step > 0) {
-      title.textContent = activeCopy.querySelector('strong').textContent;
-      lede.textContent = activeCopy.querySelector('span').textContent;
-    } else {
-      title.innerHTML = 'Your design.<br />Our quality<span>.</span>';
-      lede.innerHTML = 'Richer detail. Truer color.<br />A higher standard in every transfer.';
-    }
-    items.forEach((item, index) => {
-      item.classList.toggle('is-active', index === Math.max(0, step - 1));
-      item.setAttribute('aria-current', index === Math.max(0, step - 1) ? 'step' : 'false');
-    });
-    showroom.style.setProperty('--s3-step', step);
-    progressCount.textContent = String(step + 1).padStart(2, '0');
-    progressTotal.textContent = `/ ${String(frames.length).padStart(2, '0')}`;
-    if (isScrollControlled) {
-      const localProgress = (scrollPosition - Math.floor(scrollPosition)) * 100;
-      progressTrack.style.setProperty('--s3-fill', `${localProgress}%`);
-    } else {
-      progressTrack.style.setProperty('--s3-fill', '0%');
-    }
-  };
-  showroom.querySelector('[data-s3-prev]').addEventListener('click', () => { autoStep = (autoStep + lastFrame) % frames.length; stepStartedAt = performance.now(); render(); });
-  showroom.querySelector('[data-s3-next]').addEventListener('click', () => { autoStep = (autoStep + 1) % frames.length; stepStartedAt = performance.now(); render(); });
-  items.forEach((item) => item.addEventListener('click', () => {
-    const targetStep = Number(item.dataset.s3Step);
-    autoStep = targetStep;
-    stepStartedAt = performance.now();
-    const maxScroll = Math.max(1, showroom.offsetHeight - innerHeight);
-    const targetTop = showroom.offsetTop + (targetStep / lastFrame) * maxScroll;
-    window.scrollTo({ top: targetTop, behavior: 'smooth' });
-  }));
-  upload.addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', () => {
-    if (fileInput.files?.[0]) upload.querySelector('strong').textContent = 'Artwork selected';
-  });
-  upload.addEventListener('dragover', (event) => { event.preventDefault(); upload.classList.add('is-dragging'); });
-  upload.addEventListener('dragleave', () => upload.classList.remove('is-dragging'));
-  upload.addEventListener('drop', (event) => {
-    event.preventDefault();
-    upload.classList.remove('is-dragging');
-    const file = event.dataTransfer.files?.[0];
-    if (file) upload.querySelector('strong').textContent = 'Artwork selected';
-  });
-  window.addEventListener('scroll', render, { passive: true });
-  window.addEventListener('resize', render);
-  requestAnimationFrame(render);
-  const animateAutoplay = (now) => {
-    if (!document.hidden) {
-      const bounds = showroom.getBoundingClientRect();
-      const maxScroll = Math.max(1, showroom.offsetHeight - innerHeight);
-      const sectionProgress = clampS3(-bounds.top / maxScroll);
-      const isScrollControlled = sectionProgress > 0.08;
-      const isAtStart = bounds.top <= 24 && bounds.bottom >= innerHeight * 0.85 && !isScrollControlled;
-      if (isAtStart) {
-        const elapsed = now - stepStartedAt;
-        if (elapsed >= autoplayDuration) {
-          autoStep = (autoStep + 1) % frames.length;
-          stepStartedAt = now;
-          render();
-        }
-        progressTrack.style.setProperty('--s3-fill', `${Math.min(100, Math.max(0, (elapsed / autoplayDuration) * 100))}%`);
-      } else if (isScrollControlled) {
-        const scrollPosition = sectionProgress * lastFrame;
-        const localProgress = (scrollPosition - Math.floor(scrollPosition)) * 100;
-        progressTrack.style.setProperty('--s3-fill', `${localProgress}%`);
-      }
-    }
-    requestAnimationFrame(animateAutoplay);
-  };
-  requestAnimationFrame(animateAutoplay);
-};
-setupS3Showroom(s3Showroom);
-
 // S1 V3 is the only Section 1 quality experience kept in the build.
 const s1v3Cards = [
   { image: 'tiger-transfer-hero.png', title: 'Competitor vs. Jiffy', subtitle: 'Sharper, denser, cleaner transfer results.', description: 'Compare fine edges, solid coverage, and a cleaner finish against the competing transfer.' },
@@ -272,21 +125,29 @@ s1v3.innerHTML = `
       <div class="s1v3-inner">
     <div class="s1v3-main">
       <figure class="s1v3-hero">
-        <img src="${asset('s1v3-transfer-film.png')}" alt="A dark emerald DTF transfer film held by two hands" />
+        <img src="${asset('tiger-transfer-hero.png')}" alt="A colorful DTF transfer film held by two hands" />
         <span class="s1v3-hero-shade" aria-hidden="true"></span>
         <figcaption class="s1v3-hero-copy">
           <p class="s1v3-eyebrow">DTF PROOF OF QUALITY</p>
           <strong>Your design.<br />Our quality<span>.</span></strong>
           <span>Richer detail. Truer color.<br />A higher standard in every transfer.</span>
         </figcaption>
-        <button class="s1v3-upload" type="button" aria-label="Upload artwork. Drag and drop a file or select one.">
-          <span class="s1v3-upload-icon"><img src="${asset('cloud-upload.svg')}" alt="" /></span>
-          <strong class="s1v3-upload-drag">Drag your artwork</strong>
-          <small class="s1v3-upload-subtitle">Drop a file anywhere in this panel</small>
-          <span class="s1v3-upload-or" aria-hidden="true"><i></i><b>or</b><i></i></span>
-          <span class="s1v3-upload-files">Upload from your files <b aria-hidden="true">↗</b></span>
+        <div class="s1v3-upload" role="group" aria-label="Upload artwork. Drag and drop a file or select one.">
+          <div class="s1v3-upload-header">
+            <strong class="s1v3-upload-drag">Drag your artwork</strong>
+            <small class="s1v3-upload-subtitle">Drop a file anywhere in this panel</small>
+          </div>
+          <div class="s1v3-upload-icon"><img src="${asset('cloud-upload.svg')}" alt="" /></div>
           <small class="s1v3-upload-meta">PNG, JPG, or PDF&nbsp; · &nbsp;up to 50 MB</small>
-        </button>
+          <div class="s1v3-upload-actions">
+            <span class="s1v3-upload-or" aria-hidden="true"><i></i><b>or</b><i></i></span>
+            <button class="s1v3-upload-files" type="button">Upload from your files <b aria-hidden="true">↗</b></button>
+            <div class="s1v3-upload-tertiary" aria-label="More transfer options">
+              <button type="button">DTF Transfer by size</button>
+              <button type="button">Gang Sheet transfer</button>
+            </div>
+          </div>
+        </div>
         <input class="s1v3-file-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
       </figure>
 
@@ -319,7 +180,7 @@ s1v3.innerHTML = `
     </div>
   </div>
 `;
-s3Showroom.after(s1v3);
+localPromiseStrip.after(s1v3);
 
 const setupS1V3 = (section) => {
   const cards = [...section.querySelectorAll('.s1v3-card')];
@@ -390,7 +251,7 @@ const setupS1V3 = (section) => {
     render(direction);
     scheduleAutoplay();
   }));
-  upload.addEventListener('click', () => fileInput.click());
+  upload.querySelector('.s1v3-upload-files').addEventListener('click', () => fileInput.click());
   fileInput.addEventListener('change', () => {
     if (fileInput.files?.[0]) upload.querySelector('.s1v3-upload-files').textContent = 'Artwork selected';
   });
@@ -987,13 +848,28 @@ const navigationColor = (progress) => {
 };
 
 const blanksShell = blanksSection.querySelector('.blanks-shell');
+const blanksCarouselGroup = blanksSection.querySelector('.blanks-carousel-group');
 function renderBlanksStory() {
   if (!blanksSection.classList.contains('blanks-story--interactive')) return;
-  const progress = clamp(-blanksSection.getBoundingClientRect().top / Math.max(1, window.innerHeight));
+  const maxScroll = Math.max(1, blanksSection.offsetHeight - window.innerHeight);
+  const scrolled = Math.max(0, -blanksSection.getBoundingClientRect().top);
+  // Keep the hero handoff short and predictable. The remaining section height
+  // is reserved for moving through the full 20-item catalogue after the image
+  // has settled into its left column.
+  const transitionDistance = Math.min(maxScroll, Math.max(1, window.innerHeight * 1.4));
+  const progress = clamp(scrolled / transitionDistance);
   const heroProgress = ease(ramp(progress, 0, .68));
-  const catalogProgress = ease(ramp(progress, .82, .98));
+  const catalogProgress = ease(ramp(progress, .68, .9));
+  const catalogScroll = clamp((scrolled - transitionDistance) / Math.max(1, maxScroll - transitionDistance));
+  // offsetTop is the layout position before the group's translate transform.
+  // Using getBoundingClientRect here would feed the previous transform back
+  // into the next frame and stop the final rows short of the viewport edge.
+  const groupTopInShell = blanksCarouselGroup.offsetTop;
+  const visibleGroupHeight = Math.max(0, window.innerHeight - groupTopInShell);
+  const maxCatalogTranslate = Math.max(0, blanksCarouselGroup.offsetHeight - visibleGroupHeight);
   blanksShell.style.setProperty('--hero-progress', heroProgress.toFixed(3));
   blanksShell.style.setProperty('--catalog-progress', catalogProgress.toFixed(3));
+  blanksShell.style.setProperty('--catalog-translate', `${(-maxCatalogTranslate * catalogScroll).toFixed(1)}px`);
   blanksShell.style.setProperty('--header-color', navigationColor(heroProgress));
 }
 

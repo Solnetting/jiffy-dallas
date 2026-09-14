@@ -4,10 +4,9 @@ Local Vite implementation of the Jiffy Dallas–Fort Worth landing page.
 
 The current page follows the meeting sequence: the hero collects the delivery
 address first; the local promise strip introduces the offer; the transfer
-quality showroom and the single S1V3 experience follow; the static blanks
-catalogue and coverage story complete the page. Sections use native sticky
-stacking where the interaction calls for it, while the catalogue remains a
-regular document flow.
+the single S1V3 experience follows; the static blanks catalogue and coverage
+story complete the page. Sections use native sticky stacking where the
+interaction calls for it, while the catalogue remains a regular document flow.
 
 ## Run locally
 
@@ -27,9 +26,9 @@ the integration points are the address forms, product links, and upload panel.
 
 ## Current section structure
 
-- Section 1 is the single retained S1V3 quality experience. The retired S1V1
-  and S1V2 implementations, selectors, and styles are removed rather than
-  rendered as hidden alternatives.
+- Section 1 is the only retained quality experience: S1V3. The retired S1V1,
+  S1V2, and separate five-frame showroom implementation are removed rather
+  than rendered as hidden alternatives.
 - S1V3 keeps one active proof image in place, with a user-controlled topic
   index and a 10-second autoplay interval after the section is revealed.
 - The blanks experience is a static 20-item catalogue with filter chips for

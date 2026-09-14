@@ -1,5 +1,5 @@
-/* S1 V3: the hero contracts into the upload panel, then hands the right side to a one-way carousel. */
-.s1v3-story{--s1v3-side:clamp(1.25rem,3vw,3.5rem);--s1v3-panel-width:clamp(15rem,21vw,24rem);--s1v3-gap:clamp(1rem,2.5vw,3rem);--s1v3-carousel-gap:clamp(.5rem,.8vw,.9rem);height:210vh;background:#050505;color:#fff}
+/* S1 V3: the hero contracts into the Figma upload panel, then hands the right side to the proof topics. */
+.s1v3-story{--s1v3-side:clamp(1.25rem,3vw,3.5rem);--s1v3-panel-width:min(26.5rem,28vw);--s1v3-gap:clamp(1rem,2.5vw,3rem);--s1v3-carousel-gap:clamp(.5rem,.8vw,.9rem);height:210vh;background:#050505;color:#fff}
 .s1v3-sticky{position:sticky;top:0;height:100svh;overflow:hidden}
 .s1v3-canvas{position:relative;width:100%;height:100%;overflow:hidden;background:#050505;isolation:isolate}
 .s1v3-inner,.s1v3-main{position:absolute;inset:0}
@@ -9,9 +9,9 @@
 .s1v3-local-mark small{color:rgba(255,255,255,.72);font:600 clamp(.55rem,.65vw,.7rem)/1 Inter,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase}
 
 /* The first state is only this image and its hero copy. On reveal, the same figure becomes the left panel. */
-.s1v3-hero{position:absolute;z-index:4;top:calc(var(--s1v3-reveal,0) * clamp(6rem,12vh,9rem));left:calc(var(--s1v3-reveal,0) * var(--s1v3-side));width:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * var(--s1v3-panel-width));height:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * min(76svh,48rem));margin:0;overflow:hidden;border:1px solid rgba(255,255,255,.14);border-radius:calc(var(--s1v3-reveal,0) * 1.5rem);background:#151a21;box-shadow:0 1.5rem 4rem rgba(0,0,0,.3);transition:border-radius .35s ease,box-shadow .35s ease}
+.s1v3-hero{position:absolute;z-index:4;top:calc(var(--s1v3-reveal,0) * clamp(6rem,12vh,9rem));left:calc(var(--s1v3-reveal,0) * var(--s1v3-side));width:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * var(--s1v3-panel-width));height:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * min(82svh,50rem));margin:0;overflow:hidden;border:1.5px solid rgba(255,255,255,.15);border-radius:calc(var(--s1v3-reveal,0) * 2.25rem);background:#0a0a0d;box-shadow:0 1.5rem 4rem rgba(0,0,0,.3);transition:border-radius .35s ease,box-shadow .35s ease}
 .s1v3-hero>img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.94);opacity:calc(1 - (var(--s1v3-reveal,0) * .5));transition:opacity .3s ease}
-.s1v3-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,8,14,.88),rgba(5,8,14,.3) 38%,rgba(5,8,14,.04) 76%),linear-gradient(0deg,rgba(5,8,14,.68),transparent 52%);pointer-events:none}
+.s1v3-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,8,14,.88),rgba(5,8,14,.3) 38%,rgba(5,8,14,.04) 76%),linear-gradient(0deg,rgba(5,8,14,.68),transparent 52%);pointer-events:none;transition:background .35s ease}
 .s1v3-hero-copy{position:absolute;z-index:2;top:clamp(10rem,20vh,15rem);left:clamp(1.5rem,5vw,5rem);display:grid;gap:.75rem;max-width:min(42rem,70vw);color:#fff;opacity:1;visibility:visible;transform:translateY(calc(var(--s1v3-reveal,0) * -1rem));transition:opacity .24s ease,transform .35s ease}
 .s1v3-story.is-upload-mode .s1v3-hero-copy{opacity:0;visibility:hidden}
 .s1v3-eyebrow{margin:0;color:rgba(255,255,255,.72);font:600 clamp(.62rem,.78vw,.82rem)/1 Inter,Arial,sans-serif;letter-spacing:.22em}
@@ -20,26 +20,35 @@
 .s1v3-hero-copy>span{color:rgba(255,255,255,.78);font:400 clamp(1rem,1.35vw,1.3rem)/1.35 Inter,Arial,sans-serif}
 
 /* Upload content is inside the contracting hero, so the image and panel are one continuous object. */
-.s1v3-upload{position:absolute;z-index:3;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(.65rem,1.35vh,1rem);width:100%;height:100%;padding:clamp(1.75rem,5vh,4rem) clamp(1rem,2vw,2rem);border:0;background:transparent;color:#fff;text-align:center;cursor:pointer;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,background .3s ease}
+.s1v3-upload{position:absolute;z-index:3;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;width:100%;height:100%;padding:clamp(3rem,8vh,5rem) clamp(2rem,2.6vw,2.5rem) 3rem;border:0;background:transparent;color:#fff;text-align:center;cursor:pointer;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,background .3s ease}
 .s1v3-story.is-upload-mode .s1v3-upload{opacity:1;visibility:visible;pointer-events:auto}
 .s1v3-upload:before{content:"";position:absolute;inset:0;background:transparent;pointer-events:none}
 .s1v3-upload>*{position:relative;z-index:1}
-.s1v3-upload-icon{display:grid;width:clamp(3.75rem,5.2vw,5.25rem);height:clamp(3.75rem,5.2vw,5.25rem);border:1px solid rgba(255,255,255,.42);border-radius:1.05rem;background:transparent;box-shadow:none;place-items:center;transition:transform .3s ease,background .3s ease,border-color .3s ease}
-.s1v3-upload-icon img{width:clamp(2.15rem,3.1vw,3rem);height:auto;filter:brightness(0) invert(1);opacity:.9}
-.s1v3-upload-drag{font:600 clamp(1.15rem,1.55vw,1.6rem)/1.1 Inter,Arial,sans-serif;letter-spacing:-.05em}
-.s1v3-upload-subtitle,.s1v3-upload-meta{color:rgba(255,255,255,.58);font:400 clamp(.62rem,.72vw,.74rem)/1.2 Inter,Arial,sans-serif;letter-spacing:.01em}
-.s1v3-upload-or{display:flex;align-items:center;gap:.65rem;width:min(100%,22rem);margin:.15rem 0;color:rgba(255,255,255,.48)}
+.s1v3-story.is-upload-mode .s1v3-hero-shade{background:linear-gradient(180deg,rgba(10,10,13,0),rgba(10,10,13,.08) 42%,rgba(10,10,13,.8) 100%)}
+.s1v3-upload-header{display:flex;flex-direction:column;gap:.75rem;align-items:center;width:100%}
+.s1v3-upload-drag{font:700 28px/1.2 Inter,Arial,sans-serif;letter-spacing:-.01em}
+.s1v3-upload-subtitle{color:#fff;font:400 14px/1.2 Inter,Arial,sans-serif}
+.s1v3-upload-icon{display:grid;width:min(262px,100%);aspect-ratio:1;border:2px solid rgba(255,255,255,.25);border-radius:2rem;background:rgba(255,255,255,.03);place-items:center}
+.s1v3-upload-icon img{width:64px;height:64px;filter:brightness(0) invert(1);opacity:.95}
+.s1v3-upload-meta{color:rgba(255,255,255,.8);font:500 12px/1 Inter,Arial,sans-serif;letter-spacing:.5px}
+.s1v3-upload-actions{display:flex;flex-direction:column;gap:2rem;align-items:center;width:100%}
+.s1v3-upload-or{display:flex;align-items:center;gap:1rem;width:100%;color:rgba(255,255,255,.42)}
 .s1v3-upload-or i{height:1px;flex:1;background:rgba(255,255,255,.28)}
-.s1v3-upload-or b{font:500 clamp(.72rem,.85vw,.88rem)/1 Inter,Arial,sans-serif;letter-spacing:.03em}
-.s1v3-upload-files{display:inline-flex;align-items:center;gap:.55rem;padding:.7rem .9rem;border:1px solid rgba(255,255,255,.3);border-radius:.7rem;background:rgba(255,255,255,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.08);font:600 clamp(.78rem,1vw,1rem)/1 Inter,Arial,sans-serif;letter-spacing:-.03em;transition:background .3s ease,border-color .3s ease,transform .3s ease}
-.s1v3-upload-files b{color:#ffc800;font-size:1.05em;font-weight:500}
-.s1v3-upload-meta{opacity:.72}
+.s1v3-upload-or b{font:400 14px/1 Inter,Arial,sans-serif}
+.s1v3-upload-files{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;height:52px;padding:.875rem 1.75rem;border:1.5px solid #fff;border-radius:.75rem;background:rgba(255,255,255,0);color:#fff;font:600 16px/1 Inter,Arial,sans-serif;white-space:nowrap;transition:background .2s ease,border-color .2s ease,color .2s ease}
+.s1v3-upload-files b{color:#f59e0b;font-size:1em;font-weight:600}
+.s1v3-upload-tertiary{display:flex;flex-direction:column;gap:.25rem;align-items:center;width:100%}
+.s1v3-upload-tertiary button{width:100%;padding:.75rem 1.75rem;border:0;border-radius:.75rem;background:transparent;color:rgba(255,255,255,.6);font:500 15px/1.2 Inter,Arial,sans-serif;text-align:center;transition:background .2s ease,color .2s ease}
+.s1v3-upload-files:hover,.s1v3-upload-files:focus-visible{border-color:#fff;background:rgba(255,255,255,.12);outline:0}
+.s1v3-upload-tertiary button:hover,.s1v3-upload-tertiary button:focus-visible{color:#fff;background:rgba(255,255,255,.08);outline:0}
 .s1v3-upload:hover,.s1v3-upload:focus-visible,.s1v3-upload.is-dragging{background:linear-gradient(155deg,rgba(255,255,255,.18),rgba(255,255,255,.06) 45%,rgba(5,10,18,.2));outline:0}
 .s1v3-upload:hover .s1v3-upload-icon,.s1v3-upload:focus-visible .s1v3-upload-icon,.s1v3-upload.is-dragging .s1v3-upload-icon{transform:translateY(-.2rem) scale(1.03);border-color:rgba(255,255,255,.7);background:transparent}
 .s1v3-upload:hover .s1v3-upload-files,.s1v3-upload:focus-visible .s1v3-upload-files,.s1v3-upload.is-dragging .s1v3-upload-files{transform:translateY(-2px);border-color:rgba(255,255,255,.58);background:rgba(255,255,255,.15)}
+.s1v3-upload.is-dragging .s1v3-upload-icon{border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.1)}
+.s1v3-upload.is-dragging .s1v3-upload-files{background:rgba(255,255,255,.12)}
 
 /* Apple-style right-hand viewport: the active proof expands in a vertical topic index. */
-.s1v3-stage{position:absolute;z-index:6;top:calc(var(--s1v3-reveal,0) * clamp(6rem,12vh,9rem));left:calc(var(--s1v3-reveal,0) * (var(--s1v3-side) + var(--s1v3-panel-width) + var(--s1v3-gap)));right:calc(var(--s1v3-reveal,0) * var(--s1v3-side));bottom:calc(var(--s1v3-reveal,0) * clamp(6rem,11vh,8rem));overflow:hidden;border-radius:calc(var(--s1v3-reveal,0) * 1.25rem);background:transparent;opacity:0;pointer-events:none;transition:border-radius .35s ease,opacity .3s ease}
+.s1v3-stage{position:absolute;z-index:6;top:calc(var(--s1v3-reveal,0) * clamp(6rem,12vh,9rem));left:calc(var(--s1v3-reveal,0) * (var(--s1v3-side) + var(--s1v3-panel-width) + var(--s1v3-gap)));right:calc(var(--s1v3-reveal,0) * var(--s1v3-side));height:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * min(82svh,50rem));overflow:hidden;border-radius:calc(var(--s1v3-reveal,0) * 1.25rem);background:transparent;opacity:0;pointer-events:none;transition:border-radius .35s ease,opacity .3s ease}
 .s1v3-story.is-carousel-ready .s1v3-stage{opacity:1;pointer-events:auto}
 .s1v3-frames{position:absolute;inset:0;overflow:hidden}
 .s1v3-card{position:absolute;top:0;left:0;width:100%;height:100%;margin:0;overflow:hidden;border-radius:calc(var(--s1v3-reveal,0) * 1.25rem);background:#151a21;box-shadow:0 1.5rem 3.5rem rgba(0,0,0,.28);opacity:0;transform:none;pointer-events:none;transition:opacity .72s ease,border-radius .35s ease;will-change:opacity}
@@ -71,23 +80,38 @@
 .s1v3-index__description{display:none;margin:0}
 .s1v3-index button.is-active .s1v3-index__description{display:block;margin-top:.85rem;color:rgba(255,255,255,.74);font:400 14px/1.42 Inter,Arial,sans-serif;letter-spacing:0}
 
+/* Bring the four glass topics in as one quick top-to-bottom sequence after
+   the proof viewport is ready. The stagger is 140ms, so item four begins
+   before one second has elapsed; the background remains unchanged. */
+@keyframes s1v3-index-enter{
+  from{opacity:0;transform:translateY(-.8rem)}
+  to{opacity:1;transform:none}
+}
+.s1v3-story.is-carousel-ready .s1v3-index button{
+  animation:s1v3-index-enter .32s cubic-bezier(.22,1,.36,1) both;
+}
+.s1v3-story.is-carousel-ready .s1v3-index button:nth-child(1){animation-delay:0s}
+.s1v3-story.is-carousel-ready .s1v3-index button:nth-child(2){animation-delay:.14s}
+.s1v3-story.is-carousel-ready .s1v3-index button:nth-child(3){animation-delay:.28s}
+.s1v3-story.is-carousel-ready .s1v3-index button:nth-child(4){animation-delay:.42s}
+
 @media(max-width:900px){
   .s1v3-story{height:180vh;--s1v3-side:1rem;--s1v3-panel-width:calc(100vw - 2rem);--s1v3-gap:1rem;--s1v3-carousel-gap:.75rem}
-  .s1v3-hero{top:calc(var(--s1v3-reveal,0) * 1rem);left:calc(var(--s1v3-reveal,0) * 1rem);width:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * var(--s1v3-panel-width));height:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * 10rem);border-radius:calc(var(--s1v3-reveal,0) * 1rem)}
+  .s1v3-hero{top:calc(var(--s1v3-reveal,0) * 1rem);left:calc(var(--s1v3-reveal,0) * 1rem);width:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * var(--s1v3-panel-width));height:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * min(82svh,50rem));border-radius:calc(var(--s1v3-reveal,0) * 1rem)}
   .s1v3-nav{top:1.5rem;left:1rem}
   .s1v3-local-mark{font-size:1rem}
   .s1v3-local-mark small{font-size:.5rem}
   .s1v3-hero-copy{top:19vh;left:1.25rem;max-width:calc(100% - 2.5rem)}
   .s1v3-hero-copy strong{font-size:clamp(3.2rem,15vw,6rem)}
   .s1v3-hero-copy>span{font-size:.95rem}
-  .s1v3-upload{display:grid;grid-template-columns:auto 1fr;grid-template-rows:repeat(5,auto);gap:.25rem .65rem;align-content:center;align-items:center;padding:1rem;text-align:left}
-  .s1v3-upload-icon{grid-row:1/-1;width:3rem;height:3rem;border-radius:.75rem}
-  .s1v3-upload-icon img{width:1.9rem}
-  .s1v3-upload-drag,.s1v3-upload-files{font-size:.8rem}
-  .s1v3-upload-subtitle,.s1v3-upload-meta{font-size:.55rem}
-  .s1v3-upload-or{width:auto}
-  .s1v3-upload-files{justify-self:start;padding:.5rem .65rem}
-  .s1v3-stage{top:calc(var(--s1v3-reveal,0) * 1rem);left:calc(var(--s1v3-reveal,0) * 1rem);right:calc(var(--s1v3-reveal,0) * 1rem);bottom:calc(var(--s1v3-reveal,0) * 11.5rem);border-radius:calc(var(--s1v3-reveal,0) * 1rem)}
+  .s1v3-upload{padding:3rem 1.5rem 2rem}
+  .s1v3-upload-drag{font-size:clamp(1.25rem,7vw,1.75rem)}
+  .s1v3-upload-icon{width:min(262px,100%);border-radius:2rem}
+  .s1v3-upload-icon img{width:64px;height:64px}
+  .s1v3-upload-actions{gap:1.5rem}
+  .s1v3-upload-files{padding:.875rem 1rem;font-size:.95rem}
+  .s1v3-upload-tertiary button{padding:.7rem 1rem;font-size:.9rem}
+  .s1v3-stage{top:calc(var(--s1v3-reveal,0) * 1rem);left:calc(var(--s1v3-reveal,0) * 1rem);right:calc(var(--s1v3-reveal,0) * 1rem);height:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * min(82svh,50rem));border-radius:calc(var(--s1v3-reveal,0) * 1rem)}
   .s1v3-card{width:100%;height:100%;border-radius:calc(var(--s1v3-reveal,0) * 1rem)}
   .s1v3-card figcaption{top:4rem;left:1.25rem;max-width:72%}
   .s1v3-card figcaption strong{font-size:2.4rem}
@@ -100,4 +124,9 @@
   .s1v3-index__copy small{font-size:.68rem}
   .s1v3-index button.is-active .s1v3-index__description{margin-top:.65rem;font-size:.8rem}
 }
-@media(prefers-reduced-motion:reduce){.s1v3-story{height:auto}.s1v3-sticky{position:relative;height:100svh}.s1v3-hero,.s1v3-upload,.s1v3-card,.s1v3-index button{transition:none}.s1v3-hero-copy{opacity:1;transform:none}.s1v3-upload,.s1v3-stage{opacity:1}}
+@media(min-width:901px) and (max-height:760px){
+  .s1v3-upload{padding-top:2.5rem;padding-bottom:2rem}
+  .s1v3-upload-icon{width:220px}
+  .s1v3-upload-actions{gap:1.25rem}
+}
+@media(prefers-reduced-motion:reduce){.s1v3-story{height:auto}.s1v3-sticky{position:relative;height:100svh}.s1v3-hero,.s1v3-upload,.s1v3-card,.s1v3-index button{transition:none}.s1v3-story.is-carousel-ready .s1v3-index button{animation:none;opacity:1;transform:none}.s1v3-hero-copy{opacity:1;transform:none}.s1v3-upload,.s1v3-stage{opacity:1}}
