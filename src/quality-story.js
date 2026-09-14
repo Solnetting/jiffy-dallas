@@ -208,7 +208,7 @@ const setupS1V3 = (section) => {
     });
     window.clearTimeout(copyTimer);
     if (immediate) cards[activeIndex]?.classList.add('is-copy-ready');
-    else if (hasRevealed) copyTimer = window.setTimeout(() => cards[activeIndex]?.classList.add('is-copy-ready'), 280);
+    else if (section.classList.contains('is-revealed')) copyTimer = window.setTimeout(() => cards[activeIndex]?.classList.add('is-copy-ready'), 280);
     if (!immediate && direction) {
       void cards[activeIndex]?.offsetWidth;
       requestAnimationFrame(() => requestAnimationFrame(() => {
