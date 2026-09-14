@@ -29,8 +29,13 @@ the integration points are the address forms, product links, and upload panel.
 - Section 1 is the only retained quality experience: S1V3. The retired S1V1,
   S1V2, and separate five-frame showroom implementation are removed rather
   than rendered as hidden alternatives.
-- S1V3 keeps one active proof image in place, with a user-controlled topic
-  index and a 10-second autoplay interval after the section is revealed.
+- S1V3 keeps one active proof image in place with a user-controlled topic
+  index. Autoplay is disabled; clicking the active topic's minus control
+  collapses its explanatory copy and clicking it again reopens the copy.
+- The exploratory pairing section sits between S1V3 and the blanks catalogue.
+  It presents the approved “Pair it up. One delivery.” concept as a full-bleed
+  visual so the transfer-to-apparel handoff can be reviewed exactly before it
+  is decomposed into interactive content.
 - The blanks experience is a static 20-item catalogue with filter chips for
   All, T-shirts, Fleece, Hoodies, and Performance. Product cards show the
   crossed-out previous price beside the current starting price.

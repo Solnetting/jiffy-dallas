@@ -264,7 +264,19 @@ const setupS1V3 = (section) => {
   renderScroll();
 };
 setupS1V3(s1v3);
-s1v3.after(blanksSection);
+
+// Exploratory pairing section: the approved visual concept is kept intact as
+// a single image so this pass can be evaluated against the reference before
+// the copy, packaging, and catalog treatment become interactive UI.
+const pairingExploration = document.createElement('section');
+pairingExploration.className = 'pairing-exploration';
+pairingExploration.setAttribute('aria-label', 'Transfers and blank apparel delivered together');
+pairingExploration.innerHTML = `
+  <div class="pairing-exploration__frame">
+    <img class="pairing-exploration__image" src="${asset('pairing-exploration.png')}" alt="Pair transfers and blank apparel in one Jiffy Local delivery, followed by blank apparel styles." />
+  </div>`;
+s1v3.after(pairingExploration);
+pairingExploration.after(blanksSection);
 
 const apparelV2 = document.createElement('section');
 apparelV2.className = 'apparel-v2';

@@ -1,0 +1,26 @@
+/* Exploratory visual for the approved pairing-to-blanks transition. The
+   source artwork is deliberately presented as one full-bleed composition so
+   its spacing and section handoff can be judged without an extra frame. */
+.pairing-exploration{
+  background:#f5f1ea;
+  color:#14213d;
+  overflow:hidden;
+}
+.pairing-exploration__frame{
+  width:100%;
+  margin:0 auto;
+  overflow:hidden;
+  background:#f5f1ea;
+}
+.pairing-exploration__image{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:1672 / 941;
+  object-fit:cover;
+}
+@media (max-width:900px){
+  .pairing-exploration__image{
+    aspect-ratio:auto;
+  }
+}
