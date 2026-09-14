@@ -32,10 +32,10 @@ the integration points are the address forms, product links, and upload panel.
 - S1V3 keeps one active proof image in place with a user-controlled topic
   index. Autoplay is disabled; clicking the active topic's minus control
   collapses its explanatory copy and clicking it again reopens the copy.
-- The exploratory pairing section sits between S1V3 and the blanks catalogue.
-  It presents the approved “Pair it up. One delivery.” concept as a full-bleed
-  visual so the transfer-to-apparel handoff can be reviewed exactly before it
-  is decomposed into interactive content.
+- The pairing section sits between S1V3 and the blanks catalogue. Its headline
+  and delivery copy are live content, with the approved package visual clipped
+  to the prelude; the following S2 handoff uses the existing apparel hero and
+  the live 20-card catalogue rather than a baked-in shirt row.
 - The blanks experience is a static 20-item catalogue with filter chips for
   All, T-shirts, Fleece, Hoodies, and Performance. Product cards show the
   crossed-out previous price beside the current starting price.

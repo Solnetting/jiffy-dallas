@@ -1,26 +1,71 @@
-/* Exploratory visual for the approved pairing-to-blanks transition. The
-   source artwork is deliberately presented as one full-bleed composition so
-   its spacing and section handoff can be judged without an extra frame. */
+/* Live pairing prelude. The copy is real page content; the approved concept
+   asset is used only as a clipped package visual before the live apparel page. */
 .pairing-exploration{
   background:#f5f1ea;
   color:#14213d;
   overflow:hidden;
 }
-.pairing-exploration__frame{
-  width:100%;
+.pairing-exploration__inner{
+  display:grid;
+  grid-template-columns:minmax(30rem,1fr) minmax(0,1.1fr);
+  align-items:center;
+  gap:clamp(2rem,5vw,6rem);
+  width:min(120rem,100%);
+  min-height:min(70svh,36rem);
   margin:0 auto;
-  overflow:hidden;
-  background:#f5f1ea;
+  padding:clamp(3rem,6vw,6rem) clamp(1.25rem,4.5vw,6rem);
 }
-.pairing-exploration__image{
-  display:block;
+.pairing-exploration__copy{
+  position:relative;
+  z-index:2;
+  align-self:center;
+  max-width:42rem;
+}
+.pairing-exploration__copy h2{
+  margin:0;
+  color:#14213d;
+  font:800 clamp(3.8rem,6.4vw,7.4rem)/.84 Outfit,Poppins,Inter,sans-serif;
+  letter-spacing:-.085em;
+  white-space:nowrap;
+}
+.pairing-exploration__copy h2 span{color:#ffc800}
+.pairing-exploration__copy p{
+  margin:clamp(1.25rem,2vw,2rem) 0 0;
+  color:#53647e;
+  font:500 clamp(1rem,1.35vw,1.35rem)/1.35 Inter,Arial,sans-serif;
+}
+.pairing-exploration__package{
+  position:relative;
   width:100%;
+  height:clamp(17rem,25vw,25rem);
+  margin:0;
+  overflow:hidden;
+}
+.pairing-exploration__package img{
+  position:absolute;
+  top:0;
+  right:0;
+  display:block;
+  width:175%;
+  max-width:none;
   height:auto;
-  aspect-ratio:1672 / 941;
-  object-fit:cover;
 }
 @media (max-width:900px){
-  .pairing-exploration__image{
-    aspect-ratio:auto;
+  .pairing-exploration__inner{
+    display:flex;
+    min-height:0;
+    flex-direction:column;
+    align-items:stretch;
+    gap:2rem;
+    padding:4rem 1.25rem 3rem;
+  }
+  .pairing-exploration__copy h2{
+    font-size:clamp(3.5rem,16vw,6rem);
+  }
+  .pairing-exploration__package{
+    height:clamp(14rem,48vw,22rem);
+  }
+  .pairing-exploration__package img{
+    width:185%;
   }
 }

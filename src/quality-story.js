@@ -45,12 +45,8 @@ blanksSection.innerHTML = `
       </header>
       <article class="blanks-hero-art" aria-label="Blank apparel for a local tomorrow">
         <img src="${asset('blanks-editorial-hero.png')}" alt="Person wearing a blank shirt" />
-        <div class="blanks-art-copy blanks-art-copy--top">Same<br />good<br />ideas<br />a brighter<br />DFW <span></span></div>
-        <div class="blanks-art-copy blanks-art-copy--bottom">Blanks<br />for a more<br />local tomorrow <span></span></div>
-        <div class="blanks-hero-title" aria-hidden="true">
-          <p>Blank apparel</p>
+        <div class="blanks-hero-title">
           <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
-          <small>Scroll to compare 20+ styles</small>
         </div>
       </article>
       <div class="blanks-carousel-group">
@@ -265,15 +261,20 @@ const setupS1V3 = (section) => {
 };
 setupS1V3(s1v3);
 
-// Exploratory pairing section: the approved visual concept is kept intact as
-// a single image so this pass can be evaluated against the reference before
-// the copy, packaging, and catalog treatment become interactive UI.
+// Pairing prelude: the copy is live DOM, while the supplied concept image is
+// cropped to the delivery package so the apparel half can remain interactive.
 const pairingExploration = document.createElement('section');
 pairingExploration.className = 'pairing-exploration';
 pairingExploration.setAttribute('aria-label', 'Transfers and blank apparel delivered together');
 pairingExploration.innerHTML = `
-  <div class="pairing-exploration__frame">
-    <img class="pairing-exploration__image" src="${asset('pairing-exploration.png')}" alt="Pair transfers and blank apparel in one Jiffy Local delivery, followed by blank apparel styles." />
+  <div class="pairing-exploration__inner">
+    <div class="pairing-exploration__copy">
+      <h2>PAIR IT UP<span>.</span><br />ONE DELIVERY<span>.</span></h2>
+      <p>Transfers and blanks, delivered together.<br />Delivered in hours, from the same local source.</p>
+    </div>
+    <figure class="pairing-exploration__package" aria-label="Jiffy Local delivery box and transfer packs">
+      <img src="${asset('pairing-exploration.png')}" alt="Jiffy Local delivery box with transfer packs." />
+    </figure>
   </div>`;
 s1v3.after(pairingExploration);
 pairingExploration.after(blanksSection);
