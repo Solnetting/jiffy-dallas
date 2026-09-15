@@ -226,9 +226,9 @@ deliveryProof.innerHTML = `
       <section class="delivery-proof__current" aria-label="Current delivery window">
         <h3>Current</h3>
         <div class="delivery-proof__current-window">
-          <div><strong data-delivery-proof-countdown>--:--:--</strong><small>Remaining</small></div>
+          <div class="delivery-proof__primary-window"><small>Next delivery window</small><strong>11 AM–1 PM Window</strong></div>
           <img src="${asset('delivery-proof-divider.svg')}" alt="" />
-          <div><small>Cut-off 10 AM</small><b>11 AM–1 PM Window</b></div>
+          <div class="delivery-proof__secondary-countdown"><small>Remaining</small><b data-delivery-proof-countdown>--:--:--</b></div>
         </div>
       </section>
       <div class="delivery-proof__timeline" aria-label="Later delivery windows">
