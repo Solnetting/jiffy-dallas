@@ -43,14 +43,11 @@ blanksSection.innerHTML = `
         <div class="local-mark">Jiffy Local <span></span><small>Dallas–Fort Worth</small></div>
         <div class="story-words">Ideas <b>Local</b> Wear <i>Further</i><em></em></div>
       </header>
-      <div class="blanks-hero-fixed-title">
+      <div class="blanks-hero-title">
         <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
       </div>
       <article class="blanks-hero-art" aria-label="Blank apparel for a local tomorrow">
         <img src="${asset('blanks-editorial-hero.png')}" alt="Person wearing a blank shirt" />
-        <div class="blanks-hero-title" aria-hidden="true">
-          <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
-        </div>
       </article>
       <div class="blanks-carousel-group">
       <div class="blanks-products" aria-label="Popular blank apparel">
@@ -1049,6 +1046,7 @@ function renderBlanksStory() {
   blanksShell.style.setProperty('--catalog-progress', catalogProgress.toFixed(3));
   blanksShell.style.setProperty('--catalog-translate', `${(-maxCatalogTranslate * catalogScroll).toFixed(1)}px`);
   blanksShell.style.setProperty('--hero-catalog-translate', `${(-catalogBottomGap * catalogScroll).toFixed(1)}px`);
+  blanksShell.style.setProperty('--hero-title-color', heroProgress > .62 ? '#14213d' : '#fff');
   blanksShell.style.setProperty('--header-color', navigationColor(heroProgress));
 }
 
