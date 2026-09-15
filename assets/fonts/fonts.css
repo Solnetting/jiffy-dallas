@@ -69,23 +69,9 @@
   src: url(./poppins-3.woff2) format('truetype');
 }
 @font-face {
-  font-family: 'Outfit';
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url(./outfit-0.woff2) format('truetype');
-}
-@font-face {
-  font-family: 'Geist';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(./geist-0.woff2) format('truetype');
-}
-@font-face {
-  font-family: 'Geist';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(./geist-1.woff2) format('truetype');
+  src: url(./poppins-4.ttf) format('truetype');
 }

@@ -20,13 +20,13 @@ document.querySelector('#app').innerHTML = `
           <button type="submit"><span>Check your delivery time</span></button>
         </div>
         <div class="jiffy-hero__delivery-status" hidden aria-live="polite">
-          <span class="jiffy-hero__delivery-address-group"><small>Delivering to</small><span class="jiffy-hero__delivery-address"></span></span>
+          <span class="jiffy-hero__delivery-address"></span>
           <span class="jiffy-hero__delivery-divider" aria-hidden="true"></span>
-          <span class="jiffy-hero__delivery-window"><small>Next delivery window</small><strong>Today, 2 – 4 PM</strong><em>Order within <b class="jiffy-hero__delivery-countdown">--:--:--</b></em></span>
+          <span class="jiffy-hero__delivery-window"><small>Today, 2 – 4 PM</small><strong class="jiffy-hero__delivery-countdown">--:--:--</strong></span>
           <button class="jiffy-hero__delivery-clear" type="button" aria-label="Clear delivery address">×</button>
         </div>
       </form>
-      <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 7 PM · Printed and driven from Dallas</p>
+      <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
       <div class="jiffy-hero__delivery-outcome" hidden aria-live="polite"></div>
     </div>
   </section>
@@ -120,7 +120,7 @@ s1v3.innerHTML = `
         <span class="s1v3-hero-shade" aria-hidden="true"></span>
         <figcaption class="s1v3-hero-copy">
           <p class="s1v3-eyebrow">DTF PROOF OF QUALITY</p>
-          <strong>Your design.<br />Our quality<span>.</span></strong>
+          <h1>Your design.<br />Our quality<span>.</span></h1>
           <span>Richer detail. Truer color.<br />A higher standard in every transfer.</span>
         </figcaption>
         <div class="s1v3-upload" role="group" aria-label="Upload artwork. Drag and drop a file or select one.">
@@ -172,6 +172,60 @@ s1v3.innerHTML = `
   </div>
 `;
 localPromiseStrip.after(s1v3);
+
+// This panel follows the promotional banner, but is reserved for addresses
+// that qualify for Jiffy Local. Its schedule mirrors the confirmed delivery
+// state in the persistent address bar.
+const deliveryProof = document.createElement('section');
+deliveryProof.className = 'delivery-proof';
+deliveryProof.hidden = true;
+deliveryProof.setAttribute('aria-labelledby', 'delivery-proof-title');
+deliveryProof.innerHTML = `
+  <div class="delivery-proof__inner">
+    <header class="delivery-proof__header">
+      <h2 id="delivery-proof-title">Today</h2>
+      <div class="delivery-proof__header-copy">
+        <div><strong>Delivery windows &amp; cut-offs</strong><b>Live</b></div>
+        <p>Order before the cut-off to lock in your delivery window.</p>
+      </div>
+    </header>
+    <article class="delivery-proof__panel" aria-label="Today's Jiffy Local delivery schedule">
+      <div class="delivery-proof__map">
+        <img src="${asset('delivery-proof-map.png')}" alt="Map of the Dallas–Fort Worth local delivery route" />
+        <span class="delivery-proof__route-lock">Route lock</span>
+        <div class="delivery-proof__map-confirmation">
+          <div><small>From</small><strong>5 AM</strong></div>
+          <p><b>Route Available</b><span>We can deliver to your area in this window.</span></p>
+          <div><small>To</small><strong>10 PM</strong></div>
+        </div>
+      </div>
+      <section class="delivery-proof__current" aria-label="Current delivery window">
+        <h3>Current</h3>
+        <div class="delivery-proof__current-window">
+          <div><strong data-delivery-proof-countdown>--:--:--</strong><small>Remaining</small></div>
+          <img src="${asset('delivery-proof-divider.svg')}" alt="" />
+          <div><small>Cut-off 10 AM</small><b>11 AM–1 PM Window</b></div>
+        </div>
+      </section>
+      <div class="delivery-proof__timeline" aria-label="Later delivery windows">
+        <span class="delivery-proof__timeline-divider" aria-hidden="true"><img src="${asset('delivery-proof-timeline-divider.svg')}" alt="" /></span>
+        <section class="delivery-proof__next">
+          <h3>Next</h3>
+          <div class="delivery-proof__slots">
+            ${[
+              ['Cut-off 11 AM', '12-2 PM'],
+              ['Cut-off 12 PM', '1-3 PM'],
+              ['Cut-off 1 PM', '2-4 PM'],
+              ['Cut-off 2 PM', '3-5 PM'],
+              ['Cut-off 3 PM', '4-6 PM'],
+              ['Cut-off 4 PM', '5-7 PM'],
+            ].map(([cutoff, window]) => `<div><small>${cutoff}</small><strong>${window}</strong></div>`).join('')}
+          </div>
+        </section>
+      </div>
+    </article>
+  </div>`;
+localPromiseStrip.after(deliveryProof);
 
 const setupS1V3 = (section) => {
   const cards = [...section.querySelectorAll('.s1v3-card')];
@@ -304,27 +358,31 @@ blanksSection.after(apparelV2);
 // documented top blank sellers; price treatment remains static until it is
 // connected to the product catalog.
 const apparelV3Items = [
-  ['apparel-v2-product-1.png', 'tees', 'GILDAN · G500', 'Heavy Cotton™ T-Shirt', '$3.49', '$2.59'],
-  ['apparel-v2-product-2.png', 'tees', 'GILDAN · G500', 'Heavy Cotton™ T-Shirt', '$3.49', '$2.59'],
-  ['blanks-product-1.png', 'tees', 'GILDAN · G640', 'Softstyle® T-Shirt', '$3.29', '$2.49'],
-  ['product-figma-1.png', 'tees', 'GILDAN · G640', 'Softstyle® T-Shirt', '$3.29', '$2.49'],
-  ['blanks-product-3.png', 'tees', 'COMFORT COLORS · C1717', 'Heavyweight RS T-Shirt', '$8.99', '$6.89'],
-  ['product-figma-2.png', 'tees', 'COMFORT COLORS · C1717', 'Heavyweight RS T-Shirt', '$8.99', '$6.89'],
-  ['apparel-v2-product-5.png', 'tees', 'GILDAN · G300', 'Light Cotton T-Shirt', '$2.59', '$1.89'],
-  ['blanks-product-2.png', 'tees', 'GILDAN · G300', 'Light Cotton T-Shirt', '$2.59', '$1.89'],
-  ['apparel-v2-product-4.png', 'fleece', 'GILDAN · G180', 'Heavy Blend 50/50 Fleece Crew', '$9.49', '$7.31'],
-  ['apparel-v2-product-7.png', 'fleece', 'GILDAN · G180', 'Heavy Blend 50/50 Fleece Crew', '$9.49', '$7.31'],
-  ['apparel-v2-product-2.png', 'tees', 'GILDAN · G800', 'Unisex 50/50 T-Shirt', '$3.29', '$2.49'],
-  ['product-figma-3.png', 'tees', 'GILDAN · G800', 'Unisex 50/50 T-Shirt', '$3.29', '$2.49'],
-  ['apparel-v2-product-1.png', 'tees', 'GILDAN · G500B', 'Youth Heavy Cotton T-Shirt', '$3.79', '$2.62'],
-  ['blanks-product-1.png', 'tees', 'GILDAN · G500B', 'Youth Heavy Cotton T-Shirt', '$3.79', '$2.62'],
-  ['product-figma-1.png', 'tees', 'BELLA + CANVAS · 3001C', 'Unisex Jersey T-Shirt', '$5.19', '$4.29'],
-  ['apparel-v2-product-5.png', 'tees', 'BELLA + CANVAS · 3001C', 'Unisex Jersey T-Shirt', '$5.19', '$4.29'],
-  ['apparel-v2-product-3.png', 'hoodies', 'GILDAN · G185', 'Heavy Blend 50/50 Hoodie', '$12.99', '$9.76'],
-  ['apparel-v2-product-6.png', 'hoodies', 'GILDAN · G185', 'Heavy Blend 50/50 Hoodie', '$12.99', '$9.76'],
-  ['product-figma-4.png', 'performance', 'A4 · N3142', 'Men’s Cooling Performance T-Shirt', '$4.89', '$3.99'],
-  ['apparel-v2-product-8.png', 'performance', 'A4 · N3142', 'Men’s Cooling Performance T-Shirt', '$4.89', '$3.99'],
+  ['apparel-v2-product-1.png', 'tees', 'GILDAN · G500', 'Heavy Cotton™ T-Shirt', '$3.49', '$2.59', ['White']],
+  ['apparel-v2-product-2.png', 'tees', 'GILDAN · G500', 'Heavy Cotton™ T-Shirt', '$3.49', '$2.59', ['Black']],
+  ['blanks-product-1.png', 'tees', 'GILDAN · G640', 'Softstyle® T-Shirt', '$3.29', '$2.49', ['White']],
+  ['product-figma-1.png', 'tees', 'GILDAN · G640', 'Softstyle® T-Shirt', '$3.29', '$2.49', ['White']],
+  ['blanks-product-3.png', 'tees', 'COMFORT COLORS · C1717', 'Heavyweight RS T-Shirt', '$8.99', '$6.89', ['White']],
+  ['product-figma-2.png', 'tees', 'COMFORT COLORS · C1717', 'Heavyweight RS T-Shirt', '$8.99', '$6.89', ['White']],
+  ['apparel-v2-product-5.png', 'tees', 'GILDAN · G300', 'Light Cotton T-Shirt', '$2.59', '$1.89', ['Navy']],
+  ['blanks-product-2.png', 'tees', 'GILDAN · G300', 'Light Cotton T-Shirt', '$2.59', '$1.89', ['White']],
+  ['apparel-v2-product-4.png', 'fleece', 'GILDAN · G180', 'Heavy Blend 50/50 Fleece Crew', '$9.49', '$7.31', ['Grey']],
+  ['apparel-v2-product-7.png', 'fleece', 'GILDAN · G180', 'Heavy Blend 50/50 Fleece Crew', '$9.49', '$7.31', ['Grey']],
+  ['apparel-v2-product-2.png', 'tees', 'GILDAN · G800', 'Unisex 50/50 T-Shirt', '$3.29', '$2.49', ['Black']],
+  ['product-figma-3.png', 'tees', 'GILDAN · G800', 'Unisex 50/50 T-Shirt', '$3.29', '$2.49', ['White']],
+  ['apparel-v2-product-1.png', 'tees', 'GILDAN · G500B', 'Youth Heavy Cotton T-Shirt', '$3.79', '$2.62', ['White']],
+  ['blanks-product-1.png', 'tees', 'GILDAN · G500B', 'Youth Heavy Cotton T-Shirt', '$3.79', '$2.62', ['White']],
+  ['product-figma-1.png', 'tees', 'BELLA + CANVAS · 3001C', 'Unisex Jersey T-Shirt', '$5.19', '$4.29', ['Navy']],
+  ['apparel-v2-product-5.png', 'tees', 'BELLA + CANVAS · 3001C', 'Unisex Jersey T-Shirt', '$5.19', '$4.29', ['Navy']],
+  ['apparel-v2-product-3.png', 'hoodies', 'GILDAN · G185', 'Heavy Blend 50/50 Hoodie', '$12.99', '$9.76', ['Grey']],
+  ['apparel-v2-product-6.png', 'hoodies', 'GILDAN · G185', 'Heavy Blend 50/50 Hoodie', '$12.99', '$9.76', ['Grey']],
+  ['product-figma-4.png', 'performance', 'A4 · N3142', 'Men’s Cooling Performance T-Shirt', '$4.89', '$3.99', ['White']],
+  ['apparel-v2-product-8.png', 'performance', 'A4 · N3142', 'Men’s Cooling Performance T-Shirt', '$4.89', '$3.99', ['White']],
 ];
+
+const apparelColourSwatches = { White: '#ffffff', Black: '#111318', Grey: '#a9a9a4', Navy: '#14213d' };
+const apparelColourOptions = [...new Set(apparelV3Items.flatMap(([, , , , , , colours]) => colours))]
+  .map((name) => ({ name, count: apparelV3Items.filter((item) => item[6].includes(name)).length, swatch: apparelColourSwatches[name] }));
 
 const apparelV3 = document.createElement('section');
 apparelV3.className = 'apparel-v3';
@@ -357,8 +415,8 @@ apparelV3.innerHTML = `
         </div>
         <div class="apparel-v3__viewport" tabindex="0" aria-label="Browse blank apparel">
           <div class="apparel-v3__track">
-            ${apparelV3Items.map(([image, category, brand, name, wasPrice, price]) => `
-              <a class="apparel-v3__card" data-category="${category}" href="https://www.jiffy.com/" aria-label="${brand} ${name}, now from ${price}">
+            ${apparelV3Items.map(([image, category, brand, name, wasPrice, price, colours]) => `
+              <a class="apparel-v3__card" data-category="${category}" data-colours="${colours.join('|')}" href="https://www.jiffy.com/" aria-label="${brand} ${name}, now from ${price}">
                 <img src="${asset(image)}" alt="${name}" />
                 <span class="apparel-v3__card-copy"><small>${brand}</small><strong>${name}</strong><span class="apparel-v3__price"><em>was ${wasPrice}</em><b>from ${price}</b></span><span class="apparel-v3__rating" aria-label="4 out of 5 stars">★★★★<i>★</i><em>(2,500)</em></span></span>
               </a>
@@ -371,7 +429,8 @@ apparelV3.innerHTML = `
 apparelV2.after(apparelV3);
 
 // The final apparel experience is a static catalogue: all 20 products stay
-// available in one view, with chips providing the only lightweight control.
+// available in one view, with category chips and a colour menu providing the
+// lightweight catalogue controls.
 const finalBlanksCatalog = blanksSection.querySelector('.blanks-carousel-group');
 finalBlanksCatalog.innerHTML = `
   <p class="blanks-content-eyebrow">Apparel</p>
@@ -382,12 +441,29 @@ finalBlanksCatalog.innerHTML = `
       <button type="button" data-apparel-filter="fleece" aria-pressed="false">Fleece <span>2</span></button>
       <button type="button" data-apparel-filter="hoodies" aria-pressed="false">Hoodies <span>2</span></button>
       <button type="button" data-apparel-filter="performance" aria-pressed="false">Performance <span>2</span></button>
+      <div class="blanks-static-colour">
+        <button type="button" class="blanks-colour-trigger" data-apparel-colour-toggle aria-expanded="false" aria-controls="blanks-colour-menu">
+          <span>Colours</span><b data-apparel-colour-count hidden></b><i aria-hidden="true">⌄</i>
+        </button>
+        <div class="blanks-colour-menu" id="blanks-colour-menu" hidden>
+          <div class="blanks-colour-menu__header"><strong>Filter by colour</strong><button type="button" data-apparel-colour-clear hidden>Clear</button></div>
+          <div class="blanks-colour-options" role="group" aria-label="Choose colours">
+            ${apparelColourOptions.map(({ name, count: colourCount, swatch }) => `
+              <label class="blanks-colour-option">
+                <input type="checkbox" value="${name}" data-apparel-colour />
+                <span class="blanks-colour-option__check" aria-hidden="true"></span>
+                <span class="blanks-colour-option__swatch" style="--swatch:${swatch}"></span>
+                <span>${name}</span><small>${colourCount}</small>
+              </label>`).join('')}
+          </div>
+        </div>
+      </div>
     </div>
     <p aria-live="polite"><b>20</b> blank styles</p>
   </div>
   <div class="blanks-static-grid" aria-label="Blank apparel styles">
-    ${apparelV3Items.map(([image, category, brand, name, wasPrice, price]) => `
-      <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" aria-label="${brand} ${name}, now from ${price}">
+    ${apparelV3Items.map(([image, category, brand, name, wasPrice, price, colours]) => `
+      <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" data-colours="${colours.join('|')}" aria-label="${brand} ${name}, now from ${price}">
         <img src="${asset(image)}" alt="${name}" />
         <small>${brand}</small><strong>${name}</strong>
         <span class="blanks-product__price"><em>was ${wasPrice}</em><b>from ${price}</b></span>
@@ -515,7 +591,7 @@ shopInRange.innerHTML = `
       <label><img src="${asset('shop-in-range-pin.svg')}" alt="" /><input type="text" name="shop-address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
       <button type="submit">Check delivery time</button>
     </form>
-    <p class="shop-in-range__trust"><img src="${asset('shop-in-range-clock.svg')}" alt="" />7 days a week · 5 AM – 7 PM · Printed and driven from Dallas</p>
+    <p class="shop-in-range__trust"><img src="${asset('shop-in-range-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
   </div>`;
 coverageStory.after(shopInRange);
 
@@ -547,6 +623,7 @@ const addressPanel = addressSearch?.querySelector('.jiffy-hero__address-panel');
 const deliveryStatus = addressSearch?.querySelector('.jiffy-hero__delivery-status');
 const deliveryAddress = addressSearch?.querySelector('.jiffy-hero__delivery-address');
 const deliveryWindow = addressSearch?.querySelector('.jiffy-hero__delivery-countdown');
+const deliveryProofCountdown = deliveryProof.querySelector('[data-delivery-proof-countdown]');
 const deliveryClear = addressSearch?.querySelector('.jiffy-hero__delivery-clear');
 const heroTitle = document.querySelector('#jiffy-hero-title');
 const heroLede = document.querySelector('.jiffy-hero__lede');
@@ -579,7 +656,9 @@ const setDeliveryCountdown = (deadline) => {
     const hours = Math.floor(remaining / 3600000);
     const minutes = Math.floor((remaining % 3600000) / 60000);
     const seconds = Math.floor((remaining % 60000) / 1000);
-    if (deliveryWindow) deliveryWindow.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    const countdown = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    if (deliveryWindow) deliveryWindow.textContent = countdown;
+    if (deliveryProofCountdown) deliveryProofCountdown.textContent = countdown;
   };
   render();
   deliveryCountdown = window.setInterval(render, 1000);
@@ -589,6 +668,7 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
   if (!addressSearch || !addressPanel || !deliveryStatus) return;
   shopInRange.hidden = true;
   if (!covered) {
+    deliveryProof.hidden = true;
     addressSearch.hidden = true;
     heroEyebrow.hidden = true;
     heroHours.hidden = true;
@@ -608,6 +688,7 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
     return;
   }
   deliveryAddress.textContent = address;
+  deliveryProof.hidden = false;
   addressInput.value = address;
   addressSearch.classList.add('is-confirmed');
   addressSearch.classList.remove('is-on-light-surface');
@@ -616,16 +697,13 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
   heroEyebrow.hidden = true;
   heroHours.hidden = true;
   if (heroTitle) heroTitle.textContent = "You're covered.";
-  if (heroLede) heroLede.textContent = 'Your address is in the Jiffy Local service area. Order before the countdown ends to secure this window.';
-  if (heroHours) {
-    heroHours.hidden = false;
-    heroHours.innerHTML = `<img src="${asset('jiffy-hero-clock.svg')}" alt="" />Local delivery · 7 days · 5 AM – 10 PM`;
-  }
+  if (heroLede) heroLede.textContent = '';
   if (deliveryOutcome) { deliveryOutcome.hidden = true; deliveryOutcome.replaceChildren(); }
   setDeliveryCountdown(deadline);
 };
 const clearDeliveryStatus = () => {
   window.clearInterval(deliveryCountdown);
+  deliveryProof.hidden = true;
   addressSearch?.classList.remove('is-confirmed');
   addressSearch?.classList.remove('is-on-light-surface');
   if (addressSearch) addressSearch.hidden = false;
@@ -637,7 +715,7 @@ const clearDeliveryStatus = () => {
   if (deliveryOutcome) { deliveryOutcome.hidden = true; deliveryOutcome.replaceChildren(); }
   if (heroTitle) heroTitle.innerHTML = 'Transfers and blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.';
   if (heroLede) heroLede.textContent = 'Order this morning. Press this afternoon.';
-  if (heroHours) heroHours.innerHTML = `<img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 7 PM · Printed and driven from Dallas`;
+  if (heroHours) heroHours.innerHTML = `<img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas`;
   shopInRange.hidden = false;
   window.localStorage.removeItem(deliveryStateKey);
 };
@@ -805,24 +883,69 @@ const setupApparelV3 = (section) => {
 };
 const setupStaticApparelFilters = (section) => {
   const filters = [...section.querySelectorAll('[data-apparel-filter]')];
+  const colourToggle = section.querySelector('[data-apparel-colour-toggle]');
+  const colourMenu = section.querySelector('#blanks-colour-menu');
+  const colourInputs = [...section.querySelectorAll('[data-apparel-colour]')];
+  const colourClear = section.querySelector('[data-apparel-colour-clear]');
+  const colourCount = section.querySelector('[data-apparel-colour-count]');
   const cards = [...section.querySelectorAll('.blanks-product')];
   const count = section.querySelector('.blanks-static-toolbar p');
+  let category = 'all';
+
+  const closeColourMenu = () => {
+    colourMenu.hidden = true;
+    colourToggle.setAttribute('aria-expanded', 'false');
+  };
+
+  const update = () => {
+    const selectedColours = new Set(colourInputs.filter((input) => input.checked).map((input) => input.value));
+    const visibleCards = cards.filter((card) => {
+      const matchesCategory = category === 'all' || card.dataset.category === category;
+      const cardColours = (card.dataset.colours || '').split('|');
+      const matchesColour = selectedColours.size === 0 || cardColours.some((colour) => selectedColours.has(colour));
+      return matchesCategory && matchesColour;
+    });
+
+    filters.forEach((item) => {
+      const active = item.dataset.apparelFilter === category;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+    cards.forEach((card) => card.hidden = !visibleCards.includes(card));
+    count.innerHTML = `<b>${visibleCards.length}</b> blank ${visibleCards.length === 1 ? 'style' : 'styles'}`;
+    colourClear.hidden = selectedColours.size === 0;
+    colourCount.hidden = selectedColours.size === 0;
+    colourCount.textContent = selectedColours.size;
+    colourToggle.classList.toggle('has-selection', selectedColours.size > 0);
+  };
 
   filters.forEach((filter) => {
     filter.addEventListener('click', () => {
-      const category = filter.dataset.apparelFilter;
-      const visibleCards = cards.filter((card) => category === 'all' || card.dataset.category === category);
-      filters.forEach((item) => {
-        const active = item === filter;
-        item.classList.toggle('is-active', active);
-        item.setAttribute('aria-pressed', String(active));
-      });
-      cards.forEach((card) => {
-        card.hidden = category !== 'all' && card.dataset.category !== category;
-      });
-      count.innerHTML = `<b>${visibleCards.length}</b> blank ${visibleCards.length === 1 ? 'style' : 'styles'}`;
+      category = filter.dataset.apparelFilter;
+      update();
     });
   });
+
+  colourToggle.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const isOpen = colourToggle.getAttribute('aria-expanded') === 'true';
+    colourMenu.hidden = isOpen;
+    colourToggle.setAttribute('aria-expanded', String(!isOpen));
+  });
+  colourMenu.addEventListener('click', (event) => event.stopPropagation());
+  colourInputs.forEach((input) => input.addEventListener('change', update));
+  colourClear.addEventListener('click', () => {
+    colourInputs.forEach((input) => input.checked = false);
+    update();
+  });
+  document.addEventListener('click', closeColourMenu);
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && colourToggle.getAttribute('aria-expanded') === 'true') {
+      closeColourMenu();
+      colourToggle.focus();
+    }
+  });
+  update();
 };
 setupStaticApparelFilters(blanksSection);
 

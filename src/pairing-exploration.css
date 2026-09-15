@@ -24,15 +24,15 @@
 .pairing-exploration__copy h2{
   margin:0;
   color:#14213d;
-  font:800 clamp(3.8rem,6.4vw,7.4rem)/.84 Outfit,Poppins,Inter,sans-serif;
-  letter-spacing:-.085em;
+  font:900 84px/.84 Poppins,Inter,sans-serif;
+  letter-spacing:0;
   white-space:nowrap;
 }
 .pairing-exploration__copy h2 span{color:#ffc800}
 .pairing-exploration__copy p{
   margin:clamp(1.25rem,2vw,2rem) 0 0;
   color:#53647e;
-  font:500 clamp(1rem,1.35vw,1.35rem)/1.35 Inter,Arial,sans-serif;
+  font:500 clamp(1rem,1.35vw,1.35rem)/1.35 Inter,sans-serif;
 }
 .pairing-exploration__package{
   position:relative;

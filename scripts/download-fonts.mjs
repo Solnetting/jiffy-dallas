@@ -1,9 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 const fonts = [
   ['inter', 'Inter:wght@400;500;600;700;800;900'],
-  ['poppins', 'Poppins:ital,wght@0,600;0,700;0,800;1,900'],
-  ['outfit', 'Outfit:wght@900'],
-  ['geist', 'Geist:wght@500;700'],
+  ['poppins', 'Poppins:ital,wght@0,600;0,700;0,800;0,900;1,900'],
 ];
 const dir = new URL('../assets/fonts/', import.meta.url);
 await mkdir(dir, { recursive: true });
