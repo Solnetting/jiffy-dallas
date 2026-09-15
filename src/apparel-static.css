@@ -7,6 +7,9 @@
 .blanks-story--static .blanks-header .local-mark,.blanks-story--static .blanks-header .story-words{color:inherit}
 .blanks-story--static .blanks-hero-art{position:sticky;top:1.5rem;left:auto;grid-column:1;grid-row:2 / span 2;width:100%;height:min(70svh,48rem);min-height:30rem;border:1px solid rgba(230,223,213,.9);border-radius:1.25rem;background:#d9c1a5;box-shadow:0 1.25rem 3rem rgba(57,44,26,.12)}
 .blanks-story--static .blanks-hero-art:after{background:linear-gradient(90deg,rgba(8,23,47,.2),transparent 62%)}
+.blanks-story--static .blanks-hero-copy{position:absolute;z-index:2;top:clamp(1.25rem,3vw,2.15rem);right:clamp(1.2rem,3vw,2.1rem);bottom:clamp(1.4rem,3vw,2.35rem);left:clamp(1.2rem,3vw,2.15rem);display:flex;flex-direction:column;align-items:flex-start;color:#fff;font-family:Inter,sans-serif;text-transform:uppercase;pointer-events:none}
+.blanks-story--static .blanks-hero-copy span,.blanks-story--static .blanks-hero-copy b{font-size:clamp(.66rem,.9vw,.88rem);font-weight:800;letter-spacing:0;line-height:1.25}
+.blanks-story--static .blanks-hero-copy i{width:1.45rem;height:.14rem;margin:.7rem 0 auto;background:#fff}
 .blanks-story--static .blanks-hero-title{display:none}
 .blanks-story--static .blanks-content{position:relative;top:auto;left:auto;right:auto;grid-column:2;grid-row:2;display:block;align-self:start;opacity:1;transform:none;pointer-events:auto}
 .blanks-story--static .blanks-content-copy h2{font-size:clamp(2.8rem,4.7vw,5.5rem);line-height:.96}

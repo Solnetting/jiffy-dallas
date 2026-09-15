@@ -48,6 +48,11 @@ blanksSection.innerHTML = `
       </div>
       <article class="blanks-hero-art" aria-label="Blank apparel for a local tomorrow">
         <img src="${asset('blanks-editorial-hero.png')}" alt="Person wearing a blank shirt" />
+        <figcaption class="blanks-hero-copy" aria-hidden="true">
+          <span>Same<br />good<br />ideas<br />a brighter<br />DFW</span>
+          <i aria-hidden="true"></i>
+          <b>Blanks<br />for a more<br />local tomorrow</b>
+        </figcaption>
       </article>
       <div class="blanks-carousel-group">
       <div class="blanks-products" aria-label="Popular blank apparel">
@@ -74,15 +79,31 @@ localPromiseStrip.setAttribute('aria-label', 'Jiffy Local advantages');
 localPromiseStrip.innerHTML = `
   <div class="local-promise-strip__inner">
     <article class="local-promise-strip__item local-promise-strip__item--delivery" data-promise-item>
-      <div class="local-promise-strip__copy"><p>Local delivery</p><h2>First local<br />delivery <mark>free.</mark></h2><span>Get your order delivered in the Dallas–Fort Worth area. On us.</span></div>
+      <div class="local-promise-strip__copy">
+        <p>Delivery</p>
+        <h2><mark class="local-promise-strip__headline-major">FREE</mark><br /><b class="local-promise-strip__headline-minor">DELIVERY.</b></h2>
+        <span>Get your order delivered in the Dallas–Fort Worth area. On us.</span>
+      </div>
     </article>
     <article class="local-promise-strip__item local-promise-strip__item--apparel" data-promise-item>
-      <div class="local-promise-strip__shirts" aria-hidden="true"><img src="${asset('product-figma-2.png')}" alt="" /><img src="${asset('product-figma-3.png')}" alt="" /><img src="${asset('product-figma-4.png')}" alt="" /></div>
-      <div class="local-promise-strip__copy"><p>Apparel</p><h2>20+ shirt styles<br />from <mark>$2.41.</mark></h2><span>Premium blanks from leading brands, ready for your design.</span></div>
+      <div class="local-promise-strip__shirts" aria-hidden="true">
+        <img src="${asset('product-figma-2.png')}" alt="" />
+        <img src="${asset('product-figma-3.png')}" alt="" />
+        <img src="${asset('product-figma-4.png')}" alt="" />
+      </div>
+      <div class="local-promise-strip__copy">
+        <p>Blanks</p>
+        <h2>20+ shirt styles<br />from <mark>$2.41.</mark></h2>
+        <span>Premium blanks from leading brands, ready for your design.</span>
+      </div>
     </article>
     <article class="local-promise-strip__item local-promise-strip__item--printing" data-promise-item>
-      <img class="local-promise-strip__print-image" src="${asset('s1v3-transfer-film.png')}" alt="DTF transfer film detail" />
-      <div class="local-promise-strip__copy"><p>Custom printing</p><h2>Custom direct<br />to film from<br /><mark>$0.02 per line.</mark></h2><span>High-quality DTF printing for any design, big or small.</span></div>
+      <img class="local-promise-strip__print-image" src="${asset('s1v3-transfer-film.png')}" alt="" aria-hidden="true" />
+      <div class="local-promise-strip__copy">
+        <p>DTF</p>
+        <h2><b class="local-promise-strip__headline-major">$0.02</b><br /><b class="local-promise-strip__headline-minor">PER LINE.</b></h2>
+        <span>High-quality DTF printing for any design, big or small.</span>
+      </div>
     </article>
   </div>`;
 originalHero?.after(localPromiseStrip);
@@ -97,8 +118,8 @@ const promiseObserver = new IntersectionObserver((entries) => {
 promiseObserver.observe(localPromiseStrip);
 // S1 V3 is the only Section 1 quality experience kept in the build.
 const s1v3Cards = [
-  { image: 'tiger-transfer-hero.png', title: 'Competitor vs. Jiffy', subtitle: 'Sharper, denser, cleaner transfer results.', description: 'Compare fine edges, solid coverage, and a cleaner finish against the competing transfer.' },
-  { image: 'tiger-proof-detail.png', title: 'AI process', subtitle: 'Artwork analyzed and prepared for print.', description: 'Your artwork is checked and prepared before print so detail and color stay true to the design.' },
+  { image: 'tiger-transfer-hero.png', title: 'Jiffy vs Others', subtitle: 'Sharper, denser, cleaner transfer results.', description: 'Compare fine edges, solid coverage, and a cleaner finish against the competing transfer.' },
+  { image: 'tiger-proof-detail.png', title: 'AI', subtitle: 'Artwork analyzed and prepared for print.', description: 'Your artwork is checked and prepared before print so detail and color stay true to the design.' },
   { image: 'tiger-proof-peel.png', title: 'Hot peel', subtitle: 'Clean release immediately after pressing.', description: 'A clean release immediately after pressing means less waiting between the press and the finished garment.' },
   { image: 'tiger-proof-color.png', title: 'Color accuracy', subtitle: 'True color with fine detail, up close.', description: 'Richer detail and truer color set a higher standard in every transfer.' },
 ];
@@ -123,26 +144,27 @@ s1v3.innerHTML = `
           <h1>Your design.<br />Our quality<span>.</span></h1>
           <span>Richer detail. Truer color.<br />A higher standard in every transfer.</span>
         </figcaption>
-        <div class="s1v3-upload" role="group" aria-label="Upload artwork. Drag and drop a file or select one.">
-          <div class="s1v3-upload-header">
-            <strong class="s1v3-upload-drag">Drag your artwork</strong>
-            <small class="s1v3-upload-subtitle">Drop a file anywhere in this panel</small>
-          </div>
-          <div class="s1v3-upload-icon"><img src="${asset('cloud-upload.svg')}" alt="" /></div>
-          <small class="s1v3-upload-meta">PNG, JPG, or PDF&nbsp; · &nbsp;up to 50 MB</small>
-          <div class="s1v3-upload-actions">
-            <span class="s1v3-upload-or" aria-hidden="true"><i></i><b>or</b><i></i></span>
-            <button class="s1v3-upload-files" type="button">Upload from your files <b aria-hidden="true">↗</b></button>
-            <div class="s1v3-upload-tertiary" aria-label="More transfer options">
-              <button type="button">DTF Transfer by size</button>
-              <button class="s1v3-theme-toggle" type="button" data-s1v3-theme-toggle aria-pressed="false" aria-label="Gang Sheet transfer. Switch to light mode">
-                <span>Gang Sheet transfer</span>
-              </button>
-            </div>
+      </figure>
+
+      <div class="s1v3-upload" role="group" aria-label="Upload artwork. Drag and drop a file or select one.">
+        <div class="s1v3-upload-header">
+          <strong class="s1v3-upload-drag">Drag your artwork</strong>
+          <small class="s1v3-upload-subtitle">Drop a file anywhere in this panel</small>
+        </div>
+        <div class="s1v3-upload-icon"><img src="${asset('cloud-upload.svg')}" alt="" /></div>
+        <small class="s1v3-upload-meta">PNG, JPG, or PDF&nbsp; · &nbsp;up to 50 MB</small>
+        <div class="s1v3-upload-actions">
+          <span class="s1v3-upload-or" aria-hidden="true"><i></i><b>or</b><i></i></span>
+          <button class="s1v3-upload-files" type="button">Upload from your files <b aria-hidden="true">↗</b></button>
+          <div class="s1v3-upload-tertiary" aria-label="More transfer options">
+            <button type="button">DTF Transfer by size</button>
+            <button class="s1v3-theme-toggle" type="button" data-s1v3-theme-toggle aria-pressed="false" aria-label="Gang Sheet transfer. Switch to light mode">
+              <span>Gang Sheet transfer</span>
+            </button>
           </div>
         </div>
-        <input class="s1v3-file-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
-      </figure>
+      </div>
+      <input class="s1v3-file-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
 
       <div class="s1v3-stage" aria-live="polite">
         <div class="s1v3-frames">
@@ -325,23 +347,29 @@ const setupS1V3 = (section) => {
 };
 setupS1V3(s1v3);
 
-// Pairing prelude: the copy is live DOM, while the supplied concept image is
-// cropped to the delivery package so the apparel half can remain interactive.
+// Pairing bridge: the generated scene is the full-width visual, while the
+// headline and supporting copy remain live DOM over its open left side.
 const pairingExploration = document.createElement('section');
 pairingExploration.className = 'pairing-exploration';
 pairingExploration.setAttribute('aria-label', 'Transfers and blank apparel delivered together');
 pairingExploration.innerHTML = `
   <div class="pairing-exploration__inner">
     <div class="pairing-exploration__copy">
-      <h2>PAIR IT UP<span>.</span><br />ONE DELIVERY<span>.</span></h2>
-      <p>Transfers and blanks, delivered together.<br />Delivered in hours, from the same local source.</p>
+      <h2><span class="pairing-exploration__line">PAIR IT UP<span>.</span></span><br /><span class="pairing-exploration__line">ONE DELIVERY<span>.</span></span></h2>
+      <p><span>Transfers and blanks, delivered together.</span><br /><span>Delivered in hours, from the same local source.</span></p>
     </div>
-    <figure class="pairing-exploration__package" aria-label="Jiffy Local delivery box and transfer packs">
-      <img src="${asset('pairing-exploration.png')}" alt="Jiffy Local delivery box with transfer packs." />
+    <figure class="pairing-exploration__package" aria-label="Jiffy DTF delivery scene">
+      <img src="${asset('pairing-bridge-generated.png')}" alt="Jiffy DTF box with blank apparel and loose transfers." />
     </figure>
   </div>`;
 s1v3.after(pairingExploration);
 pairingExploration.after(blanksSection);
+const pairingObserver = new IntersectionObserver(([entry], observer) => {
+  if (!entry.isIntersecting) return;
+  pairingExploration.classList.add('is-visible');
+  observer.disconnect();
+}, { threshold: .2 });
+pairingObserver.observe(pairingExploration);
 
 const apparelV2 = document.createElement('section');
 apparelV2.className = 'apparel-v2';
