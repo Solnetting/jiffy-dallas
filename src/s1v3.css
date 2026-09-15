@@ -8,12 +8,13 @@
 .s1v3-local-mark span{display:block;width:2rem;height:.2rem;background:#ffc800}
 .s1v3-local-mark small{color:rgba(255,255,255,.72);font:600 clamp(.55rem,.65vw,.7rem)/1 Inter,sans-serif;letter-spacing:0;text-transform:uppercase}
 
-/* The first state is only this image and its hero copy. On reveal, the same figure becomes the left panel. */
+/* The opening proof image is only the intro state; after reveal, the same source is shown by carousel slide 1. */
 .s1v3-hero{position:absolute;z-index:4;top:calc(var(--s1v3-reveal,0) * clamp(6rem,12vh,9rem));left:calc(var(--s1v3-reveal,0) * var(--s1v3-side));width:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * var(--s1v3-panel-width));height:calc((1 - var(--s1v3-reveal,0)) * 100% + var(--s1v3-reveal,0) * min(82svh,50rem));margin:0;overflow:hidden;border:1.5px solid rgba(255,255,255,.15);border-radius:calc(var(--s1v3-reveal,0) * 2.25rem);background:#0a0a0d;box-shadow:0 1.5rem 4rem rgba(0,0,0,.3);transition:border-radius .35s ease,box-shadow .35s ease}
 .s1v3-hero>img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.94);opacity:calc(1 - (var(--s1v3-reveal,0) * .5));transition:opacity .3s ease}
 .s1v3-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,8,14,.88),rgba(5,8,14,.3) 38%,rgba(5,8,14,.04) 76%),linear-gradient(0deg,rgba(5,8,14,.68),transparent 52%);pointer-events:none;transition:background .35s ease}
 .s1v3-hero-copy{position:absolute;z-index:2;top:clamp(10rem,20vh,15rem);left:clamp(1.5rem,5vw,5rem);display:grid;gap:.75rem;max-width:min(42rem,70vw);color:#fff;opacity:1;visibility:visible;transform:translateY(calc(var(--s1v3-reveal,0) * -1rem));transition:opacity .24s ease,transform .35s ease}
 .s1v3-story.is-upload-mode .s1v3-hero-copy{opacity:0;visibility:hidden}
+.s1v3-story.is-upload-mode .s1v3-hero>img{opacity:0;visibility:hidden}
 .s1v3-eyebrow{margin:0;color:rgba(255,255,255,.72);font:600 clamp(.62rem,.78vw,.82rem)/1 Inter,sans-serif;letter-spacing:0}
 .s1v3-hero-copy h1{margin:0;font:900 clamp(3.2rem,6vw,6.6rem)/.9 Poppins,Inter,sans-serif;letter-spacing:0}
 .s1v3-hero-copy h1 span{color:#ffc800}
@@ -134,13 +135,10 @@
 }
 @media(prefers-reduced-motion:reduce){.s1v3-story{height:auto}.s1v3-sticky{position:relative;height:100svh}.s1v3-hero,.s1v3-upload,.s1v3-card,.s1v3-index button{transition:none}.s1v3-story.is-carousel-ready .s1v3-index button{animation:none;opacity:1;transform:none}.s1v3-hero-copy{opacity:1;transform:none}.s1v3-upload,.s1v3-stage{opacity:1}}
 
-/* S1-only light variant. The switch lives inside the Gang Sheet transfer
-   action so the theme never changes the rest of the landing page. */
-.s1v3-theme-toggle{position:relative;padding-right:3.2rem!important}
+/* S1-only light variant. The Gang Sheet transfer action changes the local
+   theme without adding another visible control to the upload panel. */
+.s1v3-theme-toggle{position:relative;padding-right:1.75rem!important}
 .s1v3-theme-toggle>span:first-child{display:block;text-align:center}
-.s1v3-theme-switch{position:absolute;top:50%;right:.85rem;display:block;width:2rem;height:1.1rem;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:rgba(255,255,255,.16);transform:translateY(-50%);transition:border-color .25s ease,background .25s ease}
-.s1v3-theme-switch i{position:absolute;top:50%;left:.15rem;display:block;width:.76rem;height:.76rem;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transform:translateY(-50%);transition:background .25s ease,transform .25s ease}
-.s1v3-theme-toggle[aria-pressed="true"] .s1v3-theme-switch i{background:#ffc800;transform:translate(.83rem,-50%)}
 
 .s1v3-story.is-light-mode,.s1v3-story.is-light-mode .s1v3-canvas{background:#f4f1eb;color:#14213d}
 .s1v3-story.is-light-mode .s1v3-local-mark{color:#14213d}
@@ -182,6 +180,3 @@
 .s1v3-story.is-light-mode .s1v3-index button.is-active .s1v3-index__label i{border-color:#d99f00;background:rgba(255,200,0,.14);color:#d99f00;box-shadow:0 0 0 .22rem rgba(255,200,0,.12)}
 .s1v3-story.is-light-mode .s1v3-index button.is-active .s1v3-index__description{color:rgba(20,33,61,.72)}
 .s1v3-story.is-light-mode .s1v3-index button.is-active.is-collapsed{background:linear-gradient(140deg,rgba(255,255,255,.76),rgba(255,255,255,.52) 48%,rgba(230,226,218,.56));box-shadow:0 .6rem 1.6rem rgba(20,33,61,.12),inset 0 1px rgba(255,255,255,.8),inset 0 -1px rgba(20,33,61,.06)}
-.s1v3-story.is-light-mode .s1v3-theme-switch{border-color:rgba(20,33,61,.3);background:rgba(20,33,61,.1)}
-.s1v3-story.is-light-mode .s1v3-theme-switch i{background:#14213d}
-.s1v3-story.is-light-mode .s1v3-theme-toggle[aria-pressed="true"] .s1v3-theme-switch i{background:#d99f00}

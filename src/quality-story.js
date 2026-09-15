@@ -137,7 +137,6 @@ s1v3.innerHTML = `
               <button type="button">DTF Transfer by size</button>
               <button class="s1v3-theme-toggle" type="button" data-s1v3-theme-toggle aria-pressed="false" aria-label="Gang Sheet transfer. Switch to light mode">
                 <span>Gang Sheet transfer</span>
-                <span class="s1v3-theme-switch" aria-hidden="true"><i></i></span>
               </button>
             </div>
           </div>
@@ -523,18 +522,20 @@ coverageStory.innerHTML = `
         <nav class="coverage-story__index" aria-label="Delivery coverage" aria-live="polite">
           <article class="coverage-story__index-item is-active" data-coverage-item="0">
             <button class="is-active" type="button" data-coverage-step="0" aria-current="step" aria-expanded="true">
-              <em aria-hidden="true">01</em><span><b id="coverage-story-title">Dallas–Fort Worth<span>.</span></b><small>Jiffy Local. Right here.</small></span>
+              <div class="coverage-story__step-meta"><em aria-hidden="true">01</em><span class="coverage-story__delivery-tag">Same day</span></div>
+              <span class="coverage-story__active-label"><b id="coverage-story-title">Dallas–Fort Worth<span>.</span></b><small>Jiffy Local. Right here.</small></span>
             </button>
             <div class="coverage-story__index-details">
-              <p>Transfers and blanks from the Jiffy micro-factory.</p>
-              <aside class="coverage-story__panel-service" aria-label="Jiffy Local delivery details">
-                <span>Jiffy Local</span><i aria-hidden="true"></i><span>5 AM–10 PM · 7 days</span><i aria-hidden="true"></i><strong>Free at $59+ · blanks + transfers</strong>
+              <p>Transfers and blanks from the Jiffy micro-factory.<strong>free at $59</strong></p>
+              <aside class="coverage-story__panel-service coverage-story__panel-service--local" aria-label="Jiffy Local delivery details">
+                <span>5 AM–10 PM</span><i aria-hidden="true"></i><span>7 days</span>
               </aside>
             </div>
           </article>
           <article class="coverage-story__index-item" data-coverage-item="1">
             <button type="button" data-coverage-step="1" aria-expanded="false">
-              <em aria-hidden="true">02</em><span><b>Texas<span>.</span></b><small>Jiffy 1st. Next day.</small></span>
+              <div class="coverage-story__step-meta"><em aria-hidden="true">02</em><span class="coverage-story__delivery-tag">Next day</span></div>
+              <span class="coverage-story__active-label"><b>Texas<span>.</span></b><small>Jiffy 1st. Next day.</small></span>
             </button>
             <div class="coverage-story__index-details">
               <p>Statewide fulfillment when Jiffy Local is not the route.</p>
