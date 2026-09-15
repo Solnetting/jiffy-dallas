@@ -43,9 +43,12 @@ blanksSection.innerHTML = `
         <div class="local-mark">Jiffy Local <span></span><small>Dallas–Fort Worth</small></div>
         <div class="story-words">Ideas <b>Local</b> Wear <i>Further</i><em></em></div>
       </header>
+      <div class="blanks-hero-fixed-title">
+        <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
+      </div>
       <article class="blanks-hero-art" aria-label="Blank apparel for a local tomorrow">
         <img src="${asset('blanks-editorial-hero.png')}" alt="Person wearing a blank shirt" />
-        <div class="blanks-hero-title">
+        <div class="blanks-hero-title" aria-hidden="true">
           <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
         </div>
       </article>
@@ -394,6 +397,17 @@ const apparelV3Items = [
 const apparelColourSwatches = { White: '#ffffff', Black: '#111318', Grey: '#a9a9a4', Navy: '#14213d' };
 const apparelColourOptions = [...new Set(apparelV3Items.flatMap(([, , , , , , colours]) => colours))]
   .map((name) => ({ name, count: apparelV3Items.filter((item) => item[6].includes(name)).length, swatch: apparelColourSwatches[name] }));
+const apparelCardMeta = (brand) => {
+  const [brandName, styleCode] = brand.split(' · ');
+  const brandMark = brandName === 'GILDAN'
+    ? `<img src="${asset('brand-logos/gildan.svg')}" alt="Gildan" />`
+    : `<b>${brandName}</b>`;
+
+  return `
+    <span class="blanks-product__meta">
+      <span class="blanks-product__brand">${brandMark}<span>${styleCode}</span></span>
+    </span>`;
+};
 
 const apparelV3 = document.createElement('section');
 apparelV3.className = 'apparel-v3';
@@ -442,9 +456,12 @@ apparelV2.after(apparelV3);
 // The final apparel experience is a static catalogue: all 20 products stay
 // available in one view, with category chips and a colour menu providing the
 // lightweight catalogue controls.
+const apparelCardPortraits = Array.from({ length: 20 }, (_, index) =>
+  `apparel-portraits/portrait-${String(index + 1).padStart(2, '0')}.png`,
+);
 const finalBlanksCatalog = blanksSection.querySelector('.blanks-carousel-group');
 finalBlanksCatalog.innerHTML = `
-  <p class="blanks-content-eyebrow">Apparel</p>
+  <p class="blanks-content-eyebrow">Apparel <span>(20)</span></p>
   <div class="blanks-static-toolbar">
     <div class="blanks-static-filters" role="group" aria-label="Filter blank apparel">
       <button type="button" class="is-active" data-apparel-filter="all" aria-pressed="true">All <span>20</span></button>
@@ -473,10 +490,11 @@ finalBlanksCatalog.innerHTML = `
     <p aria-live="polite"><b>20</b> blank styles</p>
   </div>
   <div class="blanks-static-grid" aria-label="Blank apparel styles">
-    ${apparelV3Items.map(([image, category, brand, name, wasPrice, price, colours]) => `
-      <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" data-colours="${colours.join('|')}" aria-label="${brand} ${name}, now from ${price}">
-        <img src="${asset(image)}" alt="${name}" />
-        <small>${brand}</small><strong>${name}</strong>
+    ${apparelV3Items.map(([image, category, brand, name, wasPrice, price, colours], index) => `
+      <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" data-colours="${colours.join('|')}" aria-label="${brand} ${name}, ${colours.join(' or ')}, now from ${price}">
+        <img src="${asset(apparelCardPortraits[index] || image)}" alt="${name}" />
+        ${apparelCardMeta(brand)}<strong>${name}</strong>
+        <span class="blanks-product__colour" aria-label="Colour ${colours[0]}"><i style="--swatch:${apparelColourSwatches[colours[0]]}"></i>${colours[0]}</span>
         <span class="blanks-product__price"><em>was ${wasPrice}</em><b>from ${price}</b></span>
         <span class="blanks-product__rating">★★★★<i>★</i> <em>(2,500)</em></span>
       </a>`).join('')}
@@ -970,6 +988,17 @@ const navigationColor = (progress) => {
 
 const blanksShell = blanksSection.querySelector('.blanks-shell');
 const blanksCarouselGroup = blanksSection.querySelector('.blanks-carousel-group');
+const blanksStaticGrid = blanksSection.querySelector('.blanks-static-grid');
+
+const translateY = (element) => {
+  const transform = getComputedStyle(element).transform;
+  if (!transform || transform === 'none') return 0;
+  const values = transform.includes('matrix3d')
+    ? transform.slice(9, -1).split(',').map(Number)
+    : transform.slice(7, -1).split(',').map(Number);
+  return values[transform.includes('matrix3d') ? 13 : 5] || 0;
+};
+
 function renderBlanksStory() {
   if (!blanksSection.classList.contains('blanks-story--interactive')) return;
   const maxScroll = Math.max(1, blanksSection.offsetHeight - window.innerHeight);
@@ -987,13 +1016,39 @@ function renderBlanksStory() {
   // into the next frame and stop the final rows short of the viewport edge.
   const groupTopInShell = blanksCarouselGroup.offsetTop;
   const visibleGroupHeight = Math.max(0, window.innerHeight - groupTopInShell);
-  // Leave a generous visual pause after the final product row before the next
-  // story begins instead of ending the catalogue flush against the viewport.
-  const catalogBottomGap = Math.max(192, Math.min(288, window.innerHeight * .2));
+  // Keep a small amount of breathing room below the paired image and final
+  // product row, while moving both together so their shared baseline stays
+  // aligned through the end of the scroll.
+  const catalogBottomGap = Math.min(48, Math.max(24, window.innerHeight * .04));
   const maxCatalogTranslate = Math.max(0, blanksCarouselGroup.offsetHeight - visibleGroupHeight + catalogBottomGap);
+  const visibleCards = blanksStaticGrid
+    ? [...blanksStaticGrid.querySelectorAll('.blanks-product:not([hidden])')]
+    : [];
+  if (visibleCards.length) {
+    const shellTop = blanksShell.getBoundingClientRect().top;
+    const groupOffset = translateY(blanksCarouselGroup);
+    const cardRects = visibleCards.map((card) => card.getBoundingClientRect());
+    const rowTops = [];
+    cardRects.forEach((rect) => {
+      if (!rowTops.some((top) => Math.abs(top - rect.top) < 2)) rowTops.push(rect.top);
+    });
+    rowTops.sort((a, b) => a - b);
+    const firstRowTop = rowTops[0];
+    const secondRowTop = rowTops[1] ?? firstRowTop;
+    const firstRowHeight = Math.max(...cardRects
+      .filter((rect) => Math.abs(rect.top - firstRowTop) < 2)
+      .map((rect) => rect.height));
+    const secondRowHeight = Math.max(...cardRects
+      .filter((rect) => Math.abs(rect.top - secondRowTop) < 2)
+      .map((rect) => rect.height));
+    const twoRowHeight = (secondRowTop - firstRowTop) + Math.max(firstRowHeight, secondRowHeight);
+    blanksShell.style.setProperty('--hero-target-top', `${(firstRowTop - shellTop - groupOffset).toFixed(1)}px`);
+    blanksShell.style.setProperty('--hero-target-height', `${twoRowHeight.toFixed(1)}px`);
+  }
   blanksShell.style.setProperty('--hero-progress', heroProgress.toFixed(3));
   blanksShell.style.setProperty('--catalog-progress', catalogProgress.toFixed(3));
   blanksShell.style.setProperty('--catalog-translate', `${(-maxCatalogTranslate * catalogScroll).toFixed(1)}px`);
+  blanksShell.style.setProperty('--hero-catalog-translate', `${(-catalogBottomGap * catalogScroll).toFixed(1)}px`);
   blanksShell.style.setProperty('--header-color', navigationColor(heroProgress));
 }
 

@@ -65,7 +65,7 @@ the integration points are the address forms, product links, and upload panel.
 ### No address
 
 - [ ] Make the S1 left upload panel visually distinct from the right proof carousel.
-- [ ] Consolidate typography.
+- [x] Consolidate typography.
 - [ ] Strengthen the transfer + apparel blending section.
 - [ ] Refine the promotional banner.
 - [ ] Finalize the last card.
