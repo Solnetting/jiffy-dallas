@@ -59,3 +59,23 @@ the integration points are the address forms, product links, and upload panel.
   it contracts into the left column, then reveals the title, filters, and all
   product rows.
 - A fixed support-chat entry point remains available throughout the page.
+
+## Todo
+
+### No address
+
+- [ ] Make the S1 left upload panel visually distinct from the right proof carousel.
+- [ ] Consolidate typography.
+- [ ] Strengthen the transfer + apparel blending section.
+- [ ] Refine the promotional banner.
+- [ ] Finalize the last card.
+- [ ] Lock the map look and feel.
+- [x] Explore S1 colour modes: light and dark variants.
+
+### Address
+
+- [ ] Lock the design of the next delivery windows and maps.
+
+### Out of range
+
+- [ ] Define the overnight-delivery experience.

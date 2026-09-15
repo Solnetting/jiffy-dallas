@@ -135,7 +135,10 @@ s1v3.innerHTML = `
             <button class="s1v3-upload-files" type="button">Upload from your files <b aria-hidden="true">↗</b></button>
             <div class="s1v3-upload-tertiary" aria-label="More transfer options">
               <button type="button">DTF Transfer by size</button>
-              <button type="button">Gang Sheet transfer</button>
+              <button class="s1v3-theme-toggle" type="button" data-s1v3-theme-toggle aria-pressed="false" aria-label="Gang Sheet transfer. Switch to light mode">
+                <span>Gang Sheet transfer</span>
+                <span class="s1v3-theme-switch" aria-hidden="true"><i></i></span>
+              </button>
             </div>
           </div>
         </div>
@@ -232,6 +235,7 @@ const setupS1V3 = (section) => {
   const indexItems = [...section.querySelectorAll('[data-s1v3-step]')];
   const fileInput = section.querySelector('.s1v3-file-input');
   const upload = section.querySelector('.s1v3-upload');
+  const themeToggle = section.querySelector('[data-s1v3-theme-toggle]');
   let activeIndex = 0;
   let reveal = 0;
   let renderToken = 0;
@@ -279,6 +283,13 @@ const setupS1V3 = (section) => {
     activeIndex = target;
     render(direction);
   }));
+  themeToggle.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const lightMode = section.classList.toggle('is-light-mode');
+    themeToggle.setAttribute('aria-pressed', String(lightMode));
+    themeToggle.setAttribute('aria-label', `Gang Sheet transfer. Switch to ${lightMode ? 'dark' : 'light'} mode`);
+  });
   upload.querySelector('.s1v3-upload-files').addEventListener('click', () => fileInput.click());
   fileInput.addEventListener('change', () => {
     if (fileInput.files?.[0]) upload.querySelector('.s1v3-upload-files').textContent = 'Artwork selected';
