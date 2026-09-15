@@ -22,7 +22,7 @@ document.querySelector('#app').innerHTML = `
         <div class="jiffy-hero__delivery-status" hidden aria-live="polite">
           <span class="jiffy-hero__delivery-address"></span>
           <span class="jiffy-hero__delivery-divider" aria-hidden="true"></span>
-          <span class="jiffy-hero__delivery-window"><small>Today, 2 – 4 PM</small><strong class="jiffy-hero__delivery-countdown">--:--:--</strong></span>
+          <span class="jiffy-hero__delivery-window"><strong>Today, 2 – 4 PM</strong><small><span class="jiffy-hero__delivery-countdown">--:--:--</span> remaining</small></span>
           <button class="jiffy-hero__delivery-clear" type="button" aria-label="Clear delivery address">×</button>
         </div>
       </form>
@@ -119,7 +119,7 @@ promiseObserver.observe(localPromiseStrip);
 // S1 V3 is the only Section 1 quality experience kept in the build.
 const s1v3Cards = [
   { image: 'tiger-transfer-hero.png', title: 'Jiffy vs Others', subtitle: 'Sharper, denser, cleaner transfer results.', description: 'Compare fine edges, solid coverage, and a cleaner finish against the competing transfer.' },
-  { image: 'tiger-proof-detail.png', title: 'AI process', subtitle: 'Artwork analyzed and prepared for print.', description: 'Your artwork is checked and prepared before print so detail and color stay true to the design.' },
+  { image: 'tiger-proof-detail.png', title: 'Ai process', subtitle: 'Artwork analyzed and prepared for print.', description: 'Your artwork is checked and prepared before print so detail and color stay true to the design.' },
   { image: 'tiger-proof-peel.png', title: 'Hot peel', subtitle: 'Clean release immediately after pressing.', description: 'A clean release immediately after pressing means less waiting between the press and the finished garment.' },
   { image: 'tiger-proof-color.png', title: 'Color accuracy', subtitle: 'True color with fine detail, up close.', description: 'Richer detail and truer color set a higher standard in every transfer.' },
 ];
