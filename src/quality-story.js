@@ -10,10 +10,10 @@ document.querySelector('#app').innerHTML = `
     </header>
     <div class="jiffy-hero__content">
       <p class="jiffy-hero__eyebrow"><span></span>Now delivering · Dallas-Fort Worth</p>
-      <h1 id="jiffy-hero-title">Transfers + blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.</h1>
+      <h1 id="jiffy-hero-title">Transfers + blanks.<br /><mark>Delivered together.</mark><br />In hours.</h1>
       <p class="jiffy-hero__lede">Order this morning. Press this afternoon.</p>
       <form class="jiffy-hero__address" action="https://www.jiffy.com/" method="get">
-        <div class="jiffy-hero__sticky-brand" aria-label="Jiffy Local Dallas–Fort Worth"><img src="${asset('jiffy-local-logo.svg')}" alt="Jiffy Local" /><span>Dallas–Fort Worth</span></div>
+        <div class="jiffy-hero__sticky-brand local-mark" aria-label="Jiffy Local Dallas–Fort Worth">Jiffy Local <span aria-hidden="true"></span><small>Dallas–Fort Worth</small></div>
         <div class="jiffy-hero__address-panel">
           <label><img src="${asset('address-checker-panel-location.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
           <button type="submit"><span>Check your delivery time</span></button>
@@ -66,7 +66,6 @@ blanksSection.innerHTML = `
   <div class="blanks-sticky">
     <div class="blanks-shell">
       <header class="blanks-header" aria-hidden="true">
-        <div class="local-mark">Jiffy Local <span></span><small>Dallas–Fort Worth</small></div>
         <div class="story-words">Ideas <b>Local</b> Wear <i>Further</i><em></em></div>
       </header>
       <div class="blanks-hero-title">
@@ -114,9 +113,6 @@ s1v3.setAttribute('aria-label', 'DTF quality carousel with artwork upload');
 s1v3.innerHTML = `
   <div class="s1v3-sticky">
     <div class="s1v3-canvas">
-      <header class="s1v3-nav">
-        <div class="s1v3-local-mark">Jiffy Local <span></span><small>Dallas–Fort Worth</small></div>
-      </header>
       <div class="s1v3-inner">
     <div class="s1v3-main">
       <figure class="s1v3-hero">
@@ -326,10 +322,29 @@ const setupS1V3 = (section) => {
 };
 setupS1V3(s1v3);
 
-// The hero now carries the delivery value props directly. Move from the
-// transfer proof straight into the apparel section rather than rendering a
-// second box banner below it.
-s1v3.after(blanksSection);
+// Pairing bridge: the generated scene is the full-width visual, while the
+// headline and supporting copy remain live DOM over its open left side.
+const pairingExploration = document.createElement('section');
+pairingExploration.className = 'pairing-exploration';
+pairingExploration.setAttribute('aria-label', 'Transfers and blank apparel delivered together');
+pairingExploration.innerHTML = `
+  <div class="pairing-exploration__inner">
+    <div class="pairing-exploration__copy">
+      <h2><span class="pairing-exploration__line">PAIR IT UP<span>.</span></span><br /><span class="pairing-exploration__line">ONE DELIVERY<span>.</span></span><br /><span class="pairing-exploration__tag">IN HOURS.</span></h2>
+      <p><span>Transfers and blanks, delivered together.</span><br /><span>Delivered in hours, from the same local source.</span></p>
+    </div>
+    <figure class="pairing-exploration__package" aria-label="Jiffy DTF delivery scene">
+      <img src="${asset('pairing-bridge-generated.png')}" alt="Jiffy DTF box with blank apparel and loose transfers." />
+    </figure>
+  </div>`;
+s1v3.after(pairingExploration);
+pairingExploration.after(blanksSection);
+const pairingObserver = new IntersectionObserver(([entry], observer) => {
+  if (!entry.isIntersecting) return;
+  pairingExploration.classList.add('is-visible');
+  observer.disconnect();
+}, { threshold: .2 });
+pairingObserver.observe(pairingExploration);
 
 const apparelV2 = document.createElement('section');
 apparelV2.className = 'apparel-v2';
@@ -338,7 +353,6 @@ apparelV2.innerHTML = `
   <img class="apparel-v2__background" src="${asset('apparel-v2-background.png')}" alt="" />
   <div class="apparel-v2__shade"></div>
   <div class="apparel-v2__inner">
-    <div class="apparel-v2__brand">Jiffy Local<span></span><small>Dallas–Fort Worth</small></div>
     <div class="apparel-v2__copy"><h2 id="apparel-v2-title">Choose the blank<br />that fits the idea<span>.</span></h2><p>Compare materials, weight, fit, and color before you choose.</p></div>
     <div class="apparel-v2__products" aria-label="Popular blanks">
       ${[
@@ -414,7 +428,6 @@ apparelV3.setAttribute('aria-labelledby', 'apparel-v3-title');
 apparelV3.innerHTML = `
   <div class="apparel-v3__inner">
     <header class="apparel-v3__topline">
-      <div class="apparel-v3__brand">Jiffy Local<span></span><small>Dallas–Fort Worth</small></div>
       <nav class="apparel-v3__nav" aria-label="Jiffy Local sections"><a href="#">Ideas</a><a href="#delivery-coverage">Local</a><a href="#apparel-v3-title">Wear</a><a href="#">Further</a><i aria-hidden="true"></i></nav>
     </header>
     <div class="apparel-v3__showcase">
@@ -826,7 +839,7 @@ const clearDeliveryStatus = () => {
   if (heroEyebrow) heroEyebrow.hidden = false;
   if (heroHours) heroHours.hidden = false;
   if (deliveryOutcome) { deliveryOutcome.hidden = true; deliveryOutcome.replaceChildren(); }
-  if (heroTitle) heroTitle.innerHTML = 'Transfers and blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.';
+  if (heroTitle) heroTitle.innerHTML = 'Transfers + blanks.<br /><mark>Delivered together.</mark><br />In hours.';
   if (heroLede) heroLede.textContent = 'Order this morning. Press this afternoon.';
   if (heroHours) heroHours.innerHTML = `<img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas`;
   window.localStorage.removeItem(deliveryStateKey);

@@ -102,6 +102,9 @@
 }
 .jiffy-hero__address.is-sticky .jiffy-hero__sticky-brand{display:flex;flex:1 1 0;align-items:center;gap:.75rem;color:#14213d;text-transform:uppercase;white-space:nowrap}
 .jiffy-hero__sticky-brand img{width:6.25rem;height:1.8rem;object-fit:contain}.jiffy-hero__sticky-brand span{font:700 .58rem/1 Inter,sans-serif;letter-spacing:0}
+.jiffy-hero__address.is-sticky .jiffy-hero__sticky-brand.local-mark{gap:.75rem;text-transform:none}
+.jiffy-hero__address.is-sticky .jiffy-hero__sticky-brand.local-mark span{width:2rem;height:.3rem;background:#ffc800}
+.jiffy-hero__address.is-sticky .jiffy-hero__sticky-brand.local-mark small{font:700 .7rem/1 Inter,sans-serif;letter-spacing:0;text-transform:uppercase;color:#72798a}
 .jiffy-hero__address.is-sticky .jiffy-hero__address-panel{flex:0 1 min(42rem,42vw);width:auto;min-width:0;margin:0;background:transparent}
 .jiffy-hero__address.is-sticky .jiffy-hero__address-panel label{min-width:0}
 .jiffy-hero__address.is-sticky .jiffy-hero__sticky-links{display:flex;flex:1 1 0;justify-content:flex-end;align-items:center;gap:1.5rem;color:#14213d;font:700 .72rem/1 Inter,sans-serif;text-transform:uppercase;white-space:nowrap}

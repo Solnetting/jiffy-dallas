@@ -37,6 +37,7 @@
 .pairing-exploration__copy h2>span:nth-child(3){transition-delay:.16s}
 .pairing-exploration .pairing-exploration__copy h2>.pairing-exploration__line{color:#14213d}
 .pairing-exploration .pairing-exploration__copy h2>.pairing-exploration__line>span{color:#ffc800}
+.pairing-exploration .pairing-exploration__copy h2>.pairing-exploration__tag{display:inline-block;margin-top:.28em;padding:.16em .38em .12em;background:#ef2b22;color:#fff;font:900 .42em/1 Poppins,Inter,sans-serif;letter-spacing:.01em;transform:rotate(-1.5deg)}
 .pairing-exploration__copy p{
   margin:clamp(1.25rem,2vw,2rem) 0 0;
   color:#53647e;
