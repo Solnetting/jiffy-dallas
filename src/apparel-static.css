@@ -46,8 +46,8 @@
 .blanks-story--static .blanks-colour-option>small{color:#6a7487;font:500 .68rem/1 Inter,sans-serif}
 .blanks-story--static .blanks-static-toolbar>p{flex:0 0 auto;margin:0;color:#6a7487;font:500 .78rem/1 Inter,sans-serif;white-space:nowrap}
 .blanks-story--static .blanks-static-toolbar>p b{color:#14213d;font-weight:700}
-.blanks-story--static .blanks-static-grid{--blank-card-height:clamp(14.5rem,19vw,19rem);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:var(--blank-card-height);align-items:stretch;gap:clamp(.65rem,1vw,1rem)}
-.blanks-story--static .blanks-static-grid .blanks-product{display:flex;height:100%;min-height:0;flex-direction:column;align-items:center;min-width:0;overflow:hidden;padding:.55rem .55rem .75rem;border:1px solid rgba(255,255,255,.78);border-radius:1rem;background:rgba(255,255,255,.68);box-shadow:0 .65rem 1.8rem rgba(20,33,61,.08);color:#14213d;text-align:center;text-decoration:none;transition:background .2s ease,box-shadow .2s ease,transform .2s ease}
+.blanks-story--static .blanks-static-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(.65rem,1vw,1rem)}
+.blanks-story--static .blanks-static-grid .blanks-product{display:flex;flex-direction:column;align-items:center;min-width:0;overflow:hidden;padding:.55rem .55rem .75rem;border:1px solid rgba(255,255,255,.78);border-radius:1rem;background:rgba(255,255,255,.68);box-shadow:0 .65rem 1.8rem rgba(20,33,61,.08);color:#14213d;text-align:center;text-decoration:none;transition:background .2s ease,box-shadow .2s ease,transform .2s ease}
 .blanks-story--static .blanks-static-grid .blanks-product:hover,.blanks-story--static .blanks-static-grid .blanks-product:focus-visible{background:rgba(255,255,255,.94);box-shadow:0 .9rem 2rem rgba(20,33,61,.14);outline:0;transform:translateY(-.2rem)}
 .blanks-story--static .blanks-static-grid .blanks-product[hidden]{display:none}
 .blanks-story--static .blanks-static-grid .blanks-product>img{width:100%;aspect-ratio:1.18/1;object-fit:contain;object-position:center bottom;border-radius:.72rem;background:transparent}

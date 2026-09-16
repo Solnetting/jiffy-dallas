@@ -539,6 +539,7 @@ coverageStory.innerHTML = `
         <div class="coverage-story__map-scene">
           <img class="coverage-story__map-image coverage-story__map-image--quiet" src="${asset('texas-regional-wide-quiet.svg')}" alt="Map of Texas and its major delivery destinations" />
           <img class="coverage-story__map-image coverage-story__map-image--full" src="${asset('texas-regional-wide-complete.svg')}" alt="" aria-hidden="true" />
+          <img class="coverage-story__map-image coverage-story__map-image--dfw" src="${asset('texas-dfw-service-area.svg')}" alt="" aria-hidden="true" />
         </div>
       </div>
       <p class="coverage-story__attribution">Map reference supplied by Jiffy</p>
