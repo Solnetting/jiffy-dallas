@@ -177,7 +177,7 @@ s1v3.innerHTML = `
         </div>
         <nav class="s1v3-index" aria-label="Explore quality proof">
           ${s1v3Cards.map(({ title, subtitle, description }, index) => `
-            <button type="button" class="${index === 0 ? 'is-active' : ''}" data-s1v3-step="${index}" aria-current="${index === 0 ? 'step' : 'false'}" aria-expanded="${index === 0 ? 'true' : 'false'}">
+            <div class="s1v3-index-item${index === 0 ? ' is-active' : ''}" data-s1v3-step="${index}" aria-current="${index === 0 ? 'step' : 'false'}">
               <span class="s1v3-index__label">
                 <i aria-hidden="true"></i>
                 <span class="s1v3-index__copy">
@@ -186,7 +186,7 @@ s1v3.innerHTML = `
                 </span>
               </span>
               <p class="s1v3-index__description">${description}</p>
-            </button>
+            </div>
           `).join('')}
         </nav>
       </div>
@@ -279,7 +279,6 @@ const setupS1V3 = (section) => {
       const active = index === activeIndex;
       item.classList.toggle('is-active', active);
       item.setAttribute('aria-current', active ? 'step' : 'false');
-      item.setAttribute('aria-expanded', active ? String(!item.classList.contains('is-collapsed')) : 'false');
     });
     window.clearTimeout(copyTimer);
     if (immediate) cards[activeIndex]?.classList.add('is-copy-ready');
@@ -292,15 +291,12 @@ const setupS1V3 = (section) => {
     }
   };
 
-  indexItems.forEach((item) => item.addEventListener('click', () => {
+  // The proof topics are a hover-driven index. They reveal the matching image
+  // without behaving like buttons or toggling a collapsed state on click.
+  indexItems.forEach((item) => item.addEventListener('mouseenter', () => {
     const target = Number(item.dataset.s1v3Step);
-    if (target === activeIndex) {
-      const collapsed = item.classList.toggle('is-collapsed');
-      item.setAttribute('aria-expanded', String(!collapsed));
-      return;
-    }
+    if (target === activeIndex) return;
     const direction = target > activeIndex ? 1 : -1;
-    indexItems.forEach((indexItem) => indexItem.classList.remove('is-collapsed'));
     activeIndex = target;
     render(direction);
   }));
@@ -419,6 +415,21 @@ const apparelV3Items = [
 ];
 
 const apparelColourSwatches = { White: '#ffffff', Black: '#111318', Grey: '#a9a9a4', Navy: '#14213d' };
+// The catalogue shows one representative swatch on each card. Keep the
+// remaining colour count visible beside it so shoppers know there are more
+// options without opening the product page.
+const apparelAdditionalColours = {
+  'GILDAN · G500': 18,
+  'GILDAN · G640': 17,
+  'COMFORT COLORS · C1717': 18,
+  'GILDAN · G300': 14,
+  'GILDAN · G180': 16,
+  'GILDAN · G800': 18,
+  'GILDAN · G500B': 12,
+  'BELLA + CANVAS · 3001C': 18,
+  'GILDAN · G185': 15,
+  'A4 · N3142': 8,
+};
 const apparelColourOptions = [...new Set(apparelV3Items.flatMap(([, , , , , , colours]) => colours))]
   .map((name) => ({ name, count: apparelV3Items.filter((item) => item[6].includes(name)).length, swatch: apparelColourSwatches[name] }));
 const apparelCardMeta = (brand) => {
@@ -515,10 +526,10 @@ finalBlanksCatalog.innerHTML = `
   </div>
   <div class="blanks-static-grid" aria-label="Blank apparel styles">
     ${apparelV3Items.map(([image, category, brand, name, wasPrice, price, colours], index) => `
-      <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" data-colours="${colours.join('|')}" aria-label="${brand} ${name}, ${colours.join(' or ')}, now from ${price}">
+      <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" data-colours="${colours.join('|')}" aria-label="${brand} ${name}, ${colours.join(' or ')}, plus ${apparelAdditionalColours[brand] ?? 1} more colours, now from ${price}">
         <img src="${asset(apparelCardPortraits[index] || image)}" alt="${name}" />
         ${apparelCardMeta(brand)}<strong>${name}</strong>
-        <span class="blanks-product__colour" aria-label="Colour ${colours[0]}"><i style="--swatch:${apparelColourSwatches[colours[0]]}"></i>${colours[0]}</span>
+        <span class="blanks-product__colour" aria-label="Colour ${colours[0]}, plus ${apparelAdditionalColours[brand] ?? 1} more"><i style="--swatch:${apparelColourSwatches[colours[0]]}"></i>${colours[0]}<b>+${apparelAdditionalColours[brand] ?? 1}</b></span>
         <span class="blanks-product__price"><em>was ${wasPrice}</em><b>from ${price}</b></span>
         <span class="blanks-product__rating">★★★★<i>★</i> <em>(2,500)</em></span>
       </a>`).join('')}

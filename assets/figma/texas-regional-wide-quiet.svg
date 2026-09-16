@@ -271,8 +271,8 @@
 <text x="938.0" y="714.9" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="600" letter-spacing="8" fill="#304d6b" opacity="1">TEXAS</text>
 <text x="569.7" y="1155.8" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="400" letter-spacing="8" fill="#718491" opacity=".24">MEXICO</text>
 <text x="1445.0" y="1159.7" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-style="italic" letter-spacing="6" fill="#7899ad" opacity=".26">Gulf of Mexico</text>
-<circle cx="1103.0" cy="575.0" r="5" fill="#183e72" opacity="1" stroke="#fff" stroke-width="2"/>
-<text x="1112.0" y="581.0" font-family="Arial,sans-serif" font-size="18" font-weight="600" fill="#244a75" opacity="1">Dallas–Fort Worth</text>
+<circle cx="1042.0" cy="579.0" r="4" fill="#183e72" opacity="1"/>
+<text x="1112.0" y="584.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="600" fill="#244a75" opacity="1">Dallas–Fort Worth</text>
 <circle cx="1054.4" cy="803.8" r="3" fill="#183e72" opacity=".3" stroke="#fff" stroke-width="1"/>
 <text x="1063.4" y="809.8" font-family="Arial,sans-serif" font-size="13" font-weight="400" fill="#668096" opacity=".24">Austin</text>
 <circle cx="998.5" cy="877.2" r="3" fill="#183e72" opacity=".3" stroke="#fff" stroke-width="1"/>

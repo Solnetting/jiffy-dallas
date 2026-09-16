@@ -63,28 +63,24 @@
 .s1v3-card.is-active.is-settled{z-index:3;opacity:1;transform:none}
 .s1v3-card figcaption{display:none}
 .s1v3-index{position:absolute;z-index:8;top:clamp(1.25rem,4vh,3.5rem);left:clamp(1.25rem,2.5vw,2.75rem);display:flex;width:min(22rem,42%);flex-direction:column;align-items:flex-start;gap:.65rem;pointer-events:auto}
-.s1v3-index button{display:grid;gap:.1rem;width:max-content;max-width:100%;min-height:3.7rem;padding:.85rem 1.15rem;border:1px solid rgba(255,255,255,.16);border-radius:1.7rem;background:linear-gradient(140deg,rgba(255,255,255,.16),rgba(255,255,255,.07) 48%,rgba(8,14,19,.42));box-shadow:0 .6rem 1.6rem rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.12),inset 0 -1px rgba(0,0,0,.12);color:rgba(255,255,255,.76);text-align:left;cursor:pointer;opacity:1;-webkit-backdrop-filter:blur(20px) saturate(125%);backdrop-filter:blur(20px) saturate(125%);transition:width .45s cubic-bezier(.22,1,.36,1),padding .35s ease,border-color .25s ease,background .25s ease,color .25s ease,box-shadow .25s ease,opacity .25s ease}
-.s1v3-index button:hover{border-color:rgba(255,255,255,.36);color:#fff;opacity:.72;outline:0}
-.s1v3-index button:focus-visible{border-color:rgba(255,255,255,.5);color:#fff;opacity:.78;outline:2px solid rgba(255,200,0,.75);outline-offset:3px}
-.s1v3-index button.is-active{width:100%;padding:1.15rem 1.35rem 1.25rem;border-color:rgba(255,255,255,.24);border-radius:1.45rem;background:linear-gradient(140deg,rgba(255,255,255,.2),rgba(255,255,255,.1) 45%,rgba(12,26,28,.62));box-shadow:0 1rem 2.5rem rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.18),inset 0 -1px rgba(0,0,0,.14);color:#fff;opacity:1}
+.s1v3-index-item{display:grid;gap:.1rem;width:max-content;max-width:100%;min-height:3.7rem;padding:.85rem 1.15rem;border:1px solid rgba(255,255,255,.16);border-radius:1.7rem;background:linear-gradient(140deg,rgba(255,255,255,.16),rgba(255,255,255,.07) 48%,rgba(8,14,19,.42));box-shadow:0 .6rem 1.6rem rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.12),inset 0 -1px rgba(0,0,0,.12);color:rgba(255,255,255,.76);text-align:left;cursor:default;opacity:1;-webkit-backdrop-filter:blur(20px) saturate(125%);backdrop-filter:blur(20px) saturate(125%);transition:width .45s cubic-bezier(.22,1,.36,1),padding .35s ease,border-color .25s ease,background .25s ease,color .25s ease,box-shadow .25s ease,opacity .25s ease}
+.s1v3-index-item:hover{border-color:rgba(255,255,255,.36);color:#fff;opacity:.72;outline:0}
+.s1v3-index-item.is-active{width:100%;padding:1.15rem 1.35rem 1.25rem;border-color:rgba(255,255,255,.24);border-radius:1.45rem;background:linear-gradient(140deg,rgba(255,255,255,.2),rgba(255,255,255,.1) 45%,rgba(12,26,28,.62));box-shadow:0 1rem 2.5rem rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.18),inset 0 -1px rgba(0,0,0,.14);color:#fff;opacity:1}
 .s1v3-index__label{display:flex;align-items:center;gap:.72rem;min-width:0}
 .s1v3-index__label i{position:relative;display:block;flex:0 0 auto;width:1.15rem;height:1.15rem;border:1px solid rgba(255,255,255,.62);border-radius:50%;background:rgba(255,255,255,.03);color:rgba(255,255,255,.76);transition:border-color .25s ease,background .25s ease,color .25s ease,box-shadow .25s ease}
 .s1v3-index__label i::before,.s1v3-index__label i::after{position:absolute;top:50%;left:50%;content:"";display:block;background:currentColor;transform:translate(-50%,-50%);transition:opacity .25s ease,transform .25s ease}
 .s1v3-index__label i::before{width:.48rem;height:1px}
 .s1v3-index__label i::after{width:1px;height:.48rem}
-.s1v3-index button.is-active .s1v3-index__label i{border-color:#ffc800;background:rgba(255,200,0,.12);color:#ffc800;box-shadow:0 0 0 .22rem rgba(255,200,0,.1)}
-.s1v3-index button.is-active .s1v3-index__label i::after{opacity:0;transform:translate(-50%,-50%) scaleY(0)}
+.s1v3-index-item.is-active .s1v3-index__label i{border-color:#ffc800;background:rgba(255,200,0,.12);color:#ffc800;box-shadow:0 0 0 .22rem rgba(255,200,0,.1)}
+.s1v3-index-item.is-active .s1v3-index__label i::after{opacity:0;transform:translate(-50%,-50%) scaleY(0)}
 .s1v3-index__copy{display:grid;gap:.22rem;min-width:0}
 .s1v3-index__label strong{overflow:hidden;font:400 14px/1.2 Inter,sans-serif;letter-spacing:0;text-overflow:ellipsis;white-space:nowrap}
 .s1v3-index__copy small{display:block;overflow:hidden;color:rgba(255,255,255,.64);font:400 12px/1.28 Inter,sans-serif;letter-spacing:0;text-overflow:ellipsis;white-space:nowrap}
-.s1v3-index button:not(.is-active) .s1v3-index__label strong{color:#fff}
-.s1v3-index button:not(.is-active) .s1v3-index__label i,.s1v3-index button:not(.is-active) .s1v3-index__copy small{opacity:.5}
-.s1v3-index button.is-active .s1v3-index__copy small{color:rgba(255,255,255,.72)}
+.s1v3-index-item:not(.is-active) .s1v3-index__label strong{color:#fff}
+.s1v3-index-item:not(.is-active) .s1v3-index__label i,.s1v3-index-item:not(.is-active) .s1v3-index__copy small{opacity:.5}
+.s1v3-index-item.is-active .s1v3-index__copy small{color:rgba(255,255,255,.72)}
 .s1v3-index__description{display:none;margin:0}
-.s1v3-index button.is-active .s1v3-index__description{display:block;margin-top:.85rem;color:rgba(255,255,255,.74);font:400 14px/1.42 Inter,sans-serif;letter-spacing:0}
-.s1v3-index button.is-active.is-collapsed{padding:.85rem 1.15rem;border-radius:1.7rem;background:linear-gradient(140deg,rgba(255,255,255,.16),rgba(255,255,255,.07) 48%,rgba(8,14,19,.42));box-shadow:0 .6rem 1.6rem rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.12),inset 0 -1px rgba(0,0,0,.12)}
-.s1v3-index button.is-active.is-collapsed .s1v3-index__description{display:none}
-.s1v3-index button.is-active.is-collapsed .s1v3-index__label i::after{opacity:1;transform:translate(-50%,-50%) scaleY(1)}
+.s1v3-index-item.is-active .s1v3-index__description{display:block;margin-top:.85rem;color:rgba(255,255,255,.74);font:400 14px/1.42 Inter,sans-serif;letter-spacing:0}
 
 /* Bring the four glass topics in as one quick top-to-bottom sequence after
    the proof viewport is ready. The stagger is 140ms, so item four begins
@@ -93,13 +89,13 @@
   from{opacity:0;transform:translateY(-.8rem)}
   to{opacity:1;transform:none}
 }
-.s1v3-story.is-carousel-ready .s1v3-index button{
+.s1v3-story.is-carousel-ready .s1v3-index-item{
   animation:s1v3-index-enter .32s cubic-bezier(.22,1,.36,1) both;
 }
-.s1v3-story.is-carousel-ready .s1v3-index button:nth-child(1){animation-delay:0s}
-.s1v3-story.is-carousel-ready .s1v3-index button:nth-child(2){animation-delay:.14s}
-.s1v3-story.is-carousel-ready .s1v3-index button:nth-child(3){animation-delay:.28s}
-.s1v3-story.is-carousel-ready .s1v3-index button:nth-child(4){animation-delay:.42s}
+.s1v3-story.is-carousel-ready .s1v3-index-item:nth-child(1){animation-delay:0s}
+.s1v3-story.is-carousel-ready .s1v3-index-item:nth-child(2){animation-delay:.14s}
+.s1v3-story.is-carousel-ready .s1v3-index-item:nth-child(3){animation-delay:.28s}
+.s1v3-story.is-carousel-ready .s1v3-index-item:nth-child(4){animation-delay:.42s}
 
 @media(max-width:900px){
   .s1v3-story{height:180vh;--s1v3-side:1rem;--s1v3-panel-width:calc(100vw - 2rem);--s1v3-gap:1rem;--s1v3-stage-width:calc(100vw - 2rem);--s1v3-carousel-gap:.75rem}
@@ -125,19 +121,19 @@
   .s1v3-card figcaption strong{font-size:2.4rem}
   .s1v3-card figcaption span{font-size:.9rem}
   .s1v3-index{top:1rem;left:1rem;width:min(19rem,calc(100% - 2rem));gap:.45rem}
-  .s1v3-index button{padding:.65rem .85rem}
-  .s1v3-index button.is-active{padding:.95rem 1rem 1rem}
+  .s1v3-index-item{padding:.65rem .85rem}
+  .s1v3-index-item.is-active{padding:.95rem 1rem 1rem}
   .s1v3-index__label{gap:.55rem}
   .s1v3-index__label strong{font-size:.82rem}
   .s1v3-index__copy small{font-size:.68rem}
-  .s1v3-index button.is-active .s1v3-index__description{margin-top:.65rem;font-size:.8rem}
+  .s1v3-index-item.is-active .s1v3-index__description{margin-top:.65rem;font-size:.8rem}
 }
 @media(min-width:901px) and (max-height:760px){
   .s1v3-upload{padding-top:2.5rem;padding-bottom:2rem}
   .s1v3-upload-icon{width:220px}
   .s1v3-upload-actions{gap:1.25rem}
 }
-@media(prefers-reduced-motion:reduce){.s1v3-story{height:auto}.s1v3-sticky{position:relative;height:100svh}.s1v3-hero,.s1v3-upload,.s1v3-card,.s1v3-index button{transition:none}.s1v3-story.is-carousel-ready .s1v3-index button{animation:none;opacity:1;transform:none}.s1v3-hero-copy{opacity:1;transform:none}.s1v3-upload,.s1v3-stage{opacity:1}}
+@media(prefers-reduced-motion:reduce){.s1v3-story{height:auto}.s1v3-sticky{position:relative;height:100svh}.s1v3-hero,.s1v3-upload,.s1v3-card,.s1v3-index-item{transition:none}.s1v3-story.is-carousel-ready .s1v3-index-item{animation:none;opacity:1;transform:none}.s1v3-hero-copy{opacity:1;transform:none}.s1v3-upload,.s1v3-stage{opacity:1}}
 
 /* S1-only light variant. The Gang Sheet transfer action changes the local
    theme without adding another visible control to the upload panel. */
@@ -171,15 +167,13 @@
 
 .s1v3-story.is-light-mode .s1v3-card{background:#f4f1eb;box-shadow:0 1.5rem 3.5rem rgba(20,33,61,.14)}
 .s1v3-story.is-light-mode .s1v3-card:after{background:linear-gradient(90deg,rgba(244,241,235,.42),rgba(244,241,235,.12) 38%,rgba(244,241,235,.02) 76%),linear-gradient(0deg,rgba(244,241,235,.24),transparent 50%)}
-.s1v3-story.is-light-mode .s1v3-index button{border-color:rgba(20,33,61,.16);background:linear-gradient(140deg,rgba(255,255,255,.76),rgba(255,255,255,.52) 48%,rgba(230,226,218,.56));box-shadow:0 .6rem 1.6rem rgba(20,33,61,.12),inset 0 1px rgba(255,255,255,.8),inset 0 -1px rgba(20,33,61,.06);color:rgba(20,33,61,.76)}
-.s1v3-story.is-light-mode .s1v3-index button:hover{border-color:rgba(20,33,61,.3);color:#14213d;opacity:.82}
-.s1v3-story.is-light-mode .s1v3-index button:focus-visible{border-color:rgba(20,33,61,.4);color:#14213d;outline-color:rgba(255,200,0,.85)}
-.s1v3-story.is-light-mode .s1v3-index button.is-active{border-color:rgba(20,33,61,.18);background:linear-gradient(140deg,rgba(255,255,255,.88),rgba(255,255,255,.68) 45%,rgba(226,232,232,.72));box-shadow:0 1rem 2.5rem rgba(20,33,61,.18),inset 0 1px rgba(255,255,255,.9),inset 0 -1px rgba(20,33,61,.08);color:#14213d}
-.s1v3-story.is-light-mode .s1v3-index__label strong,.s1v3-story.is-light-mode .s1v3-index button:not(.is-active) .s1v3-index__label strong{color:#14213d}
+.s1v3-story.is-light-mode .s1v3-index-item{border-color:rgba(20,33,61,.16);background:linear-gradient(140deg,rgba(255,255,255,.76),rgba(255,255,255,.52) 48%,rgba(230,226,218,.56));box-shadow:0 .6rem 1.6rem rgba(20,33,61,.12),inset 0 1px rgba(255,255,255,.8),inset 0 -1px rgba(20,33,61,.06);color:rgba(20,33,61,.76)}
+.s1v3-story.is-light-mode .s1v3-index-item:hover{border-color:rgba(20,33,61,.3);color:#14213d;opacity:.82}
+.s1v3-story.is-light-mode .s1v3-index-item.is-active{border-color:rgba(20,33,61,.18);background:linear-gradient(140deg,rgba(255,255,255,.88),rgba(255,255,255,.68) 45%,rgba(226,232,232,.72));box-shadow:0 1rem 2.5rem rgba(20,33,61,.18),inset 0 1px rgba(255,255,255,.9),inset 0 -1px rgba(20,33,61,.08);color:#14213d}
+.s1v3-story.is-light-mode .s1v3-index__label strong,.s1v3-story.is-light-mode .s1v3-index-item:not(.is-active) .s1v3-index__label strong{color:#14213d}
 .s1v3-story.is-light-mode .s1v3-index__copy small{color:rgba(20,33,61,.62)}
-.s1v3-story.is-light-mode .s1v3-index button:not(.is-active) .s1v3-index__label i{border-color:rgba(20,33,61,.48);background:rgba(20,33,61,.03);color:rgba(20,33,61,.68)}
-.s1v3-story.is-light-mode .s1v3-index button:not(.is-active) .s1v3-index__copy small{opacity:.5}
-.s1v3-story.is-light-mode .s1v3-index button.is-active .s1v3-index__copy small{color:rgba(20,33,61,.68)}
-.s1v3-story.is-light-mode .s1v3-index button.is-active .s1v3-index__label i{border-color:#d99f00;background:rgba(255,200,0,.14);color:#d99f00;box-shadow:0 0 0 .22rem rgba(255,200,0,.12)}
-.s1v3-story.is-light-mode .s1v3-index button.is-active .s1v3-index__description{color:rgba(20,33,61,.72)}
-.s1v3-story.is-light-mode .s1v3-index button.is-active.is-collapsed{background:linear-gradient(140deg,rgba(255,255,255,.76),rgba(255,255,255,.52) 48%,rgba(230,226,218,.56));box-shadow:0 .6rem 1.6rem rgba(20,33,61,.12),inset 0 1px rgba(255,255,255,.8),inset 0 -1px rgba(20,33,61,.06)}
+.s1v3-story.is-light-mode .s1v3-index-item:not(.is-active) .s1v3-index__label i{border-color:rgba(20,33,61,.48);background:rgba(20,33,61,.03);color:rgba(20,33,61,.68)}
+.s1v3-story.is-light-mode .s1v3-index-item:not(.is-active) .s1v3-index__copy small{opacity:.5}
+.s1v3-story.is-light-mode .s1v3-index-item.is-active .s1v3-index__copy small{color:rgba(20,33,61,.68)}
+.s1v3-story.is-light-mode .s1v3-index-item.is-active .s1v3-index__label i{border-color:#d99f00;background:rgba(255,200,0,.14);color:#d99f00;box-shadow:0 0 0 .22rem rgba(255,200,0,.12)}
+.s1v3-story.is-light-mode .s1v3-index-item.is-active .s1v3-index__description{color:rgba(20,33,61,.72)}
