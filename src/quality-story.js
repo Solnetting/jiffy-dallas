@@ -2,17 +2,15 @@ const asset = (file) => `${import.meta.env.BASE_URL}figma/${file}`;
 
 document.querySelector('#app').innerHTML = `
   <section class="jiffy-hero" aria-labelledby="jiffy-hero-title">
-    <video class="jiffy-hero__image" autoplay muted loop playsinline aria-hidden="true">
-      <source src="${asset('jiffy-hero-video.mp4')}?v=3" type="video/mp4" />
-    </video>
+    <img class="jiffy-hero__image" src="${asset('jiffy-hero-no-box.jpg')}?v=1" alt="" aria-hidden="true" />
     <div class="jiffy-hero__shade"></div>
     <header class="jiffy-hero__nav">
       <div class="jiffy-hero__brand"><img class="jiffy-hero__logo" src="${asset('jiffy-local-logo.svg')}" alt="Jiffy" /><span class="jiffy-hero__location">DALLAS-FORT WORTH</span></div>
-      <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="#transfers-section" data-nav-scroll="transfers">Transfers</a><a href="#blanks-section" data-nav-scroll="blanks">Blanks</a><span class="jiffy-hero__coming-soon" tabindex="0" aria-disabled="true">Custom<span role="tooltip">Available soon</span></span><a class="jiffy-hero__sign-in" href="https://www.jiffy.com/account/login">Sign in</a></nav>
+      <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="#transfers-section" data-nav-scroll="transfers">Transfers</a><a href="#blanks-section" data-nav-scroll="blanks">Blanks</a><a class="jiffy-hero__sign-in" href="https://www.jiffy.com/account/login">Sign in</a></nav>
     </header>
     <div class="jiffy-hero__content">
       <p class="jiffy-hero__eyebrow"><span></span>Now delivering · Dallas-Fort Worth</p>
-      <h1 id="jiffy-hero-title">Transfers and blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.</h1>
+      <h1 id="jiffy-hero-title">Transfers + blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.</h1>
       <p class="jiffy-hero__lede">Order this morning. Press this afternoon.</p>
       <form class="jiffy-hero__address" action="https://www.jiffy.com/" method="get">
         <div class="jiffy-hero__sticky-brand" aria-label="Jiffy Local Dallas–Fort Worth"><img src="${asset('jiffy-local-logo.svg')}" alt="Jiffy Local" /><span>Dallas–Fort Worth</span></div>
@@ -20,7 +18,7 @@ document.querySelector('#app').innerHTML = `
           <label><img src="${asset('address-checker-panel-location.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
           <button type="submit"><span>Check your delivery time</span></button>
         </div>
-        <nav class="jiffy-hero__sticky-links" aria-label="Main navigation"><a href="#transfers-section" data-nav-scroll="transfers">Transfers</a><a href="#blanks-section" data-nav-scroll="blanks">Blanks</a><span aria-disabled="true">Custom</span><a class="jiffy-hero__sign-in jiffy-hero__sticky-sign-in" href="https://www.jiffy.com/account/login">Sign in</a></nav>
+        <nav class="jiffy-hero__sticky-links" aria-label="Main navigation"><a href="#transfers-section" data-nav-scroll="transfers">Transfers</a><a href="#blanks-section" data-nav-scroll="blanks">Blanks</a><a class="jiffy-hero__sign-in jiffy-hero__sticky-sign-in" href="https://www.jiffy.com/account/login">Sign in</a></nav>
         <div class="jiffy-hero__delivery-status" hidden aria-live="polite">
           <span class="jiffy-hero__delivery-address"></span>
           <span class="jiffy-hero__delivery-divider" aria-hidden="true"></span>
@@ -31,6 +29,32 @@ document.querySelector('#app').innerHTML = `
       <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
       <div class="jiffy-hero__delivery-outcome" hidden aria-live="polite"></div>
     </div>
+    <section class="jiffy-hero__value-props" aria-label="Jiffy Local benefits">
+      <article class="jiffy-hero__value-prop">
+        <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-truck.svg')}" alt="" /></span>
+        <div>
+          <p>First delivery</p>
+          <h2>FREE</h2>
+          <span>Delivered across Dallas–Fort Worth. On us.</span>
+        </div>
+      </article>
+      <article class="jiffy-hero__value-prop">
+        <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-shirt.svg')}" alt="" /></span>
+        <div>
+          <p>Blanks</p>
+          <h2>20+ shirt styles <small>from <b>$2.41</b></small></h2>
+          <span>Premium brands, ready for your design.</span>
+        </div>
+      </article>
+      <article class="jiffy-hero__value-prop">
+        <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-printer.svg')}" alt="" /></span>
+        <div>
+          <p>DTF</p>
+          <h2>$0.02 <small>PER LINE.</small></h2>
+          <span>High-quality printing for every design.</span>
+        </div>
+      </article>
+    </section>
   </section>
 `;
 
@@ -75,47 +99,6 @@ blanksSection.innerHTML = `
     </div>
   </div>`;
 const originalHero = document.querySelector('.jiffy-hero');
-const localPromiseStrip = document.createElement('section');
-localPromiseStrip.className = 'local-promise-strip';
-localPromiseStrip.setAttribute('aria-label', 'Blanks and transfers delivered together');
-localPromiseStrip.innerHTML = `
-  <div class="local-promise-strip__inner">
-    <div class="local-promise-strip__content">
-      <header class="local-promise-strip__headline">
-        <h2><span>Blanks + transfers.</span><strong>Delivered together.</strong><span>One order.</span></h2>
-      </header>
-      <div class="local-promise-strip__benefits" aria-label="Delivery benefits">
-        <article class="local-promise-strip__benefit local-promise-strip__benefit--delivery" data-promise-item>
-          <div class="local-promise-strip__benefit-icon" aria-hidden="true"><svg viewBox="0 0 48 32"><path d="M2 21h27V5H2v16Zm27-11h9l8 8v3H29V10Zm-20 8a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm27 0a5 5 0 1 0 0 10 5 5 0 0 0-10 0Z"/></svg></div>
-          <div><p>First delivery</p><h3>FREE</h3><span>Delivered across Dallas–Fort Worth. On us.</span></div>
-        </article>
-        <article class="local-promise-strip__benefit local-promise-strip__benefit--apparel" data-promise-item>
-          <div class="local-promise-strip__benefit-icon" aria-hidden="true"><svg viewBox="0 0 48 40"><path d="m15 3 9 7 9-7 12 8-6 9-6-3v20H15V17l-6 3-6-9 12-8Z"/></svg></div>
-          <div><p>Blanks</p><h3>20+ shirt styles <small>from <b>$2.41</b></small></h3><span>Premium brands, ready for your design.</span></div>
-        </article>
-        <article class="local-promise-strip__benefit local-promise-strip__benefit--printing" data-promise-item>
-          <div class="local-promise-strip__benefit-icon" aria-hidden="true"><svg viewBox="0 0 40 48"><path d="M8 2h18l8 8v36H8V2Zm18 1v9h8M13 25h16M13 32h16M13 39h10"/></svg></div>
-          <div><p>DTF</p><h3>$0.02 <small>PER LINE.</small></h3><span>High-quality printing for every design.</span></div>
-        </article>
-      </div>
-    </div>
-    <div class="local-promise-strip__scene" aria-hidden="true">
-      <div class="local-promise-strip__scene-glow"></div>
-      <figure class="local-promise-strip__box-image">
-        <img src="${asset('delivered-together-box-cutout.png')}?v=2" alt="A Jiffy delivery box with a blank shirt and DTF transfer together." />
-      </figure>
-    </div>
-  </div>`;
-originalHero?.after(localPromiseStrip);
-const promiseObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      localPromiseStrip.classList.add('is-revealed');
-      promiseObserver.unobserve(localPromiseStrip);
-    }
-  });
-}, { threshold:.35 });
-promiseObserver.observe(localPromiseStrip);
 // S1 V3 is the only Section 1 quality experience kept in the build.
 const s1v3Cards = [
   { image: 'tiger-transfer-hero.png', title: 'Jiffy vs Others', subtitle: 'Sharper, denser, cleaner transfer results.', description: 'Compare fine edges, solid coverage, and a cleaner finish against the competing transfer.' },
@@ -195,7 +178,7 @@ s1v3.innerHTML = `
     </div>
   </div>
 `;
-localPromiseStrip.after(s1v3);
+originalHero?.after(s1v3);
 
 // This panel follows the promotional banner, but is reserved for addresses
 // that qualify for Jiffy Local. Its schedule mirrors the confirmed delivery
@@ -249,7 +232,7 @@ deliveryProof.innerHTML = `
       </div>
     </article>
   </div>`;
-localPromiseStrip.after(deliveryProof);
+s1v3.after(deliveryProof);
 
 const setupS1V3 = (section) => {
   const cards = [...section.querySelectorAll('.s1v3-card')];
@@ -343,29 +326,10 @@ const setupS1V3 = (section) => {
 };
 setupS1V3(s1v3);
 
-// Pairing bridge: the generated scene is the full-width visual, while the
-// headline and supporting copy remain live DOM over its open left side.
-const pairingExploration = document.createElement('section');
-pairingExploration.className = 'pairing-exploration';
-pairingExploration.setAttribute('aria-label', 'Transfers and blank apparel delivered together');
-pairingExploration.innerHTML = `
-  <div class="pairing-exploration__inner">
-    <div class="pairing-exploration__copy">
-      <h2><span class="pairing-exploration__line">PAIR IT UP<span>.</span></span><br /><span class="pairing-exploration__line">ONE DELIVERY<span>.</span></span></h2>
-      <p><span>Transfers and blanks, delivered together.</span><br /><span>Delivered in hours, from the same local source.</span></p>
-    </div>
-    <figure class="pairing-exploration__package" aria-label="Jiffy DTF delivery scene">
-      <img src="${asset('pairing-bridge-generated.png')}" alt="Jiffy DTF box with blank apparel and loose transfers." />
-    </figure>
-  </div>`;
-s1v3.after(pairingExploration);
-pairingExploration.after(blanksSection);
-const pairingObserver = new IntersectionObserver(([entry], observer) => {
-  if (!entry.isIntersecting) return;
-  pairingExploration.classList.add('is-visible');
-  observer.disconnect();
-}, { threshold: .2 });
-pairingObserver.observe(pairingExploration);
+// The hero now carries the delivery value props directly. Move from the
+// transfer proof straight into the apparel section rather than rendering a
+// second box banner below it.
+s1v3.after(blanksSection);
 
 const apparelV2 = document.createElement('section');
 apparelV2.className = 'apparel-v2';
@@ -647,22 +611,105 @@ const setupCoverageStory = () => {
 };
 setupCoverageStory();
 
-const shopInRange = document.createElement('section');
-shopInRange.className = 'shop-in-range';
-shopInRange.setAttribute('aria-labelledby', 'shop-in-range-title');
-shopInRange.innerHTML = `
-  <img class="shop-in-range__background" src="${asset('shop-in-range-background.png')}" alt="" />
-  <div class="shop-in-range__shade"></div>
-  <div class="shop-in-range__inner">
-    <header><h2 id="shop-in-range-title">Is your shop in range?</h2><p>Type it in. If we cover you, you'll see the next window.</p></header>
-    <form class="shop-in-range__form">
-      <strong>Check your delivery time</strong>
-      <label><img src="${asset('shop-in-range-pin.svg')}" alt="" /><input type="text" name="shop-address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
-      <button type="submit">Check delivery time</button>
-    </form>
-    <p class="shop-in-range__trust"><img src="${asset('shop-in-range-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
-  </div>`;
-coverageStory.after(shopInRange);
+const calmTestimonials = document.createElement('section');
+calmTestimonials.className = 'calm-testimonials';
+calmTestimonials.setAttribute('aria-labelledby', 'calm-testimonials-title');
+const testimonials = [
+  {
+    image: 'author-portrait-2.png',
+    quote: "We switched to their DTF transfers six months ago and haven't looked back. The color vibrancy is unmatched and our customers keep coming back for more. Best supplier we've worked with.",
+    name: 'Sarah M.',
+    role: 'Owner, Custom Prints Co.',
+  },
+  {
+    image: 'author-portrait22.png',
+    quote: "Their blank tees are the softest we've found at this price point. Combined with their DTF transfers, our turnaround time dropped by half. Game changer for our small shop.",
+    name: 'Jordan P.',
+    role: 'Owner, Print Lab Supply',
+  },
+  {
+    image: 'author-portrait-1.png',
+    quote: "The DTF transfers press perfectly every time. We've had zero issues with adhesion or fading, even on our most demanding orders. Highly recommend.",
+    name: 'Maya R.',
+    role: 'Owner, Maker Supply Co.',
+  },
+  {
+    image: 'author-portrait.png',
+    quote: "The consistency of their blanks is what keeps us coming back. We've tried other suppliers, but the quality here is unmatched. DTF transfers apply like a dream.",
+    name: 'Chris T.',
+    role: 'Founder, Press & Thread',
+  },
+  {
+    image: 'author-daniela.png',
+    quote: "Ink Drop Studio relies on these blanks for all our custom orders. The DTF transfers are easy to weed and the finish is incredibly professional. We've seen a huge increase in repeat business.",
+    name: 'Daniela S.',
+    role: 'Owner, Ink Drop Studio',
+  },
+  {
+    image: 'author-kevin.png',
+    quote: 'Fresh Press Co. has scaled significantly thanks to the reliability of these DTF transfers. The shipping is fast, the quality is consistent, and the customer service is top-tier.',
+    name: 'Kevin W.',
+    role: 'Owner, Fresh Press Co.',
+  },
+];
+calmTestimonials.innerHTML = `
+  <header class="calm-testimonials__header">
+    <div class="calm-testimonials__title-block">
+      <p class="calm-testimonials__eyebrow">Loved by makers nationwide</p>
+      <h2 id="calm-testimonials-title" class="calm-testimonials__title">Real makers, real results</h2>
+    </div>
+  </header>
+  <div class="calm-testimonials__viewport" role="region" aria-roledescription="carousel" aria-label="Customer testimonials">
+    <div class="calm-testimonials__grid">
+    ${testimonials.map(({ image, quote, name, role }) => `
+      <article class="calm-testimonials__column">
+        <figure class="calm-testimonials__portrait"><img src="${asset(`calm-testimonials/${image}`)}" alt="" loading="lazy" decoding="async" /></figure>
+        <div class="calm-testimonials__details">
+          <div class="calm-testimonials__rating" aria-label="5 out of 5 stars">★★★★★</div>
+          <p class="calm-testimonials__quote">${quote}</p>
+          <img class="calm-testimonials__line" src="${asset('calm-testimonials/line.svg')}" alt="" aria-hidden="true" />
+          <div class="calm-testimonials__author"><strong>${name}</strong><span>${role}</span></div>
+        </div>
+      </article>`).join('')}
+    </div>
+    <div class="calm-testimonials__buttons" aria-label="Testimonial carousel controls"><button type="button" data-testimonials-prev aria-label="Previous testimonials" disabled>←</button><button type="button" data-testimonials-next aria-label="Next testimonials">→</button></div>
+  </div>
+  <div class="calm-testimonials__controls"><img class="calm-testimonials__pagination" src="${asset('calm-testimonials/pagination.svg')}" alt="" aria-hidden="true" /></div>`;
+coverageStory.after(calmTestimonials);
+
+const setupTestimonialsCarousel = () => {
+  const viewport = calmTestimonials.querySelector('.calm-testimonials__viewport');
+  const track = calmTestimonials.querySelector('.calm-testimonials__grid');
+  const cards = [...calmTestimonials.querySelectorAll('.calm-testimonials__column')];
+  const previous = calmTestimonials.querySelector('[data-testimonials-prev]');
+  const next = calmTestimonials.querySelector('[data-testimonials-next]');
+  if (!viewport || !track || !cards.length || !previous || !next) return;
+  let activeIndex = 0;
+
+  const step = () => {
+    const card = cards[0];
+    if (!card) return 0;
+    return card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || '0');
+  };
+  const visibleCards = () => Math.max(1, Math.floor((viewport.clientWidth + 24) / Math.max(1, step())));
+  const update = () => {
+    const maxIndex = Math.max(0, cards.length - visibleCards());
+    activeIndex = Math.min(activeIndex, maxIndex);
+    track.style.transform = `translateX(${-activeIndex * step()}px)`;
+    previous.disabled = activeIndex === 0;
+    next.disabled = activeIndex >= maxIndex;
+  };
+  const move = (direction) => {
+    const maxIndex = Math.max(0, cards.length - visibleCards());
+    activeIndex = Math.max(0, Math.min(activeIndex + direction, maxIndex));
+    update();
+  };
+  previous.addEventListener('click', () => move(-1));
+  next.addEventListener('click', () => move(1));
+  addEventListener('resize', update, { passive: true });
+  update();
+};
+setupTestimonialsCarousel();
 
 const supportChat = document.createElement('button');
 supportChat.className = 'support-chat';
@@ -699,8 +746,6 @@ const heroLede = document.querySelector('.jiffy-hero__lede');
 const heroEyebrow = document.querySelector('.jiffy-hero__eyebrow');
 const heroHours = document.querySelector('.jiffy-hero__hours');
 const deliveryOutcome = document.querySelector('.jiffy-hero__delivery-outcome');
-const shopInRangeForm = document.querySelector('.shop-in-range__form');
-const shopInRangeInput = shopInRangeForm?.querySelector('input[name="shop-address"]');
 const addressSearchAnchor = document.createElement('div');
 addressSearch?.before(addressSearchAnchor);
 let addressSearchIsPortaled = false;
@@ -735,7 +780,6 @@ const setDeliveryCountdown = (deadline) => {
 const isDallasDeliveryAddress = (address) => /\bdallas\b|\b752\d{2}\b/i.test(address);
 const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddress(address) }) => {
   if (!addressSearch || !addressPanel || !deliveryStatus) return;
-  shopInRange.hidden = true;
   if (!covered) {
     deliveryProof.hidden = true;
     addressSearch.hidden = true;
@@ -785,7 +829,6 @@ const clearDeliveryStatus = () => {
   if (heroTitle) heroTitle.innerHTML = 'Transfers and blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.';
   if (heroLede) heroLede.textContent = 'Order this morning. Press this afternoon.';
   if (heroHours) heroHours.innerHTML = `<img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas`;
-  shopInRange.hidden = false;
   window.localStorage.removeItem(deliveryStateKey);
 };
 addressForm?.addEventListener('submit', (event) => {
@@ -798,17 +841,6 @@ addressForm?.addEventListener('submit', (event) => {
   const delivery = { address, deadline: Date.now() + (2 * 60 * 60 * 1000), covered: isDallasDeliveryAddress(address) };
   window.localStorage.setItem(deliveryStateKey, JSON.stringify(delivery));
   showDeliveryStatus(delivery);
-});
-shopInRangeForm?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const address = shopInRangeInput?.value.trim();
-  if (!address) {
-    shopInRangeInput?.focus();
-    return;
-  }
-  if (addressInput) addressInput.value = address;
-  addressForm?.requestSubmit();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 deliveryClear?.addEventListener('click', clearDeliveryStatus);
 try {

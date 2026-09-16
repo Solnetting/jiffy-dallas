@@ -48,3 +48,28 @@
 
 /* Keep the hero wordmark compact without changing header spacing. */
 .jiffy-hero__logo{width:118px;height:41px}
+
+/* Figma hero value props: the current site copy lives directly on the hero,
+   so the promotional row reads as part of the composition without a second
+   banner or delivery-box scene below it. */
+.jiffy-hero__value-props{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.5rem,4vw,4.5rem);width:calc(100% - 3rem);max-width:82.5rem;margin:0 auto;padding:1.4rem 0 3.1rem;border-top:1px solid rgba(255,255,255,.28)}
+.jiffy-hero__value-prop{display:flex;align-items:flex-start;gap:clamp(.7rem,1.1vw,1.15rem);min-width:0;color:#fff}
+.jiffy-hero__value-icon{display:grid;flex:0 0 clamp(2.8rem,4.2vw,3.75rem);width:clamp(2.8rem,4.2vw,3.75rem);height:clamp(2.8rem,4.2vw,3.75rem);place-items:center;border:1px solid rgba(255,199,0,.48);border-radius:.78rem;background:rgba(5,19,39,.36)}
+.jiffy-hero__value-icon img{display:block;width:62%;height:62%;object-fit:contain}
+.jiffy-hero__value-prop>div{min-width:0}
+.jiffy-hero__value-prop p{margin:0 0 .15rem;color:#fff;font:700 clamp(.76rem,1vw,1rem)/1.05 Inter,sans-serif}
+.jiffy-hero__value-prop h2{margin:0;color:#ffc700;font:900 clamp(1.35rem,2.2vw,2.7rem)/.94 Inter,sans-serif;letter-spacing:-.045em;white-space:nowrap}
+.jiffy-hero__value-prop h2 small{display:block;color:#fff;font:800 .46em/1.1 Inter,sans-serif;letter-spacing:.01em}
+.jiffy-hero__value-prop:nth-child(2) h2{color:#fff;font-size:clamp(1.05rem,1.55vw,1.9rem);letter-spacing:-.035em;white-space:normal}
+.jiffy-hero__value-prop:nth-child(2) h2 small{display:inline;font-size:.7em}
+.jiffy-hero__value-prop:nth-child(2) h2 small b{color:#ffc700;font-size:1.2em}
+.jiffy-hero__value-prop>div>span{display:block;max-width:15rem;margin-top:.65rem;color:#d0d8e3;font:500 clamp(.72rem,.9vw,.98rem)/1.25 Inter,sans-serif}
+
+@media(max-width:900px){
+  .jiffy-hero__value-props{grid-template-columns:1fr;gap:1.1rem;width:calc(100% - 2rem);padding:1.1rem 0 1.5rem}
+  .jiffy-hero__value-prop{padding:0 0 1rem;border-bottom:1px solid rgba(255,255,255,.2)}
+  .jiffy-hero__value-prop:last-child{padding-bottom:0;border-bottom:0}
+  .jiffy-hero__value-prop h2{font-size:2rem}
+  .jiffy-hero__value-prop:nth-child(2) h2{font-size:1.6rem}
+  .jiffy-hero__value-prop>div>span{max-width:22rem}
+}

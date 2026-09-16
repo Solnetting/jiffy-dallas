@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="72" height="8" viewBox="0 0 72 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="pagination-indicator">
+<rect id="dot-active" width="32" height="8" rx="4" fill="#FFC800"/>
+<circle id="dot-inactive-1" opacity="0.4" cx="48" cy="4" r="4" fill="#5B6577"/>
+<circle id="dot-inactive-2" opacity="0.4" cx="68" cy="4" r="4" fill="#5B6577"/>
+</g>
+</svg>
