@@ -77,36 +77,34 @@ blanksSection.innerHTML = `
 const originalHero = document.querySelector('.jiffy-hero');
 const localPromiseStrip = document.createElement('section');
 localPromiseStrip.className = 'local-promise-strip';
-localPromiseStrip.setAttribute('aria-label', 'Jiffy Local advantages');
+localPromiseStrip.setAttribute('aria-label', 'Blanks and transfers delivered together');
 localPromiseStrip.innerHTML = `
   <div class="local-promise-strip__inner">
-    <article class="local-promise-strip__item local-promise-strip__item--delivery" data-promise-item>
-      <div class="local-promise-strip__copy">
-        <p>Delivery</p>
-        <h2><b class="local-promise-strip__headline-minor">First delivery</b><br /><b class="local-promise-strip__headline-major">FREE</b></h2>
-        <span>Get your order delivered in the Dallas–Fort Worth area. On us.</span>
+    <div class="local-promise-strip__content">
+      <header class="local-promise-strip__headline">
+        <h2><span>Blanks + transfers.</span><strong>Delivered together.</strong><span>One order.</span></h2>
+      </header>
+      <div class="local-promise-strip__benefits" aria-label="Delivery benefits">
+        <article class="local-promise-strip__benefit local-promise-strip__benefit--delivery" data-promise-item>
+          <div class="local-promise-strip__benefit-icon" aria-hidden="true"><svg viewBox="0 0 48 32"><path d="M2 21h27V5H2v16Zm27-11h9l8 8v3H29V10Zm-20 8a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm27 0a5 5 0 1 0 0 10 5 5 0 0 0-10 0Z"/></svg></div>
+          <div><p>First delivery</p><h3>FREE</h3><span>Delivered across Dallas–Fort Worth. On us.</span></div>
+        </article>
+        <article class="local-promise-strip__benefit local-promise-strip__benefit--apparel" data-promise-item>
+          <div class="local-promise-strip__benefit-icon" aria-hidden="true"><svg viewBox="0 0 48 40"><path d="m15 3 9 7 9-7 12 8-6 9-6-3v20H15V17l-6 3-6-9 12-8Z"/></svg></div>
+          <div><p>Blanks</p><h3>20+ shirt styles <small>from <b>$2.41</b></small></h3><span>Premium brands, ready for your design.</span></div>
+        </article>
+        <article class="local-promise-strip__benefit local-promise-strip__benefit--printing" data-promise-item>
+          <div class="local-promise-strip__benefit-icon" aria-hidden="true"><svg viewBox="0 0 40 48"><path d="M8 2h18l8 8v36H8V2Zm18 1v9h8M13 25h16M13 32h16M13 39h10"/></svg></div>
+          <div><p>DTF</p><h3>$0.02 <small>PER LINE.</small></h3><span>High-quality printing for every design.</span></div>
+        </article>
       </div>
-    </article>
-    <article class="local-promise-strip__item local-promise-strip__item--apparel" data-promise-item>
-      <div class="local-promise-strip__shirts" aria-hidden="true">
-        <img src="${asset('product-figma-2.png')}" alt="" />
-        <img src="${asset('product-figma-3.png')}" alt="" />
-        <img src="${asset('product-figma-4.png')}" alt="" />
-      </div>
-      <div class="local-promise-strip__copy">
-        <p>Blanks</p>
-        <h2>20+ shirt styles<br />from <mark>$2.41</mark></h2>
-        <span>Premium blanks from leading brands, ready for your design.</span>
-      </div>
-    </article>
-    <article class="local-promise-strip__item local-promise-strip__item--printing" data-promise-item>
-      <img class="local-promise-strip__print-image" src="${asset('s1v3-transfer-film.png')}" alt="" aria-hidden="true" />
-      <div class="local-promise-strip__copy">
-        <p>DTF</p>
-        <h2><b class="local-promise-strip__headline-major">$0.02</b><br /><b class="local-promise-strip__headline-minor">PER LINE.</b></h2>
-        <span>High-quality DTF printing for any design, big or small.</span>
-      </div>
-    </article>
+    </div>
+    <div class="local-promise-strip__scene" aria-hidden="true">
+      <div class="local-promise-strip__scene-glow"></div>
+      <figure class="local-promise-strip__box-image">
+        <img src="${asset('delivered-together-box-cutout.png')}?v=2" alt="A Jiffy delivery box with a blank shirt and DTF transfer together." />
+      </figure>
+    </div>
   </div>`;
 originalHero?.after(localPromiseStrip);
 const promiseObserver = new IntersectionObserver((entries) => {
@@ -1018,6 +1016,8 @@ const navigationColor = (progress) => {
 const blanksShell = blanksSection.querySelector('.blanks-shell');
 const blanksCarouselGroup = blanksSection.querySelector('.blanks-carousel-group');
 const blanksStaticGrid = blanksSection.querySelector('.blanks-static-grid');
+let heroTargetGeometry = null;
+let heroTargetViewportWidth = 0;
 
 const translateY = (element) => {
   const transform = getComputedStyle(element).transform;
@@ -1053,7 +1053,8 @@ function renderBlanksStory() {
   const visibleCards = blanksStaticGrid
     ? [...blanksStaticGrid.querySelectorAll('.blanks-product:not([hidden])')]
     : [];
-  if (visibleCards.length) {
+  const viewportWidthChanged = heroTargetViewportWidth !== window.innerWidth;
+  if (visibleCards.length && (!heroTargetGeometry || viewportWidthChanged)) {
     const shellTop = blanksShell.getBoundingClientRect().top;
     const groupOffset = translateY(blanksCarouselGroup);
     const cardRects = visibleCards.map((card) => card.getBoundingClientRect());
@@ -1063,17 +1064,30 @@ function renderBlanksStory() {
     });
     rowTops.sort((a, b) => a - b);
     const firstRowTop = rowTops[0];
-    const secondRowTop = rowTops[1] ?? firstRowTop;
+    const secondRowTop = rowTops[1];
     const firstRowHeight = Math.max(...cardRects
       .filter((rect) => Math.abs(rect.top - firstRowTop) < 2)
       .map((rect) => rect.height));
     const secondRowHeight = Math.max(...cardRects
       .filter((rect) => Math.abs(rect.top - secondRowTop) < 2)
       .map((rect) => rect.height));
-    // Match the editorial card to the two product rows beside it.
-    const twoRowHeight = (secondRowTop - firstRowTop) + Math.max(firstRowHeight, secondRowHeight);
-    blanksShell.style.setProperty('--hero-target-top', `${(firstRowTop - shellTop - groupOffset).toFixed(1)}px`);
-    blanksShell.style.setProperty('--hero-target-height', `${twoRowHeight.toFixed(1)}px`);
+    // Match the editorial card to the two product rows beside it. Keep this
+    // measurement stable during the handoff: recalculating it after the
+    // catalogue has moved can briefly report one row and shrink the image.
+    if (Number.isFinite(secondRowTop) && Number.isFinite(firstRowHeight) && Number.isFinite(secondRowHeight)) {
+      const twoRowHeight = (secondRowTop - firstRowTop) + Math.max(firstRowHeight, secondRowHeight);
+      if (twoRowHeight > 0) {
+        heroTargetGeometry = {
+          top: firstRowTop - shellTop - groupOffset,
+          height: twoRowHeight,
+        };
+        heroTargetViewportWidth = window.innerWidth;
+      }
+    }
+  }
+  if (heroTargetGeometry) {
+    blanksShell.style.setProperty('--hero-target-top', `${heroTargetGeometry.top.toFixed(1)}px`);
+    blanksShell.style.setProperty('--hero-target-height', `${heroTargetGeometry.height.toFixed(1)}px`);
   }
   blanksShell.style.setProperty('--hero-progress', heroProgress.toFixed(3));
   blanksShell.style.setProperty('--catalog-progress', catalogProgress.toFixed(3));
@@ -1085,5 +1099,9 @@ function renderBlanksStory() {
 
 function renderAllStories() { renderBlanksStory(); }
 window.addEventListener('scroll', renderAllStories, { passive: true });
-window.addEventListener('resize', renderAllStories);
+window.addEventListener('resize', () => {
+  heroTargetGeometry = null;
+  heroTargetViewportWidth = 0;
+  renderAllStories();
+});
 renderAllStories();
