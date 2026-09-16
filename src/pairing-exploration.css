@@ -12,7 +12,7 @@
   width:min(120rem,100%);
   min-height:min(70svh,36rem);
   margin:0 auto;
-  padding:clamp(3rem,6vw,6rem) clamp(1.25rem,4.5vw,6rem);
+  padding:clamp(7rem,12vw,11rem) clamp(1.25rem,4.5vw,6rem);
 }
 .pairing-exploration__copy{
   position:relative;
@@ -73,7 +73,7 @@
   .pairing-exploration__inner{
     display:block;
     min-height:0;
-    padding:4rem 1.25rem 3rem;
+    padding:7rem 1.25rem 6rem;
   }
   .pairing-exploration__copy{width:min(100%,42rem)}
   .pairing-exploration__copy h2{
