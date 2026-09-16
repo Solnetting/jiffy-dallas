@@ -148,7 +148,7 @@ s1v3.innerHTML = `
         </figcaption>
       </figure>
 
-      <div class="s1v3-upload" role="group" aria-label="Upload artwork. Drag and drop a file or select one.">
+      <div class="s1v3-upload" style="--s1v3-upload-texture:url('${asset('s1v3-transfer-support-texture.png')}')" role="group" aria-label="Upload artwork. Drag and drop a file or select one.">
         <div class="s1v3-upload-header">
           <strong class="s1v3-upload-drag">Drag your artwork</strong>
           <small class="s1v3-upload-subtitle">Drop a file anywhere in this panel</small>
