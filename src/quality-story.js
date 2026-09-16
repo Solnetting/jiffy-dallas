@@ -808,18 +808,14 @@ let addressSearchFrame;
 const updateAddressSearch = () => {
   addressSearchFrame = undefined;
   if (!addressSearch) return;
-  // The visible Section 1 flow is the retained S1V3 experience.
-  const sectionOne = s1v3;
-  const sectionOneTop = sectionOne ? sectionOne.getBoundingClientRect().top + window.scrollY : Infinity;
   const isSticky = addressSearch.classList.contains('is-sticky');
   // The original hero form scrolls naturally until it reaches the viewport.
-  // From that exact point it becomes the same fixed form; Section 1 only
-  // changes its compact styling, it does not introduce a new search control.
+  // From that exact point it becomes one stable fixed form; the following
+  // sections do not introduce another search-control geometry.
   const sourceTop = isSticky
     ? addressSearchAnchor.getBoundingClientRect().top
     : addressSearch.getBoundingClientRect().top;
   const shouldStick = sourceTop <= 12;
-  const shouldCompact = window.scrollY >= sectionOneTop - 16;
   if (shouldStick && !isSticky) {
     const { width, height } = addressSearch.getBoundingClientRect();
     addressSearchAnchor.style.cssText = `width:${width}px;height:${height}px;flex:0 0 ${height}px`;
@@ -830,7 +826,9 @@ const updateAddressSearch = () => {
     restoreAddressSearch();
     addressSearchAnchor.removeAttribute('style');
   }
-  addressSearch.classList.toggle('is-compact', shouldStick && shouldCompact);
+  // Keep one stable sticky-bar geometry after the hero; the address control
+  // should not resize again when Section 1 reaches the viewport.
+  addressSearch.classList.remove('is-compact');
 };
 window.addEventListener('scroll', () => {
   if (!addressSearchFrame) addressSearchFrame = requestAnimationFrame(updateAddressSearch);

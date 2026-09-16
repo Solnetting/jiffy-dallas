@@ -62,7 +62,7 @@
 .jiffy-hero__address.is-sticky.is-compact{
   display:flex;
   align-items:center;
-  height:5rem;
+  height:3.5rem;
   gap:clamp(.9rem,2vw,2.5rem);
   padding:0 clamp(1rem,4vw,4rem);
   background:transparent!important;
@@ -78,7 +78,7 @@
   top:0;
   left:0;
   width:100vw;
-  height:5rem;
+  height:3.5rem;
   content:"";
   border-bottom:1px solid rgba(255,255,255,.52);
   background:rgba(255,255,255,.78);
@@ -101,7 +101,7 @@
   box-shadow:none!important;
 }
 .jiffy-hero__address.is-sticky .jiffy-hero__sticky-brand{display:flex;flex:1 1 0;align-items:center;gap:.75rem;color:#14213d;text-transform:uppercase;white-space:nowrap}
-.jiffy-hero__sticky-brand img{width:6.85rem;height:2.2rem;object-fit:contain}.jiffy-hero__sticky-brand span{font:700 .62rem/1 Inter,sans-serif;letter-spacing:0}
+.jiffy-hero__sticky-brand img{width:6.25rem;height:1.8rem;object-fit:contain}.jiffy-hero__sticky-brand span{font:700 .58rem/1 Inter,sans-serif;letter-spacing:0}
 .jiffy-hero__address.is-sticky .jiffy-hero__address-panel{flex:0 1 min(42rem,42vw);width:auto;min-width:0;margin:0;background:transparent}
 .jiffy-hero__address.is-sticky .jiffy-hero__address-panel label{min-width:0}
 .jiffy-hero__address.is-sticky .jiffy-hero__sticky-links{display:flex;flex:1 1 0;justify-content:flex-end;align-items:center;gap:1.5rem;color:#14213d;font:700 .72rem/1 Inter,sans-serif;text-transform:uppercase;white-space:nowrap}
@@ -137,11 +137,11 @@
   .jiffy-hero__sticky-links .jiffy-hero__sticky-sign-in{margin-left:0}
   .jiffy-hero__sticky-links span{display:none}
 }
-@media(max-width:720px){.jiffy-hero__address.is-sticky:before{height:3.75rem}}
+@media(max-width:720px){.jiffy-hero__address.is-sticky:before{height:3.5rem}}
 
 /* Keep the original address field treatment when it is mounted in the top bar. */
 .jiffy-hero__address.is-sticky .jiffy-hero__address-panel label{
-  min-height:3.25rem;
+  min-height:2.5rem;
   padding:0 1rem;
   border:1px solid rgba(105,116,134,.58);
   border-radius:.75rem;
@@ -155,7 +155,7 @@
 }
 .jiffy-hero__address.is-sticky .jiffy-hero__address-panel button,
 .jiffy-hero__address.is-sticky.is-compact .jiffy-hero__address-panel button{
-  height:3.25rem;
+  height:2.5rem;
   padding:0 1.5rem;
   border:0;
   border-radius:.75rem;
@@ -190,7 +190,7 @@
 }
 .jiffy-hero__address.is-sticky .jiffy-hero__address-panel label{
   flex:1 1 auto;
-  min-height:3.25rem;
+  min-height:2.5rem;
   padding:0 .5rem;
   border:0!important;
   border-radius:0;
@@ -200,7 +200,7 @@
 .jiffy-hero__address.is-sticky.is-compact .jiffy-hero__address-panel button{
   flex:0 0 auto;
   min-width:0;
-  height:3.25rem;
+  height:2.5rem;
   padding:0 1.5rem;
   border:1px solid rgba(105,116,134,.58)!important;
   border-radius:.75rem;
@@ -217,7 +217,7 @@
 }
 
 @media(max-width:720px){
-  .jiffy-hero__address.is-sticky,.jiffy-hero__address.is-sticky.is-compact{height:4.25rem}
+  .jiffy-hero__address.is-sticky,.jiffy-hero__address.is-sticky.is-compact{height:3.5rem}
   .jiffy-hero__address.is-sticky .jiffy-hero__address-panel{gap:0;padding:.25rem!important;border-radius:.75rem!important}
   .jiffy-hero__address.is-sticky .jiffy-hero__address-panel label{min-height:2.75rem}
   .jiffy-hero__address.is-sticky .jiffy-hero__address-panel button,
