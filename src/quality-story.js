@@ -83,7 +83,7 @@ localPromiseStrip.innerHTML = `
     <article class="local-promise-strip__item local-promise-strip__item--delivery" data-promise-item>
       <div class="local-promise-strip__copy">
         <p>Delivery</p>
-        <h2><mark class="local-promise-strip__headline-major">FREE</mark><br /><b class="local-promise-strip__headline-minor">DELIVERY.</b></h2>
+        <h2><b class="local-promise-strip__headline-minor">First delivery</b><br /><b class="local-promise-strip__headline-major">FREE</b></h2>
         <span>Get your order delivered in the Dallas–Fort Worth area. On us.</span>
       </div>
     </article>
@@ -148,7 +148,7 @@ s1v3.innerHTML = `
         </figcaption>
       </figure>
 
-      <div class="s1v3-upload" style="--s1v3-upload-texture:url('${asset('s1v3-transfer-support-texture.png')}')" role="group" aria-label="Upload artwork. Drag and drop a file or select one.">
+      <div class="s1v3-upload" style="--s1v3-upload-texture:url('${asset('s1v3-transfer-support-texture.png')}');--s1v3-upload-light-texture:url('${asset('s1v3-transfer-support-texture-light.png')}')" role="group" aria-label="Upload artwork. Drag and drop a file or select one.">
         <div class="s1v3-upload-header">
           <strong class="s1v3-upload-drag">Drag your artwork</strong>
           <small class="s1v3-upload-subtitle">Drop a file anywhere in this panel</small>
@@ -537,7 +537,8 @@ coverageStory.innerHTML = `
     <div class="coverage-story__map-card" aria-label="Map moving from the Dallas–Fort Worth Jiffy Local coverage area to the Texas Jiffy 1st service area">
       <div class="coverage-story__map" role="img" aria-label="A map of the Jiffy Local Dallas–Fort Worth delivery area expanding to the Jiffy 1st Texas service view">
         <div class="coverage-story__map-scene">
-          <img class="coverage-story__map-image" src="${asset('texas-regional-wide-complete.svg')}" alt="Map of Texas and its major delivery destinations" />
+          <img class="coverage-story__map-image coverage-story__map-image--quiet" src="${asset('texas-regional-wide-quiet.svg')}" alt="Map of Texas and its major delivery destinations" />
+          <img class="coverage-story__map-image coverage-story__map-image--full" src="${asset('texas-regional-wide-complete.svg')}" alt="" aria-hidden="true" />
         </div>
       </div>
       <p class="coverage-story__attribution">Map reference supplied by Jiffy</p>

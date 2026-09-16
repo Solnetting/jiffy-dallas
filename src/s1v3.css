@@ -154,7 +154,7 @@
 .s1v3-story.is-light-mode .s1v3-eyebrow{color:rgba(20,33,61,.64)}
 .s1v3-story.is-light-mode .s1v3-hero-copy>span{color:rgba(20,33,61,.72)}
 
-.s1v3-story.is-light-mode .s1v3-upload{border-color:rgba(20,33,61,.14);background:#f4f1eb;box-shadow:0 1.5rem 4rem rgba(20,33,61,.12);color:#14213d}
+.s1v3-story.is-light-mode .s1v3-upload{border-color:rgba(20,33,61,.14);background-color:#f4f1eb;background-image:var(--s1v3-upload-light-texture);background-position:center;background-size:cover;background-repeat:no-repeat;box-shadow:0 1.5rem 4rem rgba(20,33,61,.12);color:#14213d}
 .s1v3-story.is-light-mode .s1v3-upload-subtitle{color:rgba(20,33,61,.72)}
 .s1v3-story.is-light-mode .s1v3-upload-icon{border-color:rgba(20,33,61,.2);background:rgba(255,255,255,.2)}
 .s1v3-story.is-light-mode .s1v3-upload-icon img{filter:none}
@@ -166,7 +166,7 @@
 .s1v3-story.is-light-mode .s1v3-upload-tertiary button{color:rgba(20,33,61,.66)}
 .s1v3-story.is-light-mode .s1v3-upload-files:hover,.s1v3-story.is-light-mode .s1v3-upload-files:focus-visible{border-color:#ffd43b;background:#ffd43b;color:#14213d}
 .s1v3-story.is-light-mode .s1v3-upload-tertiary button:hover,.s1v3-story.is-light-mode .s1v3-upload-tertiary button:focus-visible{color:#14213d;background:rgba(20,33,61,.07)}
-.s1v3-story.is-light-mode .s1v3-upload:hover,.s1v3-story.is-light-mode .s1v3-upload:focus-visible,.s1v3-story.is-light-mode .s1v3-upload.is-dragging{background:linear-gradient(155deg,rgba(255,255,255,.24),rgba(255,255,255,.1) 45%,rgba(20,33,61,.05))}
+.s1v3-story.is-light-mode .s1v3-upload:hover,.s1v3-story.is-light-mode .s1v3-upload:focus-visible,.s1v3-story.is-light-mode .s1v3-upload.is-dragging{background-color:#f4f1eb;background-image:linear-gradient(155deg,rgba(255,255,255,.24),rgba(255,255,255,.1) 45%,rgba(20,33,61,.05)),var(--s1v3-upload-light-texture);background-position:center;background-size:cover}
 .s1v3-story.is-light-mode .s1v3-upload:hover .s1v3-upload-icon,.s1v3-story.is-light-mode .s1v3-upload:focus-visible .s1v3-upload-icon,.s1v3-story.is-light-mode .s1v3-upload.is-dragging .s1v3-upload-icon{border-color:rgba(20,33,61,.5);background:rgba(255,255,255,.24)}
 
 .s1v3-story.is-light-mode .s1v3-card{background:#f4f1eb;box-shadow:0 1.5rem 3.5rem rgba(20,33,61,.14)}
