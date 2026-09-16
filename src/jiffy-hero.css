@@ -8,7 +8,7 @@
 .jiffy-hero__logo{display:block;width:135px;height:47px;object-fit:contain}
 .jiffy-hero__location{display:flex;align-items:center;padding:6px 12px;border:1px solid rgba(255,255,255,.85);border-radius:999px;font:700 11px/1 Inter,sans-serif;letter-spacing:0}
 .jiffy-hero__links{display:flex;align-items:center;gap:32px;text-transform:none;font:600 14px/1 Inter,sans-serif}
-.jiffy-hero__sign-in{padding:8px 20px;border:1.5px solid #fff;border-radius:999px}
+.jiffy-hero__sign-in{display:inline-flex;align-items:center;justify-content:center;height:2.75rem;padding:0 1.5rem;border:1px solid currentColor;border-radius:.75rem;color:inherit;font:700 .78rem/1 Inter,sans-serif;white-space:nowrap}
 .jiffy-hero__content{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;padding:48px 80px;text-align:center}
 .jiffy-hero__eyebrow{display:flex;align-items:center;gap:8px;margin:0 0 28px;font:700 12px/1 Inter,sans-serif;letter-spacing:0;text-transform:uppercase;opacity:.9}
 .jiffy-hero__eyebrow span,.jiffy-hero__ticker i{display:block;width:8px;height:8px;border-radius:4px;background:#35d07f}

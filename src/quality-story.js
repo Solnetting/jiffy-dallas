@@ -8,17 +8,19 @@ document.querySelector('#app').innerHTML = `
     <div class="jiffy-hero__shade"></div>
     <header class="jiffy-hero__nav">
       <div class="jiffy-hero__brand"><img class="jiffy-hero__logo" src="${asset('jiffy-local-logo.svg')}" alt="Jiffy" /><span class="jiffy-hero__location">DALLAS-FORT WORTH</span></div>
-      <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="#transfers-section" data-nav-scroll="transfers">Transfers</a><a href="#blanks-section" data-nav-scroll="blanks">Blanks</a><span class="jiffy-hero__coming-soon" tabindex="0" aria-disabled="true">Custom<span role="tooltip">Available soon</span></span></nav>
+      <nav class="jiffy-hero__links" aria-label="Main navigation"><a href="#transfers-section" data-nav-scroll="transfers">Transfers</a><a href="#blanks-section" data-nav-scroll="blanks">Blanks</a><span class="jiffy-hero__coming-soon" tabindex="0" aria-disabled="true">Custom<span role="tooltip">Available soon</span></span><a class="jiffy-hero__sign-in" href="https://www.jiffy.com/account/login">Sign in</a></nav>
     </header>
     <div class="jiffy-hero__content">
       <p class="jiffy-hero__eyebrow"><span></span>Now delivering · Dallas-Fort Worth</p>
       <h1 id="jiffy-hero-title">Transfers and blank shirts.<br /><mark>Delivered in hours.</mark><br />Everyday.</h1>
       <p class="jiffy-hero__lede">Order this morning. Press this afternoon.</p>
       <form class="jiffy-hero__address" action="https://www.jiffy.com/" method="get">
+        <div class="jiffy-hero__sticky-brand" aria-label="Jiffy Local Dallas–Fort Worth"><img src="${asset('jiffy-local-logo.svg')}" alt="Jiffy Local" /><span>Dallas–Fort Worth</span></div>
         <div class="jiffy-hero__address-panel">
           <label><img src="${asset('address-checker-panel-location.svg')}" alt="" /><input type="text" name="address" placeholder="Enter your delivery address" aria-label="Delivery address" /></label>
           <button type="submit"><span>Check your delivery time</span></button>
         </div>
+        <nav class="jiffy-hero__sticky-links" aria-label="Main navigation"><a href="#transfers-section" data-nav-scroll="transfers">Transfers</a><a href="#blanks-section" data-nav-scroll="blanks">Blanks</a><span aria-disabled="true">Custom</span><a class="jiffy-hero__sign-in jiffy-hero__sticky-sign-in" href="https://www.jiffy.com/account/login">Sign in</a></nav>
         <div class="jiffy-hero__delivery-status" hidden aria-live="polite">
           <span class="jiffy-hero__delivery-address"></span>
           <span class="jiffy-hero__delivery-divider" aria-hidden="true"></span>
