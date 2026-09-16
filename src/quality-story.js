@@ -93,7 +93,7 @@ localPromiseStrip.innerHTML = `
       </div>
       <div class="local-promise-strip__copy">
         <p>Blanks</p>
-        <h2>20+ shirt styles<br />from <mark>$2.41.</mark></h2>
+        <h2>20+ shirt styles<br />from <mark>$2.41</mark></h2>
         <span>Premium blanks from leading brands, ready for your design.</span>
       </div>
     </article>
@@ -535,7 +535,7 @@ coverageStory.innerHTML = `
     <div class="coverage-story__map-card" aria-label="Map moving from the Dallas–Fort Worth Jiffy Local coverage area to the Texas Jiffy 1st service area">
       <div class="coverage-story__map" role="img" aria-label="A map of the Jiffy Local Dallas–Fort Worth delivery area expanding to the Jiffy 1st Texas service view">
         <div class="coverage-story__map-scene">
-          <img class="coverage-story__map-image" src="${asset('texas-map-reference.png')}" alt="Map of Texas and its major delivery destinations" />
+          <img class="coverage-story__map-image" src="${asset('texas-regional-wide-complete.svg')}" alt="Map of Texas and its major delivery destinations" />
         </div>
       </div>
       <p class="coverage-story__attribution">Map reference supplied by Jiffy</p>
@@ -600,7 +600,8 @@ const setupCoverageStory = () => {
     // One continuous Texas map: camera starts tightly on DFW, then pulls out
     // to the full state for Jiffy 1st. Nothing crossfades or swaps.
     coverageStory.style.setProperty('--coverage-map-scale', (2.55 - (mapBlend * 1.55)).toFixed(3));
-    coverageStory.style.setProperty('--coverage-map-x', '0px');
+    // Keep the statewide view clear of the coverage panel on the left.
+    coverageStory.style.setProperty('--coverage-map-x', 'clamp(3rem, 7vw, 9rem)');
 
     const nextStep = progress >= .5 ? 1 : 0;
     if (nextStep !== currentStep) currentStep = nextStep;
@@ -1067,6 +1068,7 @@ function renderBlanksStory() {
     const secondRowHeight = Math.max(...cardRects
       .filter((rect) => Math.abs(rect.top - secondRowTop) < 2)
       .map((rect) => rect.height));
+    // Match the editorial card to the two product rows beside it.
     const twoRowHeight = (secondRowTop - firstRowTop) + Math.max(firstRowHeight, secondRowHeight);
     blanksShell.style.setProperty('--hero-target-top', `${(firstRowTop - shellTop - groupOffset).toFixed(1)}px`);
     blanksShell.style.setProperty('--hero-target-height', `${twoRowHeight.toFixed(1)}px`);

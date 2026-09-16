@@ -103,7 +103,7 @@
 /* The catalogue is interactive again: keep the entire handoff pinned while
    the page scroll position drives the hero contraction and catalogue reveal.
    These important overrides beat the legacy static/mobile layout rules. */
-.blanks-story--static.blanks-story--interactive{height:380vh!important;min-height:380vh;background:#f5f1ea}
+.blanks-story--static.blanks-story--interactive{height:380vh!important;min-height:380vh;margin-bottom:clamp(4rem,8vw,9rem);background:#f5f1ea}
 .blanks-story--static.blanks-story--interactive .blanks-sticky{position:sticky!important;top:0;height:100svh!important;min-height:0;overflow:hidden!important}
 .blanks-story--static.blanks-story--interactive .blanks-shell{display:grid;height:100%!important;min-height:100svh;padding:clamp(1.5rem,3.25vw,4rem) clamp(1.25rem,4.5vw,6rem) clamp(2rem,4vw,4rem)!important}
 .blanks-story--static.blanks-story--interactive .blanks-hero-art{position:absolute!important;z-index:4;grid-column:auto!important;grid-row:auto!important;top:calc(var(--hero-progress) * var(--hero-target-top,clamp(6rem,11vh,8rem)));left:calc(var(--hero-progress) * var(--apparel-gutter));width:calc((1 - var(--hero-progress)) * 100vw + var(--hero-progress) * var(--apparel-hero-width));height:calc((1 - var(--hero-progress)) * 100svh + var(--hero-progress) * var(--hero-target-height,min(70svh,48rem)));min-height:0;border:calc(var(--hero-progress) * 1.5px) solid rgba(230,223,213,.9);border-radius:calc(var(--hero-progress) * 1.25rem);box-shadow:0 1.25rem 3rem rgba(57,44,26,calc(var(--hero-progress) * .12));transform:translateY(var(--hero-catalog-translate,0px))}
@@ -134,4 +134,29 @@
   .blanks-story--static.blanks-story--interactive .blanks-static-grid{grid-auto-rows:auto}
   .blanks-story--static.blanks-story--interactive .blanks-static-grid .blanks-product{height:auto;min-height:0;overflow:hidden}
   .blanks-story--static.blanks-story--interactive .blanks-hero-title{top:calc((1 - var(--hero-progress)) * 50svh + var(--hero-progress) * 2.65rem);left:1.25rem!important;width:calc(100% - 2.5rem)!important;max-width:none;transform:translateY(calc((1 - var(--hero-progress)) * -50% + var(--hero-progress) * 1rem))}
+}
+
+/* Desktop catalogue guardrail: the interactive state must use the whole
+   viewport. Leaving the static 120rem cap in place made the right grid wider
+   than its column and pushed the page sideways on large screens. */
+@media(min-width:901px){
+  .blanks-story--static.blanks-story--interactive{width:100%;max-width:100%;overflow-x:clip}
+  .blanks-story--static.blanks-story--interactive .blanks-shell{
+    --apparel-gutter:clamp(1.5rem,3vw,4rem);
+    --apparel-gap:clamp(1.5rem,3vw,4rem);
+    --apparel-hero-width:clamp(20rem,24vw,32rem);
+    box-sizing:border-box;
+    width:100%;
+    max-width:none;
+    min-width:0;
+    margin:0;
+    grid-template-columns:minmax(20rem,var(--apparel-hero-width)) minmax(0,1fr);
+    column-gap:var(--apparel-gap);
+  }
+  .blanks-story--static.blanks-story--interactive .blanks-hero-title,
+  .blanks-story--static.blanks-story--interactive .blanks-carousel-group,
+  .blanks-story--static.blanks-story--interactive .blanks-static-toolbar,
+  .blanks-story--static.blanks-story--interactive .blanks-static-filters,
+  .blanks-story--static.blanks-story--interactive .blanks-static-grid{min-width:0;max-width:100%}
+  .blanks-story--static.blanks-story--interactive .blanks-static-grid{width:100%;grid-template-columns:repeat(4,minmax(0,1fr))}
 }
