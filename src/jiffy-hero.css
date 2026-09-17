@@ -12,10 +12,13 @@
 .jiffy-hero__content{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;padding:48px 80px;text-align:center}
 .jiffy-hero__eyebrow{display:flex;align-items:center;gap:8px;margin:0 0 28px;font:700 12px/1 Inter,sans-serif;letter-spacing:0;text-transform:uppercase;opacity:.9}
 .jiffy-hero__eyebrow span,.jiffy-hero__ticker i{display:block;width:8px;height:8px;border-radius:4px;background:#35d07f}
+.jiffy-hero__headline{display:flex;max-width:100%;flex-direction:column;align-items:center;gap:.15rem}
+.jiffy-hero__headline-label{margin:0;color:#fff;font:900 italic clamp(2.8rem,5vw,4rem)/.95 Poppins,Inter,sans-serif;letter-spacing:0;text-align:center;text-transform:uppercase}
 .jiffy-hero h1{margin:0;color:#fff;font:900 italic clamp(2.8rem,5vw,4rem)/.95 Poppins,Inter,sans-serif;letter-spacing:0;text-transform:uppercase}
 .jiffy-hero mark{display:inline-block;margin:12px 0;padding:8px 24px;border-radius:8px;background:#ffc800;color:#fff;transform:rotate(-1.5deg)}
 .jiffy-hero__lede{margin:28px 0 20px;font:500 20px/1.4 Inter,sans-serif;opacity:.9}
-.jiffy-hero__address{display:flex;align-items:center;width:min(640px,100%);height:60px;padding:6px 6px 6px 20px;border-radius:999px;background:#fff}
+.jiffy-hero__address{display:flex;align-items:center;width:min(640px,100%);height:60px;margin-top:0;padding:6px 6px 6px 20px;border-radius:999px;background:#fff}
+.jiffy-hero__address:not(.is-sticky){margin-top:clamp(.75rem,1.5vh,1.25rem)}
 .jiffy-hero__address label{display:flex;flex:1;align-items:center;gap:10px;min-width:0}
 .jiffy-hero__address label img{width:18px;height:18px}
 .jiffy-hero__address input{width:100%;border:0;outline:0;background:transparent;color:#14213d;font:400 15px/1 Inter,sans-serif}
@@ -31,6 +34,8 @@
  .jiffy-hero__coming-soon{position:relative;opacity:.55;cursor:not-allowed;outline:none}
 .jiffy-hero__coming-soon [role="tooltip"]{position:absolute;top:calc(100% + .8rem);left:50%;padding:.5rem .65rem;border-radius:.4rem;background:#fff;color:#14213d;font:500 .72rem/1 Inter,sans-serif;white-space:nowrap;opacity:0;transform:translate(-50%,-.25rem);pointer-events:none;transition:opacity .18s,transform .18s}
 .jiffy-hero__coming-soon:hover [role="tooltip"],.jiffy-hero__coming-soon:focus-visible [role="tooltip"]{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:720px){.jiffy-hero__headline{gap:.1rem}.jiffy-hero__headline-label{font-size:clamp(2.25rem,10vw,3.2rem)}}
 
 @media(max-width:720px){.jiffy-hero__nav{padding:20px}
 .jiffy-hero__logo{width:104px;height:auto}
