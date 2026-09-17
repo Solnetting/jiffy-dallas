@@ -29,6 +29,33 @@ document.querySelector('#app').innerHTML = `
       <p class="jiffy-hero__hours"><img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas</p>
       <div class="jiffy-hero__delivery-outcome" hidden aria-live="polite"></div>
     </div>
+    <div class="jiffy-hero__covered" hidden aria-live="polite">
+      <p class="jiffy-hero__covered-kicker">DELIVERY WINDOWS &amp; CUT-OFFS <b>LIVE</b></p>
+      <div class="jiffy-hero__covered-title">
+        <h1 data-covered-address>Dallas 75201</h1>
+        <button type="button" class="jiffy-hero__covered-clear" data-covered-clear aria-label="Change delivery address">×</button>
+      </div>
+      <article class="jiffy-hero__covered-panel" aria-label="Delivery windows for this address">
+        <div class="jiffy-hero__covered-map">
+          <img src="${asset('delivery-proof-map.png')}" alt="Dallas delivery route map" />
+          <span class="jiffy-hero__covered-map-address"><img src="${asset('address-checker-panel-location.svg')}" alt="" /><strong data-covered-map-address>Dallas 75201</strong></span>
+          <span class="jiffy-hero__covered-map-control" aria-hidden="true">↗</span>
+        </div>
+        <section class="jiffy-hero__covered-current" aria-label="Next delivery window">
+          <p class="jiffy-hero__covered-status"><span aria-hidden="true">✓</span> ADDRESS COVERED</p>
+          <p class="jiffy-hero__covered-label">NEXT WINDOW</p>
+          <strong class="jiffy-hero__covered-window">11 AM–1 PM</strong>
+          <div class="jiffy-hero__covered-countdown"><span aria-hidden="true">◷</span><b data-covered-countdown>01:59:55</b></div>
+        </section>
+        <section class="jiffy-hero__covered-upcoming" aria-label="Upcoming delivery windows">
+          <p class="jiffy-hero__covered-label">UPCOMING WINDOWS</p>
+          <button type="button" class="jiffy-hero__covered-slot"><span>◷</span><strong>12 PM – 2 PM</strong><b aria-hidden="true">›</b></button>
+          <button type="button" class="jiffy-hero__covered-slot"><span>◷</span><strong>3 PM – 5 PM</strong><b aria-hidden="true">›</b></button>
+          <div class="jiffy-hero__covered-actions"><button type="button">SEE NEXT</button><button type="button">PROGRAM ORDER</button></div>
+        </section>
+      </article>
+      <p class="jiffy-hero__covered-note"><span aria-hidden="true"></span>Dallas central distribution online. Order now to lock in your window.</p>
+    </div>
     <section class="jiffy-hero__value-props" aria-label="Jiffy Local benefits">
       <article class="jiffy-hero__value-prop">
         <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-truck.svg')}" alt="" /></span>
@@ -270,14 +297,19 @@ const setupS1V3 = (section) => {
     }
   };
 
+  const setActiveIndex = (target, immediate = false) => {
+    const nextIndex = Math.max(0, Math.min(cards.length - 1, target));
+    if (nextIndex === activeIndex) return;
+    const direction = nextIndex > activeIndex ? 1 : -1;
+    activeIndex = nextIndex;
+    render(direction, immediate);
+  };
+
   // The proof topics are a hover-driven index. They reveal the matching image
   // without behaving like buttons or toggling a collapsed state on click.
   indexItems.forEach((item) => item.addEventListener('mouseenter', () => {
     const target = Number(item.dataset.s1v3Step);
-    if (target === activeIndex) return;
-    const direction = target > activeIndex ? 1 : -1;
-    activeIndex = target;
-    render(direction);
+    setActiveIndex(target);
   }));
   themeToggle.addEventListener('click', (event) => {
     event.preventDefault();
@@ -312,6 +344,15 @@ const setupS1V3 = (section) => {
     section.classList.toggle('is-upload-mode', reveal > .58);
     section.classList.toggle('is-carousel-ready', reveal > .98);
     section.classList.toggle('is-in-view', inView);
+
+    // Once the upload panel has cleared, the remaining scroll distance becomes
+    // a four-step proof sequence. Hovering an index item still jumps directly
+    // to that card; the next scroll position resumes the sequence naturally.
+    if (reveal > .98 && cards.length > 1) {
+      const carouselProgress = Math.min(1, Math.max(0, (progress - .24) / .76));
+      const scrollIndex = Math.min(cards.length - 1, Math.floor(carouselProgress * cards.length));
+      setActiveIndex(scrollIndex);
+    }
   };
   window.addEventListener('scroll', renderScroll, { passive: true });
   window.addEventListener('resize', renderScroll);
@@ -337,8 +378,7 @@ pairingExploration.innerHTML = `
       <img src="${asset('pairing-bridge-generated.png')}" alt="Jiffy DTF box with blank apparel and loose transfers." />
     </figure>
   </div>`;
-s1v3.after(pairingExploration);
-pairingExploration.after(blanksSection);
+s1v3.after(blanksSection);
 const pairingObserver = new IntersectionObserver(([entry], observer) => {
   if (!entry.isIntersecting) return;
   pairingExploration.classList.add('is-visible');
@@ -568,6 +608,7 @@ coverageStory.innerHTML = `
     <p class="coverage-story__scroll-cue" aria-hidden="true"><span></span>Scroll to expand the map</p>
   </div>`;
 blanksSection.after(coverageStory);
+coverageStory.after(pairingExploration);
 
 const setupCoverageStory = () => {
   const items = [...coverageStory.querySelectorAll('[data-coverage-item]')];
@@ -688,7 +729,7 @@ calmTestimonials.innerHTML = `
     <div class="calm-testimonials__buttons" aria-label="Testimonial carousel controls"><button type="button" data-testimonials-prev aria-label="Previous testimonials" disabled>←</button><button type="button" data-testimonials-next aria-label="Next testimonials">→</button></div>
   </div>
   <div class="calm-testimonials__controls"><img class="calm-testimonials__pagination" src="${asset('calm-testimonials/pagination.svg')}" alt="" aria-hidden="true" /></div>`;
-coverageStory.after(calmTestimonials);
+pairingExploration.after(calmTestimonials);
 
 const setupTestimonialsCarousel = () => {
   const viewport = calmTestimonials.querySelector('.calm-testimonials__viewport');
@@ -753,6 +794,11 @@ const deliveryStatus = addressSearch?.querySelector('.jiffy-hero__delivery-statu
 const deliveryAddress = addressSearch?.querySelector('.jiffy-hero__delivery-address');
 const deliveryWindow = addressSearch?.querySelector('.jiffy-hero__delivery-countdown');
 const deliveryProofCountdown = deliveryProof.querySelector('[data-delivery-proof-countdown]');
+const coveredHero = document.querySelector('.jiffy-hero__covered');
+const coveredAddress = coveredHero?.querySelector('[data-covered-address]');
+const coveredMapAddress = coveredHero?.querySelector('[data-covered-map-address]');
+const coveredCountdown = coveredHero?.querySelector('[data-covered-countdown]');
+const coveredClear = coveredHero?.querySelector('[data-covered-clear]');
 const deliveryClear = addressSearch?.querySelector('.jiffy-hero__delivery-clear');
 const heroTitle = document.querySelector('#jiffy-hero-title');
 const heroLede = document.querySelector('.jiffy-hero__lede');
@@ -786,6 +832,7 @@ const setDeliveryCountdown = (deadline) => {
     const countdown = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     if (deliveryWindow) deliveryWindow.textContent = countdown;
     if (deliveryProofCountdown) deliveryProofCountdown.textContent = countdown;
+    if (coveredCountdown) coveredCountdown.textContent = countdown;
   };
   render();
   deliveryCountdown = window.setInterval(render, 1000);
@@ -814,10 +861,15 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
     return;
   }
   deliveryAddress.textContent = address;
-  deliveryProof.hidden = false;
+  deliveryProof.hidden = true;
+  if (coveredAddress) coveredAddress.textContent = address;
+  if (coveredMapAddress) coveredMapAddress.textContent = address;
+  if (coveredHero) coveredHero.hidden = false;
+  originalHero?.classList.add('is-covered');
   addressInput.value = address;
   addressSearch.classList.add('is-confirmed');
   addressSearch.classList.remove('is-on-light-surface');
+  addressSearch.hidden = true;
   addressPanel.hidden = true;
   deliveryStatus.hidden = false;
   heroEyebrow.hidden = true;
@@ -830,6 +882,11 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
 const clearDeliveryStatus = () => {
   window.clearInterval(deliveryCountdown);
   deliveryProof.hidden = true;
+  if (coveredHero) coveredHero.hidden = true;
+  originalHero?.classList.remove('is-covered');
+  if (addressSearchIsPortaled) restoreAddressSearch();
+  addressSearch?.classList.remove('is-sticky', 'is-compact');
+  addressSearchAnchor.removeAttribute('style');
   addressSearch?.classList.remove('is-confirmed');
   addressSearch?.classList.remove('is-on-light-surface');
   if (addressSearch) addressSearch.hidden = false;
@@ -856,6 +913,7 @@ addressForm?.addEventListener('submit', (event) => {
   showDeliveryStatus(delivery);
 });
 deliveryClear?.addEventListener('click', clearDeliveryStatus);
+coveredClear?.addEventListener('click', clearDeliveryStatus);
 try {
   const savedDelivery = JSON.parse(window.localStorage.getItem(deliveryStateKey));
   if (savedDelivery?.address && savedDelivery.deadline > Date.now()) showDeliveryStatus({ ...savedDelivery, covered: isDallasDeliveryAddress(savedDelivery.address) });

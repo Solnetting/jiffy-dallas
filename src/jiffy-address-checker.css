@@ -226,3 +226,19 @@
   .jiffy-hero__address.is-sticky .jiffy-hero__address-panel button,
   .jiffy-hero__address.is-sticky.is-compact .jiffy-hero__address-panel button{height:2.75rem;border-radius:.5rem;padding:0 .8rem;font-size:.7rem}
 }
+
+/* Keep the persistent address action primary, while S1 keeps its own treatment. */
+.jiffy-hero__address.is-sticky .jiffy-hero__address-panel button,
+.jiffy-hero__address.is-sticky.is-compact .jiffy-hero__address-panel button{
+  border-color:#ffc800!important;
+  background:#ffc800!important;
+  color:#14213d!important;
+}
+.jiffy-hero__address.is-sticky .jiffy-hero__address-panel button:hover,
+.jiffy-hero__address.is-sticky .jiffy-hero__address-panel button:focus-visible,
+.jiffy-hero__address.is-sticky.is-compact:hover .jiffy-hero__address-panel button,
+.jiffy-hero__address.is-sticky.is-compact:focus-within .jiffy-hero__address-panel button{
+  border-color:#ffc800!important;
+  background:#ffc800!important;
+  color:#14213d!important;
+}
