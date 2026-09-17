@@ -73,6 +73,7 @@ blanksSection.innerHTML = `
       </header>
       <div class="blanks-hero-title">
         <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
+        <p class="blanks-hero-tag">Receive it in hours</p>
       </div>
       <article class="blanks-hero-art" aria-label="Blank apparel for a local tomorrow">
         <img src="${asset('blanks-editorial-hero.png')}" alt="Person wearing a blank shirt" />
