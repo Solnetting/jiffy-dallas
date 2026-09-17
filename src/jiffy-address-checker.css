@@ -264,9 +264,9 @@
   isolation:isolate;
   overflow:hidden!important;
   border-color:#e6dfd5!important;
-  background:transparent!important;
+  background:#fff!important;
 }
-.jiffy-hero__address.is-sticky .jiffy-hero__address-panel>label { background:transparent!important; }
+.jiffy-hero__address.is-sticky .jiffy-hero__address-panel>label { background:#fff!important; }
 .jiffy-hero__address.is-sticky .jiffy-hero__address-panel>label,
 .jiffy-hero__address.is-sticky .jiffy-hero__address-panel>button {
   position:relative;
