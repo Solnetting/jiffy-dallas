@@ -258,8 +258,15 @@
 .coverage-story__city--quiet { opacity: .32; }
 .coverage-story__city-dot { fill: #183e72; opacity: .24; }
 .coverage-story__city-dot--dfw { fill: #183e72; opacity: .62; }
+.coverage-story__city-marker {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(var(--coverage-label-scale, 1));
+  transition: transform 4000ms cubic-bezier(.2, .85, .2, 1);
+}
+.coverage-story__city--dfw { font-size: var(--coverage-dfw-font-size, 14px); }
 .coverage-story__map-detail { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.coverage-story__map-detail .coverage-story__boundary { fill: rgba(64, 93, 112, .035); stroke: #5f6f7a; stroke-width: 2.8; stroke-linejoin: round; stroke-linecap: round; opacity: 0; transition: opacity 900ms ease; }
+.coverage-story__map-detail .coverage-story__boundary { fill: none; stroke: #5f6f7a; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; opacity: 0; transition: opacity 900ms ease; }
 .coverage-story__map-card[data-section="dfw"] .coverage-story__boundary { opacity: 1; }
 .coverage-story__map-wash { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(249, 250, 246, .16), transparent 52%), linear-gradient(0deg, rgba(239, 244, 237, .18), transparent 42%); mix-blend-mode: screen; }
 .coverage-story__map-vignette { position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .42), inset 0 -7rem 9rem rgba(20, 34, 55, .08); }
@@ -273,4 +280,17 @@
 @media (min-width: 901px) {
   /* Give the unchanged copy panel a little more breathing room from the map. */
   .coverage-story__copy { transform: translateX(clamp(-2rem, -1.5vw, -.75rem)); }
+}
+
+/* Keep translated camera edges neutral instead of exposing the old green map fill. */
+.coverage-story,
+.coverage-story__map-card,
+.coverage-story__map { background: #f4f3f2; }
+
+.coverage-story__map:after {
+  background: transparent;
+}
+
+.coverage-story__map-wash {
+  background: transparent;
 }

@@ -588,7 +588,6 @@ coverageStory.innerHTML = `
       <p class="coverage-story__attribution">Map reference supplied by Jiffy</p>
       <div class="coverage-story__map-footer">
         <span data-coverage-caption>Dallas–Fort Worth · Jiffy Local coverage</span>
-        <div><i></i><strong data-coverage-window>Delivery in hours · 7 days</strong></div>
       </div>
     </div>
     <div class="coverage-story__inner">
@@ -652,7 +651,13 @@ coverageMapLabels.forEach(([type, x, y, text]) => {
     'text-anchor': state ? 'middle' : 'start',
   });
   textNode.textContent = text;
-  coverageMapLabelsSvg.append(dot, textNode);
+  if (state) {
+    coverageMapLabelsSvg.append(dot, textNode);
+  } else {
+    const marker = createCoverageSvg('g', { class: 'coverage-story__city-marker' });
+    marker.append(dot, textNode);
+    coverageMapLabelsSvg.append(marker);
+  }
 });
 coverageMapScene.append(coverageMapLabelsSvg);
 const coverageMapDetail = createCoverageSvg('svg', { class: 'coverage-story__map-detail', viewBox: '-100 220 2200 1100', 'aria-hidden': 'true' });
@@ -675,7 +680,7 @@ const setupCoverageStory = () => {
   const camera = coverageStory.querySelector('.coverage-story__map-scene');
   const localClamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
   const states = {
-    dfw: { x: 12, y: 22, scale: 2.38, bearing: 15, caption: 'Dallas–Fort Worth · Jiffy Local coverage', window: 'Delivery in hours · 7 days' },
+    dfw: { x: -6, y: 22, scale: 2.38, bearing: 15, caption: 'Dallas–Fort Worth · Jiffy Local coverage', window: 'Delivery in hours · 7 days' },
     texas: { x: 20, y: 0, scale: 1.07, bearing: 0, caption: 'Texas · Jiffy 1st service area', window: 'Next-day delivery · 7 days' },
   };
   let currentStep = 0;
@@ -692,8 +697,10 @@ const setupCoverageStory = () => {
     camera.style.setProperty('--coverage-map-y', state.y + '%');
     camera.style.setProperty('--coverage-map-scale', state.scale + manualZoom);
     camera.style.setProperty('--coverage-map-bearing', state.bearing + 'deg');
+    camera.style.setProperty('--coverage-label-scale', (states.texas.scale / (state.scale + manualZoom)).toFixed(4));
+    camera.style.setProperty('--coverage-dfw-font-size', name === 'dfw' ? '20px' : '14px');
     caption.textContent = state.caption;
-    deliveryWindow.textContent = state.window;
+    if (deliveryWindow) deliveryWindow.textContent = state.window;
   };
 
   const render = () => {
