@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jiffy · Texas / DFW map study</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17243d;
+      --muted: #718097;
+      --quiet: #9ba5ae;
+      --yellow: #ffc400;
+      --line: #d9dedf;
+      --paper: #f7f8f4;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .shell { width: min(1540px, calc(100% - 4rem)); margin: 0 auto; }
+    .intro { display: flex; align-items: end; justify-content: space-between; gap: 3rem; min-height: 25vh; padding: 4.6rem 0 2.4rem; }
+    .eyebrow, .section-label { margin: 0 0 .55rem; color: var(--muted); font-size: .72rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { max-width: 11ch; margin: 0; font-size: clamp(2.5rem, 5vw, 5.7rem); line-height: .9; letter-spacing: -.07em; }
+    .intro > p { max-width: 30rem; margin: 0 0 .35rem; color: var(--muted); font-size: clamp(.94rem, 1.25vw, 1.15rem); line-height: 1.45; }
+    .scrolly { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(20rem, .85fr); align-items: start; gap: clamp(2rem, 5vw, 7rem); }
+    .map-sticky { position: sticky; top: 7vh; height: min(76vh, 760px); min-height: 34rem; }
+    .map-card { position: relative; height: 100%; overflow: hidden; border: 1px solid rgba(23, 36, 61, .13); border-radius: 1.35rem; background: #eef1ec; box-shadow: 0 1.5rem 4rem rgba(23, 36, 61, .14); isolation: isolate; }
+    .map-frame { position: absolute; inset: 0; overflow: hidden; background: #eef1ec; }
+    /* A single mounted map surface. Each state transforms this same scene. */
+    .map-camera { position: absolute; inset: -12%; transform: translate3d(var(--camera-x, 0%), var(--camera-y, 0%), 0) scale(var(--camera-scale, 1.07)) rotate(var(--camera-bearing, 0deg)); transform-origin: 50% 50%; transition: transform 4000ms cubic-bezier(.2, .85, .2, 1); will-change: transform; }
+    .map-base { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 63% 50%; filter: saturate(.32) contrast(.96) brightness(1.05); user-select: none; pointer-events: none; }
+    .map-labels { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; transform: rotate(calc(var(--camera-bearing, 0deg) * -1)); transform-origin: 50% 50%; transition: transform 4000ms cubic-bezier(.2, .85, .2, 1); }
+    .map-labels .state { fill: #718491; font-family: Arial, sans-serif; font-size: 19px; font-weight: 400; letter-spacing: 8px; opacity: .36; }
+    .map-labels .state--texas { fill: #304d6b; font-size: 30px; font-weight: 600; opacity: .9; }
+    .map-labels .city { fill: #5e7487; font-family: Arial, sans-serif; font-size: 16px; font-weight: 400; opacity: .62; }
+    .map-labels .city--dfw { fill: #244a75; font-size: 14px; font-weight: 600; opacity: 1; }
+    .map-labels .city-dot { fill: #183e72; opacity: .24; }
+    .map-labels .city-dot--dfw { fill: #183e72; opacity: .62; }
+    .map-detail { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+    .map-detail .coverage-boundary { fill: rgba(64, 93, 112, .035); stroke: #5f6f7a; stroke-width: 2.8; stroke-linejoin: round; stroke-linecap: round; opacity: 0; transition: opacity 900ms ease; }
+    .map-detail .label { fill: #17243d; font-size: 24px; font-weight: 760; letter-spacing: -.02em; opacity: .74; }
+    .map-detail .label--quiet { fill: #69788b; font-size: 18px; font-weight: 650; opacity: .56; }
+    .map-card[data-section="dfw"] .coverage-boundary { opacity: 1; }
+    .map-wash { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(249, 250, 246, .16), transparent 52%), linear-gradient(0deg, rgba(239, 244, 237, .18), transparent 42%); mix-blend-mode: screen; }
+    .map-vignette { position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,.42), inset 0 -7rem 9rem rgba(20,34,55,.08); }
+    .brand { position: absolute; z-index: 3; top: 1.25rem; right: 1.35rem; display: inline-flex; align-items: center; gap: .65rem; padding: .65rem .8rem; border: 1px solid rgba(23,36,61,.12); border-radius: 999px; background: rgba(251,252,248,.86); box-shadow: 0 .4rem 1rem rgba(23,36,61,.1); backdrop-filter: blur(12px); font-size: .78rem; font-weight: 800; letter-spacing: .03em; }
+    .brand i { width: .6rem; height: .6rem; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 .26rem rgba(255,196,0,.22); }
+    .map-controls { position: absolute; z-index: 4; top: 1.25rem; left: 1.25rem; display: grid; overflow: hidden; border: 1px solid rgba(23,36,61,.14); border-radius: .7rem; background: rgba(251,252,248,.9); box-shadow: 0 .4rem 1rem rgba(23,36,61,.1); backdrop-filter: blur(12px); }
+    .map-controls button { width: 2.4rem; height: 2.3rem; border: 0; border-bottom: 1px solid #e4e6e2; background: transparent; color: var(--ink); font: 800 1.15rem/1 Inter, sans-serif; cursor: pointer; }
+    .map-controls button:last-child { border: 0; font-size: .95rem; }
+    .map-controls button:focus-visible { outline: 3px solid var(--yellow); outline-offset: -3px; }
+    .map-status { position: absolute; z-index: 3; right: 1.3rem; bottom: 1.25rem; display: inline-flex; align-items: center; gap: .55rem; padding: .55rem .75rem; border-radius: 999px; background: rgba(251,252,248,.86); color: #627188; font-size: .7rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; box-shadow: 0 .4rem 1rem rgba(23,36,61,.1); backdrop-filter: blur(12px); }
+    .map-status i { width: .5rem; height: .5rem; border-radius: 50%; background: #14b89e; box-shadow: 0 0 0 .2rem rgba(20,184,158,.16); }
+    .story { padding-bottom: 18vh; }
+    .story-step { min-height: 78vh; display: flex; align-items: center; padding: 4rem 0; border-top: 1px solid var(--line); }
+    .story-step:first-child { border-top: 0; padding-top: 1rem; }
+    .story-step > div { max-width: 30rem; }
+    .story-step h2 { margin: 0; font-size: clamp(2rem, 4vw, 4.1rem); line-height: .94; letter-spacing: -.065em; }
+    .story-step p { max-width: 27rem; margin: 1rem 0 0; color: var(--muted); font-size: 1.03rem; line-height: 1.5; }
+    .story-step strong { display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1rem; color: var(--ink); font-size: .72rem; letter-spacing: .11em; text-transform: uppercase; }
+    .story-step strong::before { content: ''; width: .55rem; height: .55rem; border-radius: 50%; background: var(--yellow); }
+    .story-step[data-active="true"] strong::before { box-shadow: 0 0 0 .28rem rgba(255,196,0,.2); }
+    .story-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; margin-top: 1.6rem; }
+    .story-meta span { padding: .7rem .8rem; border: 1px solid var(--line); border-radius: .65rem; color: var(--quiet); font-size: .74rem; font-weight: 750; }
+    .story-meta b { display: block; margin-top: .2rem; color: var(--ink); font-size: .9rem; }
+    .footnote { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0 3rem; color: var(--muted); font-size: .74rem; font-weight: 700; }
+    .footnote b { color: var(--ink); }
+    @media (max-width: 900px) {
+      .shell { width: min(100% - 1.4rem, 700px); }
+      .intro { display: block; min-height: auto; padding: 2.8rem 0 1.7rem; }
+      .intro > p { margin-top: 1rem; }
+      .scrolly { display: block; }
+      .map-sticky { position: sticky; top: .7rem; height: 56vh; min-height: 25rem; margin-bottom: 1rem; z-index: 2; }
+      .story { padding-bottom: 5vh; }
+      .story-step { min-height: 70vh; padding: 3rem 0; background: linear-gradient(180deg, rgba(247,248,244,.03), var(--paper) 15%); }
+    }
+    @media (max-width: 560px) {
+      .map-card { border-radius: 1rem; }
+      .map-status { right: .7rem; bottom: .7rem; }
+      .brand { top: .7rem; right: .7rem; max-width: calc(100% - 5rem); }
+      .map-controls { top: .7rem; left: .7rem; }
+      .story-step { min-height: 60vh; }
+      .story-meta { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .map-camera, .map-labels, .map-detail .coverage-boundary { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="intro">
+      <div>
+        <p class="eyebrow">Map study · Jiffy Local</p>
+        <h1>Dallas–Fort Worth,<br>then Texas.</h1>
+      </div>
+      <p>A continuous, Mapbox-style scroll study: one mounted map surface, muted Light-style geography, and camera transitions into the Jiffy delivery area.</p>
+    </header>
+
+    <section class="scrolly" aria-label="Texas and Dallas–Fort Worth map study">
+      <div class="map-sticky">
+        <div class="map-card" data-section="dfw">
+          <div class="map-frame">
+            <div class="map-camera">
+              <img class="map-base" src="assets/figma/texas-regional-wide-base.svg" alt="Light-style vector map of Texas and surrounding states" />
+              <svg class="map-labels" viewBox="-100 220 2200 1100" aria-hidden="true">
+                <text class="state" x="495.3" y="424.1" text-anchor="middle">NEW MEXICO</text>
+                <text class="state" x="995.5" y="325.2" text-anchor="middle">OKLAHOMA</text>
+                <text class="state" x="1423.7" y="398.1" text-anchor="middle">ARKANSAS</text>
+                <text class="state" x="1449.9" y="717.6" text-anchor="middle">LOUISIANA</text>
+                <text class="state state--texas" x="938" y="714.9" text-anchor="middle">TEXAS</text>
+                <text class="state" x="569.7" y="1155.8" text-anchor="middle">MEXICO</text>
+                <text class="state" x="1445" y="1159.7" text-anchor="middle" font-style="italic">Gulf of Mexico</text>
+                <circle class="city-dot city-dot--dfw" cx="1042" cy="579" r="4.5" />
+                <text class="city city--dfw" x="1112" y="584" text-anchor="middle">Dallas–Fort Worth</text>
+                <circle class="city-dot" cx="1054.4" cy="803.8" r="2.5" /><text class="city" x="1063.4" y="809.8">Austin</text>
+                <circle class="city-dot" cx="998.5" cy="877.2" r="2.5" /><text class="city" x="1007.5" y="883.2">San Antonio</text>
+                <circle class="city-dot" cx="1233.5" cy="843.8" r="2.5" /><text class="city" x="1242.5" y="849.8">Houston</text>
+                <circle class="city-dot" cx="1083.4" cy="1017" r="2.5" /><text class="city" x="1092.4" y="1023">Corpus Christi</text>
+                <circle class="city-dot" cx="921.2" cy="1043.2" r="2.5" /><text class="city" x="930.2" y="1049.2">Laredo</text>
+                <circle class="city-dot" cx="1020.4" cy="1155.6" r="2.5" /><text class="city" x="1029.4" y="1161.6">McAllen</text>
+                <circle class="city-dot" cx="408.9" cy="656.3" r="2.5" /><text class="city" x="417.9" y="662.3">El Paso</text>
+                <circle class="city-dot" cx="753.9" cy="514.9" r="2.5" /><text class="city" x="762.9" y="520.9">Lubbock</text>
+                <circle class="city-dot" cx="759.2" cy="372.7" r="2.5" /><text class="city" x="768.2" y="378.7">Amarillo</text>
+                <circle class="city-dot" cx="906.5" cy="615.2" r="2.5" /><text class="city" x="915.5" y="621.2">Abilene</text>
+                <circle class="city-dot" cx="1231.2" cy="619.3" r="2.5" /><text class="city" x="1240.2" y="625.3">Tyler</text>
+                <circle class="city-dot" cx="1159.1" cy="770.7" r="2.5" /><text class="city" x="1168.1" y="776.7">College Station</text>
+                <circle class="city-dot" cx="1325.8" cy="812.5" r="2.5" /><text class="city" x="1334.8" y="818.5">Beaumont</text>
+                <circle class="city-dot" cx="1344" cy="599.6" r="2" /><text class="city" x="1353" y="605.6">Shreveport</text>
+              </svg>
+              <svg class="map-detail" viewBox="-100 220 2200 1100" aria-hidden="true">
+                <path class="coverage-boundary" d="M952 466L1103 465L1146 490L1142 531L1169 544L1157 584L1113 590L1105 638L1059 658L1019 693L974 677L941 650L919 610L936 569L918 534L952 522Z" />
+              </svg>
+            </div>
+            <div class="map-wash"></div><div class="map-vignette"></div>
+          </div>
+          <div class="brand"><i></i><span>Jiffy Local · delivery coverage</span></div>
+          <div class="map-controls" aria-label="Map controls">
+            <button type="button" data-camera="zoom-in" aria-label="Zoom in">+</button>
+            <button type="button" data-camera="zoom-out" aria-label="Zoom out">−</button>
+            <button type="button" data-camera="reset" aria-label="Reset map">◒</button>
+          </div>
+          <div class="map-status"><i></i><span data-status>Dallas–Fort Worth</span></div>
+        </div>
+      </div>
+
+      <div class="story">
+        <article class="story-step" id="section-1" data-section="dfw">
+          <div>
+            <strong>Dallas–Fort Worth</strong>
+            <h2>Local coverage.<br>Right here.</h2>
+            <p>The map opens on Dallas–Fort Worth with the delivery boundary already visible. This is the first and only focused stop before the camera pulls back to Texas.</p>
+            <div class="story-meta"><span>BOUNDARY <b>ACTIVE</b></span><span>STYLE <b>MAPBOX LIGHT</b></span></div>
+          </div>
+        </article>
+        <article class="story-step" id="section-2" data-section="texas">
+          <div>
+            <strong>Texas</strong>
+            <h2>Pull back.<br>Keep DFW legible.</h2>
+            <p>One scroll moves the same map surface back to the full Texas view. DFW stays marked inside the wider regional context, with no extra intermediate cards.</p>
+            <div class="story-meta"><span>CAMERA <b>STATEWIDE</b></span><span>DFW <b>HIGHLIGHTED</b></span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <footer class="footnote"><b>Prototype animation</b><span>Scroll once between Dallas–Fort Worth and Texas. The map remains one continuous scene.</span></footer>
+  </main>
+
+  <script>
+    const card = document.querySelector('.map-card');
+    const camera = document.querySelector('.map-camera');
+    const status = document.querySelector('[data-status]');
+    const steps = [...document.querySelectorAll('.story-step')];
+    const states = {
+      dfw: { x: -8, y: 22, scale: 2.38, bearing: 15, label: 'Dallas–Fort Worth' },
+      texas: { x: 0, y: 0, scale: 1.07, bearing: 0, label: 'Texas' }
+    };
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    let activeSection = '';
+    let manualZoom = 0;
+    function applyState(name) {
+      if (activeSection === name) return;
+      const state = states[name] || states.dfw;
+      activeSection = name;
+      card.dataset.section = name;
+      camera.style.setProperty('--camera-x', `${state.x}%`);
+      camera.style.setProperty('--camera-y', `${state.y}%`);
+      camera.style.setProperty('--camera-scale', state.scale + manualZoom);
+      camera.style.setProperty('--camera-bearing', `${state.bearing}deg`);
+      status.textContent = state.label;
+      steps.forEach(step => step.dataset.active = String(step.dataset.section === name));
+    }
+    function isOnScreen(element) {
+      const bounds = element.getBoundingClientRect();
+      const midpoint = window.innerHeight * .5;
+      return bounds.top <= midpoint && bounds.bottom >= midpoint;
+    }
+    function highlightSection() {
+      const next = steps.find(step => isOnScreen(step));
+      if (next) applyState(next.dataset.section);
+    }
+    window.addEventListener('scroll', highlightSection, { passive: true });
+    window.addEventListener('resize', highlightSection);
+    document.querySelectorAll('[data-camera]').forEach(button => button.addEventListener('click', () => {
+      const action = button.dataset.camera;
+      if (action === 'reset') manualZoom = 0;
+      if (action === 'zoom-in') manualZoom = Math.min(manualZoom + .12, .5);
+      if (action === 'zoom-out') manualZoom = Math.max(manualZoom - .12, -.3);
+      const current = states[activeSection] || states.dfw;
+      camera.style.setProperty('--camera-scale', current.scale + manualZoom);
+    }));
+    applyState('dfw');
+  </script>
+</body>
+</html>

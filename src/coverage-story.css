@@ -228,3 +228,49 @@
   .coverage-story__index b,.coverage-story__index small,.coverage-story__index-details{transition:none}
   .coverage-story__map-scene{will-change:auto}
 }
+
+/* Locked map surface: the existing panel/copy layout stays above unchanged. */
+.coverage-story__map-scene {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  transform: translate3d(var(--coverage-map-x, 0%), var(--coverage-map-y, 0%), 0) scale(var(--coverage-map-scale, 1.07)) rotate(var(--coverage-map-bearing, 0deg));
+  transition: transform 4000ms cubic-bezier(.2, .85, .2, 1);
+  will-change: transform;
+}
+.coverage-story__map-image { object-position: 63% 50%; filter: saturate(.32) contrast(.96) brightness(1.05); user-select: none; pointer-events: none; opacity: 1; }
+.coverage-story__map-labels {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  transform: rotate(calc(var(--coverage-map-bearing, 0deg) * -1));
+  transform-origin: 50% 50%;
+  transition: transform 4000ms cubic-bezier(.2, .85, .2, 1);
+}
+.coverage-story__state { fill: #718491; font-family: Arial, sans-serif; font-size: 19px; font-weight: 400; letter-spacing: 8px; opacity: .36; }
+.coverage-story__state--texas { fill: #304d6b; font-size: 30px; font-weight: 600; opacity: .9; }
+.coverage-story__state--gulf { font-style: italic; }
+.coverage-story__city { fill: #5e7487; font-family: Arial, sans-serif; font-size: 16px; font-weight: 400; opacity: .62; }
+.coverage-story__city--dfw { fill: #244a75; font-size: 14px; font-weight: 600; opacity: 1; }
+.coverage-story__city--quiet { opacity: .32; }
+.coverage-story__city-dot { fill: #183e72; opacity: .24; }
+.coverage-story__city-dot--dfw { fill: #183e72; opacity: .62; }
+.coverage-story__map-detail { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.coverage-story__map-detail .coverage-story__boundary { fill: rgba(64, 93, 112, .035); stroke: #5f6f7a; stroke-width: 2.8; stroke-linejoin: round; stroke-linecap: round; opacity: 0; transition: opacity 900ms ease; }
+.coverage-story__map-card[data-section="dfw"] .coverage-story__boundary { opacity: 1; }
+.coverage-story__map-wash { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(249, 250, 246, .16), transparent 52%), linear-gradient(0deg, rgba(239, 244, 237, .18), transparent 42%); mix-blend-mode: screen; }
+.coverage-story__map-vignette { position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .42), inset 0 -7rem 9rem rgba(20, 34, 55, .08); }
+@media (max-width: 900px) {
+  .coverage-story__map-scene { transform-origin: 59% 38%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .coverage-story__map-scene, .coverage-story__map-labels, .coverage-story__boundary { transition: none; }
+}
+
+@media (min-width: 901px) {
+  /* Give the unchanged copy panel a little more breathing room from the map. */
+  .coverage-story__copy { transform: translateX(clamp(-2rem, -1.5vw, -.75rem)); }
+}

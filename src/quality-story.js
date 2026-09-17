@@ -2,7 +2,7 @@ const asset = (file) => `${import.meta.env.BASE_URL}figma/${file}`;
 
 document.querySelector('#app').innerHTML = `
   <section class="jiffy-hero" aria-labelledby="jiffy-hero-title">
-    <img class="jiffy-hero__image" src="${asset('jiffy-hero-no-box.jpg')}?v=1" alt="" aria-hidden="true" />
+    <img class="jiffy-hero__image" src="${asset('jiffy-hero-sunrise.png')}?v=1" alt="" aria-hidden="true" />
     <div class="jiffy-hero__shade"></div>
     <header class="jiffy-hero__nav">
       <div class="jiffy-hero__brand"><img class="jiffy-hero__logo" src="${asset('jiffy-local-logo.svg')}" alt="Jiffy" /><span class="jiffy-hero__location">DALLAS-FORT WORTH</span></div>
@@ -561,6 +561,16 @@ finalBlanksCatalog.innerHTML = `
 
 apparelV2.remove();
 apparelV3.remove();
+const coverageMapLabels = [
+  ['state', 495.3, 424.1, 'NEW MEXICO'], ['state', 995.5, 325.2, 'OKLAHOMA'], ['state', 1423.7, 398.1, 'ARKANSAS'],
+  ['state', 1449.9, 717.6, 'LOUISIANA'], ['state state--texas', 938, 714.9, 'TEXAS'], ['state', 569.7, 1155.8, 'MEXICO'],
+  ['state state--gulf', 1445, 1159.7, 'Gulf of Mexico'], ['city city--dfw', 1042, 579, 'Dallas–Fort Worth'],
+  ['city', 1054.4, 803.8, 'Austin'], ['city', 998.5, 877.2, 'San Antonio'], ['city', 1233.5, 843.8, 'Houston'],
+  ['city', 1083.4, 1017, 'Corpus Christi'], ['city', 921.2, 1043.2, 'Laredo'], ['city', 1020.4, 1155.6, 'McAllen'],
+  ['city', 408.9, 656.3, 'El Paso'], ['city', 753.9, 514.9, 'Lubbock'], ['city', 759.2, 372.7, 'Amarillo'],
+  ['city', 906.5, 615.2, 'Abilene'], ['city', 1231.2, 619.3, 'Tyler'], ['city', 1159.1, 770.7, 'College Station'],
+  ['city', 1325.8, 812.5, 'Beaumont'], ['city city--quiet', 1344, 599.6, 'Shreveport'],
+];
 const coverageStory = document.createElement('section');
 coverageStory.className = 'coverage-story';
 coverageStory.id = 'delivery-coverage';
@@ -614,6 +624,46 @@ coverageStory.innerHTML = `
     </div>
     <p class="coverage-story__scroll-cue" aria-hidden="true"><span></span>Scroll to expand the map</p>
   </div>`;
+const coverageMapCard = coverageStory.querySelector('.coverage-story__map-card');
+coverageMapCard.dataset.section = 'dfw';
+const coverageMap = coverageStory.querySelector('.coverage-story__map');
+const coverageMapScene = coverageStory.querySelector('.coverage-story__map-scene');
+const createCoverageSvg = (name, attrs = {}) => {
+  const node = document.createElementNS('http://www.w3.org/2000/svg', name);
+  Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
+  return node;
+};
+coverageMapScene.replaceChildren();
+const coverageMapBase = document.createElement('img');
+coverageMapBase.className = 'coverage-story__map-image';
+coverageMapBase.src = asset('texas-regional-wide-base.svg');
+coverageMapBase.alt = 'Map of Texas and its major delivery destinations';
+coverageMapScene.append(coverageMapBase);
+const coverageMapLabelsSvg = createCoverageSvg('svg', { class: 'coverage-story__map-labels', viewBox: '-100 220 2200 1100', 'aria-hidden': 'true' });
+coverageMapLabels.forEach(([type, x, y, text]) => {
+  const quiet = type.includes('--quiet');
+  const state = type.startsWith('state');
+  const dfw = type.includes('--dfw');
+  const dot = createCoverageSvg('circle', { class: dfw ? 'coverage-story__city-dot coverage-story__city-dot--dfw' : 'coverage-story__city-dot', cx: x, cy: y, r: dfw ? 3.2 : 2.2 });
+  const textNode = createCoverageSvg('text', {
+    class: state ? 'coverage-story__state' + (type.includes('--texas') ? ' coverage-story__state--texas' : '') : 'coverage-story__city' + (dfw ? ' coverage-story__city--dfw' : '') + (quiet ? ' coverage-story__city--quiet' : ''),
+    x: state ? x : x + 9,
+    y: state ? y : y + 6,
+    'text-anchor': state ? 'middle' : 'start',
+  });
+  textNode.textContent = text;
+  coverageMapLabelsSvg.append(dot, textNode);
+});
+coverageMapScene.append(coverageMapLabelsSvg);
+const coverageMapDetail = createCoverageSvg('svg', { class: 'coverage-story__map-detail', viewBox: '-100 220 2200 1100', 'aria-hidden': 'true' });
+coverageMapDetail.append(createCoverageSvg('path', { class: 'coverage-story__boundary', d: 'M952 466L1103 465L1146 490L1142 531L1169 544L1157 584L1113 590L1105 638L1059 658L1019 693L974 677L941 650L919 610L936 569L918 534L952 522Z' }));
+coverageMapScene.append(coverageMapDetail);
+const coverageMapWash = document.createElement('div');
+coverageMapWash.className = 'coverage-story__map-wash';
+const coverageMapVignette = document.createElement('div');
+coverageMapVignette.className = 'coverage-story__map-vignette';
+coverageMap.append(coverageMapWash, coverageMapVignette);
+
 blanksSection.after(coverageStory);
 coverageStory.after(pairingExploration);
 
@@ -622,40 +672,48 @@ const setupCoverageStory = () => {
   const steps = [...coverageStory.querySelectorAll('[data-coverage-step]')];
   const caption = coverageStory.querySelector('[data-coverage-caption]');
   const deliveryWindow = coverageStory.querySelector('[data-coverage-window]');
+  const camera = coverageStory.querySelector('.coverage-story__map-scene');
   const localClamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-  const smooth = (value) => value * value * (3 - 2 * value);
+  const states = {
+    dfw: { x: 12, y: 22, scale: 2.38, bearing: 15, caption: 'Dallas–Fort Worth · Jiffy Local coverage', window: 'Delivery in hours · 7 days' },
+    texas: { x: 20, y: 0, scale: 1.07, bearing: 0, caption: 'Texas · Jiffy 1st service area', window: 'Next-day delivery · 7 days' },
+  };
   let currentStep = 0;
+  let activeState = '';
+  let manualZoom = 0;
   let frame;
+
+  const applyState = (name) => {
+    const state = states[name] || states.dfw;
+    if (activeState === name && manualZoom === 0) return;
+    activeState = name;
+    coverageMapCard.dataset.section = name;
+    camera.style.setProperty('--coverage-map-x', state.x + '%');
+    camera.style.setProperty('--coverage-map-y', state.y + '%');
+    camera.style.setProperty('--coverage-map-scale', state.scale + manualZoom);
+    camera.style.setProperty('--coverage-map-bearing', state.bearing + 'deg');
+    caption.textContent = state.caption;
+    deliveryWindow.textContent = state.window;
+  };
 
   const render = () => {
     frame = undefined;
     const maxScroll = Math.max(1, coverageStory.offsetHeight - innerHeight);
     const bounds = coverageStory.getBoundingClientRect();
     const progress = localClamp(-bounds.top / maxScroll);
-    const mapBlend = smooth(localClamp((progress - .18) / .64));
     coverageStory.style.setProperty('--coverage-progress', progress.toFixed(3));
-    coverageStory.style.setProperty('--coverage-map-blend', mapBlend.toFixed(3));
-    // One continuous Texas map: camera starts tightly on DFW, then pulls out
-    // to the full state for Jiffy 1st. Nothing crossfades or swaps.
-    coverageStory.style.setProperty('--coverage-map-scale', (2.55 - (mapBlend * 1.55)).toFixed(3));
-    // Keep the statewide view clear of the coverage panel on the left.
-    coverageStory.style.setProperty('--coverage-map-x', 'clamp(3rem, 7vw, 9rem)');
-
+    coverageStory.style.setProperty('--coverage-map-blend', '0');
     const nextStep = progress >= .5 ? 1 : 0;
     if (nextStep !== currentStep) currentStep = nextStep;
-    items.forEach((item, index) => {
-      const active = index === currentStep;
-      item.classList.toggle('is-active', active);
-    });
+    const stateName = currentStep === 1 ? 'texas' : 'dfw';
+    applyState(stateName);
+    items.forEach((item, index) => item.classList.toggle('is-active', index === currentStep));
     steps.forEach((step, index) => {
       const active = index === currentStep;
       step.classList.toggle('is-active', active);
       step.setAttribute('aria-current', active ? 'step' : 'false');
       step.setAttribute('aria-expanded', String(active));
     });
-    const first = currentStep === 1;
-    caption.textContent = first ? 'Texas · Jiffy 1st service area' : 'Dallas–Fort Worth · Jiffy Local coverage';
-    deliveryWindow.textContent = first ? 'Next-day delivery · 7 days' : 'Delivery in hours · 7 days';
   };
 
   const queueRender = () => {
@@ -668,6 +726,13 @@ const setupCoverageStory = () => {
   }));
   window.addEventListener('scroll', queueRender, { passive: true });
   window.addEventListener('resize', queueRender);
+  coverageStory.querySelectorAll('[data-coverage-camera]').forEach((button) => button.addEventListener('click', () => {
+    const action = button.dataset.coverageCamera;
+    if (action === 'reset') manualZoom = 0;
+    if (action === 'zoom-in') manualZoom = Math.min(manualZoom + .12, .5);
+    if (action === 'zoom-out') manualZoom = Math.max(manualZoom - .12, -.3);
+    applyState(activeState || 'dfw');
+  }));
   render();
 };
 setupCoverageStory();
