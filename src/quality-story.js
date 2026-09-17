@@ -111,33 +111,23 @@ const s1v3Cards = [
 
 const heroBridge = document.createElement('section');
 heroBridge.className = 'hero-bridge';
+heroBridge.id = 'delivery-pairing';
 heroBridge.setAttribute('aria-label', 'Jiffy Local delivery benefits');
 heroBridge.innerHTML = `
-  <div class="jiffy-hero__value-props">
-    <article class="jiffy-hero__value-prop">
-      <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-truck.svg')}" alt="" /></span>
-      <div>
-        <p>First delivery</p>
-        <h2>FREE</h2>
-        <span>Delivered across Dallas–Fort Worth. On us.</span>
+  <div class="hero-bridge__inner">
+    <div class="hero-bridge__copy">
+      <h2><span>FIRST DELIVERY</span><strong>FREE</strong></h2>
+      <div class="hero-bridge__products" aria-label="Blanks and transfers">
+        <span class="hero-bridge__product hero-bridge__product--shirt"><img src="${asset('delivery-shirt.svg')}" alt="" /><b>BLANKS</b></span>
+        <span class="hero-bridge__plus" aria-hidden="true">+</span>
+        <span class="hero-bridge__product hero-bridge__product--transfers"><img src="${asset('delivery-cards-star.svg')}" alt="" /><b>TRANSFERS</b></span>
       </div>
-    </article>
-    <article class="jiffy-hero__value-prop">
-      <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-shirt.svg')}" alt="" /></span>
-      <div>
-        <p>Blanks</p>
-        <h2>20+ shirt styles <small>from <b>$2.41</b></small></h2>
-        <span>Premium brands, ready for your design.</span>
-      </div>
-    </article>
-    <article class="jiffy-hero__value-prop">
-      <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-printer.svg')}" alt="" /></span>
-      <div>
-        <p>DTF</p>
-        <h2>$0.02 <small>PER LINE.</small></h2>
-        <span>High-quality printing for every design.</span>
-      </div>
-    </article>
+      <div class="hero-bridge__tag">TOGETHER IN ONE BOX</div>
+      <p class="hero-bridge__hours">IN HOURS</p>
+    </div>
+    <figure class="hero-bridge__visual" aria-label="Blank shirt and DTF transfer materials ready for delivery">
+      <img src="${asset('pairing-hero-box-topdown.png')}" alt="Yellow Jiffy box with a blank shirt, transfer roll, and printed transfer sheets" />
+    </figure>
   </div>
 `;
 
@@ -387,8 +377,9 @@ pairingExploration.setAttribute('aria-label', 'Transfers and blank apparel deliv
 pairingExploration.innerHTML = `
   <div class="pairing-exploration__inner">
     <div class="pairing-exploration__copy">
-      <h2><span class="pairing-exploration__line">PAIR IT UP<span>.</span></span><br /><span class="pairing-exploration__line">ONE DELIVERY<span>.</span></span><br /><span class="pairing-exploration__tag">IN HOURS.</span></h2>
-      <p><span>Transfers and blanks, delivered together.</span><br /><span>Delivered in hours, from the same local source.</span></p>
+      <p class="pairing-exploration__eyebrow">ONE CART · ONE SHIPPING THRESHOLD</p>
+      <h2><span class="pairing-exploration__line">BLANKS + TRANSFERS<span>.</span></span><br /><span class="pairing-exploration__line">DELIVERED TOGETHER<span>.</span></span></h2>
+      <p><span>One delivery for your blanks and transfers.</span><br /><strong>One free-shipping threshold for both.</strong></p>
     </div>
     <figure class="pairing-exploration__package" aria-label="Jiffy DTF delivery scene">
       <img src="${asset('pairing-bridge-generated.png')}" alt="Jiffy DTF box with blank apparel and loose transfers." />

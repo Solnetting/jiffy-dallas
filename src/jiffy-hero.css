@@ -65,7 +65,7 @@
 .jiffy-hero__value-prop:nth-child(2) h2 small b{color:#ffc700;font-size:1.2em}
 .jiffy-hero__value-prop>div>span{display:block;max-width:15rem;margin-top:.65rem;color:#d0d8e3;font:500 clamp(.72rem,.9vw,.98rem)/1.25 Inter,sans-serif}
 
-@media(max-width:900px){
+@media(max-width:720px){
   .jiffy-hero__value-props{grid-template-columns:1fr;gap:1.1rem;width:calc(100% - 2rem);padding:1.1rem 0 1.5rem}
   .jiffy-hero__value-prop{padding:0 0 1rem;border-bottom:1px solid rgba(255,255,255,.2)}
   .jiffy-hero__value-prop:last-child{padding-bottom:0;border-bottom:0}
@@ -76,8 +76,8 @@
 
 /* Standalone handoff between the full-viewport hero and S1. The hero keeps
    its dark photographic treatment; this section owns the light contrast
-   surface and the three benefit statements that used to sit inside it. */
-.hero-bridge{position:relative;display:block;overflow:hidden;background:#f4f1eb;color:#14213d}
+   surface and the combined-delivery visual. */
+.hero-bridge{position:relative;display:block;overflow:hidden;background:#fcf9f2;color:#14213d}
 .hero-bridge .jiffy-hero__value-props{border-top-color:rgba(20,33,61,.16);padding-top:clamp(2.6rem,5vw,4.5rem);padding-bottom:clamp(2.6rem,5vw,4.5rem)}
 .hero-bridge .jiffy-hero__value-prop{color:#14213d}
 .hero-bridge .jiffy-hero__value-prop p,.hero-bridge .jiffy-hero__value-prop h2 small{color:#14213d}
@@ -87,7 +87,31 @@
 .hero-bridge .jiffy-hero__value-prop>div>span{color:rgba(20,33,61,.68)}
 .hero-bridge .jiffy-hero__value-icon{border-color:rgba(217,159,0,.58);background:rgba(255,255,255,.48)}
 .hero-bridge .jiffy-hero__value-prop:nth-child(2) h2 small{display:inline}
+.hero-bridge__inner{position:relative;display:grid;grid-template-columns:minmax(0,40%) minmax(0,60%);min-height:clamp(34rem,46vw,48rem);max-width:120rem;margin:0 auto;padding:clamp(1.5rem,3vw,3rem) clamp(1.5rem,3.4vw,4.5rem);overflow:hidden}
+.hero-bridge__copy{position:relative;z-index:2;align-self:center;padding:clamp(1rem,2.5vw,3rem) clamp(.75rem,1.6vw,2rem);background:transparent}
+.hero-bridge__copy h2{display:block;margin:0;color:#14213d;font:900 clamp(2rem,4.2vw,5.4rem)/.86 Poppins,Inter,sans-serif;letter-spacing:-.045em}
+.hero-bridge__copy h2>span,.hero-bridge__copy h2>strong{display:block;white-space:nowrap}
+.hero-bridge__copy h2 strong{margin-top:.04em;color:#ffc800;font-size:clamp(4rem,12vw,15rem);line-height:.78}
+.hero-bridge__products{display:flex;align-items:center;gap:clamp(.45rem,1vw,1rem);margin-top:clamp(1rem,1.9vw,2rem);color:#14213d}
+.hero-bridge__product{display:flex;align-items:center;gap:.55rem;white-space:nowrap}
+.hero-bridge__product img{display:block;flex:0 0 auto;object-fit:contain}
+.hero-bridge__product--shirt img{width:clamp(2.25rem,3.1vw,3.6rem);height:clamp(2.25rem,3.1vw,3.6rem)}
+.hero-bridge__product--transfers img{width:clamp(1.5rem,2.1vw,2.4rem);height:clamp(1.5rem,2.1vw,2.4rem)}
+.hero-bridge__product b{font:900 clamp(1.05rem,1.7vw,2.2rem)/1 Poppins,Inter,sans-serif;letter-spacing:-.03em}
+.hero-bridge__plus{font:700 clamp(1.35rem,2.1vw,2.6rem)/1 Poppins,Inter,sans-serif}
+.hero-bridge__tag{display:block;width:max-content;max-width:100%;margin-top:clamp(.85rem,1.35vw,1.6rem);padding:.32em .48em .26em;border-radius:.42rem;background:#ffc800;color:#14213d;font:900 clamp(1rem,1.6vw,2.1rem)/1 Poppins,Inter,sans-serif;letter-spacing:-.035em}
+.hero-bridge__hours{margin:clamp(.55rem,1vw,1rem) 0 0;color:#14213d;font:900 clamp(1.25rem,2.1vw,2.7rem)/.95 Poppins,Inter,sans-serif;letter-spacing:-.035em}
+.hero-bridge__visual{position:relative;grid-column:2;grid-row:1;display:block;width:100%;height:100%;margin:0;line-height:0;overflow:hidden}
+.hero-bridge__visual img{position:absolute;top:6%;right:0;display:block;width:auto;height:88%;max-width:none}
 
 @media(max-width:900px){
   .hero-bridge .jiffy-hero__value-prop{border-bottom-color:rgba(20,33,61,.14)}
+  .hero-bridge__inner{display:flex;flex-direction:column;min-height:0;padding:0}
+  .hero-bridge__copy{padding:3.5rem 1.25rem 2.5rem}
+  .hero-bridge__copy h2{font-size:clamp(2.25rem,10.5vw,5rem)}
+  .hero-bridge__copy h2 strong{font-size:clamp(5rem,27vw,11rem)}
+  .hero-bridge__products{gap:.55rem}
+  .hero-bridge__product b{font-size:clamp(1.1rem,5vw,2rem)}
+  .hero-bridge__visual{height:clamp(18rem,68vw,32rem);order:2}
+  .hero-bridge__visual img{top:-4%;right:-100%;height:112%}
 }

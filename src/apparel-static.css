@@ -56,9 +56,9 @@
 .blanks-story--static .blanks-static-grid .blanks-product__brand>img{display:block;flex:0 0 auto;width:auto;height:clamp(.5rem,.62vw,.68rem)}
 .blanks-story--static .blanks-static-grid .blanks-product__brand>b{margin:0;overflow:hidden;color:inherit;font:inherit;text-overflow:ellipsis}
 .blanks-story--static .blanks-static-grid .blanks-product__brand>span{overflow:hidden;color:#6a7487;font:inherit;text-overflow:ellipsis}
-.blanks-story--static .blanks-static-grid .blanks-product__colour{display:inline-flex;flex:0 0 auto;align-items:center;gap:.22rem;margin:.25rem 0;color:#5b6577;font:500 clamp(.48rem,.56vw,.62rem)/1 Inter,sans-serif}
-.blanks-story--static .blanks-static-grid .blanks-product__colour>i{display:block;width:.5rem;height:.5rem;border:1px solid rgba(20,33,61,.24);border-radius:.08rem;background:var(--swatch);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
-.blanks-story--static .blanks-static-grid .blanks-product__colour>b{color:#8a93a3;font:400 12px/1 Inter,sans-serif}
+.blanks-story--static .blanks-static-grid .blanks-product__colour{display:inline-flex;flex:0 0 auto;align-items:baseline;gap:.22rem;margin:.25rem 0;color:#5b6577;font:500 clamp(.48rem,.56vw,.62rem)/1 Inter,sans-serif}
+.blanks-story--static .blanks-static-grid .blanks-product__colour>i{display:block;align-self:center;width:.5rem;height:.5rem;border:1px solid rgba(20,33,61,.24);border-radius:.08rem;background:var(--swatch);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.blanks-story--static .blanks-static-grid .blanks-product__colour>b{color:#8a93a3;font:400 12px/1 Inter,sans-serif;line-height:1}
 .blanks-story--static .blanks-static-grid .blanks-product strong{display:flex;align-items:flex-start;justify-content:center;width:100%;min-height:1.16em;margin-top:.35rem;overflow:hidden;font:600 clamp(.66rem,.78vw,.88rem)/1.16 Inter,sans-serif;white-space:normal}
 .blanks-story--static .blanks-static-grid .blanks-product__price{display:flex;align-items:baseline;justify-content:center;gap:.3rem;margin-top:0;white-space:nowrap}
 .blanks-story--static .blanks-static-grid .blanks-product__price em{color:#b5473f;font:700 clamp(.5rem,.55vw,.62rem)/1 Inter,sans-serif;font-style:normal;text-decoration:line-through}

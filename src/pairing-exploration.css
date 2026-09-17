@@ -4,6 +4,8 @@
   background:#f5f1ea;
   color:#14213d;
   overflow:hidden;
+  border-top:1px solid rgba(20,33,61,.09);
+  border-bottom:1px solid rgba(20,33,61,.09);
 }
 .pairing-exploration__inner{
   position:relative;
@@ -28,10 +30,11 @@
 .pairing-exploration__copy h2{
   margin:0;
   color:#14213d;
-  font:900 84px/.84 Poppins,Inter,sans-serif;
+  font:900 clamp(2.8rem,4.2vw,5.25rem)/.88 Poppins,Inter,sans-serif;
   letter-spacing:0;
-  white-space:nowrap;
+  max-width:44rem;
 }
+.pairing-exploration__copy h2 .pairing-exploration__line{white-space:nowrap}
 .pairing-exploration__copy h2>span{display:inline-block;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
 .pairing-exploration__copy h2>span:nth-child(1){transition-delay:.08s}
 .pairing-exploration__copy h2>span:nth-child(3){transition-delay:.16s}
@@ -43,6 +46,13 @@
   color:#53647e;
   font:500 clamp(1rem,1.35vw,1.35rem)/1.35 Inter,sans-serif;
 }
+.pairing-exploration__copy .pairing-exploration__eyebrow{
+  margin:0 0 1.1rem;
+  color:#64738c;
+  font:800 clamp(.7rem,.85vw,.9rem)/1 Inter,sans-serif;
+  letter-spacing:.08em;
+}
+.pairing-exploration__copy p strong{color:#14213d;font-weight:800}
 .pairing-exploration__copy p span{display:inline-block;transition:opacity .6s ease,transform .7s cubic-bezier(.22,1,.36,1)}
 .pairing-exploration__copy p span:first-child{transition-delay:.24s}
 .pairing-exploration__copy p span:last-child{transition-delay:.3s}
@@ -77,7 +87,7 @@
   }
   .pairing-exploration__copy{width:min(100%,42rem)}
   .pairing-exploration__copy h2{
-    font-size:clamp(3.5rem,16vw,6rem);
+    font-size:clamp(3.1rem,14vw,5.8rem);
   }
   .pairing-exploration__package{
     position:relative;
