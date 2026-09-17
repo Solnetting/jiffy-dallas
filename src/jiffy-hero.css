@@ -73,3 +73,21 @@
   .jiffy-hero__value-prop:nth-child(2) h2{font-size:1.6rem}
   .jiffy-hero__value-prop>div>span{max-width:22rem}
 }
+
+/* Standalone handoff between the full-viewport hero and S1. The hero keeps
+   its dark photographic treatment; this section owns the light contrast
+   surface and the three benefit statements that used to sit inside it. */
+.hero-bridge{position:relative;display:block;overflow:hidden;background:#f4f1eb;color:#14213d}
+.hero-bridge .jiffy-hero__value-props{border-top-color:rgba(20,33,61,.16);padding-top:clamp(2.6rem,5vw,4.5rem);padding-bottom:clamp(2.6rem,5vw,4.5rem)}
+.hero-bridge .jiffy-hero__value-prop{color:#14213d}
+.hero-bridge .jiffy-hero__value-prop p,.hero-bridge .jiffy-hero__value-prop h2 small{color:#14213d}
+.hero-bridge .jiffy-hero__value-prop h2{color:#14213d}
+.hero-bridge .jiffy-hero__value-prop:nth-child(2) h2{color:#14213d}
+.hero-bridge .jiffy-hero__value-prop h2 small b{color:#d99f00}
+.hero-bridge .jiffy-hero__value-prop>div>span{color:rgba(20,33,61,.68)}
+.hero-bridge .jiffy-hero__value-icon{border-color:rgba(217,159,0,.58);background:rgba(255,255,255,.48)}
+.hero-bridge .jiffy-hero__value-prop:nth-child(2) h2 small{display:inline}
+
+@media(max-width:900px){
+  .hero-bridge .jiffy-hero__value-prop{border-bottom-color:rgba(20,33,61,.14)}
+}

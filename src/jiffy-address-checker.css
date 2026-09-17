@@ -293,8 +293,8 @@
   will-change:transform;
 }
 .jiffy-address-glow-gradient {
-  width:88px;
-  height:88px;
+  width:112px;
+  height:112px;
   background:radial-gradient(#ffc800 40%,transparent 60%);
   opacity:.9;
 }

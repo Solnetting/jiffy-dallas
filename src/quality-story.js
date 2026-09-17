@@ -12,7 +12,7 @@ document.querySelector('#app').innerHTML = `
     </header>
     <div class="jiffy-hero__content">
       <p class="jiffy-hero__eyebrow"><span></span>Now delivering · Dallas-Fort Worth</p>
-      <h1 id="jiffy-hero-title">Transfers + blanks.<br /><mark>Delivered together.</mark><br />In hours.</h1>
+      <h1 id="jiffy-hero-title">Delivering<br /><mark>Together in Hours.</mark></h1>
       <p class="jiffy-hero__lede">Order this morning. Press this afternoon.</p>
       <form class="jiffy-hero__address" action="https://www.jiffy.com/" method="get">
         <div class="jiffy-hero__sticky-brand local-mark" aria-label="Jiffy Local Dallas–Fort Worth">Jiffy Local <span aria-hidden="true"></span><small>Dallas–Fort Worth</small></div>
@@ -58,32 +58,6 @@ document.querySelector('#app').innerHTML = `
       </article>
       <p class="jiffy-hero__covered-note"><span aria-hidden="true"></span>Dallas central distribution online. Order now to lock in your window.</p>
     </div>
-    <section class="jiffy-hero__value-props" aria-label="Jiffy Local benefits">
-      <article class="jiffy-hero__value-prop">
-        <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-truck.svg')}" alt="" /></span>
-        <div>
-          <p>First delivery</p>
-          <h2>FREE</h2>
-          <span>Delivered across Dallas–Fort Worth. On us.</span>
-        </div>
-      </article>
-      <article class="jiffy-hero__value-prop">
-        <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-shirt.svg')}" alt="" /></span>
-        <div>
-          <p>Blanks</p>
-          <h2>20+ shirt styles <small>from <b>$2.41</b></small></h2>
-          <span>Premium brands, ready for your design.</span>
-        </div>
-      </article>
-      <article class="jiffy-hero__value-prop">
-        <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-printer.svg')}" alt="" /></span>
-        <div>
-          <p>DTF</p>
-          <h2>$0.02 <small>PER LINE.</small></h2>
-          <span>High-quality printing for every design.</span>
-        </div>
-      </article>
-    </section>
   </section>
 `;
 
@@ -134,6 +108,38 @@ const s1v3Cards = [
   { image: 'tiger-proof-peel.png', title: 'Hot peel', subtitle: 'Clean release immediately after pressing.', description: 'A clean release immediately after pressing means less waiting between the press and the finished garment.' },
   { image: 'tiger-proof-color.png', title: 'Color accuracy', subtitle: 'True color with fine detail, up close.', description: 'Richer detail and truer color set a higher standard in every transfer.' },
 ];
+
+const heroBridge = document.createElement('section');
+heroBridge.className = 'hero-bridge';
+heroBridge.setAttribute('aria-label', 'Jiffy Local delivery benefits');
+heroBridge.innerHTML = `
+  <div class="jiffy-hero__value-props">
+    <article class="jiffy-hero__value-prop">
+      <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-truck.svg')}" alt="" /></span>
+      <div>
+        <p>First delivery</p>
+        <h2>FREE</h2>
+        <span>Delivered across Dallas–Fort Worth. On us.</span>
+      </div>
+    </article>
+    <article class="jiffy-hero__value-prop">
+      <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-shirt.svg')}" alt="" /></span>
+      <div>
+        <p>Blanks</p>
+        <h2>20+ shirt styles <small>from <b>$2.41</b></small></h2>
+        <span>Premium brands, ready for your design.</span>
+      </div>
+    </article>
+    <article class="jiffy-hero__value-prop">
+      <span class="jiffy-hero__value-icon" aria-hidden="true"><img src="${asset('hero-printer.svg')}" alt="" /></span>
+      <div>
+        <p>DTF</p>
+        <h2>$0.02 <small>PER LINE.</small></h2>
+        <span>High-quality printing for every design.</span>
+      </div>
+    </article>
+  </div>
+`;
 
 const s1v3 = document.createElement('section');
 s1v3.className = 's1v3-story';
@@ -203,7 +209,8 @@ s1v3.innerHTML = `
     </div>
   </div>
 `;
-originalHero?.after(s1v3);
+originalHero?.after(heroBridge);
+heroBridge.after(s1v3);
 
 // This panel follows the promotional banner, but is reserved for addresses
 // that qualify for Jiffy Local. Its schedule mirrors the confirmed delivery
@@ -635,11 +642,18 @@ const createCoverageSvg = (name, attrs = {}) => {
   return node;
 };
 coverageMapScene.replaceChildren();
-const coverageMapBase = document.createElement('img');
-coverageMapBase.className = 'coverage-story__map-image';
-coverageMapBase.src = asset('texas-regional-wide-base.svg');
-coverageMapBase.alt = 'Map of Texas and its major delivery destinations';
-coverageMapScene.append(coverageMapBase);
+// Keep the two camera states on separate map layers. The Texas outline is part
+// of the wide base artwork, so the DFW camera uses the same county map with
+// that outline removed and draws its own local service boundary below.
+const coverageMapDfwBase = document.createElement('img');
+coverageMapDfwBase.className = 'coverage-story__map-image coverage-story__map-base--dfw';
+coverageMapDfwBase.src = asset('texas-regional-wide-dfw.svg');
+coverageMapDfwBase.alt = 'Map of the Dallas–Fort Worth delivery area';
+const coverageMapTexasBase = document.createElement('img');
+coverageMapTexasBase.className = 'coverage-story__map-image coverage-story__map-base--texas';
+coverageMapTexasBase.src = asset('texas-regional-wide-base.svg');
+coverageMapTexasBase.alt = 'Map of Texas and its major delivery destinations';
+coverageMapScene.append(coverageMapDfwBase, coverageMapTexasBase);
 const coverageMapLabelsSvg = createCoverageSvg('svg', { class: 'coverage-story__map-labels', viewBox: '-100 220 2200 1100', 'aria-hidden': 'true' });
 coverageMapLabels.forEach(([type, x, y, text]) => {
   const quiet = type.includes('--quiet');
@@ -648,9 +662,12 @@ coverageMapLabels.forEach(([type, x, y, text]) => {
   const dot = createCoverageSvg('circle', { class: dfw ? 'coverage-story__city-dot coverage-story__city-dot--dfw' : 'coverage-story__city-dot', cx: x, cy: y, r: dfw ? 3.2 : 2.2 });
   const textNode = createCoverageSvg('text', {
     class: state ? 'coverage-story__state' + (type.includes('--texas') ? ' coverage-story__state--texas' : '') : 'coverage-story__city' + (dfw ? ' coverage-story__city--dfw' : '') + (quiet ? ' coverage-story__city--quiet' : ''),
-    x: state ? x : x + 9,
-    y: state ? y : y + 6,
-    'text-anchor': state ? 'middle' : 'start',
+    // The supplied map artwork centers the DFW label at 1112/584 while its
+    // marker stays at 1042/579. Keep that alignment instead of anchoring the
+    // label immediately after the marker like the smaller city labels.
+    x: state ? x : (dfw ? 1112 : x + 9),
+    y: state ? y : (dfw ? 584 : y + 6),
+    'text-anchor': state || dfw ? 'middle' : 'start',
   });
   textNode.textContent = text;
   if (state) {
@@ -663,7 +680,11 @@ coverageMapLabels.forEach(([type, x, y, text]) => {
 });
 coverageMapScene.append(coverageMapLabelsSvg);
 const coverageMapDetail = createCoverageSvg('svg', { class: 'coverage-story__map-detail', viewBox: '-100 220 2200 1100', 'aria-hidden': 'true' });
-coverageMapDetail.append(createCoverageSvg('path', { class: 'coverage-story__boundary', d: 'M952 466L1103 465L1146 490L1142 531L1169 544L1157 584L1113 590L1105 638L1059 658L1019 693L974 677L941 650L919 610L936 569L918 534L952 522Z' }));
+coverageMapDetail.append(createCoverageSvg('path', {
+  class: 'coverage-story__boundary',
+  // Exact geometry from assets/figma/texas-dfw-service-area.svg.
+  d: 'M1185.5 572.6L1187.9 564.5L1194 564.5L1194.3 527L1155.6 533.4L1155.4 528.4L1121.9 528.1L1122 527.5L1082 526.2L1042.6 526.5L1042.4 564.2L1032.5 564.2L1031.6 602.9L1064.8 602.8L1064.9 633.5L1066.7 634.2L1065.9 635.9L1068.3 635.7L1068.3 638.1L1072.4 639.4L1072.5 637.1L1075.1 635.3L1103.8 627.6L1114.5 646.1L1155.6 621.6L1152.1 621.3L1151.6 620.1L1150.6 620.3L1150.5 619L1178.2 618.8L1178.2 576.9L1188.7 576.9L1184.8 573.8L1185.5 572.6Z',
+}));
 coverageMapScene.append(coverageMapDetail);
 const coverageMapWash = document.createElement('div');
 coverageMapWash.className = 'coverage-story__map-wash';
@@ -730,6 +751,15 @@ const setupCoverageStory = () => {
   };
   steps.forEach((step) => step.addEventListener('click', () => {
     const target = Number(step.dataset.coverageStep);
+    currentStep = target;
+    applyState(target === 1 ? 'texas' : 'dfw');
+    items.forEach((item, index) => item.classList.toggle('is-active', index === target));
+    steps.forEach((item, index) => {
+      const active = index === target;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-current', active ? 'step' : 'false');
+      item.setAttribute('aria-expanded', String(active));
+    });
     const maxScroll = Math.max(1, coverageStory.offsetHeight - innerHeight);
     window.scrollTo({ top: coverageStory.offsetTop + (target * maxScroll), behavior: 'smooth' });
   }));
@@ -743,6 +773,7 @@ const setupCoverageStory = () => {
     applyState(activeState || 'dfw');
   }));
   render();
+  requestAnimationFrame(() => coverageMapLabelsSvg.classList.add('is-ready'));
 };
 setupCoverageStory();
 
@@ -978,7 +1009,7 @@ const clearDeliveryStatus = () => {
   if (heroEyebrow) heroEyebrow.hidden = false;
   if (heroHours) heroHours.hidden = false;
   if (deliveryOutcome) { deliveryOutcome.hidden = true; deliveryOutcome.replaceChildren(); }
-  if (heroTitle) heroTitle.innerHTML = 'Transfers + blanks.<br /><mark>Delivered together.</mark><br />In hours.';
+  if (heroTitle) heroTitle.innerHTML = 'Delivering<br /><mark>Together in Hours.</mark>';
   if (heroLede) heroLede.textContent = 'Order this morning. Press this afternoon.';
   if (heroHours) heroHours.innerHTML = `<img src="${asset('jiffy-hero-clock.svg')}" alt="" />7 days a week · 5 AM – 10 PM · Printed and driven from Dallas`;
   window.localStorage.removeItem(deliveryStateKey);
