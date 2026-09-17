@@ -127,8 +127,8 @@
 
 /* Keep the editorial headline inside the image's left content area at every
    stage of the handoff, including the initial full-bleed frame. */
-.blanks-story--static.blanks-story--interactive .blanks-hero-title{display:block!important;position:absolute!important;z-index:6;top:calc((1 - var(--hero-progress)) * 50svh + var(--hero-progress) * (var(--hero-target-top,clamp(6rem,11vh,8rem)) - clamp(5.25rem,9vh,7.5rem) - clamp(.75rem,1.25vh,1rem)));right:auto!important;left:calc((1 - var(--hero-progress)) * clamp(2rem,7vw,9rem) + var(--hero-progress) * var(--apparel-gutter))!important;width:calc((1 - var(--hero-progress)) * min(38rem,42vw) + var(--hero-progress) * var(--apparel-hero-width))!important;max-width:38rem;margin:0;color:var(--hero-title-color,#fff);opacity:1!important;pointer-events:none;transform:translateY(calc((1 - var(--hero-progress)) * -50% + var(--hero-progress) * 1rem - clamp(2rem,4vh,3rem)));transition:none}
-.blanks-story--static.blanks-story--interactive .blanks-hero-title h2{margin:0;font:800 clamp(2rem,calc((1 - var(--hero-progress)) * 5vw + var(--hero-progress) * 2.7vw),5.6rem)/.93 Poppins,Inter,sans-serif;letter-spacing:0}
+.blanks-story--static.blanks-story--interactive .blanks-hero-title{display:block!important;position:absolute!important;z-index:6;top:calc((1 - var(--hero-progress)) * 50svh + var(--hero-progress) * clamp(5.5rem,10vh,8rem));right:auto!important;left:calc((1 - var(--hero-progress)) * clamp(2rem,7vw,9rem) + var(--hero-progress) * var(--apparel-gutter))!important;width:calc((1 - var(--hero-progress)) * min(38rem,42vw) + var(--hero-progress) * var(--apparel-hero-width))!important;max-width:38rem;margin:0;color:var(--hero-title-color,#fff);opacity:1!important;pointer-events:none;transform:translateY(calc((1 - var(--hero-progress)) * -50%));transition:none}
+.blanks-story--static.blanks-story--interactive .blanks-hero-title h2{margin:0;font:800 clamp(2rem,calc((1 - var(--hero-progress)) * 5vw + var(--hero-progress) * 2.2vw),5.6rem)/.93 Poppins,Inter,sans-serif;letter-spacing:0}
 .blanks-story--static.blanks-story--interactive .blanks-hero-title h2 span{color:#ffc800}
 
 @media(max-width:900px){
