@@ -1,3 +1,5 @@
+import { setupStickyAddressGlow } from './jiffy-address-glow.js';
+
 const asset = (file) => `${import.meta.env.BASE_URL}figma/${file}`;
 
 document.querySelector('#app').innerHTML = `
@@ -869,6 +871,7 @@ const addressSearch = document.querySelector('.jiffy-hero__address');
 const addressForm = addressSearch;
 const addressInput = addressSearch?.querySelector('input[name="address"]');
 const addressPanel = addressSearch?.querySelector('.jiffy-hero__address-panel');
+setupStickyAddressGlow(addressSearch, addressPanel);
 const deliveryStatus = addressSearch?.querySelector('.jiffy-hero__delivery-status');
 const deliveryAddress = addressSearch?.querySelector('.jiffy-hero__delivery-address');
 const deliveryWindow = addressSearch?.querySelector('.jiffy-hero__delivery-countdown');
