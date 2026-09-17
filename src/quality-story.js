@@ -350,7 +350,14 @@ const setupS1V3 = (section) => {
     // to that card; the next scroll position resumes the sequence naturally.
     if (reveal > .98 && cards.length > 1) {
       const carouselProgress = Math.min(1, Math.max(0, (progress - .24) / .76));
-      const scrollIndex = Math.min(cards.length - 1, Math.floor(carouselProgress * cards.length));
+      // Hold the first proof card while the user settles into S1. Without
+      // this arrival buffer, a single wheel gesture can immediately advance
+      // from the first tab to the second before the section is readable.
+      const arrivalHold = .36;
+      const sequenceProgress = Math.min(1, Math.max(0, (carouselProgress - arrivalHold) / (1 - arrivalHold)));
+      const scrollIndex = carouselProgress < arrivalHold
+        ? 0
+        : Math.min(cards.length - 1, 1 + Math.floor(sequenceProgress * (cards.length - 1)));
       setActiveIndex(scrollIndex);
     }
   };
