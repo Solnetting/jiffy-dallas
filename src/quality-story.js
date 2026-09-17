@@ -445,16 +445,16 @@ const apparelColourSwatches = { White: '#ffffff', Black: '#111318', Grey: '#a9a9
 // remaining colour count visible beside it so shoppers know there are more
 // options without opening the product page.
 const apparelAdditionalColours = {
-  'GILDAN · G500': 18,
-  'GILDAN · G640': 17,
-  'COMFORT COLORS · C1717': 18,
-  'GILDAN · G300': 14,
-  'GILDAN · G180': 16,
-  'GILDAN · G800': 18,
-  'GILDAN · G500B': 12,
-  'BELLA + CANVAS · 3001C': 18,
-  'GILDAN · G185': 15,
-  'A4 · N3142': 8,
+  'GILDAN · G500': 5,
+  'GILDAN · G640': 4,
+  'COMFORT COLORS · C1717': 5,
+  'GILDAN · G300': 4,
+  'GILDAN · G180': 5,
+  'GILDAN · G800': 5,
+  'GILDAN · G500B': 3,
+  'BELLA + CANVAS · 3001C': 5,
+  'GILDAN · G185': 4,
+  'A4 · N3142': 2,
 };
 const apparelColourOptions = [...new Set(apparelV3Items.flatMap(([, , , , , , colours]) => colours))]
   .map((name) => ({ name, count: apparelV3Items.filter((item) => item[6].includes(name)).length, swatch: apparelColourSwatches[name] }));
@@ -554,7 +554,7 @@ finalBlanksCatalog.innerHTML = `
       <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" data-colours="${colours.join('|')}" aria-label="${brand} ${name}, ${colours.join(' or ')}, plus ${apparelAdditionalColours[brand] ?? 1} more colours, now from ${price}">
         <img src="${asset(apparelCardPortraits[index] || image)}" alt="${name}" />
         ${apparelCardMeta(brand)}<strong>${name}</strong>
-        <span class="blanks-product__colour" aria-label="Colour ${colours[0]}, plus ${apparelAdditionalColours[brand] ?? 1} more"><i style="--swatch:${apparelColourSwatches[colours[0]]}"></i>${colours[0]}<b>+${apparelAdditionalColours[brand] ?? 1}</b></span>
+        <span class="blanks-product__colour" aria-label="Colour ${colours[0]}, plus ${apparelAdditionalColours[brand] ?? 1} more"><i style="--swatch:${apparelColourSwatches[colours[0]]}"></i><span>${colours[0]}</span><b>+${apparelAdditionalColours[brand] ?? 1}</b></span>
         <span class="blanks-product__price"><em>was ${wasPrice}</em><b>from ${price}</b></span>
         <span class="blanks-product__rating">★★★★<i>★</i> <em>(2,500)</em></span>
       </a>`).join('')}
