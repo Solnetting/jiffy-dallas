@@ -193,7 +193,7 @@ heroBridge.innerHTML = `
 const footerBanner = document.createElement('section');
 footerBanner.className = 'footer-banner';
 footerBanner.setAttribute('aria-label', 'Blanks and transfers delivered together');
-footerBanner.innerHTML = `<img src="${asset('figma/footer-delivery-banner.png')}" alt="Blanks and transfers delivered together in one delivery. First delivery is free in the Dallas–Fort Worth area." />`;
+footerBanner.innerHTML = `<img src="${asset('footer-delivery-banner.png')}" alt="Blanks and transfers delivered together in one delivery. First delivery is free in the Dallas–Fort Worth area." />`;
 
 const siteFooter = document.createElement('footer');
 siteFooter.className = 'site-footer';

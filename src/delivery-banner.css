@@ -2,7 +2,9 @@
   position:relative;
   overflow:hidden;
   min-height:clamp(18rem,26vw,40rem);
-  background:#f7f4ee;
+  background:
+    url('../assets/figma/delivery-pairing-background.png?v=2') right center / auto 132% no-repeat,
+    linear-gradient(90deg,#f7f4ee 0%,#f7f4ee 46%,#eadcc9 100%);
   color:#0b1f44;
 }
 .delivery-banner__inner{
@@ -65,6 +67,7 @@
 .delivery-banner__benefits h3 small{display:block;color:#ffc800;font:900 .62em/1 Inter,sans-serif}
 .delivery-banner__benefits p{max-width:none;min-height:2.5em;margin:.65rem 0 0;color:#314563;font:400 clamp(.72rem,.62vw,.8rem)/1.25 Inter,sans-serif}
 .delivery-banner__package{
+  display:none;
   position:absolute;
   z-index:0;
   isolation:isolate;
