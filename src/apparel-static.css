@@ -132,7 +132,8 @@
 .blanks-story--static.blanks-story--interactive .blanks-header{position:absolute!important;z-index:8;top:0;right:0;left:0;grid-column:auto;grid-row:auto}
 .blanks-story--static.blanks-story--interactive .blanks-hero-title h2{margin:0;font:800 clamp(2rem,calc((1 - var(--hero-progress)) * 5vw + var(--hero-progress) * 2.2vw),5.6rem)/.93 Poppins,Inter,sans-serif;letter-spacing:0}
 .blanks-story--static.blanks-story--interactive .blanks-hero-title h2 span{color:#ffc800}
-.blanks-story--static.blanks-story--interactive .blanks-hero-tag{display:inline-block;width:max-content;max-width:100%;margin:clamp(.42rem,.9vw,.75rem) 0 0;padding:.42em .68em .36em;border-radius:.35rem;background:#ef2b22;color:#fff;font:800 clamp(.88rem,calc((1 - var(--hero-progress)) * 1.65vw + var(--hero-progress) * .92vw),1.55rem)/.95 Poppins,Inter,sans-serif;letter-spacing:0;text-transform:uppercase;font-style:normal;white-space:nowrap}
+.blanks-story--static.blanks-story--interactive .blanks-hero-tag{display:inline-flex;width:max-content;max-width:100%;align-items:center;gap:.1em;margin:clamp(.42rem,.9vw,.75rem) 0 0;padding:.42em .68em .36em;border-radius:.35rem;background:#ef2b22;color:#fff;font:800 clamp(.88rem,calc((1 - var(--hero-progress)) * 1.65vw + var(--hero-progress) * .92vw),1.55rem)/1 Poppins,Inter,sans-serif;letter-spacing:0;text-transform:uppercase;font-style:normal;white-space:nowrap}
+.blanks-story--static.blanks-story--interactive .blanks-hero-tag img{display:block;width:1.05em;height:1.05em;align-self:center;flex:none;filter:brightness(0) invert(1);object-fit:contain}
 
 @media(max-width:900px){
   .blanks-story--static.blanks-story--interactive .blanks-static-grid{grid-auto-rows:auto}

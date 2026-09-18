@@ -24,17 +24,16 @@
 
 /* Upload content has its own left-panel footprint, so it cannot pull the hero
    image away from the carousel during the handoff. */
-.s1v3-upload{position:absolute;z-index:5;top:calc(var(--s1v3-reveal,0) * clamp(6rem,12vh,9rem));left:calc(var(--s1v3-reveal,0) * var(--s1v3-side));display:flex;flex-direction:column;align-items:center;justify-content:space-between;width:calc(var(--s1v3-reveal,0) * var(--s1v3-panel-width));height:calc(var(--s1v3-reveal,0) * min(82svh,50rem));margin:0;overflow:hidden;padding:clamp(3rem,8vh,5rem) clamp(2rem,2.6vw,2.5rem) 3rem;border:1.5px solid rgba(255,255,255,.15);border-radius:calc(var(--s1v3-reveal,0) * 1.25rem);background-color:#0a0a0d;background-image:var(--s1v3-upload-texture);background-position:center;background-size:cover;background-repeat:no-repeat;color:#fff;text-align:center;box-shadow:0 1.5rem 4rem rgba(0,0,0,.3);cursor:pointer;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,background-color .3s ease,border-radius .35s ease}
+.s1v3-upload{position:absolute;z-index:5;top:calc(var(--s1v3-reveal,0) * clamp(6rem,12vh,9rem));left:calc(var(--s1v3-reveal,0) * var(--s1v3-side));display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:calc(var(--s1v3-reveal,0) * var(--s1v3-panel-width));height:calc(var(--s1v3-reveal,0) * min(82svh,50rem));margin:0;overflow:hidden;padding:clamp(3rem,8vh,5rem) clamp(2rem,2.6vw,2.5rem) 3rem;border:1.5px solid rgba(255,255,255,.15);border-radius:calc(var(--s1v3-reveal,0) * 1.25rem);background-color:#0a0a0d;background-image:var(--s1v3-upload-texture);background-position:center;background-size:cover;background-repeat:no-repeat;color:#fff;text-align:center;box-shadow:0 1.5rem 4rem rgba(0,0,0,.3);cursor:pointer;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,background-color .3s ease,border-radius .35s ease}
 .s1v3-story.is-upload-mode .s1v3-upload{opacity:1;visibility:visible;pointer-events:auto}
 .s1v3-upload:before{content:"";position:absolute;inset:0;background:transparent;pointer-events:none}
 .s1v3-upload>*{position:relative;z-index:1}
 .s1v3-upload-header{display:flex;flex-direction:column;gap:.75rem;align-items:center;width:100%}
 .s1v3-upload-drag{font:700 28px/1.2 Inter,sans-serif;letter-spacing:0}
 .s1v3-upload-subtitle{color:#fff;font:400 14px/1.2 Inter,sans-serif}
-.s1v3-upload-icon{display:grid;width:min(262px,100%);aspect-ratio:1;border:2px solid rgba(255,255,255,.25);border-radius:2rem;background:rgba(255,255,255,.03);place-items:center}
+.s1v3-upload-icon{display:grid;width:min(262px,100%);aspect-ratio:1;margin-top:clamp(1rem,2.5vh,2rem);border:2px solid rgba(255,255,255,.25);border-radius:2rem;background:rgba(255,255,255,.03);place-items:center}
 .s1v3-upload-icon img{width:64px;height:64px;filter:brightness(0) invert(1);opacity:.95}
-.s1v3-upload-meta{color:rgba(255,255,255,.8);font:500 12px/1 Inter,sans-serif;letter-spacing:0}
-.s1v3-upload-actions{display:flex;flex-direction:column;gap:2rem;align-items:center;width:100%}
+.s1v3-upload-actions{display:flex;flex-direction:column;gap:2rem;align-items:center;width:100%;margin-top:auto}
 .s1v3-upload-or{display:flex;align-items:center;gap:1rem;width:100%;color:rgba(255,255,255,.42)}
 .s1v3-upload-or i{height:1px;flex:1;background:rgba(255,255,255,.28)}
 .s1v3-upload-or b{font:400 14px/1 Inter,sans-serif}
@@ -154,7 +153,6 @@
 .s1v3-story.is-light-mode .s1v3-upload-subtitle{color:rgba(20,33,61,.72)}
 .s1v3-story.is-light-mode .s1v3-upload-icon{border-color:rgba(20,33,61,.2);background:rgba(255,255,255,.2)}
 .s1v3-story.is-light-mode .s1v3-upload-icon img{filter:none}
-.s1v3-story.is-light-mode .s1v3-upload-meta{color:rgba(20,33,61,.7)}
 .s1v3-story.is-light-mode .s1v3-upload-or{color:rgba(20,33,61,.46)}
 .s1v3-story.is-light-mode .s1v3-upload-or i{background:rgba(20,33,61,.24)}
 .s1v3-story.is-light-mode .s1v3-upload-files{border-color:#ffc800;background:#ffc800;color:#14213d}

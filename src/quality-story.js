@@ -44,7 +44,9 @@ document.querySelector('#app').innerHTML = `
           <img src="${asset('jiffy-covered-map-fid-703-34058.png')}" alt="Map showing the route from 1515 Elm St to the Jiffy facility in Dallas" />
           <div class="jiffy-hero__covered-map-label jiffy-hero__covered-map-label--facility" aria-hidden="true"><strong>Jiffy Facility</strong><span>Dallas</span></div>
           <div class="jiffy-hero__covered-map-label jiffy-hero__covered-map-label--distance" aria-hidden="true"><strong>6.2 mi</strong><span>≈ 12 min</span></div>
+          <div class="jiffy-hero__covered-map-label jiffy-hero__covered-map-label--address" aria-hidden="true"><strong data-covered-map-street>1515 Elm St</strong><span data-covered-map-city>Dallas, TX 75201</span></div>
           <img class="jiffy-hero__covered-map-pin jiffy-hero__covered-map-pin--facility" src="${asset('covered-facility-marker.svg')}" alt="" aria-hidden="true" />
+          <img class="jiffy-hero__covered-map-pin jiffy-hero__covered-map-pin--address" src="${asset('covered-customer-marker.svg')}" alt="" aria-hidden="true" />
         </div>
         <div class="jiffy-hero__covered-settings">
           <div class="jiffy-hero__covered-address-row">
@@ -58,7 +60,7 @@ document.querySelector('#app').innerHTML = `
           <div class="jiffy-hero__covered-delivery-header">
             <p>UPCOMING DELIVERY</p>
             <strong>TODAY, 10 AM – 12 PM</strong>
-            <p class="jiffy-hero__covered-cutoff"><strong data-covered-countdown>00:42:18</strong><span aria-hidden="true"> · </span><span>Order by 10:45</span></p>
+            <p class="jiffy-hero__covered-cutoff"><strong data-covered-countdown>00:42:18</strong><span aria-hidden="true"> · </span><span>Order by 10:45 AM</span></p>
           </div>
           <div class="jiffy-hero__covered-line" aria-hidden="true"></div>
           <div class="jiffy-hero__covered-slots-wrap">
@@ -87,7 +89,7 @@ document.querySelector('#app').innerHTML = `
           <div>
             <small>UPCOMING DELIVERY</small>
             <strong>TODAY 10 AM – 12 PM</strong>
-            <em>Order by 10:45 AM</em>
+            <em><b data-covered-persistent-countdown>00:42:18</b><span aria-hidden="true"> · </span><span>Order by 10:45 AM</span></em>
           </div>
         </div>
         <span class="jiffy-covered-persistent-nav__divider" aria-hidden="true"></span>
@@ -121,7 +123,7 @@ blanksSection.innerHTML = `
       </header>
       <div class="blanks-hero-title">
         <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
-        <p class="blanks-hero-tag">Delivered in hours</p>
+        <p class="blanks-hero-tag"><img src="${asset('delivered-hours-bolt-filled.svg')}" alt="" aria-hidden="true" /><span>Delivered in hours</span></p>
       </div>
       <article class="blanks-hero-art" aria-label="Blank apparel for a local tomorrow">
         <img src="${asset('horizontal-hanging-apparel-editorial.png')}" alt="Blank apparel hanging in an editorial studio" />
@@ -156,6 +158,9 @@ const s1v3Cards = [
   { image: 'tiger-proof-detail.png', title: 'Ai process', subtitle: 'Artwork analyzed and prepared for print.', description: 'Your artwork is checked and prepared before print so detail and color stay true to the design.' },
   { image: 'tiger-proof-peel.png', title: 'Hot peel', subtitle: 'Clean release immediately after pressing.', description: 'A clean release immediately after pressing means less waiting between the press and the finished garment.' },
   { image: 'tiger-proof-color.png', title: 'Vibrant colors', subtitle: 'True color with fine detail, up close.', description: 'Richer detail and truer color set a higher standard in every transfer.' },
+  { image: 'tiger-proof-worn.png', title: 'Durability', subtitle: 'Built to hold up wash after wash.', description: 'A durable transfer stays sharp through everyday wear and repeated washing.' },
+  { image: 'tiger-proof-peel.png', title: 'Hand feel', subtitle: 'Soft, smooth, and comfortable.', description: 'A clean finish keeps the garment feeling good in the hand without a heavy surface.' },
+  { image: 'tiger-proof-detail.png', title: 'Detail', subtitle: 'Fine edges and true color.', description: 'Crisp edges and rich color preserve the design at every size.' },
 ];
 
 const heroBridge = document.createElement('section');
@@ -253,16 +258,9 @@ s1v3.innerHTML = `
           <small class="s1v3-upload-subtitle">Drop a file anywhere in this panel</small>
         </div>
         <div class="s1v3-upload-icon"><img src="${asset('cloud-upload.svg')}" alt="" /></div>
-        <small class="s1v3-upload-meta">PNG, JPG, or PDF&nbsp; · &nbsp;up to 50 MB</small>
         <div class="s1v3-upload-actions">
           <span class="s1v3-upload-or" aria-hidden="true"><i></i><b>or</b><i></i></span>
           <button class="s1v3-upload-files" type="button">Upload from your files <b aria-hidden="true">↗</b></button>
-          <div class="s1v3-upload-tertiary" aria-label="More transfer options">
-            <button type="button">DTF Transfer by size</button>
-            <button class="s1v3-theme-toggle" type="button" data-s1v3-theme-toggle aria-pressed="false" aria-label="Gang Sheet transfer. Switch to light mode">
-              <span>Gang Sheet transfer</span>
-            </button>
-          </div>
         </div>
       </div>
       <input class="s1v3-file-input" type="file" accept="image/png,image/jpeg,application/pdf" hidden />
@@ -358,7 +356,6 @@ const setupS1V3 = (section) => {
   const indexItems = [...section.querySelectorAll('[data-s1v3-step]')];
   const fileInput = section.querySelector('.s1v3-file-input');
   const upload = section.querySelector('.s1v3-upload');
-  const themeToggle = section.querySelector('[data-s1v3-theme-toggle]');
   let activeIndex = 0;
   let reveal = 0;
   let renderToken = 0;
@@ -407,13 +404,6 @@ const setupS1V3 = (section) => {
     const target = Number(item.dataset.s1v3Step);
     setActiveIndex(target);
   }));
-  themeToggle.addEventListener('click', (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const lightMode = section.classList.toggle('is-light-mode');
-    themeToggle.setAttribute('aria-pressed', String(lightMode));
-    themeToggle.setAttribute('aria-label', `Gang Sheet transfer. Switch to ${lightMode ? 'dark' : 'light'} mode`);
-  });
   upload.querySelector('.s1v3-upload-files').addEventListener('click', () => fileInput.click());
   fileInput.addEventListener('change', () => {
     if (fileInput.files?.[0]) upload.querySelector('.s1v3-upload-files').textContent = 'Artwork selected';
@@ -636,7 +626,7 @@ finalBlanksCatalog.innerHTML = `
         <img src="${asset(apparelCardPortraits[index] || image)}" alt="${name}" />
         ${apparelCardMeta(brand)}<strong>${name}</strong>
         <span class="blanks-product__colour" aria-label="Colour ${colours[0]}"><i style="--swatch:${apparelColourSwatches[colours[0]]}"></i><span>${colours[0]}</span></span>
-        <span class="blanks-product__price"><em>was ${wasPrice}</em><b>from ${price}</b></span>
+        <span class="blanks-product__price"><em>was ${wasPrice}</em><b>from ${price}*</b></span>
         <span class="blanks-product__rating">★★★★<i>★</i> <em>(2,500)</em></span>
       </a>`).join('')}
   </div>`;
@@ -678,7 +668,7 @@ coverageStory.innerHTML = `
         <nav class="coverage-story__index" aria-label="Delivery coverage" aria-live="polite">
           <article class="coverage-story__index-item is-active" data-coverage-item="0">
             <button class="is-active" type="button" data-coverage-step="0" aria-current="step" aria-expanded="true">
-              <div class="coverage-story__step-meta"><em aria-hidden="true">01</em><span class="coverage-story__delivery-tag">Same day</span></div>
+              <div class="coverage-story__step-meta"><em aria-hidden="true">01</em><span class="coverage-story__delivery-tag coverage-story__delivery-tag--hours"><img src="${asset('delivered-hours-bolt-filled.svg')}" alt="" aria-hidden="true" /><span>Same day</span></span></div>
               <span class="coverage-story__active-label"><b id="coverage-story-title">Dallas–Fort Worth<span>.</span></b><small>Jiffy Local. Right here.</small></span>
             </button>
             <div class="coverage-story__index-details">
@@ -886,10 +876,13 @@ const coveredPersistentNav = document.querySelector('.jiffy-covered-persistent-n
 const coveredAddress = coveredHero?.querySelector('[data-covered-address]');
 const coveredStreet = coveredHero?.querySelector('[data-covered-street]');
 const coveredCity = coveredHero?.querySelector('[data-covered-city]');
+const coveredMapStreet = coveredHero?.querySelector('[data-covered-map-street]');
+const coveredMapCity = coveredHero?.querySelector('[data-covered-map-city]');
 const coveredClear = [...(coveredHero?.querySelectorAll('[data-covered-clear]') ?? [])];
 const coveredSlots = coveredHero?.querySelector('.jiffy-hero__covered-slots');
 const coveredTrackThumb = coveredHero?.querySelector('.jiffy-hero__covered-track span');
 const coveredCountdown = coveredHero?.querySelector('[data-covered-countdown]');
+const coveredPersistentCountdown = coveredPersistentNav?.querySelector('[data-covered-persistent-countdown]');
 const deliveryClear = addressSearch?.querySelector('.jiffy-hero__delivery-clear');
 const heroTitle = document.querySelector('#jiffy-hero-title');
 const heroLede = document.querySelector('.jiffy-hero__lede');
@@ -965,6 +958,7 @@ const setDeliveryCountdown = (deadline) => {
     if (deliveryWindow) deliveryWindow.textContent = countdown;
     if (deliveryProofCountdown) deliveryProofCountdown.textContent = countdown;
     if (coveredCountdown) coveredCountdown.textContent = countdown;
+    if (coveredPersistentCountdown) coveredPersistentCountdown.textContent = countdown;
   };
   render();
   deliveryCountdown = window.setInterval(render, 1000);
@@ -1007,6 +1001,8 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
   }
   if (coveredStreet) coveredStreet.textContent = `${coveredStreetValue},`;
   if (coveredCity) coveredCity.textContent = coveredCityValue || 'Dallas, TX 75201';
+  if (coveredMapStreet) coveredMapStreet.textContent = coveredStreetValue;
+  if (coveredMapCity) coveredMapCity.textContent = coveredCityValue || 'Dallas, TX 75201';
   if (coveredHero) coveredHero.hidden = false;
   if (coveredPersistentNav) coveredPersistentNav.hidden = true;
   originalHero?.classList.add('is-covered');
