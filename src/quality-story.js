@@ -126,7 +126,7 @@ blanksSection.innerHTML = `
         <p class="blanks-hero-tag">Delivery in hours</p>
       </div>
       <article class="blanks-hero-art" aria-label="Blank apparel for a local tomorrow">
-        <img src="${asset('blanks-editorial-hero.png')}" alt="Person wearing a blank shirt" />
+        <img src="${asset('horizontal-hanging-apparel-editorial.png')}" alt="Blank apparel hanging in an editorial studio" />
         <figcaption class="blanks-hero-copy" aria-hidden="true">
           <span>Same<br />good<br />ideas<br />a brighter<br />DFW</span>
           <i aria-hidden="true"></i>
