@@ -41,20 +41,25 @@ document.querySelector('#app').innerHTML = `
       </div>
       <article class="jiffy-hero__covered-panel" aria-label="Delivery windows for this address">
         <div class="jiffy-hero__covered-map">
-          <img src="${asset('jiffy-covered-map.png')}" alt="Map showing the route from 1515 Elm St to the Jiffy facility in Dallas" />
+          <img src="${asset('jiffy-covered-map-fid-703-34058.png')}" alt="Map showing the route from 1515 Elm St to the Jiffy facility in Dallas" />
+          <div class="jiffy-hero__covered-map-label jiffy-hero__covered-map-label--facility" aria-hidden="true"><strong>Jiffy Facility</strong><span>Dallas</span></div>
+          <div class="jiffy-hero__covered-map-label jiffy-hero__covered-map-label--distance" aria-hidden="true"><strong>6.2 mi</strong><span>≈ 12 min</span></div>
+          <div class="jiffy-hero__covered-map-label jiffy-hero__covered-map-label--address" aria-hidden="true"><strong>1515 Elm St</strong><span>Dallas, TX 75201</span></div>
+          <img class="jiffy-hero__covered-map-pin jiffy-hero__covered-map-pin--facility" src="${asset('address-checker-panel-location.svg')}" alt="" aria-hidden="true" />
+          <span class="jiffy-hero__covered-map-pin jiffy-hero__covered-map-pin--address" aria-hidden="true"></span>
         </div>
         <div class="jiffy-hero__covered-settings">
           <div class="jiffy-hero__covered-address-row">
             <div class="jiffy-hero__covered-address-details">
               <img src="${asset('address-checker-panel-location.svg')}" alt="" />
-              <div><strong data-covered-street>1515 Elm St</strong><small data-covered-city>Dallas, TX 75201</small></div>
+              <p><strong data-covered-street>1515 Elm St -</strong><small data-covered-city> Dallas, TX 75201</small></p>
             </div>
             <button type="button" class="jiffy-hero__covered-change" data-covered-clear>Change address</button>
           </div>
           <div class="jiffy-hero__covered-line" aria-hidden="true"></div>
           <div class="jiffy-hero__covered-delivery-header">
             <p>UPCOMING DELIVERY</p>
-            <strong>10 AM - 12 PM</strong>
+            <strong>TODAY, 10 AM - 12 PM</strong>
             <span>Order by 10:45 AM</span>
           </div>
           <div class="jiffy-hero__covered-line" aria-hidden="true"></div>
@@ -131,6 +136,41 @@ heroBridge.setAttribute('aria-label', 'Jiffy Local delivery benefits');
 heroBridge.innerHTML = `
   <div class="hero-bridge__frame">
     <img class="hero-bridge__photo" src="${asset('delivery-pairing-strip.png')}" alt="Blanks and transfers delivered together in one delivery. First delivery free, 20+ shirt styles, and DTF printing from $0.02 per line." />
+  </div>
+`;
+
+const siteFooter = document.createElement('footer');
+siteFooter.className = 'site-footer';
+siteFooter.innerHTML = `
+  <div class="site-footer__columns">
+    <div class="site-footer__brand">
+      <strong>jiffy</strong>
+      <p>Shop blanks &amp; transfers, and receive it in hours</p>
+    </div>
+    <nav class="site-footer__links" aria-label="Catalog">
+      <h2>Catalog</h2>
+      <a href="https://www.jiffy.com/">Blank Apparel</a>
+      <a href="https://www.jiffy.com/transfers">DTF Transfers</a>
+    </nav>
+    <nav class="site-footer__links" aria-label="Help">
+      <h2>Help</h2>
+      <a href="https://www.jiffy.com/trackorder">Order tracking</a>
+      <a href="https://www.jiffy.com/contact">Transfer help</a>
+      <a href="https://www.jiffy.com/contact">Contact</a>
+    </nav>
+    <nav class="site-footer__links" aria-label="About">
+      <h2>About</h2>
+      <a href="https://www.jiffy.com/">About this concept</a>
+      <a href="https://www.jiffy.com/">Product guide</a>
+      <a href="https://www.jiffy.com/contact">Support</a>
+    </nav>
+  </div>
+  <div class="site-footer__base">
+    <p>© 2026 Jiffy — exercise concept.</p>
+    <nav aria-label="Legal">
+      <a href="https://www.jiffy.com/privacypolicy">Privacy Policy</a>
+      <a href="https://www.jiffy.com/termsofservice">Terms of Service</a>
+    </nav>
   </div>
 `;
 
@@ -674,7 +714,7 @@ coverageMap.append(coverageMapWash, coverageMapVignette);
 blanksSection.after(coverageStory);
 coverageStory.after(pairingExploration);
 // Keep the delivery banner as the final page section.
-document.querySelector('#app')?.append(heroBridge);
+document.querySelector('#app')?.append(heroBridge, siteFooter);
 
 const setupCoverageStory = () => {
   const items = [...coverageStory.querySelectorAll('[data-coverage-item]')];
@@ -793,6 +833,8 @@ const coveredAddress = coveredHero?.querySelector('[data-covered-address]');
 const coveredStreet = coveredHero?.querySelector('[data-covered-street]');
 const coveredCity = coveredHero?.querySelector('[data-covered-city]');
 const coveredClear = [...(coveredHero?.querySelectorAll('[data-covered-clear]') ?? [])];
+const coveredSlots = coveredHero?.querySelector('.jiffy-hero__covered-slots');
+const coveredTrackThumb = coveredHero?.querySelector('.jiffy-hero__covered-track span');
 const deliveryClear = addressSearch?.querySelector('.jiffy-hero__delivery-clear');
 const heroTitle = document.querySelector('#jiffy-hero-title');
 const heroLede = document.querySelector('.jiffy-hero__lede');
@@ -813,6 +855,47 @@ const restoreAddressSearch = () => {
   addressSearchIsPortaled = false;
 };
 let deliveryCountdown;
+
+const updateCoveredSlotsProgress = () => {
+  if (!coveredSlots || !coveredTrackThumb) return;
+  const maxScroll = Math.max(0, coveredSlots.scrollWidth - coveredSlots.clientWidth);
+  const progress = maxScroll ? coveredSlots.scrollLeft / maxScroll : 0;
+  coveredTrackThumb.style.left = `${progress * 74.8}%`;
+};
+
+let coveredSlotsPointerStart = null;
+let coveredSlotsScrollStart = 0;
+coveredSlots?.addEventListener('scroll', updateCoveredSlotsProgress, { passive: true });
+coveredSlots?.addEventListener('wheel', (event) => {
+  if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+  const maxScroll = coveredSlots.scrollWidth - coveredSlots.clientWidth;
+  if (maxScroll <= 0) return;
+  event.preventDefault();
+  coveredSlots.scrollLeft += event.deltaY;
+}, { passive: false });
+coveredSlots?.addEventListener('pointerdown', (event) => {
+  if (event.pointerType === 'mouse' && event.button !== 0) return;
+  coveredSlotsPointerStart = event.clientX;
+  coveredSlotsScrollStart = coveredSlots.scrollLeft;
+  coveredSlots.classList.add('is-dragging');
+  coveredSlots.setPointerCapture?.(event.pointerId);
+});
+coveredSlots?.addEventListener('pointermove', (event) => {
+  if (coveredSlotsPointerStart === null) return;
+  coveredSlots.scrollLeft = coveredSlotsScrollStart - (event.clientX - coveredSlotsPointerStart);
+});
+const releaseCoveredSlotsPointer = (event) => {
+  if (coveredSlotsPointerStart === null) return;
+  coveredSlotsPointerStart = null;
+  coveredSlots.classList.remove('is-dragging');
+  coveredSlots.releasePointerCapture?.(event.pointerId);
+};
+coveredSlots?.addEventListener('pointerup', releaseCoveredSlotsPointer);
+coveredSlots?.addEventListener('pointercancel', releaseCoveredSlotsPointer);
+coveredSlots?.addEventListener('pointerleave', (event) => {
+  if (event.pointerType === 'mouse') releaseCoveredSlotsPointer(event);
+});
+updateCoveredSlotsProgress();
 
 const deliveryStateKey = 'jiffy-local-delivery-window';
 const escapeHtml = (value) => value.replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
@@ -857,16 +940,20 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
   deliveryProof.hidden = true;
   if (coveredAddress) coveredAddress.textContent = address;
   const addressParts = address.split(',').map((part) => part.trim()).filter(Boolean);
-  if (coveredStreet) coveredStreet.textContent = addressParts[0] || address;
+  if (coveredStreet) coveredStreet.textContent = `${addressParts[0] || address} -`;
   if (coveredCity) coveredCity.textContent = addressParts.slice(1).join(', ') || 'Dallas, TX 75201';
   if (coveredHero) coveredHero.hidden = false;
   originalHero?.classList.add('is-covered');
-  addressInput.value = address;
-  addressSearch.classList.add('is-confirmed');
-  addressSearch.classList.remove('is-on-light-surface');
-  addressSearch.hidden = true;
-  addressPanel.hidden = true;
-  deliveryStatus.hidden = false;
+  // Reuse the existing persistent address bar above the tracking view.
+  // The tracking card carries the confirmed address; the bar stays in its
+  // normal, editable state so there is only one navigation treatment.
+  addressInput.value = '';
+  addressSearch.classList.remove('is-confirmed', 'is-on-light-surface', 'is-compact');
+  addressSearch.classList.add('is-sticky');
+  addressSearch.hidden = false;
+  addressPanel.hidden = false;
+  deliveryStatus.hidden = true;
+  portalAddressSearch();
   heroEyebrow.hidden = true;
   heroHours.hidden = true;
   if (heroTitle) heroTitle.textContent = "You're covered.";
@@ -943,6 +1030,11 @@ window.addEventListener('scroll', () => {
   if (!addressSearchFrame) addressSearchFrame = requestAnimationFrame(updateAddressSearch);
 }, { passive: true });
 window.addEventListener('resize', () => {
+  if (originalHero?.classList.contains('is-covered')) {
+    addressSearch?.classList.add('is-sticky');
+    portalAddressSearch();
+    return;
+  }
   restoreAddressSearch();
   addressSearch?.classList.remove('is-sticky', 'is-compact');
   addressSearchAnchor.removeAttribute('style');
