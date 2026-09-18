@@ -107,7 +107,7 @@
 .jiffy-hero__address.is-sticky .jiffy-hero__sticky-brand.local-mark small{font:700 .7rem/1 Inter,sans-serif;letter-spacing:0;text-transform:uppercase;color:#72798a}
 .jiffy-hero__address.is-sticky .jiffy-hero__address-panel{flex:0 1 min(42rem,42vw);width:auto;min-width:0;margin:0;background:transparent}
 .jiffy-hero__address.is-sticky .jiffy-hero__address-panel label{min-width:0}
-.jiffy-hero__address.is-sticky .jiffy-hero__sticky-links{display:flex;flex:1 1 0;justify-content:flex-end;align-items:center;gap:1.5rem;color:#14213d;font:700 .72rem/1 Inter,sans-serif;text-transform:uppercase;white-space:nowrap}
+.jiffy-hero__address.is-sticky .jiffy-hero__sticky-links{display:flex;flex:1 1 0;justify-content:flex-end;align-items:center;gap:1.5rem;color:#14213d;font:400 .72rem/1 Inter,sans-serif;text-transform:uppercase;white-space:nowrap}
 .jiffy-hero__sticky-links .jiffy-hero__sticky-sign-in{margin-left:.35rem;border-color:rgba(20,33,61,.42);color:#14213d}
 .jiffy-hero__sticky-links .jiffy-hero__sticky-sign-in:hover,.jiffy-hero__sticky-links .jiffy-hero__sticky-sign-in:focus-visible{border-color:#14213d;color:#14213d;outline:0}
 .jiffy-hero__sticky-links a:hover,.jiffy-hero__sticky-links a:focus-visible{color:#e5ad00;outline:0}.jiffy-hero__sticky-links span{opacity:.42;cursor:not-allowed}

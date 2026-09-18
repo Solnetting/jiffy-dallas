@@ -1,7 +1,7 @@
 .delivery-banner{
   position:relative;
   overflow:hidden;
-  min-height:clamp(22rem,34.4vw,52.875rem);
+  min-height:clamp(18rem,26vw,40rem);
   background:#f7f4ee;
   color:#0b1f44;
 }
@@ -9,10 +9,10 @@
   position:relative;
   display:flex;
   width:100%;
-  min-height:clamp(22rem,34.4vw,52.875rem);
+  min-height:clamp(18rem,26vw,40rem);
   align-items:center;
   box-sizing:border-box;
-  padding:9.6% 5% 7%;
+  padding:1.5% 5% 1%;
 }
 .delivery-banner__copy{
   position:relative;
@@ -67,16 +67,38 @@
 .delivery-banner__package{
   position:absolute;
   z-index:0;
+  isolation:isolate;
   top:15%;
   right:8.5%;
   width:34%;
   height:64%;
   margin:0;
 }
-.delivery-banner__package img{display:block;width:100%;height:100%;object-fit:contain;object-position:center right}
+.delivery-banner__package::after{
+  position:absolute;
+  z-index:0;
+  right:4%;
+  bottom:5%;
+  width:82%;
+  height:18%;
+  content:"";
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(57,38,14,.2) 0%,rgba(94,62,17,.12) 36%,rgba(94,62,17,0) 74%);
+  filter:blur(.8rem);
+  transform:rotate(-4deg);
+}
+.delivery-banner__package img{
+  position:relative;
+  z-index:1;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center right;
+}
 @media(max-width:900px){
   .delivery-banner{min-height:0}
-  .delivery-banner__inner{display:block;min-height:0;padding:4rem 1.25rem 2.5rem}
+  .delivery-banner__inner{display:block;min-height:0;padding:1.25rem 1.25rem 1rem}
   .delivery-banner__copy{width:100%;margin-left:0}
   .delivery-banner__tag{font-size:clamp(1.7rem,6vw,2.8rem)}
   .delivery-banner h2{font-size:clamp(2.2rem,8.5vw,4.2rem);white-space:normal}
@@ -88,6 +110,6 @@
   .delivery-banner__benefits p{max-width:24rem}
 }
 @media(max-width:480px){
-  .delivery-banner__inner{padding:3rem 1rem 2rem}
+  .delivery-banner__inner{padding:1rem}
   .delivery-banner__benefits h3{font-size:1rem}
 }

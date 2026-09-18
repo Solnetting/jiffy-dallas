@@ -190,6 +190,11 @@ heroBridge.innerHTML = `
   </div>
 `;
 
+const footerBanner = document.createElement('section');
+footerBanner.className = 'footer-banner';
+footerBanner.setAttribute('aria-label', 'Blanks and transfers delivered together');
+footerBanner.innerHTML = `<img src="${asset('figma/footer-delivery-banner.png')}" alt="Blanks and transfers delivered together in one delivery. First delivery is free in the Dallas–Fort Worth area." />`;
+
 const siteFooter = document.createElement('footer');
 siteFooter.className = 'site-footer';
 siteFooter.innerHTML = `
@@ -764,7 +769,7 @@ coverageMap.append(coverageMapWash, coverageMapVignette);
 
 blanksSection.after(coverageStory);
 coverageStory.after(pairingExploration);
-document.querySelector('#app')?.append(siteFooter);
+document.querySelector('#app')?.append(footerBanner, siteFooter);
 
 const setupCoverageStory = () => {
   const items = [...coverageStory.querySelectorAll('[data-coverage-item]')];
