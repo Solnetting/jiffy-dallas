@@ -64,10 +64,11 @@
 .delivery-banner__benefits article:last-child{padding-right:0;border-right:0}
 .delivery-banner__benefits img{display:block;width:clamp(1.8rem,2.2vw,2.25rem);height:clamp(1.8rem,2.2vw,2.25rem);flex:none;object-fit:contain}
 .delivery-banner__benefits article>div{display:flex;min-width:0;flex:1;flex-direction:column}
-.delivery-banner__benefits h3{min-height:3.06em;margin:0;color:#0b1f44;font:800 clamp(.85rem,1.15vw,1.35rem)/1.02 Inter,sans-serif}
+.delivery-banner__benefits h3{min-height:2.55em;margin:0;color:#0b1f44;font:800 clamp(.85rem,1.15vw,1.35rem)/1.02 Inter,sans-serif}
 .delivery-banner__benefits h3 b{color:#ffc800;font-weight:900}
+.delivery-banner__benefits article:first-child h3 b{display:inline-block;font-size:1.22em;line-height:.95}
 .delivery-banner__benefits h3 small{display:block;color:#ffc800;font:900 .62em/1 Inter,sans-serif}
-.delivery-banner__benefits p{max-width:none;min-height:3.75em;margin:.65rem 0 0;color:#314563;font:400 clamp(.72rem,.62vw,.8rem)/1.25 Inter,sans-serif}
+.delivery-banner__benefits p{max-width:none;min-height:3.75em;margin:.5rem 0 0;color:#314563;font:400 clamp(.72rem,.62vw,.8rem)/1.25 Inter,sans-serif}
 .delivery-banner__package{
   display:none;
   position:absolute;
