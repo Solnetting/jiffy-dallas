@@ -298,3 +298,15 @@
   background:radial-gradient(#ffc800 40%,transparent 60%);
   opacity:.9;
 }
+
+/* The persistent navbar is a solid white surface, separate from the hero image. */
+.jiffy-hero__address.is-sticky,
+.jiffy-hero__address.is-sticky.is-compact{
+  background:#fff!important;
+}
+.jiffy-hero__address.is-sticky::before{
+  background:#fff!important;
+  border-bottom:1px solid rgba(20,33,61,.14);
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}

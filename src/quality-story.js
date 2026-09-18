@@ -35,31 +35,42 @@ document.querySelector('#app').innerHTML = `
       <div class="jiffy-hero__delivery-outcome" hidden aria-live="polite"></div>
     </div>
     <div class="jiffy-hero__covered" hidden aria-live="polite">
-      <p class="jiffy-hero__covered-kicker">DELIVERY WINDOWS &amp; CUT-OFFS <b>LIVE</b></p>
-      <div class="jiffy-hero__covered-title">
-        <h1 data-covered-address>Dallas 75201</h1>
-        <button type="button" class="jiffy-hero__covered-clear" data-covered-clear aria-label="Change delivery address">×</button>
+      <div class="jiffy-hero__covered-headline">
+        <h1>YOU’RE COVERED.</h1>
+        <p>Receive your blanks + transfers in hours.</p>
       </div>
       <article class="jiffy-hero__covered-panel" aria-label="Delivery windows for this address">
         <div class="jiffy-hero__covered-map">
-          <img src="${asset('delivery-proof-map.png')}" alt="Dallas delivery route map" />
-          <span class="jiffy-hero__covered-map-address"><img src="${asset('address-checker-panel-location.svg')}" alt="" /><strong data-covered-map-address>Dallas 75201</strong></span>
-          <span class="jiffy-hero__covered-map-control" aria-hidden="true">↗</span>
+          <img src="${asset('jiffy-covered-map.png')}" alt="Map showing the route from 1515 Elm St to the Jiffy facility in Dallas" />
         </div>
-        <section class="jiffy-hero__covered-current" aria-label="Next delivery window">
-          <p class="jiffy-hero__covered-status"><span aria-hidden="true">✓</span> ADDRESS COVERED</p>
-          <p class="jiffy-hero__covered-label">NEXT WINDOW</p>
-          <strong class="jiffy-hero__covered-window">11 AM–1 PM</strong>
-          <div class="jiffy-hero__covered-countdown"><span aria-hidden="true">◷</span><b data-covered-countdown>01:59:55</b></div>
-        </section>
-        <section class="jiffy-hero__covered-upcoming" aria-label="Upcoming delivery windows">
-          <p class="jiffy-hero__covered-label">UPCOMING WINDOWS</p>
-          <button type="button" class="jiffy-hero__covered-slot"><span>◷</span><strong>12 PM – 2 PM</strong><b aria-hidden="true">›</b></button>
-          <button type="button" class="jiffy-hero__covered-slot"><span>◷</span><strong>3 PM – 5 PM</strong><b aria-hidden="true">›</b></button>
-          <div class="jiffy-hero__covered-actions"><button type="button">SEE NEXT</button><button type="button">PROGRAM ORDER</button></div>
-        </section>
+        <div class="jiffy-hero__covered-settings">
+          <div class="jiffy-hero__covered-address-row">
+            <div class="jiffy-hero__covered-address-details">
+              <img src="${asset('address-checker-panel-location.svg')}" alt="" />
+              <div><strong data-covered-street>1515 Elm St</strong><small data-covered-city>Dallas, TX 75201</small></div>
+            </div>
+            <button type="button" class="jiffy-hero__covered-change" data-covered-clear>Change address</button>
+          </div>
+          <div class="jiffy-hero__covered-line" aria-hidden="true"></div>
+          <div class="jiffy-hero__covered-delivery-header">
+            <p>UPCOMING DELIVERY</p>
+            <strong>10 AM - 12 PM</strong>
+            <span>Order by 10:45 AM</span>
+          </div>
+          <div class="jiffy-hero__covered-line" aria-hidden="true"></div>
+          <div class="jiffy-hero__covered-slots-wrap">
+            <p>Next deliveries</p>
+            <div class="jiffy-hero__covered-slots">
+              <div class="jiffy-hero__covered-slot"><strong>11 AM - 1 PM</strong><small>Order by 10:45 AM</small></div>
+              <div class="jiffy-hero__covered-slot"><strong>1 - 3 PM</strong><small>Order by 12:45 PM</small></div>
+              <div class="jiffy-hero__covered-slot"><strong>3 - 5 PM</strong><small>Order by 2:45 PM</small></div>
+              <div class="jiffy-hero__covered-slot"><strong>5 - 7 PM</strong><small>Order by 4:45 PM</small></div>
+            </div>
+            <div class="jiffy-hero__covered-track" aria-hidden="true"><span></span></div>
+          </div>
+          <button type="button" class="jiffy-hero__covered-order">Start your order</button>
+        </div>
       </article>
-      <p class="jiffy-hero__covered-note"><span aria-hidden="true"></span>Dallas central distribution online. Order now to lock in your window.</p>
     </div>
   </section>
 `;
@@ -76,7 +87,7 @@ blanksSection.innerHTML = `
       </header>
       <div class="blanks-hero-title">
         <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
-        <p class="blanks-hero-tag">Receive it in hours</p>
+        <p class="blanks-hero-tag">Delivery in hours</p>
       </div>
       <article class="blanks-hero-art" aria-label="Blank apparel for a local tomorrow">
         <img src="${asset('blanks-editorial-hero.png')}" alt="Person wearing a blank shirt" />
@@ -110,7 +121,7 @@ const s1v3Cards = [
   { image: 'tiger-transfer-hero.png', title: 'Jiffy vs Others', subtitle: 'Sharper, denser, cleaner transfer results.', description: 'Compare fine edges, solid coverage, and a cleaner finish against the competing transfer.' },
   { image: 'tiger-proof-detail.png', title: 'Ai process', subtitle: 'Artwork analyzed and prepared for print.', description: 'Your artwork is checked and prepared before print so detail and color stay true to the design.' },
   { image: 'tiger-proof-peel.png', title: 'Hot peel', subtitle: 'Clean release immediately after pressing.', description: 'A clean release immediately after pressing means less waiting between the press and the finished garment.' },
-  { image: 'tiger-proof-color.png', title: 'Color accuracy', subtitle: 'True color with fine detail, up close.', description: 'Richer detail and truer color set a higher standard in every transfer.' },
+  { image: 'tiger-proof-color.png', title: 'Vibrant colors', subtitle: 'True color with fine detail, up close.', description: 'Richer detail and truer color set a higher standard in every transfer.' },
 ];
 
 const heroBridge = document.createElement('section');
@@ -118,20 +129,8 @@ heroBridge.className = 'hero-bridge';
 heroBridge.id = 'delivery-pairing';
 heroBridge.setAttribute('aria-label', 'Jiffy Local delivery benefits');
 heroBridge.innerHTML = `
-  <div class="hero-bridge__inner">
-    <div class="hero-bridge__copy">
-      <h2><span>FIRST DELIVERY</span><strong>FREE</strong></h2>
-      <div class="hero-bridge__products" aria-label="Blanks and transfers">
-        <span class="hero-bridge__product hero-bridge__product--shirt"><img src="${asset('delivery-shirt.svg')}" alt="" /><b>BLANKS</b></span>
-        <span class="hero-bridge__plus" aria-hidden="true">+</span>
-        <span class="hero-bridge__product hero-bridge__product--transfers"><img src="${asset('delivery-cards-star.svg')}" alt="" /><b>TRANSFERS</b></span>
-      </div>
-      <div class="hero-bridge__tag">TOGETHER IN ONE BOX</div>
-      <p class="hero-bridge__hours">IN HOURS</p>
-    </div>
-    <figure class="hero-bridge__visual" aria-label="Blank shirt and DTF transfer materials ready for delivery">
-      <img src="${asset('pairing-hero-box-topdown.png')}" alt="Yellow Jiffy box with a blank shirt, transfer roll, and printed transfer sheets" />
-    </figure>
+  <div class="hero-bridge__frame">
+    <img class="hero-bridge__photo" src="${asset('delivery-pairing-strip.png')}" alt="Blanks and transfers delivered together in one delivery. First delivery free, 20+ shirt styles, and DTF printing from $0.02 per line." />
   </div>
 `;
 
@@ -149,7 +148,7 @@ s1v3.innerHTML = `
         <span class="s1v3-hero-shade" aria-hidden="true"></span>
         <figcaption class="s1v3-hero-copy">
           <p class="s1v3-eyebrow">DTF PROOF OF QUALITY</p>
-          <h1>Your design.<br />Our quality<span>.</span></h1>
+          <h1>Your<br />design.<br />Our quality<span>.</span></h1>
           <span>Richer detail. Truer color.<br />A higher standard in every transfer.</span>
         </figcaption>
       </figure>
@@ -444,21 +443,6 @@ const apparelV3Items = [
 ];
 
 const apparelColourSwatches = { White: '#ffffff', Black: '#111318', Grey: '#a9a9a4', Navy: '#14213d' };
-// The catalogue shows one representative swatch on each card. Keep the
-// remaining colour count visible beside it so shoppers know there are more
-// options without opening the product page.
-const apparelAdditionalColours = {
-  'GILDAN · G500': 5,
-  'GILDAN · G640': 4,
-  'COMFORT COLORS · C1717': 5,
-  'GILDAN · G300': 4,
-  'GILDAN · G180': 5,
-  'GILDAN · G800': 5,
-  'GILDAN · G500B': 3,
-  'BELLA + CANVAS · 3001C': 5,
-  'GILDAN · G185': 4,
-  'A4 · N3142': 2,
-};
 const apparelColourOptions = [...new Set(apparelV3Items.flatMap(([, , , , , , colours]) => colours))]
   .map((name) => ({ name, count: apparelV3Items.filter((item) => item[6].includes(name)).length, swatch: apparelColourSwatches[name] }));
 const apparelCardMeta = (brand) => {
@@ -554,10 +538,10 @@ finalBlanksCatalog.innerHTML = `
   </div>
   <div class="blanks-static-grid" aria-label="Blank apparel styles">
     ${apparelV3Items.map(([image, category, brand, name, wasPrice, price, colours], index) => `
-      <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" data-colours="${colours.join('|')}" aria-label="${brand} ${name}, ${colours.join(' or ')}, plus ${apparelAdditionalColours[brand] ?? 1} more colours, now from ${price}">
+      <a href="https://www.jiffy.com/" class="blanks-product" data-category="${category}" data-colours="${colours.join('|')}" aria-label="${brand} ${name}, ${colours.join(' or ')}, now from ${price}">
         <img src="${asset(apparelCardPortraits[index] || image)}" alt="${name}" />
         ${apparelCardMeta(brand)}<strong>${name}</strong>
-        <span class="blanks-product__colour" aria-label="Colour ${colours[0]}, plus ${apparelAdditionalColours[brand] ?? 1} more"><i style="--swatch:${apparelColourSwatches[colours[0]]}"></i><span>${colours[0]}</span><b>+${apparelAdditionalColours[brand] ?? 1}</b></span>
+        <span class="blanks-product__colour" aria-label="Colour ${colours[0]}"><i style="--swatch:${apparelColourSwatches[colours[0]]}"></i><span>${colours[0]}</span></span>
         <span class="blanks-product__price"><em>was ${wasPrice}</em><b>from ${price}</b></span>
         <span class="blanks-product__rating">★★★★<i>★</i> <em>(2,500)</em></span>
       </a>`).join('')}
@@ -689,6 +673,8 @@ coverageMap.append(coverageMapWash, coverageMapVignette);
 
 blanksSection.after(coverageStory);
 coverageStory.after(pairingExploration);
+// Keep the delivery banner as the final page section.
+document.querySelector('#app')?.append(heroBridge);
 
 const setupCoverageStory = () => {
   const items = [...coverageStory.querySelectorAll('[data-coverage-item]')];
@@ -772,106 +758,6 @@ const setupCoverageStory = () => {
 };
 setupCoverageStory();
 
-const calmTestimonials = document.createElement('section');
-calmTestimonials.className = 'calm-testimonials';
-calmTestimonials.setAttribute('aria-labelledby', 'calm-testimonials-title');
-const testimonials = [
-  {
-    image: 'author-portrait-2.png',
-    quote: "We switched to their DTF transfers six months ago and haven't looked back. The color vibrancy is unmatched and our customers keep coming back for more. Best supplier we've worked with.",
-    name: 'Sarah M.',
-    role: 'Owner, Custom Prints Co.',
-  },
-  {
-    image: 'author-portrait22.png',
-    quote: "Their blank tees are the softest we've found at this price point. Combined with their DTF transfers, our turnaround time dropped by half. Game changer for our small shop.",
-    name: 'Jordan P.',
-    role: 'Owner, Print Lab Supply',
-  },
-  {
-    image: 'author-portrait-1.png',
-    quote: "The DTF transfers press perfectly every time. We've had zero issues with adhesion or fading, even on our most demanding orders. Highly recommend.",
-    name: 'Maya R.',
-    role: 'Owner, Maker Supply Co.',
-  },
-  {
-    image: 'author-portrait.png',
-    quote: "The consistency of their blanks is what keeps us coming back. We've tried other suppliers, but the quality here is unmatched. DTF transfers apply like a dream.",
-    name: 'Chris T.',
-    role: 'Founder, Press & Thread',
-  },
-  {
-    image: 'author-daniela.png',
-    quote: "Ink Drop Studio relies on these blanks for all our custom orders. The DTF transfers are easy to weed and the finish is incredibly professional. We've seen a huge increase in repeat business.",
-    name: 'Daniela S.',
-    role: 'Owner, Ink Drop Studio',
-  },
-  {
-    image: 'author-kevin.png',
-    quote: 'Fresh Press Co. has scaled significantly thanks to the reliability of these DTF transfers. The shipping is fast, the quality is consistent, and the customer service is top-tier.',
-    name: 'Kevin W.',
-    role: 'Owner, Fresh Press Co.',
-  },
-];
-calmTestimonials.innerHTML = `
-  <header class="calm-testimonials__header">
-    <div class="calm-testimonials__title-block">
-      <p class="calm-testimonials__eyebrow">Loved by makers nationwide</p>
-      <h2 id="calm-testimonials-title" class="calm-testimonials__title">Real makers, real results</h2>
-    </div>
-  </header>
-  <div class="calm-testimonials__viewport" role="region" aria-roledescription="carousel" aria-label="Customer testimonials">
-    <div class="calm-testimonials__grid">
-    ${testimonials.map(({ image, quote, name, role }) => `
-      <article class="calm-testimonials__column">
-        <figure class="calm-testimonials__portrait"><img src="${asset(`calm-testimonials/${image}`)}" alt="" loading="lazy" decoding="async" /></figure>
-        <div class="calm-testimonials__details">
-          <div class="calm-testimonials__rating" aria-label="5 out of 5 stars">★★★★★</div>
-          <p class="calm-testimonials__quote">${quote}</p>
-          <img class="calm-testimonials__line" src="${asset('calm-testimonials/line.svg')}" alt="" aria-hidden="true" />
-          <div class="calm-testimonials__author"><strong>${name}</strong><span>${role}</span></div>
-        </div>
-      </article>`).join('')}
-    </div>
-    <div class="calm-testimonials__buttons" aria-label="Testimonial carousel controls"><button type="button" data-testimonials-prev aria-label="Previous testimonials" disabled>←</button><button type="button" data-testimonials-next aria-label="Next testimonials">→</button></div>
-  </div>
-  <div class="calm-testimonials__controls"><img class="calm-testimonials__pagination" src="${asset('calm-testimonials/pagination.svg')}" alt="" aria-hidden="true" /></div>`;
-pairingExploration.after(calmTestimonials);
-
-const setupTestimonialsCarousel = () => {
-  const viewport = calmTestimonials.querySelector('.calm-testimonials__viewport');
-  const track = calmTestimonials.querySelector('.calm-testimonials__grid');
-  const cards = [...calmTestimonials.querySelectorAll('.calm-testimonials__column')];
-  const previous = calmTestimonials.querySelector('[data-testimonials-prev]');
-  const next = calmTestimonials.querySelector('[data-testimonials-next]');
-  if (!viewport || !track || !cards.length || !previous || !next) return;
-  let activeIndex = 0;
-
-  const step = () => {
-    const card = cards[0];
-    if (!card) return 0;
-    return card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || '0');
-  };
-  const visibleCards = () => Math.max(1, Math.floor((viewport.clientWidth + 24) / Math.max(1, step())));
-  const update = () => {
-    const maxIndex = Math.max(0, cards.length - visibleCards());
-    activeIndex = Math.min(activeIndex, maxIndex);
-    track.style.transform = `translateX(${-activeIndex * step()}px)`;
-    previous.disabled = activeIndex === 0;
-    next.disabled = activeIndex >= maxIndex;
-  };
-  const move = (direction) => {
-    const maxIndex = Math.max(0, cards.length - visibleCards());
-    activeIndex = Math.max(0, Math.min(activeIndex + direction, maxIndex));
-    update();
-  };
-  previous.addEventListener('click', () => move(-1));
-  next.addEventListener('click', () => move(1));
-  addEventListener('resize', update, { passive: true });
-  update();
-};
-setupTestimonialsCarousel();
-
 const supportChat = document.createElement('button');
 supportChat.className = 'support-chat';
 supportChat.type = 'button';
@@ -904,9 +790,9 @@ const deliveryWindow = addressSearch?.querySelector('.jiffy-hero__delivery-count
 const deliveryProofCountdown = deliveryProof.querySelector('[data-delivery-proof-countdown]');
 const coveredHero = document.querySelector('.jiffy-hero__covered');
 const coveredAddress = coveredHero?.querySelector('[data-covered-address]');
-const coveredMapAddress = coveredHero?.querySelector('[data-covered-map-address]');
-const coveredCountdown = coveredHero?.querySelector('[data-covered-countdown]');
-const coveredClear = coveredHero?.querySelector('[data-covered-clear]');
+const coveredStreet = coveredHero?.querySelector('[data-covered-street]');
+const coveredCity = coveredHero?.querySelector('[data-covered-city]');
+const coveredClear = [...(coveredHero?.querySelectorAll('[data-covered-clear]') ?? [])];
 const deliveryClear = addressSearch?.querySelector('.jiffy-hero__delivery-clear');
 const heroTitle = document.querySelector('#jiffy-hero-title');
 const heroLede = document.querySelector('.jiffy-hero__lede');
@@ -940,7 +826,6 @@ const setDeliveryCountdown = (deadline) => {
     const countdown = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     if (deliveryWindow) deliveryWindow.textContent = countdown;
     if (deliveryProofCountdown) deliveryProofCountdown.textContent = countdown;
-    if (coveredCountdown) coveredCountdown.textContent = countdown;
   };
   render();
   deliveryCountdown = window.setInterval(render, 1000);
@@ -971,7 +856,9 @@ const showDeliveryStatus = ({ address, deadline, covered = isDallasDeliveryAddre
   deliveryAddress.textContent = address;
   deliveryProof.hidden = true;
   if (coveredAddress) coveredAddress.textContent = address;
-  if (coveredMapAddress) coveredMapAddress.textContent = address;
+  const addressParts = address.split(',').map((part) => part.trim()).filter(Boolean);
+  if (coveredStreet) coveredStreet.textContent = addressParts[0] || address;
+  if (coveredCity) coveredCity.textContent = addressParts.slice(1).join(', ') || 'Dallas, TX 75201';
   if (coveredHero) coveredHero.hidden = false;
   originalHero?.classList.add('is-covered');
   addressInput.value = address;
@@ -1021,7 +908,7 @@ addressForm?.addEventListener('submit', (event) => {
   showDeliveryStatus(delivery);
 });
 deliveryClear?.addEventListener('click', clearDeliveryStatus);
-coveredClear?.addEventListener('click', clearDeliveryStatus);
+coveredClear.forEach((control) => control.addEventListener('click', clearDeliveryStatus));
 try {
   const savedDelivery = JSON.parse(window.localStorage.getItem(deliveryStateKey));
   if (savedDelivery?.address && savedDelivery.deadline > Date.now()) showDeliveryStatus({ ...savedDelivery, covered: isDallasDeliveryAddress(savedDelivery.address) });
