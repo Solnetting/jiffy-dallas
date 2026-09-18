@@ -44,9 +44,7 @@ document.querySelector('#app').innerHTML = `
           <img src="${asset('jiffy-covered-map-fid-703-34058.png')}" alt="Map showing the route from 1515 Elm St to the Jiffy facility in Dallas" />
           <div class="jiffy-hero__covered-map-label jiffy-hero__covered-map-label--facility" aria-hidden="true"><strong>Jiffy Facility</strong><span>Dallas</span></div>
           <div class="jiffy-hero__covered-map-label jiffy-hero__covered-map-label--distance" aria-hidden="true"><strong>6.2 mi</strong><span>≈ 12 min</span></div>
-          <div class="jiffy-hero__covered-map-label jiffy-hero__covered-map-label--address" aria-hidden="true"><strong>1515 Elm St</strong><span>Dallas, TX 75201</span></div>
           <img class="jiffy-hero__covered-map-pin jiffy-hero__covered-map-pin--facility" src="${asset('covered-facility-marker.svg')}" alt="" aria-hidden="true" />
-          <img class="jiffy-hero__covered-map-pin jiffy-hero__covered-map-pin--address" src="${asset('covered-customer-marker.svg')}" alt="" aria-hidden="true" />
         </div>
         <div class="jiffy-hero__covered-settings">
           <div class="jiffy-hero__covered-address-row">
@@ -59,8 +57,8 @@ document.querySelector('#app').innerHTML = `
           <div class="jiffy-hero__covered-line" aria-hidden="true"></div>
           <div class="jiffy-hero__covered-delivery-header">
             <p>UPCOMING DELIVERY</p>
-            <strong>TODAY 10 AM - 12 PM</strong>
-            <span>Order by 10:45 AM</span>
+            <strong>TODAY, 10 AM – 12 PM</strong>
+            <p class="jiffy-hero__covered-cutoff"><strong data-covered-countdown>00:42:18</strong><span aria-hidden="true"> · </span><span>Order by 10:45</span></p>
           </div>
           <div class="jiffy-hero__covered-line" aria-hidden="true"></div>
           <div class="jiffy-hero__covered-slots-wrap">
@@ -891,6 +889,7 @@ const coveredCity = coveredHero?.querySelector('[data-covered-city]');
 const coveredClear = [...(coveredHero?.querySelectorAll('[data-covered-clear]') ?? [])];
 const coveredSlots = coveredHero?.querySelector('.jiffy-hero__covered-slots');
 const coveredTrackThumb = coveredHero?.querySelector('.jiffy-hero__covered-track span');
+const coveredCountdown = coveredHero?.querySelector('[data-covered-countdown]');
 const deliveryClear = addressSearch?.querySelector('.jiffy-hero__delivery-clear');
 const heroTitle = document.querySelector('#jiffy-hero-title');
 const heroLede = document.querySelector('.jiffy-hero__lede');
@@ -965,6 +964,7 @@ const setDeliveryCountdown = (deadline) => {
     const countdown = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     if (deliveryWindow) deliveryWindow.textContent = countdown;
     if (deliveryProofCountdown) deliveryProofCountdown.textContent = countdown;
+    if (coveredCountdown) coveredCountdown.textContent = countdown;
   };
   render();
   deliveryCountdown = window.setInterval(render, 1000);
