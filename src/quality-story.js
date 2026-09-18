@@ -59,7 +59,7 @@ document.querySelector('#app').innerHTML = `
           <div class="jiffy-hero__covered-line" aria-hidden="true"></div>
           <div class="jiffy-hero__covered-delivery-header">
             <p>UPCOMING DELIVERY</p>
-            <strong>TODAY, 10 AM - 12 PM</strong>
+            <strong>TODAY 10 AM - 12 PM</strong>
             <span>Order by 10:45 AM</span>
           </div>
           <div class="jiffy-hero__covered-line" aria-hidden="true"></div>
@@ -88,7 +88,7 @@ document.querySelector('#app').innerHTML = `
           <span class="jiffy-covered-persistent-nav__arrow" aria-hidden="true">»</span>
           <div>
             <small>UPCOMING DELIVERY</small>
-            <strong>TODAY, 10 AM – 12 PM</strong>
+            <strong>TODAY 10 AM – 12 PM</strong>
             <em>Order by 10:45 AM</em>
           </div>
         </div>
@@ -123,7 +123,7 @@ blanksSection.innerHTML = `
       </header>
       <div class="blanks-hero-title">
         <h2>Choose the blank<br />that fits the idea<span>.</span></h2>
-        <p class="blanks-hero-tag">Delivery in hours</p>
+        <p class="blanks-hero-tag">Delivered in hours</p>
       </div>
       <article class="blanks-hero-art" aria-label="Blank apparel for a local tomorrow">
         <img src="${asset('horizontal-hanging-apparel-editorial.png')}" alt="Blank apparel hanging in an editorial studio" />
@@ -779,7 +779,7 @@ const setupCoverageStory = () => {
   const camera = coverageStory.querySelector('.coverage-story__map-scene');
   const localClamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
   const states = {
-    dfw: { x: -6, y: 22, scale: 2.38, bearing: 15, caption: 'Dallas–Fort Worth · Jiffy Local coverage', window: 'Delivery in hours · 7 days' },
+    dfw: { x: -6, y: 22, scale: 2.38, bearing: 15, caption: 'Dallas–Fort Worth · Jiffy Local coverage', window: 'Delivered in hours · 7 days' },
     texas: { x: 20, y: 0, scale: 1.07, bearing: 0, caption: 'Texas · Jiffy 1st service area', window: 'Next-day delivery · 7 days' },
   };
   let currentStep = 0;
